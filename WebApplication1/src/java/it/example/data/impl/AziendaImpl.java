@@ -5,7 +5,7 @@
  */
 package it.example.data.impl;
 import it.example.datamodel.Azienda;
-
+import it.example.datamodel.InternShipDataLayer;
 /**
  *
  * @author claudio
@@ -21,10 +21,21 @@ public class AziendaImpl implements Azienda{
     private String foro;
     private float valutazione;
     private Documento convenzione;
-   
+    private InternShipDataLayer ownLayer;
     
-    public AziendaImpl(){
-        
+    public AziendaImpl(InternShipDataLayer dataLayer){
+        ownLayer=dataLayer;
+        idAzienda=0;
+        nomeAzienda="";
+        indirizzo="";
+        partitaIva="";
+        rappresentante="";
+        responsabile="";
+        emailResp="";
+        foro="";
+        valutazione=0;
+        convenzione=new Documento();
+      
     }
 
     /**

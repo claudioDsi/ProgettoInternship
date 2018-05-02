@@ -5,7 +5,7 @@
  */
 package it.example.data.impl;
 
-import it.example.datamodel.*;
+//classe per le query
 
 /**
  *
