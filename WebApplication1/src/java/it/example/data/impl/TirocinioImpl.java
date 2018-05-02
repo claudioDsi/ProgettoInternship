@@ -8,6 +8,8 @@ import it.example.datamodel.Tirocinio;
 import it.example.datamodel.InternShipDataLayer;
 import it.example.datamodel.Tutore;
 import it.example.datamodel.Azienda;
+import it.example.datamodel.Richiesta;
+import java.util.List;
 /**
  *
  * @author claudio
@@ -29,8 +31,11 @@ public class TirocinioImpl implements Tirocinio{
     
     private Azienda azienda;
     private int idAzienda;
+    
+    
+    private List<Richiesta> listaRichieste;
     //data layer
-    private InternShipDataLayer ownLayer;
+    protected InternShipDataLayer ownLayer;
     
     public TirocinioImpl(InternShipDataLayer dataLayer){
         ownLayer=dataLayer;
@@ -42,6 +47,12 @@ public class TirocinioImpl implements Tirocinio{
         obiettivi="";
         facilitazioni="";
         modalità="";
+        tutore=null;
+        idTutore=0;
+        azienda=null;
+        idAzienda=0;
+        listaRichieste=null;
+        
         
     }
 
@@ -124,26 +135,8 @@ public class TirocinioImpl implements Tirocinio{
     public void setIdTirocinio(int idTirocinio) {
         this.idTirocinio=idTirocinio;
     }
-
-    @Override
-    public int getIdTutore() {
-        return idTutore;
-    }
-
-    @Override
-    public void setIdTutore(int idTutore) {
-       this.idTutore=idTutore;
-    }
-
-    @Override
-    public int getIdAzienda() {
-        return idAzienda;
-    }
-
-    @Override
-    public void setIdAzienda(int idAzienda) {
-        this.idAzienda=idAzienda;
-    }
+  
+    
 
     @Override
     public Azienda getAzienda() {
@@ -163,6 +156,11 @@ public class TirocinioImpl implements Tirocinio{
     @Override
     public void setTutore(Tutore tutore) {
         this.tutore=tutore;
+    }
+
+    @Override
+    public List<Richiesta> getListaRichieste() {
+       return listaRichieste;
     }
 
     

@@ -11,11 +11,13 @@ package it.example.datamodel;
  */
 public interface Richiesta {
     
-    int getIdStudente();
-    void setIdStudente(int idStudente);
+   
+   
+    Studente getStudente();
+    void setStudente(Studente studente);
     
-    int getIdTirocinio();
-    void setIdTirocinio(int idTirocinio);    
+    Tirocinio getTirocinio();
+    void setTirocinio(Tirocinio tirocinio);
     
     String getStatus();
     void setStatus(String status);

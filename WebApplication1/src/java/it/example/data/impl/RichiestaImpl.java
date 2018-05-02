@@ -7,6 +7,8 @@ package it.example.data.impl;
 
 import it.example.datamodel.InternShipDataLayer;
 import it.example.datamodel.Richiesta;
+import it.example.datamodel.Studente;
+import it.example.datamodel.Tirocinio;
 
 /**
  *
@@ -18,7 +20,9 @@ public class RichiestaImpl implements Richiesta{
     private String status;
     private String progetto;
     private String cdl;
-    private InternShipDataLayer ownLayer;
+    private Studente studente;
+    private Tirocinio tirocinio;
+    protected InternShipDataLayer ownLayer;
     
     //introdurre liste oggetti?
     
@@ -29,17 +33,14 @@ public class RichiestaImpl implements Richiesta{
         status="";
         progetto="";
         cdl="";
+        studente=null;
+        tirocinio=null;
+                
     }
 
-    @Override
-    public int getIdStudente() {
-        return idStudente;
-    }
+   
 
-    @Override
-    public int getIdTirocinio() {
-        return idTirocinio;
-    }
+   
 
     @Override
     public String getStatus() {
@@ -71,14 +72,33 @@ public class RichiestaImpl implements Richiesta{
         this.cdl=cdl;
     }
 
+   
+
     @Override
-    public void setIdStudente(int idStudente) {
-        this.idStudente=idStudente;
+    public Studente getStudente() {
+       return studente;
     }
 
     @Override
-    public void setIdTirocinio(int idTirocinio) {
-        this.idTirocinio=idTirocinio;
+    public void setStudente(Studente studente) {
+        this.studente=studente;
+    }
+
+    @Override
+    public Tirocinio getTirocinio() {
+       return tirocinio;
+    }
+
+    @Override
+    public void setTirocinio(Tirocinio tirocinio) {
+        this.tirocinio=tirocinio;
+    }
+    
+    protected  void setIdStudente(int idStudente){
+        
+    }
+    protected  void setIdTirocinio(int idTirocinio){
+        
     }
     
 }

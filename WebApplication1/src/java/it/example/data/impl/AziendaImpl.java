@@ -6,6 +6,8 @@
 package it.example.data.impl;
 import it.example.datamodel.Azienda;
 import it.example.datamodel.InternShipDataLayer;
+import it.example.datamodel.Tirocinio;
+import java.util.List;
 /**
  *
  * @author claudio
@@ -21,7 +23,8 @@ public class AziendaImpl implements Azienda{
     private String foro;
     private float valutazione;
     private Documento convenzione;
-    private InternShipDataLayer ownLayer;
+    private List<Tirocinio> listaTirocini;
+    protected InternShipDataLayer ownLayer;
     
     public AziendaImpl(InternShipDataLayer dataLayer){
         ownLayer=dataLayer;
@@ -35,6 +38,7 @@ public class AziendaImpl implements Azienda{
         foro="";
         valutazione=0;
         convenzione=new Documento();
+        listaTirocini=null;
       
     }
 
@@ -196,6 +200,12 @@ public class AziendaImpl implements Azienda{
      @Override
     public void setConvenzione(Documento convenzione) {
         this.convenzione = convenzione;
+    }
+
+    @Override
+    public List<Tirocinio> getListaTirocini() {
+       return listaTirocini;
+       //aggiungere controlli datalayer
     }
     
 }

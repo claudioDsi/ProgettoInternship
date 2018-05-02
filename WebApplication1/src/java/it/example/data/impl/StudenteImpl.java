@@ -7,7 +7,10 @@ package it.example.data.impl;
 
 import it.example.datamodel.Studente;
 import it.example.datamodel.InternShipDataLayer;
+import it.example.datamodel.Richiesta;
+import it.example.framework.data.DataLayerException;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -25,7 +28,10 @@ public class StudenteImpl implements Studente{
     private String telefono;
     private String cdl;
     private Boolean handicap;
+    private List<Richiesta> listaRichieste;
     protected InternShipDataLayer ownerdatalayer;
+    
+    
     public StudenteImpl(InternShipDataLayer data){
         this.ownerdatalayer=data;
         matricola=0;
@@ -38,6 +44,7 @@ public class StudenteImpl implements Studente{
         telefono="";
         cdl="";
         handicap=false;
+        listaRichieste=null;
         
     }
     
@@ -146,6 +153,11 @@ public class StudenteImpl implements Studente{
      @Override
     public Boolean getHandicap() {
         return handicap;
+    }
+
+    @Override
+    public List<Richiesta> getListaRichieste() throws DataLayerException {
+        return listaRichieste;
     }
     
 }

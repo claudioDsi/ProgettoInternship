@@ -5,6 +5,8 @@
  */
 package it.example.datamodel;
 
+import java.util.List;
+
 
 /**
  *
@@ -37,18 +39,19 @@ public interface Tirocinio {
     String getFacilitazioni();
     void setFacilitazioni(String facilitazioni);
     
-    int getIdTutore();
-    void setIdTutore(int idTutore);
-    
-    int getIdAzienda();
-    void setIdAzienda(int idAzienda);
+    //int getIdTutore();
+    //void setIdTutore(int idTutore); come azienda
     
     
     Azienda getAzienda();
     void setAzienda(Azienda azienda);
+    //aggiungere il metodo protected nell'implemenzione
+    //void setIdAzienda(int idAzienda);   
     
     Tutore getTutore();
     void setTutore(Tutore tutore);
+    
+    List<Richiesta> getListaRichieste();
     
     
     

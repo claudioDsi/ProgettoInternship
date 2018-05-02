@@ -5,7 +5,9 @@
  */
 package it.example.datamodel;
 
+import it.example.framework.data.DataLayerException;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -38,6 +40,8 @@ public interface Studente {
      void setCdl(String cdl);
      
      Boolean getHandicap();
+     
+     List<Richiesta> getListaRichieste() throws DataLayerException;
      
     
 

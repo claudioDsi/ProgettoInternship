@@ -6,6 +6,7 @@
 package it.example.datamodel;
 
 import it.example.data.impl.Documento;
+import java.util.List;
 
 /**
  *
@@ -29,6 +30,11 @@ public interface Azienda {
     void setEmailResp(String emailResp);
     String getForo() ;
     void setForo(String foro);
+    
+    //lista tirocini
+    
+    List<Tirocinio> getListaTirocini();
+    
 
     /**
      * @return the valutazione
