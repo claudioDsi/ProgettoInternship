@@ -9,6 +9,7 @@ import it.example.datamodel.InternShipDataLayer;
 import it.example.datamodel.Tutore;
 import it.example.datamodel.Azienda;
 import it.example.datamodel.Richiesta;
+import it.example.framework.data.DataLayerException;
 import java.util.List;
 /**
  *
@@ -139,7 +140,7 @@ public class TirocinioImpl implements Tirocinio{
     
 
     @Override
-    public Azienda getAzienda() {
+    public Azienda getAzienda() throws DataLayerException{
         return azienda;
     }
 
@@ -149,7 +150,7 @@ public class TirocinioImpl implements Tirocinio{
     }
 
     @Override
-    public Tutore getTutore() {
+    public Tutore getTutore() throws DataLayerException {
         return tutore;
     }
 
@@ -159,9 +160,11 @@ public class TirocinioImpl implements Tirocinio{
     }
 
     @Override
-    public List<Richiesta> getListaRichieste() {
+    public List<Richiesta> getListaRichieste() throws DataLayerException{
        return listaRichieste;
     }
+
+  
 
     
     

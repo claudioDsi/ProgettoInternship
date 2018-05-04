@@ -25,13 +25,17 @@ import javax.sql.DataSource;
  */
 public class InternshipDBController extends HttpServlet {
     
-    @Resource(name="jdbc/internDB")
+    @Resource(name="jdbc/internship")
     private DataSource dbs;
     
     
     private Connection getConnection()throws NamingException, SQLException{
         return dbs.getConnection();
     }
+    
+    
+    
+    
     
 
     /**

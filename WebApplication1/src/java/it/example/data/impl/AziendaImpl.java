@@ -7,6 +7,7 @@ package it.example.data.impl;
 import it.example.datamodel.Azienda;
 import it.example.datamodel.InternShipDataLayer;
 import it.example.datamodel.Tirocinio;
+import it.example.framework.data.DataLayerException;
 import java.util.List;
 /**
  *
@@ -17,12 +18,15 @@ public class AziendaImpl implements Azienda{
     private String nomeAzienda;
     private String indirizzo;
     private String partitaIva;
+    private String username;
+    private String password;
+    private int privilegi;
     private String rappresentante;
     private String responsabile;
     private String emailResp;
     private String foro;
     private float valutazione;
-    private Documento convenzione;
+    private ConvenzioneImpl convenzione;
     private List<Tirocinio> listaTirocini;
     protected InternShipDataLayer ownLayer;
     
@@ -30,6 +34,9 @@ public class AziendaImpl implements Azienda{
         ownLayer=dataLayer;
         idAzienda=0;
         nomeAzienda="";
+        username="";
+        password="";
+        privilegi=0;
         indirizzo="";
         partitaIva="";
         rappresentante="";
@@ -37,7 +44,7 @@ public class AziendaImpl implements Azienda{
         emailResp="";
         foro="";
         valutazione=0;
-        convenzione=new Documento();
+        convenzione=null;
         listaTirocini=null;
       
     }
@@ -190,7 +197,7 @@ public class AziendaImpl implements Azienda{
      * @return the convenzione
      */
      @Override
-    public Documento getConvenzione() {
+    public ConvenzioneImpl getConvenzione() throws DataLayerException {
         return convenzione;
     }
 
@@ -198,14 +205,45 @@ public class AziendaImpl implements Azienda{
      * @param convenzione the convenzione to set
      */
      @Override
-    public void setConvenzione(Documento convenzione) {
+    public void setConvenzione(ConvenzioneImpl convenzione) {
         this.convenzione = convenzione;
     }
 
     @Override
-    public List<Tirocinio> getListaTirocini() {
+    public List<Tirocinio> getListaTirocini()throws DataLayerException{
        return listaTirocini;
        //aggiungere controlli datalayer
+    }
+
+  
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username=username;
+    }
+
+    @Override
+    public String getPassword() {
+       return password;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password=password;
+    }
+
+    @Override
+    public int getPrivilegi() {
+        return privilegi;
+    }
+
+    @Override
+    public void setPrivilegi(int privilegi) {
+        this.privilegi=privilegi;
     }
     
 }

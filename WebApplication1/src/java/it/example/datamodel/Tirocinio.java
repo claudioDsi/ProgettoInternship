@@ -5,6 +5,7 @@
  */
 package it.example.datamodel;
 
+import it.example.framework.data.DataLayerException;
 import java.util.List;
 
 
@@ -43,17 +44,17 @@ public interface Tirocinio {
     //void setIdTutore(int idTutore); come azienda
     
     
-    Azienda getAzienda();
+    Azienda getAzienda() throws DataLayerException;
     void setAzienda(Azienda azienda);
     //aggiungere il metodo protected nell'implemenzione
     //void setIdAzienda(int idAzienda);   
     
-    Tutore getTutore();
+    Tutore getTutore() throws DataLayerException;
     void setTutore(Tutore tutore);
     
-    List<Richiesta> getListaRichieste();
+    List<Richiesta> getListaRichieste() throws DataLayerException;
     
-    
+  
     
     
     

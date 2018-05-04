@@ -5,7 +5,8 @@
  */
 package it.example.datamodel;
 
-import it.example.data.impl.Documento;
+import it.example.data.impl.ConvenzioneImpl;
+import it.example.framework.data.DataLayerException;
 import java.util.List;
 
 /**
@@ -16,36 +17,47 @@ public interface Azienda {
     
     int getIdAzienda();
     void setIdAzienda(int idAzienda);
+    
     String getNomeAzienda();
     void setNomeAzienda(String nomeAzienda);
+    
+    String getUsername();
+    void setUsername(String username);
+    
+    String getPassword();
+    void setPassword(String password);
+    
+    int getPrivilegi();
+    void setPrivilegi(int privilegi);
+    
     String getIndirizzo();
     void setIndirizzo(String indirizzo); 
+    
     String getPartitaIva();
     void setPartitaIva(String partitaIva);
+    
     String getRappresentante();
     void setRappresentante(String rappresentante); 
+    
     String getResponsabile();
     void setResponsabile(String responsabile); 
+    
     String getEmailResp(); 
     void setEmailResp(String emailResp);
+    
     String getForo() ;
     void setForo(String foro);
     
     //lista tirocini
     
-    List<Tirocinio> getListaTirocini();
-    
+    List<Tirocinio> getListaTirocini() throws DataLayerException;    
 
-    /**
-     * @return the valutazione
-     */
+   
     float getValutazione();
     void setValutazione(float valutazione);
-    Documento getConvenzione();
-    /**
-     * @param convenzione the convenzione to set
-     */
-    void setConvenzione(Documento convenzione);
+    ConvenzioneImpl getConvenzione() throws DataLayerException;
+    
+    void setConvenzione(ConvenzioneImpl convenzione);
     
     
     
