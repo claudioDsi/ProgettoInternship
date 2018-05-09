@@ -15,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import it.example.datamodel.InternShipDataLayer;
+import it.example.data.impl.InternShipDataLayerMySqlImpl;
 
 import javax.sql.DataSource;
 
@@ -23,87 +25,54 @@ import javax.sql.DataSource;
  *
  * @author claudio
  */
-public class InternshipDBController extends HttpServlet {
+public  abstract class InternshipDBController extends HttpServlet {
     
     @Resource(name="jdbc/internship")
-    private DataSource dbs;
+    private DataSource ds;
     
     
-    private Connection getConnection()throws NamingException, SQLException{
-        return dbs.getConnection();
-    }
-    
-    
-    
-    
-    
+    protected abstract void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    private void processBaseRequest(HttpServletRequest request, HttpServletResponse response) {
+        //WARNING: never declare DB-related objects including references to Connection and Statement (as our data layer)
+        //as class variables of a servlet. Since servlet instances are reused, concurrent requests may conflict on such
+        //variables leading to unexpected results. To always have different connections and statements on a per-request
+        //(i.e., per-thread) basis, declare them in the doGet, doPost etc. (or in methods called by them) and 
+        //(possibly) pass such variables through the request.
+        try (InternShipDataLayer datalayer = new InternShipDataLayerMySqlImpl(ds)) {
+            datalayer.init();
+            request.setAttribute("datalayer", datalayer);
+            processRequest(request, response);
+        } catch (Exception ex) {
+            ex.printStackTrace(); //for debugging only
+            //(new FailureResult(getServletContext())).activate(
+                   // (ex.getMessage() != null || ex.getCause() == null) ? ex.getMessage() : ex.getCause().getMessage(), request, response);
         }
     }
-    
-    
-    
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processBaseRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processBaseRequest(request, response);
     }
+    
+    
+    
+    
+    
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    
+    
+    
+    
+    
+    
+    
 
 }

@@ -30,7 +30,6 @@ public class RichiestaImpl implements Richiesta{
     
     protected InternShipDataLayer ownLayer;
     
-    //introdurre liste oggetti?
     
     public RichiestaImpl(InternShipDataLayer dataLayer){
         ownLayer=dataLayer;
