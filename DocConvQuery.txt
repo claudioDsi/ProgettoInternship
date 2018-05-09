@@ -1,0 +1,20 @@
+private iConvenzione, sConvenzione
+private iDocumento, sDocumento
+
+iConvenzione = connection.prepareStatement("INSERT INTO Convenzione (IdConvenzione,Dimensioni,Tipo,Filename,CodAzienda) VALUES (?,?,?,?,?)" , Statement.RETURN_GENERATED KEYS);
+
+iDocumento = connection.prepareStatement("INSERT INTO Documento (IdDocumento,Filename,Dimensioni,Tipo,CodTirocinio) VALUES (?,?,?,?,?)" , Statement.RETURN_GENERATED KEYS);
+
+iConvenzione.setInt(2, 256)
+iConvenzione.setString(3, "PDF")
+iConvenzione.setString(4, "conv1")
+iConvenzione.setInt(5, 1)
+
+iDocumento.setString(2,"doc1")
+iDocumento.setInt(3, 512)
+iDocumento.setString(4, "PDF")
+iDocumento.setInt(5,1)
+
+sConvenzione = connection.prepareStatement("SELECT c.* FROM Convenzione c JOIN Azienda a ON c.CodAzienda = a.IdAzienda WHERE IdAzienda = ?")
+
+sConvenzione.setInt(1,1)
