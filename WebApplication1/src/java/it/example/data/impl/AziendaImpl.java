@@ -21,6 +21,7 @@ public class AziendaImpl implements Azienda{
     private String username;
     private String password;
     private int privilegi;
+    private boolean status;
     private String rappresentante;
     private String responsabile;
     private String emailResp;
@@ -37,6 +38,7 @@ public class AziendaImpl implements Azienda{
         username="";
         password="";
         privilegi=0;
+        status=false;
         indirizzo="";
         partitaIva="";
         rappresentante="";
@@ -244,6 +246,16 @@ public class AziendaImpl implements Azienda{
     @Override
     public void setPrivilegi(int privilegi) {
         this.privilegi=privilegi;
+    }
+
+    @Override
+    public boolean getStatus() {
+        return status;
+    }
+
+    @Override
+    public void setStatus(boolean status) {
+        this.status=status;
     }
     
 }

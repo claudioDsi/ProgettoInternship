@@ -30,6 +30,9 @@ public interface Azienda {
     int getPrivilegi();
     void setPrivilegi(int privilegi);
     
+    boolean getStatus();
+    void setStatus(boolean status);
+    
     String getIndirizzo();
     void setIndirizzo(String indirizzo); 
     

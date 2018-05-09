@@ -29,21 +29,30 @@ import javax.naming.NamingException;
  */
 public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements InternShipDataLayer{
     
-    private PreparedStatement iStudente, uStudente, dStudente;
+    private PreparedStatement iUtente, uUtente, dUtente;
     private PreparedStatement iAzienda, uAzienda, dAzienda;
     private PreparedStatement iTutore, uTutore,dTutore;
+    private PreparedStatement iRichiesta, uRichiesta, dRichiesta;    
+    private PreparedStatement iTirocinio, uTirocinio, dTirocinio;
+    private PreparedStatement jUtenteRichiesta;
     
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
     }
     
+    
     @Override
     public void init() throws DataLayerException{
         try{     
             super.init();
-            iStudente=connection.prepareStatement("INSERT INTO Utente (Username,Password,Privilegi,Nome,Cognome,DataNasc,LuogoNasc,Residenza,CodiceFisc,Telefono,CorsoLaurea,Handicap,Laurea,Dottorato,ScuolaSpec) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione,CodConvenzione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iUtente=connection.prepareStatement("INSERT INTO Utente (Username,Password,Privilegi,Nome,Cognome,DataNasc,LuogoNasc,Residenza,CodiceFisc,Telefono,CorsoLaurea,Handicap,Laurea,Dottorato,ScuolaSpec) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Status,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione,CodConvenzione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazione,Settore,IdTutore,IdAzienda) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (IdStud,IdTiro,Status, Progetto,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente");
+            
+            uUtente=connection.prepareStatement("");
             //Tutti i prepared statement
         
         
@@ -51,6 +60,23 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         catch(SQLException sqlEx){
             throw new DataLayerException("errore query",sqlEx);
         }
+    }
+    
+    public String creaStringQuery(String[] campi){
+        String sql="UPDATE Utente SET ";
+        for(int i=0;i<campi.length;i++){
+            if(i!=campi.length){
+               sql+=campi[i]+" = ? ,"; 
+            }
+            else{
+                sql+=campi[i]+" = ? "; 
+            }         
+        }
+        sql+="WHERE IdUtente = ?";
+        return sql;
+    }
+    public String creaQuery(String tab,String id){
+        return  "SELECT * FROM "+tab+ " WHERE "+ id+" = ?";
     }
 
     @Override
