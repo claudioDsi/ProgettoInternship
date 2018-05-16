@@ -16,17 +16,21 @@ import java.util.List;
 public class AziendaImpl implements Azienda{
     private int idAzienda;
     private String nomeAzienda;
+    private String ragioneSociale;
     private String indirizzo;
     private String partitaIva;
     private String username;
     private String password;
     private int privilegi;
     private boolean status;
-    private String rappresentante;
+    private String codiceFisc;
+    private String nomeRappr;
+    private String cognomeRappr;
     private String responsabile;
     private String emailResp;
     private String foro;
     private float valutazione;
+    private int Idconvenzione;
     private ConvenzioneImpl convenzione;
     private List<Tirocinio> listaTirocini;
     protected InternShipDataLayer ownLayer;
@@ -35,17 +39,21 @@ public class AziendaImpl implements Azienda{
         ownLayer=dataLayer;
         idAzienda=0;
         nomeAzienda="";
+        ragioneSociale="";        
         username="";
         password="";
         privilegi=0;
         status=false;
         indirizzo="";
         partitaIva="";
-        rappresentante="";
+        codiceFisc="";
+        nomeRappr="";
+        cognomeRappr="";
         responsabile="";
         emailResp="";
         foro="";
         valutazione=0;
+        Idconvenzione=0;
         convenzione=null;
         listaTirocini=null;
       
@@ -119,16 +127,16 @@ public class AziendaImpl implements Azienda{
      * @return the rappresentante
      */
      @Override
-    public String getRappresentante() {
-        return rappresentante;
+    public String getNomeRappr() {
+        return nomeRappr;
     }
 
     /**
      * @param rappresentante the rappresentante to set
      */
      @Override
-    public void setRappresentante(String rappresentante) {
-        this.rappresentante = rappresentante;
+    public void setNomeRappr(String nomeRappr) {
+        this.nomeRappr=nomeRappr;
     }
 
     /**
@@ -207,8 +215,8 @@ public class AziendaImpl implements Azienda{
      * @param convenzione the convenzione to set
      */
      @Override
-    public void setConvenzione(ConvenzioneImpl convenzione) {
-        this.convenzione = convenzione;
+    public void setConvenzione(int Idconvenzione) {
+        this.Idconvenzione = Idconvenzione;
     }
 
     @Override
@@ -256,6 +264,36 @@ public class AziendaImpl implements Azienda{
     @Override
     public void setStatus(boolean status) {
         this.status=status;
+    }
+
+    @Override
+    public String getRagioneSociale() {
+        return ragioneSociale;
+    }
+
+    @Override
+    public void setRagioneSociale(String ragioneSociale) {
+        this.ragioneSociale=ragioneSociale;
+    }
+
+    @Override
+    public String getCodiceFisc() {
+        return codiceFisc;
+    }
+
+    @Override
+    public void setCodiceFisc(String codiceFisc) {
+        this.codiceFisc=codiceFisc;
+    }
+
+    @Override
+    public String getCognomeRappr() {
+        return cognomeRappr;
+    }
+
+    @Override
+    public void setCognomeRappr(String cognomeRappr) {
+        this.cognomeRappr=cognomeRappr;
     }
     
 }

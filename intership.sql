@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 08, 2018 alle 12:42
+-- Creato il: Mag 16, 2018 alle 10:45
 -- Versione del server: 10.1.29-MariaDB
 -- Versione PHP: 7.2.0
 
@@ -32,7 +32,8 @@ CREATE TABLE `azienda` (
   `IdAzienda` int(11) NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` char(64) NOT NULL,
-  `Privilagi` int(11) NOT NULL,
+  `Privilegi` int(11) NOT NULL,
+  `Status` tinyint(1) NOT NULL,
   `Nome` varchar(250) NOT NULL,
   `RagioneSociale` varchar(250) NOT NULL,
   `Indirizzo` varchar(250) NOT NULL,
@@ -40,22 +41,31 @@ CREATE TABLE `azienda` (
   `CodiceFiscale` varchar(16) NOT NULL,
   `NomeRappr` varchar(250) NOT NULL,
   `CognomeRappr` varchar(250) NOT NULL,
-  `Responsabile` varchar(250) NOT NULL,
+  `NomeResp` varchar(50) NOT NULL,
+  `CognomeResp` varchar(50) NOT NULL,
+  `TelefonoResp` varchar(20) NOT NULL,
   `EmailResp` varchar(250) NOT NULL,
   `Foro` varchar(250) NOT NULL,
   `Valutazione` float NOT NULL,
-  `Convenzione` int(11) NOT NULL
+  `CodConvenzione` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `azienda`
+--
+
+INSERT INTO `azienda` (`IdAzienda`, `Username`, `Password`, `Privilegi`, `Status`, `Nome`, `RagioneSociale`, `Indirizzo`, `PartitaIva`, `CodiceFiscale`, `NomeRappr`, `CognomeRappr`, `NomeResp`, `CognomeResp`, `TelefonoResp`, `EmailResp`, `Foro`, `Valutazione`, `CodConvenzione`) VALUES
+(1, 'brucolandia', 'caroteee', 2, 0, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail', 'Avezzano', 5, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `convezione`
+-- Struttura della tabella `convenzione`
 --
 
-CREATE TABLE `convezione` (
+CREATE TABLE `convenzione` (
   `IdConvenzione` int(11) NOT NULL,
-  `Dimensioni` varchar(250) NOT NULL,
+  `Dimensioni` int(11) NOT NULL,
   `Tipo` varchar(250) NOT NULL,
   `Filename` varchar(250) NOT NULL,
   `CodAzienda` int(11) NOT NULL
@@ -69,9 +79,9 @@ CREATE TABLE `convezione` (
 
 CREATE TABLE `documento` (
   `IdDocumento` int(11) NOT NULL,
-  `Dimensioni` int(11) NOT NULL,
-  `Tipo` varchar(250) NOT NULL,
-  `Filename` varchar(250) NOT NULL,
+  `Filename` varchar(20) NOT NULL,
+  `Dimension1` int(11) NOT NULL,
+  `Tipo` int(11) NOT NULL,
   `CodTirocinio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -85,12 +95,18 @@ CREATE TABLE `richiesta` (
   `IdStud` int(11) NOT NULL,
   `IdTiro` int(11) NOT NULL,
   `Status` varchar(20) NOT NULL,
-  `Progetto` int(11) NOT NULL,
   `Cfu` int(11) NOT NULL,
   `NomeTutor` varchar(50) NOT NULL,
   `CognomeTutor` varchar(50) NOT NULL,
   `EmailTutor` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `richiesta`
+--
+
+INSERT INTO `richiesta` (`IdStud`, `IdTiro`, `Status`, `Cfu`, `NomeTutor`, `CognomeTutor`, `EmailTutor`) VALUES
+(5, 3, 'in attesa', 6, 'Giuseppe', 'Della Penna', 'nome.cognome@univaq.it');
 
 -- --------------------------------------------------------
 
@@ -109,8 +125,16 @@ CREATE TABLE `tirocinio` (
   `Facilitazioni` varchar(250) NOT NULL,
   `Settore` varchar(50) NOT NULL,
   `IdTutore` int(11) NOT NULL,
-  `idAzienda` int(11) NOT NULL
+  `IdAzienda` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `tirocinio`
+--
+
+INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `IdTutore`, `IdAzienda`) VALUES
+(1, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1),
+(2, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -122,11 +146,18 @@ CREATE TABLE `tutore` (
   `IdTutore` int(11) NOT NULL,
   `Nome` varchar(250) NOT NULL,
   `Cognome` varchar(250) NOT NULL,
-  `DataNasc` date NOT NULL,
+  `DataNasc` varchar(20) NOT NULL,
   `NumTirocini` int(11) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
   `CodAzienda` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `tutore`
+--
+
+INSERT INTO `tutore` (`IdTutore`, `Nome`, `Cognome`, `DataNasc`, `NumTirocini`, `Telefono`, `CodAzienda`) VALUES
+(1, 'Vittorio', 'Cortellessa', '03-10-1968', 5, '65896589', 1);
 
 -- --------------------------------------------------------
 
@@ -141,7 +172,7 @@ CREATE TABLE `utente` (
   `Privilegi` int(11) NOT NULL,
   `Nome` varchar(250) NOT NULL,
   `Cognome` varchar(250) NOT NULL,
-  `DataNasc` date NOT NULL,
+  `DataNasc` varchar(30) NOT NULL,
   `LuogoNasc` varchar(250) NOT NULL,
   `Residenza` varchar(250) NOT NULL,
   `CodiceFisc` varchar(16) NOT NULL,
@@ -154,6 +185,13 @@ CREATE TABLE `utente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dump dei dati per la tabella `utente`
+--
+
+INSERT INTO `utente` (`IdUtente`, `Username`, `Password`, `Privilegi`, `Nome`, `Cognome`, `DataNasc`, `LuogoNasc`, `Residenza`, `CodiceFisc`, `Telefono`, `CorsoLaurea`, `Handicap`, `Laurea`, `Dottorato`, `ScuolaSpec`) VALUES
+(5, 'robbobbio', 'caneMagico', 2, 'fabrizio', 'rossi', '06-03-1967', 'Roma', 'Tor vergata', 'RSSFRZ67C06H501I', '39-0862-433139', 'informatica', 0, 'ingegnieria elettr', 'ricerca operativa', 'scuola ricerca op');
+
+--
 -- Indici per le tabelle scaricate
 --
 
@@ -164,9 +202,9 @@ ALTER TABLE `azienda`
   ADD PRIMARY KEY (`IdAzienda`);
 
 --
--- Indici per le tabelle `convezione`
+-- Indici per le tabelle `convenzione`
 --
-ALTER TABLE `convezione`
+ALTER TABLE `convenzione`
   ADD PRIMARY KEY (`IdConvenzione`);
 
 --
@@ -207,12 +245,12 @@ ALTER TABLE `utente`
 -- AUTO_INCREMENT per la tabella `azienda`
 --
 ALTER TABLE `azienda`
-  MODIFY `IdAzienda` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdAzienda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT per la tabella `convezione`
+-- AUTO_INCREMENT per la tabella `convenzione`
 --
-ALTER TABLE `convezione`
+ALTER TABLE `convenzione`
   MODIFY `IdConvenzione` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -225,19 +263,19 @@ ALTER TABLE `documento`
 -- AUTO_INCREMENT per la tabella `tirocinio`
 --
 ALTER TABLE `tirocinio`
-  MODIFY `IdTirocinio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdTirocinio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `tutore`
 --
 ALTER TABLE `tutore`
-  MODIFY `IdTutore` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdTutore` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `utente`
 --
 ALTER TABLE `utente`
-  MODIFY `IdUtente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

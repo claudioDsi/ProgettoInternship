@@ -18,6 +18,7 @@ import it.example.datamodel.Tutore;
 import it.example.datamodel.Utente;
 import it.example.framework.data.DataLayerException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -81,32 +82,84 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
 
     @Override
     public Utente creaStudente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new UtenteImpl(this);
+    }
+     public Utente creaStudente(ResultSet rs) throws DataLayerException {
+        Utente u=new UtenteImpl(this);
+        try{
+         
+          u.setUsername(rs.getString("Username")); 
+          u.setPassword(rs.getString("Password"));
+          u.setPrivilegi(rs.getInt("Privilegi"));
+          u.setNome(rs.getString("Nome"));
+          u.setCognome(rs.getString("Cognome"));
+          u.setDataNasc(rs.getString("DataNasc"));
+          u.setLuogoNasc(rs.getString("LuogoNasc"));
+          u.setResidenza(rs.getString("Residenza"));
+          u.setCodFisc(rs.getString("CodiceFisc"));
+          u.setTelefono(rs.getString("Telefono"));
+          u.setCdl(rs.getString("CorsoLaurea"));
+          u.setHandicap(rs.getBoolean("Handicap"));
+          u.setLaurea(rs.getString("Laurea"));
+          u.setDottorato(rs.getString("Dottorato"));
+          u.setSpecializzazione(rs.getString("ScuolaSpec"));
+        }
+        catch (SQLException sqlEx){
+            sqlEx.getMessage();
+        }        
+         
+        return u;
     }
 
     @Override
     public Azienda creaAzienda() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new AziendaImpl(this);
+    }
+    
+    public Azienda creaAzienda(ResultSet rs)throws DataLayerException{
+        Azienda az=new AziendaImpl(this);
+        try{
+            az.setUsername(rs.getString("Username"));
+            az.setPassword(rs.getString("Password"));
+            az.setPrivilegi(rs.getInt("Privilegi"));
+            az.setNomeAzienda(rs.getString("Nome"));
+            az.setRagioneSociale(rs.getString("RagioneSociale"));
+            az.setIndirizzo(rs.getString("Indirizzo"));
+            az.setPartitaIva(rs.getString("PartitaIva"));
+            az.setCodiceFisc(rs.getString("CodiceFiscale"));
+            az.setNomeRappr(rs.getString("NomeRappr"));
+            az.setCognomeRappr(rs.getString("CognomeRappr"));
+            az.setResponsabile(rs.getString("Responsabile"));
+            az.setEmailResp(rs.getString("EmailResp"));
+            az.setForo(rs.getString("Foro"));
+            az.setValutazione(rs.getFloat("Valutazione"));
+            az.setConvenzione(rs.getInt("CodConvenzione"));
+        }
+        catch (SQLException sqlEx){
+            
+        }
+        
+        return null;
     }
 
     @Override
     public Tutore creaTutore() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new TutoreImpl(this);
     }
 
     @Override
     public Tirocinio creaTirocinio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new TirocinioImpl(this);
     }
 
     @Override
     public Richiesta creaRichiesta() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new RichiestaImpl(this);
     }
 
     @Override
     public Convenzione creaDocumento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ConvenzioneImpl(this);
     }
 
     @Override

@@ -21,6 +21,9 @@ public interface Azienda {
     String getNomeAzienda();
     void setNomeAzienda(String nomeAzienda);
     
+    String getRagioneSociale();
+    void setRagioneSociale(String ragioneSociale);
+    
     String getUsername();
     void setUsername(String username);
     
@@ -39,8 +42,14 @@ public interface Azienda {
     String getPartitaIva();
     void setPartitaIva(String partitaIva);
     
-    String getRappresentante();
-    void setRappresentante(String rappresentante); 
+    String getCodiceFisc();
+    void setCodiceFisc(String codiceFisc);
+    
+    String getNomeRappr();
+    void setNomeRappr(String nomeRappr); 
+    
+    String getCognomeRappr();
+    void setCognomeRappr(String cognomeRappr);
     
     String getResponsabile();
     void setResponsabile(String responsabile); 
@@ -60,7 +69,7 @@ public interface Azienda {
     void setValutazione(float valutazione);
     ConvenzioneImpl getConvenzione() throws DataLayerException;
     
-    void setConvenzione(ConvenzioneImpl convenzione);
+    void setConvenzione(int convenzione);
     
     
     

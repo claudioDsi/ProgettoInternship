@@ -22,6 +22,12 @@ public interface Utente {
     
     int getIdUtente();    
     void setIdUtente(int idUtente);   
+    
+    String getNome();
+    void setNome(String nome);
+    
+    String getCognome();
+    void setCognome(String cognome);
 
     String getUsername();
     void setUsername(String username);
@@ -32,8 +38,8 @@ public interface Utente {
     int getPrivilegi();
     void setPrivilegi(int privilegi);
     
-    Date getDataNasc();  
-    void setDataNasc(Date dataNasc);
+    String getDataNasc();  
+    void setDataNasc(String dataNasc);
     
     String getLuogoNasc();
     void setLuogoNasc(String luogoNasc);

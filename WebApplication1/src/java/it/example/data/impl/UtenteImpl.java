@@ -24,7 +24,7 @@ public class UtenteImpl implements Utente{
     private String username;
     private String password;
     private int privilegi;
-    private Date dataNasc;
+    private String dataNasc;
     private String luogoNasc;
     private String residenza;
     private String codFisc;
@@ -84,7 +84,7 @@ public class UtenteImpl implements Utente{
      * @return the dataNasc
      */
      @Override
-    public Date getDataNasc() {
+    public String getDataNasc() {
         return dataNasc;
     }
 
@@ -92,7 +92,7 @@ public class UtenteImpl implements Utente{
      * @param dataNasc the dataNasc to set
      */
      @Override
-    public void setDataNasc(Date dataNasc) {
+    public void setDataNasc(String dataNasc) {
         this.dataNasc = dataNasc;
     }
 
@@ -248,6 +248,26 @@ public class UtenteImpl implements Utente{
     @Override
     public void setSpecializzazione(String specializzazione) {
         this.specializzazione=specializzazione;
+    }
+
+    @Override
+    public String getNome() {
+        return nome;
+    }
+
+    @Override
+    public void setNome(String nome) {
+        this.nome=nome;
+    }
+
+    @Override
+    public String getCognome() {
+        return cognome;
+    }
+
+    @Override
+    public void setCognome(String cognome) {
+        this.cognome=cognome;
     }
     
 }
