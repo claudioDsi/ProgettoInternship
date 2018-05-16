@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 16, 2018 alle 10:45
+-- Creato il: Mag 16, 2018 alle 12:29
 -- Versione del server: 10.1.29-MariaDB
 -- Versione PHP: 7.2.0
 
@@ -92,10 +92,10 @@ CREATE TABLE `documento` (
 --
 
 CREATE TABLE `richiesta` (
-  `IdStud` int(11) NOT NULL,
-  `IdTiro` int(11) NOT NULL,
+  `CodStudente` int(11) NOT NULL,
+  `CodTirocinio` int(11) NOT NULL,
   `Status` varchar(20) NOT NULL,
-  `Cfu` int(11) NOT NULL,
+  `Cfu` varchar(4) NOT NULL,
   `NomeTutor` varchar(50) NOT NULL,
   `CognomeTutor` varchar(50) NOT NULL,
   `EmailTutor` varchar(50) NOT NULL
@@ -105,8 +105,8 @@ CREATE TABLE `richiesta` (
 -- Dump dei dati per la tabella `richiesta`
 --
 
-INSERT INTO `richiesta` (`IdStud`, `IdTiro`, `Status`, `Cfu`, `NomeTutor`, `CognomeTutor`, `EmailTutor`) VALUES
-(5, 3, 'in attesa', 6, 'Giuseppe', 'Della Penna', 'nome.cognome@univaq.it');
+INSERT INTO `richiesta` (`CodStudente`, `CodTirocinio`, `Status`, `Cfu`, `NomeTutor`, `CognomeTutor`, `EmailTutor`) VALUES
+(5, 3, 'in attesa', '6', 'Giuseppe', 'Della Penna', 'nome.cognome@univaq.it');
 
 -- --------------------------------------------------------
 
@@ -124,15 +124,15 @@ CREATE TABLE `tirocinio` (
   `Modalità` varchar(250) NOT NULL,
   `Facilitazioni` varchar(250) NOT NULL,
   `Settore` varchar(50) NOT NULL,
-  `IdTutore` int(11) NOT NULL,
-  `IdAzienda` int(11) NOT NULL
+  `CodTutore` int(11) NOT NULL,
+  `CodAzienda` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `tirocinio`
 --
 
-INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `IdTutore`, `IdAzienda`) VALUES
+INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `CodTutore`, `CodAzienda`) VALUES
 (1, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1),
 (2, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1);
 
@@ -217,7 +217,7 @@ ALTER TABLE `documento`
 -- Indici per le tabelle `richiesta`
 --
 ALTER TABLE `richiesta`
-  ADD PRIMARY KEY (`IdStud`,`IdTiro`);
+  ADD PRIMARY KEY (`CodStudente`,`CodTirocinio`);
 
 --
 -- Indici per le tabelle `tirocinio`
