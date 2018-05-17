@@ -18,12 +18,10 @@ import it.example.datamodel.Utente;
 public class RichiestaImpl implements Richiesta{
     private int idStudente;
     private int idTirocinio;
-    private String status;
-    private String progetto;
-    private String cdl;
+    private String status;    
+    private String cfu;
     private Utente studente;
-    private Tirocinio tirocinio;
-    private int idDocumento;
+    private Tirocinio tirocinio;    
     private String nomeTutor;
     private String cognomeTutor;
     private String emailTutor;
@@ -35,10 +33,8 @@ public class RichiestaImpl implements Richiesta{
         ownLayer=dataLayer;
         idStudente=0;
         idTirocinio=0;
-        status="";
-        progetto="";
-        cdl="";
-        idDocumento=0;
+        status="";        
+        cfu="";        
         nomeTutor="";
         cognomeTutor="";
         emailTutor="";
@@ -61,24 +57,16 @@ public class RichiestaImpl implements Richiesta{
         this.status=status;
     }
 
+    
+
     @Override
-    public String getProgetto() {
-        return progetto;
+    public String getCfu() {
+       return cfu;
     }
 
     @Override
-    public void setProgetto(String progetto) {
-       this.progetto=progetto;
-    }
-
-    @Override
-    public String getCdl() {
-       return cdl;
-    }
-
-    @Override
-    public void setCdl(String cdl) {
-        this.cdl=cdl;
+    public void setCfu(String cfu) {
+        this.cfu=cfu;
     }
 
    
@@ -110,17 +98,7 @@ public class RichiestaImpl implements Richiesta{
         this.idTirocinio=idTirocinio;
     }
 
-    @Override
-    public int getIdDocumento() {
-        return idDocumento;
-    }
-
-    @Override
-    public void setIdDocumento(int idDocumento) {
-        this.idDocumento=idDocumento;
-    }
-
-    
+      
 
     @Override
     public String getNomeTutor() {
@@ -151,5 +129,16 @@ public class RichiestaImpl implements Richiesta{
     public void setEmailTutor(String emailTutor) {
         this.emailTutor=emailTutor;
     }
-    
+
+    @Override
+    public int getIdStudente() {
+        return idStudente;
+    }
+
+    @Override
+    public int getIdTirocinio() {
+        return idTirocinio;
+    }
+
+   
 }

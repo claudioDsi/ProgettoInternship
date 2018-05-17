@@ -8,7 +8,6 @@ package it.example.data.impl;
 //classe per le query
 
 import it.example.datamodel.Azienda;
-import it.example.datamodel.Convenzione;
 import it.example.framework.data.DataLayerMysqlImpl;
 import javax.sql.DataSource;
 import it.example.datamodel.InternShipDataLayer;
@@ -30,12 +29,15 @@ import javax.naming.NamingException;
  */
 public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements InternShipDataLayer{
     
-    private PreparedStatement iUtente, uUtente, dUtente;
-    private PreparedStatement iAzienda, uAzienda, dAzienda;
+    private PreparedStatement iUtente, uUtente, dUtente, sUtente;
+    private PreparedStatement iAzienda, uAzienda, dAzienda, sAzienda;
     private PreparedStatement iTutore, uTutore,dTutore;
-    private PreparedStatement iRichiesta, uRichiesta, dRichiesta;    
-    private PreparedStatement iTirocinio, uTirocinio, dTirocinio;
+    private PreparedStatement iRichiesta, uRichiesta, dRichiesta, sRichiesta;    
+    private PreparedStatement iTirocinio, uTirocinio, dTirocinio, sTirocinio;
     private PreparedStatement jUtenteRichiesta;
+    
+
+
     
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
@@ -47,13 +49,23 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         try{     
             super.init();
             iUtente=connection.prepareStatement("INSERT INTO Utente (Username,Password,Privilegi,Nome,Cognome,DataNasc,LuogoNasc,Residenza,CodiceFisc,Telefono,CorsoLaurea,Handicap,Laurea,Dottorato,ScuolaSpec) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Status,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione,CodConvenzione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Status,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazione,Settore,IdTutore,IdAzienda) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (IdStud,IdTiro,Status, Progetto,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazione,Settore,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (CodStudente,CodTirocinio,Status, Progetto,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            
+            
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente");
             
+            
+            
+            
+            
             uUtente=connection.prepareStatement("");
+            sUtente=connection.prepareStatement("SELECT * FROM utente WHERE idUtente = ?");
+            sAzienda=connection.prepareStatement("SELECT * FROM Azienda WHERE IdAzienda = ?");
+            sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE CodStudente = ? AND CodTirocinio = ?");
+            sTirocinio=connection.prepareStatement("SELECT * FROM Tirocinio WHERE IdTirocinio = ?");
             //Tutti i prepared statement
         
         
@@ -85,7 +97,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         return new UtenteImpl(this);
     }
      public Utente creaStudente(ResultSet rs) throws DataLayerException {
-        Utente u=new UtenteImpl(this);
+        UtenteImpl u=new UtenteImpl(this);
         try{
          
           u.setUsername(rs.getString("Username")); 
@@ -117,7 +129,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     }
     
     public Azienda creaAzienda(ResultSet rs)throws DataLayerException{
-        Azienda az=new AziendaImpl(this);
+        AziendaImpl az=new AziendaImpl(this);
         try{
             az.setUsername(rs.getString("Username"));
             az.setPassword(rs.getString("Password"));
@@ -133,60 +145,169 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             az.setEmailResp(rs.getString("EmailResp"));
             az.setForo(rs.getString("Foro"));
             az.setValutazione(rs.getFloat("Valutazione"));
-            az.setConvenzione(rs.getInt("CodConvenzione"));
+           
         }
         catch (SQLException sqlEx){
-            
+            sqlEx.getMessage();
         }
         
-        return null;
+        return az;
     }
 
     @Override
     public Tutore creaTutore() {
         return new TutoreImpl(this);
     }
+    
+    public Tutore creaTutore(ResultSet rs) throws DataLayerException{
+        TutoreImpl t=new TutoreImpl(this);
+        try{
+            t.setNome(rs.getString("Nome"));
+            t.setCognome(rs.getString("Cognome"));
+            t.setDataNasc(rs.getString("DataNasc"));
+            t.setNumTirocini(rs.getInt("NumTirocini"));
+            t.setTelefono(rs.getString("Telefono"));
+            t.setCodAzienda(rs.getInt("CodAzienda"));        
+            
+            
+        }
+        catch(SQLException sqlEx){
+               sqlEx.getMessage();
+        }
+        return t;
+    }
 
     @Override
     public Tirocinio creaTirocinio() {
         return new TirocinioImpl(this);
+    }
+    
+    public Tirocinio creaTirocinio(ResultSet rs) throws DataLayerException{
+        TirocinioImpl tiro=new TirocinioImpl(this);
+        try{
+            tiro.setLuogo(rs.getString("Luogo"));
+            tiro.setOrario(rs.getString("Orario"));
+            tiro.setNumOre(rs.getInt("NumOre"));           
+            tiro.setMesi(rs.getString("NumMesi"));
+            tiro.setObiettivi(rs.getString("Obiettivi"));
+            tiro.setModalità(rs.getString("Modalità"));
+            tiro.setModalità(rs.getString("Modalità"));
+            tiro.setSettore(rs.getString("Settore"));
+            tiro.setIdTutore(rs.getInt("CodTutore"));
+            tiro.setIdAzienda(rs.getInt("CodAzienda"));
+            
+        }
+        catch(SQLException sqlEx){
+            sqlEx.getMessage();
+        }
+        return tiro;
     }
 
     @Override
     public Richiesta creaRichiesta() {
         return new RichiestaImpl(this);
     }
-
-    @Override
-    public Convenzione creaDocumento() {
-        return new ConvenzioneImpl(this);
+    
+    public Richiesta creaRichiesta(ResultSet rs)throws DataLayerException{
+        RichiestaImpl r=new RichiestaImpl(this);
+        try{
+            r.setIdStudente(rs.getInt("CodStudente"));
+            r.setIdTirocinio(rs.getInt("CodTirocinio"));
+            r.setStatus(rs.getString("Status"));
+            r.setCfu(rs.getString("Cfu"));
+            r.setNomeTutor(rs.getString("NomeTutor"));
+            r.setCognomeTutor(rs.getString("CognomeTutor"));
+            r.setEmailTutor(rs.getString("EmailTutor"));
+            
+        }
+        catch(SQLException sqlEx){
+            sqlEx.getMessage();
+        }
+        return r;
     }
+
+   
 
     @Override
     public Utente getInfoStudente(int idStudente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            sUtente.setInt(1, idStudente);
+             try(ResultSet rs=sUtente.executeQuery()){
+                 while(rs.next()){
+                     return creaStudente(rs);
+                 }
+            }
+             catch(SQLException sqlEx){
+                 sqlEx.getMessage();
+             }
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
+        
+    return null;   
     }
 
     @Override
     public Azienda getInfoAzienda(int idAzienda) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            sAzienda.setInt(1, idAzienda);
+            try(ResultSet rs=sAzienda.executeQuery()){
+                while(rs.next()){
+                    return creaAzienda(rs);
+                }
+            }
+            catch(SQLException ex){
+                ex.getMessage();
+            }
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
+        return null;
     }
 
     @Override
-    public Richiesta getRichiesta(int idRichiesta) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Richiesta getInfoRichiesta(int idStudente,int idTirocinio) throws DataLayerException {
+        try{
+            sRichiesta.setInt(1,idStudente);
+            sRichiesta.setInt(2, idTirocinio);
+            try(ResultSet rs= sRichiesta.executeQuery()){
+                while(rs.next()){
+                    return creaRichiesta(rs);
+                }
+            }
+            catch(SQLException ex){
+                ex.getMessage();
+            }
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
+        return null;
     }
 
     @Override
     public Tirocinio getInfoTirocinio(int idTirocinio) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            sTirocinio.setInt(1,idTirocinio);            
+            try(ResultSet rs= sTirocinio.executeQuery()){
+                while(rs.next()){
+                    return creaTirocinio(rs);
+                }
+            }
+            catch(SQLException ex){
+                ex.getMessage();
+            }
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
+        return null;
+    
     }
 
-    @Override
-    public Convenzione getDocumento(int idDocumento) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
     @Override
     public List<Richiesta> getListaRichiesteStudente(int idStudente) throws DataLayerException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

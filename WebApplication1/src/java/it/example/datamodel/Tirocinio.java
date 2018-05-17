@@ -40,14 +40,18 @@ public interface Tirocinio {
     String getFacilitazioni();
     void setFacilitazioni(String facilitazioni);
     
-    //int getIdTutore();
-    //void setIdTutore(int idTutore); come azienda
+    String getSettore();
+    void setSettore(String settore);
+    
+    int getIdTutore();
+    void setIdTutore(int idTutore); 
     
     
     Azienda getAzienda() throws DataLayerException;
     void setAzienda(Azienda azienda);
     //aggiungere il metodo protected nell'implemenzione
-    //void setIdAzienda(int idAzienda);   
+    void setIdAzienda(int idAzienda);   
+    int getIdAzienda();
     
     Tutore getTutore() throws DataLayerException;
     void setTutore(Tutore tutore);

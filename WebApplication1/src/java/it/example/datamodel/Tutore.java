@@ -19,8 +19,17 @@ public interface Tutore {
     String getCognome();
     void setCognome(String cognome);
     
-    Date getDataNasc();
-    void setDataNasc(Date data);
+    String getDataNasc();
+    void setDataNasc(String data);
+    
+    int getNumTirocini();
+    void setNumTirocini(int numTirocini);
+    
+    String getTelefono();
+    void setTelefono(String telefono);
+    
+    int getCodAzienda();
+    void setCodAzienda(int codAzienda);
     
     //num tirocini
     

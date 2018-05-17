@@ -20,13 +20,13 @@ public interface InternShipDataLayer extends DataLayer{
     Tutore creaTutore();
     Tirocinio creaTirocinio();
     Richiesta creaRichiesta();
-    Convenzione creaDocumento();// da implementare
+    
     
     Utente getInfoStudente(int idStudente) throws DataLayerException;
     Azienda getInfoAzienda(int idAzienda) throws DataLayerException;
-    Richiesta getRichiesta(int idRichiesta)throws DataLayerException;
+    Richiesta getInfoRichiesta(int idStudente,int idTirocinio)throws DataLayerException;
     Tirocinio  getInfoTirocinio(int idTirocinio)throws DataLayerException;    
-    Convenzione getDocumento(int idDocumento) throws DataLayerException;
+    
     
     List<Richiesta> getListaRichiesteStudente(int idStudente) throws DataLayerException;//per lo studente
     List<Tirocinio> getListaTirocini() throws DataLayerException; // pannello riepigolativo   

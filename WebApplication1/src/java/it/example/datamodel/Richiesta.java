@@ -18,20 +18,19 @@ public interface Richiesta {
     Utente getStudente() throws  DataLayerException;
     void setStudente(Utente studente);
     
+    int getIdStudente();
+    
+    int getIdTirocinio();
+    
     Tirocinio getTirocinio() throws DataLayerException;
     void setTirocinio(Tirocinio tirocinio);
     
     String getStatus();
     void setStatus(String status);
     
-    String getProgetto();
-    void setProgetto(String progetto);
     
-    String getCdl();
-    void setCdl(String cdl);
-    
-    int getIdDocumento();
-    void setIdDocumento(int idDocumento);
+    String getCfu();
+    void setCfu(String cdl);
     
     
     

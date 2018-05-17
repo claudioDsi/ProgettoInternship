@@ -8,7 +8,7 @@ package it.example.data.impl;
 import it.example.datamodel.InternShipDataLayer;
 import it.example.datamodel.Richiesta;
 import it.example.framework.data.DataLayerException;
-import java.util.Date;
+
 import java.util.List;
 import it.example.datamodel.Utente;
 
@@ -18,7 +18,7 @@ import it.example.datamodel.Utente;
  */
 public class UtenteImpl implements Utente{
     private int idUtente;
-    private int matricola; //forse da togliere
+    
     private String nome;
     private String cognome;
     private String username;
@@ -40,14 +40,13 @@ public class UtenteImpl implements Utente{
     
     public UtenteImpl(InternShipDataLayer data){
         this.ownerdatalayer=data;
-        idUtente=0;
-        matricola=0;
+        idUtente=0;        
         username="";
         password="";
         privilegi=0;
         nome="";
         cognome="";
-        data=null;
+        dataNasc="";
         luogoNasc="";
         residenza="";
         codFisc="";
@@ -73,7 +72,7 @@ public class UtenteImpl implements Utente{
     }
 
     /**
-     * @param idStudente the idStudente to set
+     * @param idUtente the idStudente to set
      */
     @Override
     public void setIdUtente(int idUtente) {

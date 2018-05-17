@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 16, 2018 alle 12:29
+-- Creato il: Mag 17, 2018 alle 14:47
 -- Versione del server: 10.1.29-MariaDB
 -- Versione PHP: 7.2.0
 
@@ -46,44 +46,15 @@ CREATE TABLE `azienda` (
   `TelefonoResp` varchar(20) NOT NULL,
   `EmailResp` varchar(250) NOT NULL,
   `Foro` varchar(250) NOT NULL,
-  `Valutazione` float NOT NULL,
-  `CodConvenzione` int(11) NOT NULL
+  `Valutazione` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `azienda`
 --
 
-INSERT INTO `azienda` (`IdAzienda`, `Username`, `Password`, `Privilegi`, `Status`, `Nome`, `RagioneSociale`, `Indirizzo`, `PartitaIva`, `CodiceFiscale`, `NomeRappr`, `CognomeRappr`, `NomeResp`, `CognomeResp`, `TelefonoResp`, `EmailResp`, `Foro`, `Valutazione`, `CodConvenzione`) VALUES
-(1, 'brucolandia', 'caroteee', 2, 0, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail', 'Avezzano', 5, 1);
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `convenzione`
---
-
-CREATE TABLE `convenzione` (
-  `IdConvenzione` int(11) NOT NULL,
-  `Dimensioni` int(11) NOT NULL,
-  `Tipo` varchar(250) NOT NULL,
-  `Filename` varchar(250) NOT NULL,
-  `CodAzienda` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `documento`
---
-
-CREATE TABLE `documento` (
-  `IdDocumento` int(11) NOT NULL,
-  `Filename` varchar(20) NOT NULL,
-  `Dimension1` int(11) NOT NULL,
-  `Tipo` int(11) NOT NULL,
-  `CodTirocinio` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `azienda` (`IdAzienda`, `Username`, `Password`, `Privilegi`, `Status`, `Nome`, `RagioneSociale`, `Indirizzo`, `PartitaIva`, `CodiceFiscale`, `NomeRappr`, `CognomeRappr`, `NomeResp`, `CognomeResp`, `TelefonoResp`, `EmailResp`, `Foro`, `Valutazione`) VALUES
+(1, 'brucolandia', 'caroteee', 2, 0, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail', 'Avezzano', 5);
 
 -- --------------------------------------------------------
 
@@ -202,18 +173,6 @@ ALTER TABLE `azienda`
   ADD PRIMARY KEY (`IdAzienda`);
 
 --
--- Indici per le tabelle `convenzione`
---
-ALTER TABLE `convenzione`
-  ADD PRIMARY KEY (`IdConvenzione`);
-
---
--- Indici per le tabelle `documento`
---
-ALTER TABLE `documento`
-  ADD PRIMARY KEY (`IdDocumento`);
-
---
 -- Indici per le tabelle `richiesta`
 --
 ALTER TABLE `richiesta`
@@ -246,18 +205,6 @@ ALTER TABLE `utente`
 --
 ALTER TABLE `azienda`
   MODIFY `IdAzienda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT per la tabella `convenzione`
---
-ALTER TABLE `convenzione`
-  MODIFY `IdConvenzione` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT per la tabella `documento`
---
-ALTER TABLE `documento`
-  MODIFY `IdDocumento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `tirocinio`

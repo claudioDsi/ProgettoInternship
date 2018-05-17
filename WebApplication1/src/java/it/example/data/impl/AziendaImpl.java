@@ -30,8 +30,8 @@ public class AziendaImpl implements Azienda{
     private String emailResp;
     private String foro;
     private float valutazione;
-    private int Idconvenzione;
-    private ConvenzioneImpl convenzione;
+   
+    
     private List<Tirocinio> listaTirocini;
     protected InternShipDataLayer ownLayer;
     
@@ -52,9 +52,7 @@ public class AziendaImpl implements Azienda{
         responsabile="";
         emailResp="";
         foro="";
-        valutazione=0;
-        Idconvenzione=0;
-        convenzione=null;
+        valutazione=0;        
         listaTirocini=null;
       
     }
@@ -132,7 +130,7 @@ public class AziendaImpl implements Azienda{
     }
 
     /**
-     * @param rappresentante the rappresentante to set
+     * @param nomeRappr the rappresentante to set
      */
      @Override
     public void setNomeRappr(String nomeRappr) {
@@ -206,19 +204,9 @@ public class AziendaImpl implements Azienda{
     /**
      * @return the convenzione
      */
-     @Override
-    public ConvenzioneImpl getConvenzione() throws DataLayerException {
-        return convenzione;
-    }
-
-    /**
-     * @param convenzione the convenzione to set
-     */
-     @Override
-    public void setConvenzione(int Idconvenzione) {
-        this.Idconvenzione = Idconvenzione;
-    }
-
+   
+  
+   
     @Override
     public List<Tirocinio> getListaTirocini()throws DataLayerException{
        return listaTirocini;

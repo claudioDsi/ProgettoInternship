@@ -25,7 +25,7 @@ public class TirocinioImpl implements Tirocinio{
     private String obiettivi;
     private String facilitazioni;
     private String modalità;
-    
+    private String settore;
     //riferimenti alle altre tabelle
     private Tutore tutore;    
     private int idTutore;
@@ -44,6 +44,7 @@ public class TirocinioImpl implements Tirocinio{
         luogo="";
         orario="";
         mesi="";
+        settore="";
         numOre=0;
         obiettivi="";
         facilitazioni="";
@@ -163,6 +164,33 @@ public class TirocinioImpl implements Tirocinio{
     public List<Richiesta> getListaRichieste() throws DataLayerException{
        return listaRichieste;
     }
+    @Override
+    public int getIdTutore(){
+        return idTutore;
+    }
+    @Override
+    public void setIdTutore(int idTutore){
+        this.idTutore=idTutore;        
+    }
+    @Override
+    public void setIdAzienda(int idAzienda){
+        this.idAzienda=idAzienda;
+    }
+    @Override
+    public int getIdAzienda(){
+        return idAzienda;
+    }
+
+    @Override
+    public String getSettore() {
+        return settore;
+    }
+
+    @Override
+    public void setSettore(String settore) {
+       this.settore=settore;
+    }
+    
 
   
 

@@ -5,7 +5,7 @@
  */
 package it.example.datamodel;
 
-import it.example.data.impl.ConvenzioneImpl;
+
 import it.example.framework.data.DataLayerException;
 import java.util.List;
 
@@ -67,9 +67,9 @@ public interface Azienda {
    
     float getValutazione();
     void setValutazione(float valutazione);
-    ConvenzioneImpl getConvenzione() throws DataLayerException;
     
-    void setConvenzione(int convenzione);
+    
+    
     
     
     
