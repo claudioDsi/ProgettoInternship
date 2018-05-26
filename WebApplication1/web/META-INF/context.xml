@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/WebApplication1">
     <Resource
-        name="jdbc/internship"
+        name="jdbc/Internship"
         type="javax.sql.DataSource"
         auth="Container"
         driverClassName="com.mysql.jdbc.Driver"
-        username="intership"
+        username="Intership"
         password="intership"
         maxActive="10"
         maxIdle="5"

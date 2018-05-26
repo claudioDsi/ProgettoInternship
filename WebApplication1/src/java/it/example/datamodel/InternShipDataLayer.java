@@ -22,7 +22,7 @@ public interface InternShipDataLayer extends DataLayer{
     Richiesta creaRichiesta();
     
     
-    Utente getInfoStudente(int idStudente) throws DataLayerException;
+    Utente getInfoUtente(int idUtente) throws DataLayerException;
     Azienda getInfoAzienda(int idAzienda) throws DataLayerException;
     Richiesta getInfoRichiesta(int idStudente,int idTirocinio)throws DataLayerException;
     Tirocinio  getInfoTirocinio(int idTirocinio)throws DataLayerException;    
@@ -32,11 +32,6 @@ public interface InternShipDataLayer extends DataLayer{
     List<Tirocinio> getListaTirocini() throws DataLayerException; // pannello riepigolativo   
     List<Richiesta> getListaRichiesteTirocinio(int idTirocinio) throws DataLayerException;// per azienda pagina per tirocinio
     
-    
-    
-    
-    
-    
-    
-    
+    void storeStudente(Utente utente) throws DataLayerException; //inserimento o modifica studente
+
 }

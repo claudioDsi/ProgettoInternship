@@ -47,38 +47,31 @@ public interface Utente {
     String getCodFisc();   
     void setCodFisc(String codFisc);
     
-     String getTelefono(); 
-     void setTelefono(String telefono);
+    String getTelefono(); 
+    void setTelefono(String telefono);
      
-     String getCdl();
-     void setCdl(String cdl);
+    String getCdl();
+    void setCdl(String cdl);
      
-     String getResidenza();
-     void setResidenza(String residenza);
-     
-     
-     Boolean getHandicap();
-     void setHandicap(boolean handicap);
-     
-     String getLaurea();
-     void setLaurea(String laurea);
-     
-     String getDottorato();
-     void setDottorato(String dottorato);
-     
-     String getSpecializzazione();
-     void setSpecializzazione(String specializzazione);
-     
-     List<Richiesta> getListaRichieste() throws DataLayerException;
-     
+    String getResidenza();
+    void setResidenza(String residenza);
     
-
-
+    Boolean getHandicap();
+    void setHandicap(boolean handicap);
      
+    String getLaurea();
+    void setLaurea(String laurea);
      
+    String getDottorato();
+    void setDottorato(String dottorato);
      
+    String getSpecializzazione();
+    void setSpecializzazione(String specializzazione);
      
-     
-     
+    List<Richiesta> getListaRichieste() throws DataLayerException;
+    
+    boolean isDirty();
+    void setDirty(boolean dirty);
+    void copyFrom(Utente utente) throws DataLayerException;
     
 }

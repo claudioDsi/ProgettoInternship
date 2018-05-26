@@ -36,6 +36,7 @@ public class UtenteImpl implements Utente{
     private Boolean handicap;
     private List<Richiesta> listaRichieste;
     protected InternShipDataLayer ownerdatalayer;
+    protected Boolean dirty;
     
     
     public UtenteImpl(InternShipDataLayer data){
@@ -57,7 +58,7 @@ public class UtenteImpl implements Utente{
         specializzazione="";
         handicap=false;
         listaRichieste=null;
-        
+        dirty = false;
     }
     
 
@@ -77,6 +78,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setIdUtente(int idUtente) {
         this.idUtente = idUtente;
+        this.dirty = true;
     }
 
     /**
@@ -93,6 +95,7 @@ public class UtenteImpl implements Utente{
      @Override
     public void setDataNasc(String dataNasc) {
         this.dataNasc = dataNasc;
+        this.dirty = true;
     }
 
     /**
@@ -109,6 +112,7 @@ public class UtenteImpl implements Utente{
      @Override
     public void setLuogoNasc(String luogoNasc) {
         this.luogoNasc = luogoNasc;
+        this.dirty = true;
     }
 
     /**
@@ -125,6 +129,7 @@ public class UtenteImpl implements Utente{
      @Override
     public void setCodFisc(String codFisc) {
         this.codFisc = codFisc;
+        this.dirty = true;
     }
 
     /**
@@ -141,6 +146,7 @@ public class UtenteImpl implements Utente{
      @Override
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+        this.dirty = true;
     }
 
     /**
@@ -157,6 +163,7 @@ public class UtenteImpl implements Utente{
      @Override
     public void setCdl(String cdl) {
         this.cdl = cdl;
+        this.dirty = true;
     }
 
     /**
@@ -166,13 +173,17 @@ public class UtenteImpl implements Utente{
     public Boolean getHandicap() {
         return handicap;
     }
+    
+    @Override
+    public void setHandicap(boolean handicap) {
+        this.handicap=handicap;
+        this.dirty = true;
+    }
 
     @Override
     public List<Richiesta> getListaRichieste() throws DataLayerException {
         return listaRichieste;
     }
-
-   
 
     @Override
     public String getUsername() {
@@ -182,6 +193,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setUsername(String username) {
         this.username=username;
+        this.dirty = true;
     }
 
     @Override
@@ -192,6 +204,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setPassword(String password) {
         this.password=password;
+        this.dirty = true;
     }
 
     @Override
@@ -202,6 +215,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setPrivilegi(int privilegi) {
         this.privilegi=privilegi;
+        this.dirty = true;
     }
 
     @Override
@@ -212,11 +226,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setResidenza(String residenza) {
         this.residenza=residenza;
-    }
-
-    @Override
-    public void setHandicap(boolean handicap) {
-        this.handicap=handicap;
+        this.dirty = true;
     }
 
     @Override
@@ -227,6 +237,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setLaurea(String laurea) {
         this.laurea=laurea;
+        this.dirty = true;
     }
 
     @Override
@@ -237,6 +248,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setDottorato(String dottorato) {
         this.dottorato=dottorato;
+        this.dirty = true;
     }
 
     @Override
@@ -247,6 +259,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setSpecializzazione(String specializzazione) {
         this.specializzazione=specializzazione;
+        this.dirty = true;
     }
 
     @Override
@@ -257,6 +270,7 @@ public class UtenteImpl implements Utente{
     @Override
     public void setNome(String nome) {
         this.nome=nome;
+        this.dirty = true;
     }
 
     @Override
@@ -267,6 +281,37 @@ public class UtenteImpl implements Utente{
     @Override
     public void setCognome(String cognome) {
         this.cognome=cognome;
+        this.dirty = true;
     }
     
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+    
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+    
+    @Override
+    public void copyFrom(Utente utente) throws DataLayerException {
+        idUtente = utente.getIdUtente();
+        username = utente.getUsername();
+        password = utente.getPassword();
+        privilegi = utente.getPrivilegi();
+        nome = utente.getNome();
+        cognome = utente.getCognome();
+        dataNasc = utente.getDataNasc();
+        luogoNasc = utente.getLuogoNasc();
+        residenza = utente.getResidenza();
+        codFisc = utente.getCodFisc();
+        telefono = utente.getTelefono();
+        cdl = utente.getCdl();
+        handicap = utente.getHandicap();
+        laurea = utente.getLaurea();
+        dottorato = utente.getDottorato();
+        specializzazione = utente.getSpecializzazione();
+        this.dirty = true;
+    }
 }

@@ -53,15 +53,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazione,Settore,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (CodStudente,CodTirocinio,Status, Progetto,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+                       
+            jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
             
-            
-            jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente");
-            
-            
-            
-            
-            
-            uUtente=connection.prepareStatement("");
+            uUtente=connection.prepareStatement("UPDATE Utente SET Nome=?,Cognome=?,DataNasc=?,LuogoNasc=?, Residenza=?, CodiceFisc=?, Telefono=?, CorsoLaurea=?, Handicap=?, Laurea=?, Dottorato=?, ScuolaSpec=? WHERE idUtente=?");
             sUtente=connection.prepareStatement("SELECT * FROM utente WHERE idUtente = ?");
             sAzienda=connection.prepareStatement("SELECT * FROM Azienda WHERE IdAzienda = ?");
             sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE CodStudente = ? AND CodTirocinio = ?");
@@ -116,9 +111,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
           u.setDottorato(rs.getString("Dottorato"));
           u.setSpecializzazione(rs.getString("ScuolaSpec"));
         }
-        catch (SQLException sqlEx){
-            sqlEx.getMessage();
-        }        
+        catch (SQLException ex) {
+            throw new DataLayerException("Unable to create user object form ResultSet", ex);
+        }       
          
         return u;
     }
@@ -229,9 +224,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
    
 
     @Override
-    public Utente getInfoStudente(int idStudente) throws DataLayerException {
+    public Utente getInfoUtente(int idUtente) throws DataLayerException {
         try{
-            sUtente.setInt(1, idStudente);
+            sUtente.setInt(1, idUtente);
              try(ResultSet rs=sUtente.executeQuery()){
                  while(rs.next()){
                      return creaStudente(rs);
@@ -321,6 +316,86 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     @Override
     public List<Richiesta> getListaRichiesteTirocinio(int idTirocinio) throws DataLayerException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void storeStudente(Utente utente) throws DataLayerException {
+        int key = utente.getIdUtente();
+        try {
+            if (utente.getIdUtente() > 0) { //update
+                //non facciamo nulla se l'oggetto non ha subito modifiche
+                //do not store the object if it was not modified
+                if (!utente.isDirty()) {
+                    return;
+                }
+                uUtente.setString(1, utente.getNome());
+                uUtente.setString(2, utente.getCognome());
+                uUtente.setString(3, utente.getDataNasc());
+                uUtente.setString(4, utente.getLuogoNasc());
+                uUtente.setString(5, utente.getResidenza());
+                uUtente.setString(6, utente.getCodFisc());
+                uUtente.setString(7, utente.getTelefono());
+                uUtente.setString(8, utente.getCdl());
+                uUtente.setBoolean(9, utente.getHandicap());
+                uUtente.setString(10, utente.getLaurea());
+                uUtente.setString(11, utente.getDottorato());
+                uUtente.setString(12, utente.getSpecializzazione());
+                uUtente.setInt(13, utente.getIdUtente());
+                uUtente.executeUpdate();
+                
+            } else { //insert
+                
+                iUtente.setString(1, utente.getUsername());
+                iUtente.setString(2, utente.getPassword());
+                iUtente.setInt(3, utente.getPrivilegi());
+                iUtente.setString(4, utente.getNome());
+                iUtente.setString(5, utente.getCognome());
+                iUtente.setString(6, utente.getDataNasc());
+                iUtente.setString(7, utente.getLuogoNasc());
+                iUtente.setString(8, utente.getResidenza());
+                iUtente.setString(9, utente.getCodFisc());
+                iUtente.setString(10, utente.getTelefono());
+                iUtente.setString(11, utente.getCdl());
+                iUtente.setBoolean(12, utente.getHandicap());
+                iUtente.setString(13, utente.getLaurea());
+                iUtente.setString(14, utente.getDottorato());
+                iUtente.setString(15, utente.getSpecializzazione());
+                if (iUtente.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iUtente.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+            //restituiamo l'oggetto appena inserito RICARICATO
+            //dal database tramite le API del modello. In tal
+            //modo terremo conto di ogni modifica apportata
+            //durante la fase di inserimento
+            //we return the just-inserted object RELOADED from the
+            //database through our API. In this way, the resulting
+            //object will ambed any data correction performed by
+            //the DBMS
+            if (key > 0) {
+                utente.copyFrom(getInfoUtente(key));
+            }
+            utente.setDirty(false);
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to store user", ex);
+        }
     }
     
 }
