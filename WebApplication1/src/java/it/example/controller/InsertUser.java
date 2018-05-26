@@ -17,7 +17,7 @@ import it.example.datamodel.*;
 import it.example.datamodel.InternShipDataLayer;
 import it.example.framework.data.DataLayerException;
 
-public class NewServlet extends InternshipDBController {
+public class InsertUser extends InternshipDBController {
 
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -46,7 +46,4 @@ public class NewServlet extends InternshipDBController {
                 request.setAttribute("message", "Data access exception: " + ex.getMessage());
             }
     }
-    
-    
-    
 }

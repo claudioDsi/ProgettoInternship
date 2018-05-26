@@ -58,12 +58,8 @@ public interface Tirocinio {
     
     List<Richiesta> getListaRichieste() throws DataLayerException;
     
-  
-    
-    
-    
-    
-    
-    
+    boolean isDirty();
+    void setDirty(boolean dirty);
+    void copyFrom(Tirocinio tirocinio) throws DataLayerException;
     
 }

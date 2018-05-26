@@ -14,6 +14,7 @@ import java.util.List;
  * @author claudio
  */
 public class AziendaImpl implements Azienda{
+    
     private int idAzienda;
     private String nomeAzienda;
     private String ragioneSociale;
@@ -26,186 +27,175 @@ public class AziendaImpl implements Azienda{
     private String codiceFisc;
     private String nomeRappr;
     private String cognomeRappr;
-    private String responsabile;
+    private String nomeResp;
+    private String cognomeResp;
+    private String telefonoResp;
     private String emailResp;
     private String foro;
     private float valutazione;
-   
-    
+    protected Boolean dirty;
     private List<Tirocinio> listaTirocini;
     protected InternShipDataLayer ownLayer;
     
     public AziendaImpl(InternShipDataLayer dataLayer){
-        ownLayer=dataLayer;
-        idAzienda=0;
-        nomeAzienda="";
-        ragioneSociale="";        
-        username="";
-        password="";
-        privilegi=0;
-        status=false;
-        indirizzo="";
-        partitaIva="";
-        codiceFisc="";
-        nomeRappr="";
-        cognomeRappr="";
-        responsabile="";
-        emailResp="";
-        foro="";
-        valutazione=0;        
-        listaTirocini=null;
-      
+        ownLayer = dataLayer;
+        idAzienda = 0;
+        nomeAzienda = "";
+        ragioneSociale = "";        
+        username = "";
+        password = "";
+        privilegi = 0;
+        status = false;
+        indirizzo = "";
+        partitaIva = "";
+        codiceFisc = "";
+        nomeRappr = "";
+        cognomeRappr = "";
+        nomeResp = "";
+        cognomeResp = "";
+        telefonoResp = "";
+        emailResp = "";
+        foro = "";
+        valutazione = 0;        
+        listaTirocini = null;
+        dirty = false;
     }
 
-    /**
-     * @return the idAzienda
-     */
     @Override
     public int getIdAzienda() {
         return idAzienda;
     }
 
-    /**
-     * @param idAzienda the idAzienda to set
-     */
-     @Override
+    @Override
     public void setIdAzienda(int idAzienda) {
         this.idAzienda = idAzienda;
+        this.dirty = true;
     }
 
-    /**
-     * @return the nomeAzienda
-     */
-     @Override
+    @Override
     public String getNomeAzienda() {
         return nomeAzienda;
     }
 
-    /**
-     * @param nomeAzienda the nomeAzienda to set
-     */
-     @Override
+    @Override
     public void setNomeAzienda(String nomeAzienda) {
         this.nomeAzienda = nomeAzienda;
+        this.dirty = true;
     }
 
-    /**
-     * @return the indirizzo
-     */
-     @Override
+    @Override
     public String getIndirizzo() {
         return indirizzo;
     }
 
-    /**
-     * @param indirizzo the indirizzo to set
-     */
-     @Override
+    @Override
     public void setIndirizzo(String indirizzo) {
         this.indirizzo = indirizzo;
+        this.dirty = true;
     }
 
-    /**
-     * @return the partitaIva
-     */
-     @Override
+    @Override
     public String getPartitaIva() {
         return partitaIva;
     }
 
-    /**
-     * @param partitaIva the partitaIva to set
-     */
-     @Override
+    @Override
     public void setPartitaIva(String partitaIva) {
         this.partitaIva = partitaIva;
+        this.dirty = true;
     }
 
-    /**
-     * @return the rappresentante
-     */
-     @Override
+    @Override
     public String getNomeRappr() {
         return nomeRappr;
     }
 
-    /**
-     * @param nomeRappr the rappresentante to set
-     */
-     @Override
+    @Override
     public void setNomeRappr(String nomeRappr) {
         this.nomeRappr=nomeRappr;
+        this.dirty = true;
+    }
+    
+    @Override
+    public String getCognomeRappr() {
+        return cognomeRappr;
     }
 
-    /**
-     * @return the responsabile
-     */
-     @Override
-    public String getResponsabile() {
-        return responsabile;
+    @Override
+    public void setCognomeRappr(String cognomeRappr) {
+        this.cognomeRappr=cognomeRappr;
+        this.dirty = true;
     }
 
-    /**
-     * @param responsabile the responsabile to set
-     */
-     @Override
-    public void setResponsabile(String responsabile) {
-        this.responsabile = responsabile;
+    @Override
+    public String getNomeResp() {
+        return nomeResp;
     }
 
-    /**
-     * @return the emailResp
-     */
-     @Override
+    @Override
+    public void setNomeResp(String nomeResp) {
+        this.nomeResp = nomeResp;
+        this.dirty = true;
+    }
+    
+    @Override
+    public String getCognomeResp() {
+        return cognomeResp;
+    }
+
+    @Override
+    public void setCognomeResp(String cognomeResp) {
+        this.cognomeResp = cognomeResp;
+        this.dirty = true;
+    }
+
+    @Override
     public String getEmailResp() {
         return emailResp;
     }
 
-    /**
-     * @param emailResp the emailResp to set
-     */
-     @Override
+    @Override
     public void setEmailResp(String emailResp) {
         this.emailResp = emailResp;
+        this.dirty = true;
+    }
+    
+    @Override
+    public String getTelefonoResp() {
+        return telefonoResp;
     }
 
-    /**
-     * @return the foro
-     */
-     @Override
+    @Override
+    public void setTelefonoResp(String emailResp) {
+        this.telefonoResp = telefonoResp;
+        this.dirty = true;
+    }
+
+    @Override
     public String getForo() {
         return foro;
     }
 
-    /**
-     * @param foro the foro to set
-     */
-     @Override
+    @Override
     public void setForo(String foro) {
         this.foro = foro;
+        this.dirty = true;
     }
 
-    /**
-     * @return the valutazione
-     */
-     @Override
+    @Override
     public float getValutazione() {
         return valutazione;
     }
 
-    /**
-     * @param valutazione the valutazione to set
-     */
-     @Override
+    @Override
     public void setValutazione(float valutazione) {
         this.valutazione = valutazione;
+        this.dirty = true;
     }
 
     /**
      * @return the convenzione
      */
-   
-  
    
     @Override
     public List<Tirocinio> getListaTirocini()throws DataLayerException{
@@ -213,7 +203,6 @@ public class AziendaImpl implements Azienda{
        //aggiungere controlli datalayer
     }
 
-  
     @Override
     public String getUsername() {
         return username;
@@ -222,6 +211,7 @@ public class AziendaImpl implements Azienda{
     @Override
     public void setUsername(String username) {
         this.username=username;
+        this.dirty = true;
     }
 
     @Override
@@ -232,6 +222,7 @@ public class AziendaImpl implements Azienda{
     @Override
     public void setPassword(String password) {
         this.password=password;
+        this.dirty = true;
     }
 
     @Override
@@ -242,6 +233,7 @@ public class AziendaImpl implements Azienda{
     @Override
     public void setPrivilegi(int privilegi) {
         this.privilegi=privilegi;
+        this.dirty = true;
     }
 
     @Override
@@ -252,6 +244,7 @@ public class AziendaImpl implements Azienda{
     @Override
     public void setStatus(boolean status) {
         this.status=status;
+        this.dirty = true;
     }
 
     @Override
@@ -262,6 +255,7 @@ public class AziendaImpl implements Azienda{
     @Override
     public void setRagioneSociale(String ragioneSociale) {
         this.ragioneSociale=ragioneSociale;
+        this.dirty = true;
     }
 
     @Override
@@ -272,16 +266,39 @@ public class AziendaImpl implements Azienda{
     @Override
     public void setCodiceFisc(String codiceFisc) {
         this.codiceFisc=codiceFisc;
-    }
-
-    @Override
-    public String getCognomeRappr() {
-        return cognomeRappr;
-    }
-
-    @Override
-    public void setCognomeRappr(String cognomeRappr) {
-        this.cognomeRappr=cognomeRappr;
+        this.dirty = true;
     }
     
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+    
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+    
+    @Override
+    public void copyFrom(Azienda azienda) throws DataLayerException {
+        idAzienda = azienda.getIdAzienda();
+        username = azienda.getUsername();
+        password = azienda.getPassword();
+        privilegi = azienda.getPrivilegi();
+        nomeAzienda = azienda.getNomeAzienda();
+        ragioneSociale = azienda.getRagioneSociale();
+        indirizzo = azienda.getIndirizzo();
+        partitaIva = azienda.getPartitaIva();
+        status = azienda.getStatus();
+        codiceFisc = azienda.getCodiceFisc();
+        nomeRappr = azienda.getNomeRappr();
+        cognomeRappr = azienda.getCognomeRappr();
+        nomeResp = azienda.getNomeResp();
+        cognomeResp = azienda.getCognomeResp();
+        telefonoResp = azienda.getTelefonoResp();
+        emailResp = azienda.getEmailResp();
+        foro = azienda.getForo();
+        valutazione = azienda.getValutazione();
+        this.dirty = true;
+    }
 }

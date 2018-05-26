@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>it.example.controller.NewServlet</servlet-class>
+        <servlet-name>InsertUser</servlet-name>
+        <servlet-class>it.example.controller.InsertUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertAzienda</servlet-name>
+        <servlet-class>it.example.controller.InsertAzienda</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertTirocinio</servlet-name>
+        <servlet-class>it.example.controller.InsertTirocinio</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertTutore</servlet-name>
+        <servlet-class>it.example.controller.InsertTutore</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertRichiesta</servlet-name>
+        <servlet-class>it.example.controller.InsertRichiesta</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NewServlet</servlet-name>
-        <url-pattern>/prova</url-pattern>
+        <servlet-name>InsertUser</servlet-name>
+        <url-pattern>/insertUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertAzienda</servlet-name>
+        <url-pattern>/insertAzienda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertTirocinio</servlet-name>
+        <url-pattern>/insertTirocinio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertTutore</servlet-name>
+        <url-pattern>/insertTutore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertRichiesta</servlet-name>
+        <url-pattern>/insertRichiesta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

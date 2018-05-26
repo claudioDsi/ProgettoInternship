@@ -51,8 +51,14 @@ public interface Azienda {
     String getCognomeRappr();
     void setCognomeRappr(String cognomeRappr);
     
-    String getResponsabile();
-    void setResponsabile(String responsabile); 
+    String getNomeResp();
+    void setNomeResp(String nomeResp); 
+    
+    String getCognomeResp();
+    void setCognomeResp(String cognomeResp);
+    
+    String getTelefonoResp(); 
+    void setTelefonoResp(String telefonoResp);
     
     String getEmailResp(); 
     void setEmailResp(String emailResp);
@@ -63,15 +69,11 @@ public interface Azienda {
     //lista tirocini
     
     List<Tirocinio> getListaTirocini() throws DataLayerException;    
-
    
     float getValutazione();
     void setValutazione(float valutazione);
-    
-    
-    
-    
-    
-    
-    
+
+    boolean isDirty();
+    void setDirty(boolean dirty);
+    void copyFrom(Azienda azienda) throws DataLayerException;
 }

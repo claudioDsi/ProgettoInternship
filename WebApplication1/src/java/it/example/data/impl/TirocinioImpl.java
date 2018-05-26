@@ -29,33 +29,31 @@ public class TirocinioImpl implements Tirocinio{
     //riferimenti alle altre tabelle
     private Tutore tutore;    
     private int idTutore;
-    
     private Azienda azienda;
     private int idAzienda;
-    
+    protected Boolean dirty;
     
     private List<Richiesta> listaRichieste;
     //data layer
     protected InternShipDataLayer ownLayer;
     
     public TirocinioImpl(InternShipDataLayer dataLayer){
-        ownLayer=dataLayer;
-        idTirocinio=0;
-        luogo="";
-        orario="";
-        mesi="";
-        settore="";
-        numOre=0;
-        obiettivi="";
-        facilitazioni="";
-        modalità="";
-        tutore=null;
-        idTutore=0;
-        azienda=null;
-        idAzienda=0;
-        listaRichieste=null;
-        
-        
+        ownLayer = dataLayer;
+        idTirocinio = 0;
+        luogo = "";
+        orario = "";
+        mesi = "";
+        settore = "";
+        numOre = 0;
+        obiettivi = "";
+        facilitazioni = "";
+        modalità = "";
+        tutore = null;
+        idTutore = 0;
+        azienda = null;
+        idAzienda = 0;
+        listaRichieste = null;
+        dirty = false;
     }
 
     @Override
@@ -70,7 +68,8 @@ public class TirocinioImpl implements Tirocinio{
 
     @Override
     public void setLuogo(String luogo) {
-        this.luogo=luogo;
+        this.luogo = luogo;
+        this.dirty = true;
     }
 
     @Override
@@ -80,7 +79,8 @@ public class TirocinioImpl implements Tirocinio{
 
     @Override
     public void setOrario(String orario) {
-        this.orario=orario;
+        this.orario = orario;
+        this.dirty = true;
     }
 
     @Override
@@ -90,7 +90,8 @@ public class TirocinioImpl implements Tirocinio{
 
     @Override
     public void setMesi(String mesi) {
-        this.mesi=mesi;
+        this.mesi = mesi;
+        this.dirty = true;
     }
 
     @Override
@@ -100,7 +101,8 @@ public class TirocinioImpl implements Tirocinio{
 
     @Override
     public void setNumOre(int numOre) {
-       this.numOre=numOre;
+       this.numOre = numOre;
+       this.dirty = true;
     }
 
     @Override
@@ -110,7 +112,8 @@ public class TirocinioImpl implements Tirocinio{
 
     @Override
     public void setObiettivi(String obiettivi) {
-        this.obiettivi=obiettivi;
+        this.obiettivi = obiettivi;
+        this.dirty = true;
     }
 
     @Override
@@ -120,7 +123,8 @@ public class TirocinioImpl implements Tirocinio{
 
     @Override
     public void setModalità(String modalità) {
-        this.modalità=modalità;
+        this.modalità = modalità;
+        this.dirty = true;
     }
 
     @Override
@@ -130,15 +134,15 @@ public class TirocinioImpl implements Tirocinio{
 
     @Override
     public void setFacilitazioni(String facilitazioni) {
-        this.facilitazioni=facilitazioni;
+        this.facilitazioni = facilitazioni;
+        this.dirty = true;
     }
 
     @Override
     public void setIdTirocinio(int idTirocinio) {
         this.idTirocinio=idTirocinio;
+        this.dirty = true;
     }
-  
-    
 
     @Override
     public Azienda getAzienda() throws DataLayerException{
@@ -148,6 +152,7 @@ public class TirocinioImpl implements Tirocinio{
     @Override
     public void setAzienda(Azienda azienda) {
         this.azienda=azienda;
+        this.dirty = true;
     }
 
     @Override
@@ -158,24 +163,31 @@ public class TirocinioImpl implements Tirocinio{
     @Override
     public void setTutore(Tutore tutore) {
         this.tutore=tutore;
+        this.dirty = true;
     }
 
     @Override
     public List<Richiesta> getListaRichieste() throws DataLayerException{
        return listaRichieste;
     }
+    
     @Override
     public int getIdTutore(){
         return idTutore;
     }
+    
     @Override
     public void setIdTutore(int idTutore){
-        this.idTutore=idTutore;        
+        this.idTutore=idTutore;
+        this.dirty = true;
     }
+    
     @Override
     public void setIdAzienda(int idAzienda){
         this.idAzienda=idAzienda;
+        this.dirty = true;
     }
+    
     @Override
     public int getIdAzienda(){
         return idAzienda;
@@ -189,11 +201,33 @@ public class TirocinioImpl implements Tirocinio{
     @Override
     public void setSettore(String settore) {
        this.settore=settore;
+       this.dirty = true;
     }
     
-
-  
-
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
     
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+    
+    @Override
+    public void copyFrom(Tirocinio tirocinio) throws DataLayerException {
+        idTirocinio = tirocinio.getIdTirocinio();
+        luogo = tirocinio.getLuogo();
+        orario = tirocinio.getOrario();
+        numOre = tirocinio.getNumOre();
+        mesi = tirocinio.getMesi();
+        obiettivi = tirocinio.getObiettivi();
+        modalità = tirocinio.getModalità();
+        facilitazioni = tirocinio.getFacilitazioni();
+        settore = tirocinio.getSettore();
+        idTutore = tirocinio.getIdTutore();
+        idAzienda = tirocinio.getIdAzienda();
+        this.dirty = true;
+    }
     
 }

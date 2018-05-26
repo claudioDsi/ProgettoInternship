@@ -16,6 +16,8 @@ import it.example.datamodel.Utente;
  * @author claudio
  */
 public class RichiestaImpl implements Richiesta{
+    
+    private int idRichiesta;
     private int idStudente;
     private int idTirocinio;
     private String status;    
@@ -25,27 +27,28 @@ public class RichiestaImpl implements Richiesta{
     private String nomeTutor;
     private String cognomeTutor;
     private String emailTutor;
-    
+    protected Boolean dirty;
     protected InternShipDataLayer ownLayer;
     
-    
     public RichiestaImpl(InternShipDataLayer dataLayer){
-        ownLayer=dataLayer;
-        idStudente=0;
-        idTirocinio=0;
-        status="";        
-        cfu="";        
-        nomeTutor="";
-        cognomeTutor="";
-        emailTutor="";
-        studente=null;
-        tirocinio=null;
-                
+        ownLayer = dataLayer;
+        idRichiesta = 0;
+        idStudente = 0;
+        idTirocinio = 0;
+        status = "";        
+        cfu = "";        
+        nomeTutor = "";
+        cognomeTutor = "";
+        emailTutor = "";
+        studente = null;
+        tirocinio = null;
+        this.dirty = false;
     }
-
-   
-
-   
+    
+    @Override
+    public int getIdRichiesta() {
+        return idRichiesta;
+    }
 
     @Override
     public String getStatus() {
@@ -55,9 +58,8 @@ public class RichiestaImpl implements Richiesta{
     @Override
     public void setStatus(String status) {
         this.status=status;
+        this.dirty = true;
     }
-
-    
 
     @Override
     public String getCfu() {
@@ -67,9 +69,8 @@ public class RichiestaImpl implements Richiesta{
     @Override
     public void setCfu(String cfu) {
         this.cfu=cfu;
+        this.dirty = true;
     }
-
-   
 
     @Override
     public Utente getStudente() throws DataLayerException {
@@ -79,6 +80,7 @@ public class RichiestaImpl implements Richiesta{
     @Override
     public void setStudente(Utente studente) {
         this.studente=studente;
+        this.dirty = true;
     }
 
     @Override
@@ -89,17 +91,31 @@ public class RichiestaImpl implements Richiesta{
     @Override
     public void setTirocinio(Tirocinio tirocinio) {
         this.tirocinio=tirocinio;
+        this.dirty = true;
     }
     
-    protected  void setIdStudente(int idStudente){
+    @Override
+    public  void setIdStudente(int idStudente){
         this.idStudente=idStudente;
+        this.dirty = true;
     }
-    protected  void setIdTirocinio(int idTirocinio){
+    
+    @Override
+    public int getIdStudente() {
+        return idStudente;
+    }
+    
+    @Override
+    public  void setIdTirocinio(int idTirocinio){
         this.idTirocinio=idTirocinio;
+        this.dirty = true;
     }
 
-      
-
+    @Override
+    public int getIdTirocinio() {
+        return idTirocinio;
+    }
+    
     @Override
     public String getNomeTutor() {
        return nomeTutor;
@@ -108,6 +124,7 @@ public class RichiestaImpl implements Richiesta{
     @Override
     public void setNomeTutor(String nomeTutor) {
         this.nomeTutor=nomeTutor;
+        this.dirty = true;
     }
 
     @Override
@@ -118,6 +135,7 @@ public class RichiestaImpl implements Richiesta{
     @Override
     public void setCognomeTutor(String cognomeTutor) {
        this.cognomeTutor=cognomeTutor;
+       this.dirty = true;
     }
 
     @Override
@@ -128,17 +146,29 @@ public class RichiestaImpl implements Richiesta{
     @Override
     public void setEmailTutor(String emailTutor) {
         this.emailTutor=emailTutor;
+        this.dirty = true;
     }
-
+    
     @Override
-    public int getIdStudente() {
-        return idStudente;
+    public boolean isDirty() {
+        return dirty;
     }
-
+    
     @Override
-    public int getIdTirocinio() {
-        return idTirocinio;
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+    
+    @Override
+    public void copyFrom(Richiesta richiesta) throws DataLayerException {
+        idStudente = richiesta.getIdStudente();
+        idTirocinio = richiesta.getIdTirocinio();
+        status = richiesta.getStatus();
+        cfu = richiesta.getCfu();
+        nomeTutor = richiesta.getNomeTutor();
+        cognomeTutor = richiesta.getCognomeTutor();
+        emailTutor = richiesta.getEmailTutor();
+        this.dirty = true;
     }
 
-   
 }

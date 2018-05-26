@@ -17,8 +17,8 @@ import it.example.datamodel.Utente;
  * @author claudio
  */
 public class UtenteImpl implements Utente{
-    private int idUtente;
     
+    private int idUtente;
     private String nome;
     private String cognome;
     private String username;
@@ -38,138 +38,95 @@ public class UtenteImpl implements Utente{
     protected InternShipDataLayer ownerdatalayer;
     protected Boolean dirty;
     
-    
     public UtenteImpl(InternShipDataLayer data){
-        this.ownerdatalayer=data;
-        idUtente=0;        
-        username="";
-        password="";
-        privilegi=0;
-        nome="";
-        cognome="";
-        dataNasc="";
-        luogoNasc="";
-        residenza="";
-        codFisc="";
-        telefono="";
-        cdl="";
-        laurea="";
-        dottorato="";
-        specializzazione="";
-        handicap=false;
-        listaRichieste=null;
+        this.ownerdatalayer = data;
+        idUtente = 0;        
+        username = "";
+        password = "";
+        privilegi = 0;
+        nome = "";
+        cognome = "";
+        dataNasc = "";
+        luogoNasc = "";
+        residenza = "";
+        codFisc = "";
+        telefono = "";
+        cdl = "";
+        laurea = "";
+        dottorato = "";
+        specializzazione = "";
+        handicap = false;
+        listaRichieste = null;
         dirty = false;
     }
     
-
-
-   
-    /**
-     * @return the idStudente
-     */
     @Override
     public int getIdUtente() {
         return idUtente;
     }
 
-    /**
-     * @param idUtente the idStudente to set
-     */
     @Override
     public void setIdUtente(int idUtente) {
         this.idUtente = idUtente;
         this.dirty = true;
     }
 
-    /**
-     * @return the dataNasc
-     */
-     @Override
+    @Override
     public String getDataNasc() {
         return dataNasc;
     }
 
-    /**
-     * @param dataNasc the dataNasc to set
-     */
-     @Override
+    @Override
     public void setDataNasc(String dataNasc) {
         this.dataNasc = dataNasc;
         this.dirty = true;
     }
 
-    /**
-     * @return the luogoNasc
-     */
-     @Override
+    @Override
     public String getLuogoNasc() {
         return luogoNasc;
     }
 
-    /**
-     * @param luogoNasc the luogoNasc to set
-     */
-     @Override
+    @Override
     public void setLuogoNasc(String luogoNasc) {
         this.luogoNasc = luogoNasc;
         this.dirty = true;
     }
 
-    /**
-     * @return the codFisc
-     */
-     @Override
+    @Override
     public String getCodFisc() {
         return codFisc;
     }
 
-    /**
-     * @param codFisc the codFisc to set
-     */
-     @Override
+    @Override
     public void setCodFisc(String codFisc) {
         this.codFisc = codFisc;
         this.dirty = true;
     }
 
-    /**
-     * @return the telefono
-     */
-     @Override
+    @Override
     public String getTelefono() {
         return telefono;
     }
 
-    /**
-     * @param telefono the telefono to set
-     */
-     @Override
+    @Override
     public void setTelefono(String telefono) {
         this.telefono = telefono;
         this.dirty = true;
     }
 
-    /**
-     * @return the cdl
-     */
-     @Override
+    @Override
     public String getCdl() {
         return cdl;
     }
 
-    /**
-     * @param cdl the cdl to set
-     */
-     @Override
+    @Override
     public void setCdl(String cdl) {
         this.cdl = cdl;
         this.dirty = true;
     }
 
-    /**
-     * @return the handicap
-     */
-     @Override
+    @Override
     public Boolean getHandicap() {
         return handicap;
     }

@@ -27,7 +27,7 @@ import javax.sql.DataSource;
  */
 public  abstract class InternshipDBController extends HttpServlet {
     
-    @Resource(name="jdbc/Internship")
+    @Resource(name="jdbc/internship")
     private DataSource ds;
     
     

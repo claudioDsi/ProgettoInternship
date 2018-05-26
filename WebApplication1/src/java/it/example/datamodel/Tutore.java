@@ -5,12 +5,14 @@
  */
 package it.example.datamodel;
 
+import it.example.framework.data.DataLayerException;
 import java.util.Date;
 /**
  *
  * @author claudio
  */
 public interface Tutore {
+    
     int getIdTutore();
     
     String getNome();
@@ -33,9 +35,7 @@ public interface Tutore {
     
     //num tirocini
     
-    
-    
-    
-    
-    
+    boolean isDirty();
+    void setDirty(boolean dirty);
+    void copyFrom(Tutore tutore) throws DataLayerException;
 }
