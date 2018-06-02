@@ -23,7 +23,7 @@
     </context-param>
     <context-param>
         <param-name>view.data.author</param-name>
-        <param-value>Giuseppe Della Penna</param-value>
+        <param-value>Internship</param-value>
     </context-param>
     <context-param>
         <param-name>view.data.homepage_url</param-name>
@@ -36,10 +36,7 @@
     <context-param>
         <param-name>view.error_template</param-name>
         <param-value>error.ftl.html</param-value>
-    </context-param>   
-    
-    
-    
+    </context-param>
     <servlet>
         <servlet-name>InsertUser</servlet-name>
         <servlet-class>it.example.controller.InsertUser</servlet-class>
@@ -62,23 +59,23 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
-        <url-pattern>/insertUser</url-pattern>
+        <url-pattern>/user</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InsertAzienda</servlet-name>
-        <url-pattern>/insertAzienda</url-pattern>
+        <url-pattern>/azienda</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InsertTirocinio</servlet-name>
-        <url-pattern>/insertTirocinio</url-pattern>
+        <url-pattern>/tirocinio</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InsertTutore</servlet-name>
-        <url-pattern>/insertTutore</url-pattern>
+        <url-pattern>/tutore</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InsertRichiesta</servlet-name>
-        <url-pattern>/insertRichiesta</url-pattern>
+        <url-pattern>/richiesta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -91,7 +88,7 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-   
-    
-    
+    <welcome-file-list>
+    <welcome-file>user</welcome-file>
+    </welcome-file-list>
 </web-app>

@@ -58,7 +58,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             uTirocinio=connection.prepareStatement("UPDATE Tirocinio SET Luogo=?, Orario=?, NumOre=?, NumMesi=?, Obiettivi=?, Modalità=?, Facilitazione=?, Settore=?, CodTutore=?, CodAzienda=? WHERE idTirocinio=?");
             uRichiesta=connection.prepareStatement("UPDATE Richiesta SET IdStudente=?, IdTirocinio=?, Status=?, Cfu=?, NomeTutor=?, CognomeTutor=?, EmailTutor=? WHERE idRichiesta=?");
             
-            sUtente=connection.prepareStatement("SELECT * FROM utente WHERE idUtente = ?");
+            sUtente=connection.prepareStatement("SELECT * FROM utente WHERE IdUtente = ?");
             sAzienda=connection.prepareStatement("SELECT * FROM Azienda WHERE IdAzienda = ?");
             sTutore=connection.prepareStatement("SELECT * FROM Tutore WHERE IdTutore = ?");
             sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE CodStudente = ? AND CodTirocinio = ?");
@@ -97,6 +97,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
          
         UtenteImpl u=new UtenteImpl(this);
         try{
+          u.setIdUtente(rs.getInt("IdUtente"));
           u.setUsername(rs.getString("Username")); 
           u.setPassword(rs.getString("Password"));
           u.setPrivilegi(rs.getInt("Privilegi"));
@@ -129,6 +130,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         
         AziendaImpl az=new AziendaImpl(this);
         try{
+            az.setIdAzienda(rs.getInt("IdAzienda"));
             az.setUsername(rs.getString("Username"));
             az.setPassword(rs.getString("Password"));
             az.setPrivilegi(rs.getInt("Privilegi"));
