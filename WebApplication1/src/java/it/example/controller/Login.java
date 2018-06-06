@@ -19,51 +19,47 @@ import it.example.framework.data.DataLayerException;
 import it.example.framework.result.FailureResult;
 import it.example.framework.result.TemplateManagerException;
 import it.example.framework.result.TemplateResult;
+import it.example.framework.security.SecurityLayer;
+import javax.servlet.http.HttpSession;
 
-public class InsertUser extends InternshipDBController {
+/**
+ *
+ * @author vince
+ */
+public class Login extends InternshipDBController {
     
     private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            res.activate("register_user.ftl.html", request, response);
+            res.activate("login.ftl.html", request, response);
         }catch(TemplateManagerException ex){
             request.setAttribute("exception", ex);
             action_error(request, response);
         }
     }
-
-    private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
-        try {
-            Utente u;
-            u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
-            u.setUsername(request.getParameter("username"));
-            u.setPassword(request.getParameter("password"));
-            u.setPrivilegi(1);
-            u.setNome(request.getParameter("nome"));
-            u.setCognome(request.getParameter("cognome"));
-            u.setDataNasc(request.getParameter("datanasc"));
-            u.setLuogoNasc(request.getParameter("luogonasc"));
-            u.setResidenza(request.getParameter("residenza"));
-            u.setCodFisc(request.getParameter("codfisc"));
-            u.setTelefono(request.getParameter("telefono"));
-            u.setCdl(request.getParameter("cdl"));
-            u.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
-            u.setLaurea("laurea");
-            u.setDottorato("dottorato");
-            u.setSpecializzazione("specializzazione");
-            ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
-            action_activate(request, response, u.getIdUtente());
-        }catch(DataLayerException ex){
-            request.setAttribute("message", "Data access exception: " + ex.getMessage());
-            action_error(request, response);
-        }
-    }
     
-    private void action_activate(HttpServletRequest request, HttpServletResponse response, int user_key) throws IOException, ServletException, TemplateManagerException {
+    private void action_login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(user_key);
-            request.setAttribute("utente", utente);
+            Utente u;
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtenteByLogin(username, password);
+            if(u!=null){
+                if(username.equals(u.getUsername()) && password.equals(u.getPassword())){
+                    HttpSession s = SecurityLayer.createSession(request, u.getUsername(), u.getIdUtente(), u.getPrivilegi(), "stud");
+                    request.setAttribute("Session", s);
+                }
+            }else{
+                Azienda a;
+                a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAziendaByLogin(username, password);
+                if(a!=null){
+                    if(username.equals(a.getUsername()) && password.equals(a.getPassword())){
+                        HttpSession s = SecurityLayer.createSession(request, a.getUsername(), a.getIdAzienda(), a.getPrivilegi(), "comp");
+                        request.setAttribute("Session", s);
+                    }
+                }
+            }
             res.activate("result.ftl.html", request, response);
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
@@ -82,13 +78,13 @@ public class InsertUser extends InternshipDBController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException {
-            request.setAttribute("page_title", "Inserisci Studente");
+            request.setAttribute("page_title", "Login Utente");
             try{
-                if(request.getParameter("add")!=null){
-                    // se il parametro add ha un valore assegnato allora inserisco l'utente registrato
-                    action_write(request, response);
+                if(request.getParameter("login")!=null){
+                    // se il parametro login ha un valore assegnato allora inserisco faccio loggare l'utente
+                    action_login(request, response);
                 }else{
-                    // altrimenti mostro la pagina per registrarsi
+                    // altrimenti mostro la pagina per loggarsi
                     action_default(request, response);
                 }
             }catch (IOException ex) {

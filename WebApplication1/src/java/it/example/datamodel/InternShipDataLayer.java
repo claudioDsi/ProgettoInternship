@@ -22,7 +22,9 @@ public interface InternShipDataLayer extends DataLayer{
     Richiesta creaRichiesta();
     
     Utente getInfoUtente(int idUtente) throws DataLayerException;
+    Utente getInfoUtenteByLogin(String username , String password) throws DataLayerException;
     Azienda getInfoAzienda(int idAzienda) throws DataLayerException;
+    Azienda getInfoAziendaByLogin(String username , String password) throws DataLayerException;
     Tutore getInfoTutore(int idTutore) throws DataLayerException;
     Richiesta getInfoRichiesta(int idStudente,int idTirocinio)throws DataLayerException;
     Tirocinio getInfoTirocinio(int idTirocinio)throws DataLayerException;    

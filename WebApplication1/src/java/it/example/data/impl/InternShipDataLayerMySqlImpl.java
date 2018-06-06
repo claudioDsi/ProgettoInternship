@@ -29,8 +29,8 @@ import javax.naming.NamingException;
  */
 public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements InternShipDataLayer{
     
-    private PreparedStatement iUtente, uUtente, dUtente, sUtente;
-    private PreparedStatement iAzienda, uAzienda, dAzienda, sAzienda;
+    private PreparedStatement iUtente, uUtente, dUtente, sUtente, sUtenteLogin;
+    private PreparedStatement iAzienda, uAzienda, dAzienda, sAzienda, sAziendaLogin;
     private PreparedStatement iTutore, uTutore,dTutore, sTutore;
     private PreparedStatement iRichiesta, uRichiesta, dRichiesta, sRichiesta;    
     private PreparedStatement iTirocinio, uTirocinio, dTirocinio, sTirocinio;
@@ -58,8 +58,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             uTirocinio=connection.prepareStatement("UPDATE Tirocinio SET Luogo=?, Orario=?, NumOre=?, NumMesi=?, Obiettivi=?, Modalità=?, Facilitazione=?, Settore=?, CodTutore=?, CodAzienda=? WHERE idTirocinio=?");
             uRichiesta=connection.prepareStatement("UPDATE Richiesta SET IdStudente=?, IdTirocinio=?, Status=?, Cfu=?, NomeTutor=?, CognomeTutor=?, EmailTutor=? WHERE idRichiesta=?");
             
-            sUtente=connection.prepareStatement("SELECT * FROM utente WHERE IdUtente = ?");
+            sUtente=connection.prepareStatement("SELECT * FROM Utente WHERE IdUtente = ?");
+            sUtenteLogin=connection.prepareStatement("SELECT * FROM Utente WHERE Username = ? AND Password = ?");
             sAzienda=connection.prepareStatement("SELECT * FROM Azienda WHERE IdAzienda = ?");
+            sAziendaLogin=connection.prepareStatement("SELECT * FROM Azienda WHERE Username = ? AND Password = ?");
             sTutore=connection.prepareStatement("SELECT * FROM Tutore WHERE IdTutore = ?");
             sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE CodStudente = ? AND CodTirocinio = ?");
             sTirocinio=connection.prepareStatement("SELECT * FROM Tirocinio WHERE IdTirocinio = ?");
@@ -242,12 +244,53 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         
     return null;   
     }
+    
+    @Override
+    public Utente getInfoUtenteByLogin(String username, String password) throws DataLayerException {
+        try{
+            sUtenteLogin.setString(1, username);
+            sUtenteLogin.setString(2, password);
+            try(ResultSet rs=sUtenteLogin.executeQuery()){
+                while(rs.next()){
+                    return creaStudente(rs);
+                }
+            }
+            catch(SQLException sqlEx){
+                sqlEx.getMessage();
+            }
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
+        
+    return null;   
+    }
 
     @Override
     public Azienda getInfoAzienda(int idAzienda) throws DataLayerException {
         try{
             sAzienda.setInt(1, idAzienda);
             try(ResultSet rs=sAzienda.executeQuery()){
+                while(rs.next()){
+                    return creaAzienda(rs);
+                }
+            }
+            catch(SQLException ex){
+                ex.getMessage();
+            }
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
+        return null;
+    }
+    
+    @Override
+    public Azienda getInfoAziendaByLogin(String username, String password) throws DataLayerException {
+        try{
+            sAziendaLogin.setString(1, username);
+            sAziendaLogin.setString(2, password);
+            try(ResultSet rs=sAziendaLogin.executeQuery()){
                 while(rs.next()){
                     return creaAzienda(rs);
                 }
