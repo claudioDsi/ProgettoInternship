@@ -48,9 +48,9 @@ public class InsertUser extends InternshipDBController {
             u.setTelefono(request.getParameter("telefono"));
             u.setCdl(request.getParameter("cdl"));
             u.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
-            u.setLaurea("laurea");
-            u.setDottorato("dottorato");
-            u.setSpecializzazione("specializzazione");
+            u.setLaurea(request.getParameter("laurea"));
+            u.setDottorato(request.getParameter("dottorato"));
+            u.setSpecializzazione(request.getParameter("specializzazione"));
             ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
             action_activate(request, response, u.getIdUtente());
         }catch(DataLayerException ex){

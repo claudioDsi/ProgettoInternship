@@ -39,7 +39,4 @@ public interface InternShipDataLayer extends DataLayer{
     void storeTirocinio(Tirocinio tirocinio) throws DataLayerException; //inserimento o modifica tirocinio
     void storeRichiesta(Richiesta richiesta) throws DataLayerException; //inserimento o modifica richiesta
     
-    void updateUtente(Utente utente, int userid)throws DataLayerException;
-    void updateAzienda(Azienda azienda, int userid)throws DataLayerException;
-    
 }

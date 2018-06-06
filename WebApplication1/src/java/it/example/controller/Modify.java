@@ -6,13 +6,9 @@
 package it.example.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import it.example.data.impl.*;
 import it.example.datamodel.*;
 import it.example.datamodel.InternShipDataLayer;
 import it.example.framework.data.DataLayerException;
@@ -31,6 +27,7 @@ public class Modify extends InternshipDBController {
     private void action_default(HttpServletRequest request, HttpServletResponse response, String utype) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            
             if(utype.equals("stud")){
                 res.activate("modify_user.ftl.html", request, response);
             }else{
@@ -45,26 +42,60 @@ public class Modify extends InternshipDBController {
     private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            Utente u;
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtenteByLogin(username, password);
-            if(u!=null){
-                if(username.equals(u.getUsername()) && password.equals(u.getPassword())){
-                    HttpSession s = SecurityLayer.createSession(request, u.getUsername(), u.getIdUtente(), u.getPrivilegi(), "stud");
-                    request.setAttribute("Session", s);
-                }
-            }else{
-                Azienda a;
-                a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAziendaByLogin(username, password);
-                if(a!=null){
-                    if(username.equals(a.getUsername()) && password.equals(a.getPassword())){
-                        HttpSession s = SecurityLayer.createSession(request, a.getUsername(), a.getIdAzienda(), a.getPrivilegi(), "comp");
-                        request.setAttribute("Session", s);
-                    }
-                }
+            if(usertype.equals("stud")){
+                Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
+                u.setNome(request.getParameter("nome"));
+                u.setCognome(request.getParameter("cognome"));
+                u.setDataNasc(request.getParameter("datanasc"));
+                u.setLuogoNasc(request.getParameter("luogonasc"));
+                u.setResidenza(request.getParameter("residenza"));
+                u.setCodFisc(request.getParameter("codfisc"));
+                u.setTelefono(request.getParameter("telefono"));
+                u.setCdl(request.getParameter("cdl"));
+                u.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
+                u.setLaurea(request.getParameter("laurea"));
+                u.setDottorato(request.getParameter("dottorato"));
+                u.setSpecializzazione(request.getParameter("specializzazione"));
+                u.setIdUtente(userid);
+                ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
+                action_activate(request, response, userid, usertype);
+            }else if(usertype.equals("comp")){
+                Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).creaAzienda();
+                a.setNomeAzienda(request.getParameter("nome"));
+                a.setRagioneSociale(request.getParameter("ragionesociale"));
+                a.setIndirizzo(request.getParameter("indirizzo"));
+                a.setPartitaIva(request.getParameter("partitaiva"));
+                a.setCodiceFisc(request.getParameter("codicefisc"));
+                a.setNomeRappr(request.getParameter("nomerappr"));
+                a.setCognomeRappr(request.getParameter("cognomerappr"));
+                a.setNomeResp(request.getParameter("nomeresp"));
+                a.setCognomeResp(request.getParameter("cognomeresp"));
+                a.setTelefonoResp(request.getParameter("telefonoresp"));
+                a.setEmailResp(request.getParameter("emailresp"));
+                a.setForo(request.getParameter("foro"));
+                a.setIdAzienda(userid);
+                ((InternShipDataLayer)request.getAttribute("datalayer")).storeAzienda(a);
+                action_activate(request, response, userid, usertype);
             }
-            res.activate("result.ftl.html", request, response);
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }
+    }
+    
+    private void action_activate(HttpServletRequest request, HttpServletResponse response, int userid, String usertype) throws IOException, ServletException, TemplateManagerException {
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            HttpSession s = SecurityLayer.checkSession(request);
+            if(usertype.equals("stud")){
+                Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
+                request.setAttribute("utente", utente);
+            }else if(usertype.equals("comp")){
+                Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                request.setAttribute("azienda", azienda);
+            }
+            request.setAttribute("Session", s);
+            response.sendRedirect("profile?uid="+userid+"&utype="+usertype);
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -94,9 +125,11 @@ public class Modify extends InternshipDBController {
                     if(uid == userid){
                         if(utype.equals("stud")){
                             request.setAttribute("page_title", "Modifica Utente");
+                            request.setAttribute("Session", s);
                             action_default(request, response, utype);
                         }else{
                             request.setAttribute("page_title", "Modifica Azienda");
+                            request.setAttribute("Session", s);
                             action_default(request, response, utype);
                         }
                     }else{

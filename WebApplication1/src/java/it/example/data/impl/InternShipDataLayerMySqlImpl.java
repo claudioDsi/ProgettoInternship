@@ -55,7 +55,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
             
             uUtente=connection.prepareStatement("UPDATE Utente SET Nome=?,Cognome=?,DataNasc=?,LuogoNasc=?, Residenza=?, CodiceFisc=?, Telefono=?, CorsoLaurea=?, Handicap=?, Laurea=?, Dottorato=?, ScuolaSpec=? WHERE IdUtente=?");
-            uAzienda=connection.prepareStatement("UPDATE Azienda SET Status=?, Nome=?, RagioneSociale=?, Indirizzo=?, PartitaIva=?, CodiceFiscale=?, NomeRappr=?, CognomeRappr=?, NomeResp=?, CognomeResp=?, TelefonoResp=?, EmailResp=?, Foro=?, Valutazione=? WHERE IdAzienda=?");
+            uAzienda=connection.prepareStatement("UPDATE Azienda SET Nome=?, RagioneSociale=?, Indirizzo=?, PartitaIva=?, CodiceFiscale=?, NomeRappr=?, CognomeRappr=?, NomeResp=?, CognomeResp=?, TelefonoResp=?, EmailResp=?, Foro=? WHERE IdAzienda=?");
             uTutore=connection.prepareStatement("UPDATE Tutore SET Nome=?, Cognome=?, DataNasc=?, NumTirocini=?, Telefono=?, CodAzienda=? WHERE idTutore=?");            
             uTirocinio=connection.prepareStatement("UPDATE Tirocinio SET Luogo=?, Orario=?, NumOre=?, NumMesi=?, Obiettivi=?, Modalità=?, Facilitazione=?, Settore=?, CodTutore=?, CodAzienda=? WHERE idTirocinio=?");
             uRichiesta=connection.prepareStatement("UPDATE Richiesta SET IdStudente=?, IdTirocinio=?, Status=?, Cfu=?, NomeTutor=?, CognomeTutor=?, EmailTutor=? WHERE idRichiesta=?");
@@ -485,22 +485,19 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 if (!azienda.isDirty()) {
                     return;
                 }
-                
-                uAzienda.setBoolean(1, azienda.getStatus());
-                uAzienda.setString(2, azienda.getNomeAzienda());
-                uAzienda.setString(3, azienda.getRagioneSociale());
-                uAzienda.setString(4, azienda.getIndirizzo());
-                uAzienda.setString(5, azienda.getPartitaIva());
-                uAzienda.setString(6, azienda.getCodiceFisc());
-                uAzienda.setString(7, azienda.getNomeRappr());
-                uAzienda.setString(8, azienda.getCognomeRappr());
-                uAzienda.setString(9, azienda.getNomeResp());
-                uAzienda.setString(10, azienda.getCognomeResp());
-                uAzienda.setString(11, azienda.getTelefonoResp());
-                uAzienda.setString(12, azienda.getEmailResp());
-                uAzienda.setString(13, azienda.getForo());
-                uAzienda.setFloat(14, azienda.getValutazione());
-                uAzienda.setInt(15, azienda.getIdAzienda());
+                uAzienda.setString(1, azienda.getNomeAzienda());
+                uAzienda.setString(2, azienda.getRagioneSociale());
+                uAzienda.setString(3, azienda.getIndirizzo());
+                uAzienda.setString(4, azienda.getPartitaIva());
+                uAzienda.setString(5, azienda.getCodiceFisc());
+                uAzienda.setString(6, azienda.getNomeRappr());
+                uAzienda.setString(7, azienda.getCognomeRappr());
+                uAzienda.setString(8, azienda.getNomeResp());
+                uAzienda.setString(9, azienda.getCognomeResp());
+                uAzienda.setString(10, azienda.getTelefonoResp());
+                uAzienda.setString(11, azienda.getEmailResp());
+                uAzienda.setString(12, azienda.getForo());
+                uAzienda.setInt(13, azienda.getIdAzienda());
                 uAzienda.executeUpdate();
                 
             } else { //insert
@@ -760,49 +757,4 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }
     }
     
-    @Override
-    public void updateUtente(Utente utente, int userid) throws DataLayerException {
-        try {
-            uUtente.setString(1, utente.getNome());
-            uUtente.setString(2, utente.getCognome());
-            uUtente.setString(3, utente.getDataNasc());
-            uUtente.setString(4, utente.getLuogoNasc());
-            uUtente.setString(5, utente.getResidenza());
-            uUtente.setString(6, utente.getCodFisc());
-            uUtente.setString(7, utente.getTelefono());
-            uUtente.setString(8, utente.getCdl());
-            uUtente.setBoolean(9, utente.getHandicap());
-            uUtente.setString(10, utente.getLaurea());
-            uUtente.setString(11, utente.getDottorato());
-            uUtente.setString(12, utente.getSpecializzazione());
-            uUtente.setInt(13, userid);
-            uUtente.executeUpdate();
-        }catch (SQLException ex){
-            throw new DataLayerException("Unable to update utente", ex);
-        }
-    }
-    
-    @Override
-    public void updateAzienda(Azienda azienda, int userid) throws DataLayerException {
-        try {
-            uAzienda.setBoolean(1, azienda.getStatus());
-            uAzienda.setString(2, azienda.getNomeAzienda());
-            uAzienda.setString(3, azienda.getRagioneSociale());
-            uAzienda.setString(4, azienda.getIndirizzo());
-            uAzienda.setString(5, azienda.getPartitaIva());
-            uAzienda.setString(6, azienda.getCodiceFisc());
-            uAzienda.setString(7, azienda.getNomeRappr());
-            uAzienda.setString(8, azienda.getCognomeRappr());
-            uAzienda.setString(9, azienda.getNomeResp());
-            uAzienda.setString(10, azienda.getCognomeResp());
-            uAzienda.setString(11, azienda.getTelefonoResp());
-            uAzienda.setString(12, azienda.getEmailResp());
-            uAzienda.setString(13, azienda.getForo());
-            uAzienda.setFloat(14, azienda.getValutazione());
-            uAzienda.setInt(15, azienda.getIdAzienda());
-            uAzienda.executeUpdate();
-        }catch (SQLException ex){
-            throw new DataLayerException("Unable to update azienda", ex);
-        }
-    }
 }
