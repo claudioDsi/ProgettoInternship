@@ -42,7 +42,7 @@ public class Modify extends InternshipDBController {
         }
     }
     
-    private void action_modify(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             Utente u;
@@ -84,9 +84,10 @@ public class Modify extends InternshipDBController {
         throws ServletException { 
             HttpSession s = SecurityLayer.checkSession(request);
             int userid = (int) s.getAttribute("userid");
+            String usertype = (String) s.getAttribute("type");
             try{
                 if(request.getParameter("update")!=null){
-                    action_modify(request, response);
+                    action_modify(request, response, userid, usertype);
                 }else{
                     int uid = SecurityLayer.checkNumeric(request.getParameter("uid"));
                     String utype = request.getParameter("utype");

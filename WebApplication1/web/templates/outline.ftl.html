@@ -12,8 +12,19 @@ and open the template in the editor.
     </head>
     <body>
         
+        <div>
+            <#if (Session??)>
+                <#if Session.getAttribute('type')=="stud">
+                    <p>Studente</p>
+                <#else>
+                    <p>Azienda</p>
+                </#if>
+            <#else>
+                <p>Anonimo</p>
+            </#if>
+        </div>
         <div>       
-        <#include content_tpl>
+            <#include content_tpl>
         </div>
         <br/>
         <div><a href="azienda">Registra la tua azienda!</a></div>
