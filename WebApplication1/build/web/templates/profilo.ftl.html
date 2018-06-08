@@ -22,4 +22,9 @@
     <#if (modifica)??>
         <p><a href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
     </#if>
+    <#if (Session??)>
+        <#if Session.getAttribute('userid')==azienda.idAzienda>
+            <p><a href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
+        </#if>
+    </#if>
 </#if>

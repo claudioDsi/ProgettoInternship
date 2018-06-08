@@ -36,7 +36,8 @@ public class TutoreImpl implements Tutore{
         dataNasc = "";   
         numTirocini = 0;
         telefono = "";
-        codAzienda = 0;   
+        codAzienda = 0;
+        tirocinio = null;
         dirty = false;
     }
 

@@ -5,36 +5,97 @@
  */
 package org.univaq.tirocinio.controller;
 
-import org.univaq.tirocinio.datamodel.Tutore;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.framework.data.DataLayerException;
+import org.univaq.tirocinio.framework.result.TemplateManagerException;
+import org.univaq.tirocinio.framework.result.TemplateResult;
+import org.univaq.tirocinio.framework.security.SecurityLayer;
+import org.univaq.tirocinio.datamodel.*;
+import org.univaq.tirocinio.framework.result.FailureResult;
 
 public class InsertTutore extends InternshipDBController {
+    
+        private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            HttpSession s = SecurityLayer.checkSession(request);
+            request.setAttribute("Session", s);
+            res.activate("new_tutor.ftl.html", request, response);
+        }catch(TemplateManagerException ex){
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }
+    }
+    
+    private void action_add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).creaTutore();
+            int userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
+            tutore.setNome(request.getParameter("nome"));
+            tutore.setCognome(request.getParameter("cognome"));
+            tutore.setDataNasc(request.getParameter("datanasc"));
+            tutore.setTelefono(request.getParameter("telefono"));
+            tutore.setCodAzienda(userid);
+            ((InternShipDataLayer)request.getAttribute("datalayer")).storeTutore(tutore);
+            action_activate(request, response, tutore.getIdTutore());
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }
+    }
+    
+    private void action_activate(HttpServletRequest request, HttpServletResponse response, int user_key) throws IOException, ServletException, TemplateManagerException {
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(user_key);
+            HttpSession s = SecurityLayer.checkSession(request);
+            request.setAttribute("Session", s);
+            request.setAttribute("tutore", tutore);
+            res.activate("result.ftl.html", request, response);
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }
+    }
+    
+    private void action_error(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("exception") != null) {
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
+        } else {
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("message"), request, response);
+        }
+    }
 
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException {
-            //action_update function dell'esempio del prof
+            request.setAttribute("page_title", "Inserisci nuovo tutore");
+            HttpSession s = SecurityLayer.checkSession(request);
             try{
-                Tutore t;
-                t = ((InternShipDataLayer)request.getAttribute("datalayer")).creaTutore();
-                t.setNome("Nome");
-                t.setCognome("Cognome");
-                t.setDataNasc("DataNasc");
-                t.setNumTirocini(5);
-                t.setTelefono("Telefono");
-                t.setCodAzienda(2); 
-                ((InternShipDataLayer)request.getAttribute("datalayer")).storeTutore(t);
-            }catch (DataLayerException ex) {
-                request.setAttribute("message", "Data access exception: " + ex.getMessage());
-            }
+                if(request.getParameter("add")!=null){
+                    int uid = SecurityLayer.checkNumeric(request.getParameter("userid"));
+                    String utype = request.getParameter("type");
+                    if((int)s.getAttribute("userid")==uid){
+                        action_add(request, response);
+                    }else{
+                        response.sendRedirect("profile?uid="+uid+"&utype="+utype);
+                    }
+                }else{
+                    action_default(request, response);
+                }
+            }catch (IOException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+            }catch (TemplateManagerException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+        }  
     }
     
 }

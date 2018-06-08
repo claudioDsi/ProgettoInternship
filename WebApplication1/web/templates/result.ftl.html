@@ -11,6 +11,13 @@
     <p>${azienda.cognomeRappr}</p>
     <p>${azienda.username}</p>
 </#if>
+<#if (tutore??)>
+    <p>Tutore inserito:</p>
+    <p>${tutore.nome}</p>
+    <p>${tutore.cognome}</p>
+    <p>${tutore.dataNasc}</p>
+    <p>${tutore.telefono}</p>
+</#if>
 <#if (Session??)>
     <p>Benvenuto!</p>
     <p>${Session.getAttribute('userid')}</p>

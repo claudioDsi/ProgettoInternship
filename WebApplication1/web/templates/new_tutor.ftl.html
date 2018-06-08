@@ -1,0 +1,30 @@
+<h2>${page_title}</h2>
+
+<form method="post" action="tutore">
+    <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
+    <div>
+        <div>Nome</div>
+        <div><input type="text" name="nome" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Cognome</div>
+        <div><input type="text" name="cognome" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Data di nascita</div>
+        <div><input type="text" name="datanasc" value=""/></div>
+    </div>
+
+    <div>
+        <div>Telefono</div>
+        <div><input type="text" name="telefono" value=""/></div>
+    </div>
+
+    <div>
+        <input type="submit" name="add" value="Add"/>
+    </div>
+    
+</form>
+
