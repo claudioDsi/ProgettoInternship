@@ -1,0 +1,19 @@
+<#if (utente??)>
+    <p>Utente inserito:</p>
+    <p>${utente.nome}</p>
+    <p>${utente.cognome}</p>
+    <p>${utente.username}</p>
+</#if>
+<#if (azienda??)>
+    <p>Azienda inserita:</p>
+    <p>${azienda.nomeAzienda}</p>
+    <p>${azienda.nomeRappr}</p>
+    <p>${azienda.cognomeRappr}</p>
+    <p>${azienda.username}</p>
+</#if>
+<#if (Session??)>
+    <p>Benvenuto!</p>
+    <p>${Session.getAttribute('userid')}</p>
+    <p>${Session.getAttribute('username')}</p>
+    <p><a href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Mostra profilo </a></p>
+</#if>
