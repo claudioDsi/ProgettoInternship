@@ -25,6 +25,7 @@
     <#if (Session??)>
         <#if Session.getAttribute('userid')==azienda.idAzienda>
             <p><a href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
+            <p><a href="tirocinio?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tirocinio </a></p>
         </#if>
     </#if>
 </#if>

@@ -14,6 +14,7 @@ import java.util.Date;
 public interface Tutore {
     
     int getIdTutore();
+    void setIdTutore(int idTutore);
     
     String getNome();
     void setNome(String nome);

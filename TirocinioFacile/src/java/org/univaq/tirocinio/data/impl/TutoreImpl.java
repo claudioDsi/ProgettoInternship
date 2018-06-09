@@ -45,6 +45,12 @@ public class TutoreImpl implements Tutore{
     public int getIdTutore() {
        return idTutore;
     }
+    
+    @Override
+    public void setIdTutore(int idTutore) {
+        this.idTutore = idTutore;
+        this.dirty = true;
+    }
 
     @Override
     public String getNome() {

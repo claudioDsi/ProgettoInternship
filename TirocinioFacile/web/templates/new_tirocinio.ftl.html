@@ -1,0 +1,60 @@
+<h2>${page_title}</h2>
+
+<form method="post" action="tirocinio">
+    <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
+    <div>
+        <div>Luogo</div>
+        <div><input type="text" name="luogo" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Orario</div>
+        <div><input type="text" name="orario" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Numero di ore</div>
+        <div><input type="text" name="numore" value=""/></div>
+    </div>
+
+    <div>
+        <div>Numero di mesi</div>
+        <div><input type="text" name="nummesi" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Obiettivi</div>
+        <div><input type="text" name="obiettivi" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Modalità</div>
+        <div><input type="text" name="modalita" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Facilitazioni</div>
+        <div><input type="text" name="facilitazioni" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Settore</div>
+        <div><input type="text" name="settore" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Tutore</div>
+        <div>
+            <select name="tutore">
+            <#list listaTutori as tutore>
+                <option value="${tutore.idTutore}">${tutore.nome} ${tutore.cognome}</option>
+            </#list>
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <input type="submit" name="add" value="Add"/>
+    </div>
+    
+</form>

@@ -66,10 +66,12 @@ public interface Azienda {
     String getForo() ;
     void setForo(String foro);
     
-    //lista tirocini
-    
-    List<Tirocinio> getListaTirocini() throws DataLayerException;    
-   
+    List<Tirocinio> getListaTirocini() throws DataLayerException;
+    void setListaTirocini(List<Tirocinio> listaTirocini);
+
+    List<Tutore> getListaTutori() throws DataLayerException;
+    void setListaTutori(List<Tutore> listaTutori);
+
     float getValutazione();
     void setValutazione(float valutazione);
 

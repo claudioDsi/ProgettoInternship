@@ -9,6 +9,7 @@ import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.datamodel.Tirocinio;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import java.util.List;
+import org.univaq.tirocinio.datamodel.Tutore;
 /**
  *
  * @author claudio
@@ -35,6 +36,7 @@ public class AziendaImpl implements Azienda{
     private float valutazione;
     protected Boolean dirty;
     private List<Tirocinio> listaTirocini;
+    private List<Tutore> listaTutori;
     protected InternShipDataLayer ownLayer;
     
     public AziendaImpl(InternShipDataLayer dataLayer){
@@ -58,6 +60,7 @@ public class AziendaImpl implements Azienda{
         foro = "";
         valutazione = 0;        
         listaTirocini = null;
+        listaTutori = null;
         dirty = false;
     }
 
@@ -166,7 +169,7 @@ public class AziendaImpl implements Azienda{
     }
 
     @Override
-    public void setTelefonoResp(String emailResp) {
+    public void setTelefonoResp(String telefonoResp) {
         this.telefonoResp = telefonoResp;
         this.dirty = true;
     }
@@ -192,15 +195,33 @@ public class AziendaImpl implements Azienda{
         this.valutazione = valutazione;
         this.dirty = true;
     }
-
-    /**
-     * @return the convenzione
-     */
    
     @Override
-    public List<Tirocinio> getListaTirocini()throws DataLayerException{
-       return listaTirocini;
-       //aggiungere controlli datalayer
+    public List<Tirocinio> getListaTirocini() throws DataLayerException{
+        if(listaTirocini==null){
+            listaTirocini = ownLayer.getListaTirociniByAzienda(this);
+        }
+        return listaTirocini;
+    }
+    
+    @Override
+    public void setListaTirocini(List<Tirocinio> listaTirocini) {
+        this.listaTirocini = listaTirocini;
+        this.dirty = true;
+    }
+    
+    @Override
+    public List<Tutore> getListaTutori() throws DataLayerException{
+        if(listaTutori==null){
+            listaTutori = ownLayer.getListaTutoriAzienda(this);
+        }
+        return listaTutori;
+    }
+    
+    @Override
+    public void setListaTutori(List<Tutore> listaTutori) {
+        this.listaTutori = listaTutori;
+        this.dirty = true;
     }
 
     @Override

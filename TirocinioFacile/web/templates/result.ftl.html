@@ -18,6 +18,13 @@
     <p>${tutore.dataNasc}</p>
     <p>${tutore.telefono}</p>
 </#if>
+<#if (tirocinio??)>
+    <p>Tirocinio inserito:</p>
+    <p>${tirocinio.luogo}</p>
+    <p>${tirocinio.orario}</p>
+    <p>${tirocinio.mesi}</p>
+    <p>${tirocinio.obiettivi}</p>
+</#if>
 <#if (Session??)>
     <p>Benvenuto!</p>
     <p>${Session.getAttribute('userid')}</p>

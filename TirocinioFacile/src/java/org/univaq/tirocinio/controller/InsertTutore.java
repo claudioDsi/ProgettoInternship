@@ -77,17 +77,23 @@ public class InsertTutore extends InternshipDBController {
         throws ServletException {
             request.setAttribute("page_title", "Inserisci nuovo tutore");
             HttpSession s = SecurityLayer.checkSession(request);
+            int userid = (int)s.getAttribute("userid"); //id utente in sessione
+            String utype = (String)s.getAttribute("type");
             try{
                 if(request.getParameter("add")!=null){
-                    int uid = SecurityLayer.checkNumeric(request.getParameter("userid"));
-                    String utype = request.getParameter("type");
-                    if((int)s.getAttribute("userid")==uid){
+                    //controllo che l'utente in sessione sia quello che ha inviato la form
+                    int form_user = SecurityLayer.checkNumeric(request.getParameter("userid"));
+                    if(userid==form_user){
                         action_add(request, response);
                     }else{
-                        response.sendRedirect("profile?uid="+uid+"&utype="+utype);
+                        //ritorno al profilo dell'utente in sessione
+                        response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                     }
-                }else{
+                }else if(utype.equals("comp")){
+                    //se sei un'azienda ti mostro la form per agigungere il tutore
                     action_default(request, response);
+                }else{
+                    response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                 }
             }catch (IOException ex) {
                 request.setAttribute("exception", ex);
