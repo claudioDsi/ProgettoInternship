@@ -81,6 +81,14 @@
         <servlet-name>MostraAzienda</servlet-name>
         <servlet-class>org.univaq.tirocinio.controller.MostraAzienda</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.Search</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Show</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.Show</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -124,6 +132,14 @@
     <servlet-mapping>
         <servlet-name>MostraAzienda</servlet-name>
         <url-pattern>/mostraaz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Show</servlet-name>
+        <url-pattern>/show</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

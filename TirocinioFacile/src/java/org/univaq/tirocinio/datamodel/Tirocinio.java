@@ -27,6 +27,8 @@ public interface Tirocinio {
     String getMesi();
     void setMesi(String mesi);
     
+    String getTitolo();
+    void setTitolo(String titolo);
     
     int getNumOre();
     void setNumOre(int numOre);
@@ -46,12 +48,11 @@ public interface Tirocinio {
     int getIdTutore();
     void setIdTutore(int idTutore); 
     
-    
     Azienda getAzienda() throws DataLayerException;
     void setAzienda(Azienda azienda);
-    //aggiungere il metodo protected nell'implemenzione
-    void setIdAzienda(int idAzienda);   
+    //aggiungere il metodo protected nell'implemenzione  
     int getIdAzienda();
+    void setIdAzienda(int idAzienda); 
     
     Tutore getTutore() throws DataLayerException;
     void setTutore(Tutore tutore);

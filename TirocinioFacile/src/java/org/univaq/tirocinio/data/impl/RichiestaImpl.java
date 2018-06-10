@@ -49,6 +49,12 @@ public class RichiestaImpl implements Richiesta{
     public int getIdRichiesta() {
         return idRichiesta;
     }
+    
+    @Override
+    public void setIdRichiesta(int idRichiesta){
+        this.idRichiesta = idRichiesta;
+        this.dirty = true;
+    }
 
     @Override
     public String getStatus() {
@@ -160,7 +166,8 @@ public class RichiestaImpl implements Richiesta{
     }
     
     @Override
-    public void copyFrom(Richiesta richiesta) throws DataLayerException {
+    public void copyFrom(Richiesta richiesta) throws DataLayerException{
+        idRichiesta = richiesta.getIdRichiesta();
         idStudente = richiesta.getIdStudente();
         idTirocinio = richiesta.getIdTirocinio();
         status = richiesta.getStatus();

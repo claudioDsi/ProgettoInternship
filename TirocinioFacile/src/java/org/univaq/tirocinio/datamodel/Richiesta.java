@@ -14,6 +14,7 @@ import org.univaq.tirocinio.framework.data.DataLayerException;
 public interface Richiesta {
 
     int getIdRichiesta();
+    void setIdRichiesta(int idRichiesta);
     
     Utente getStudente() throws  DataLayerException;
     void setStudente(Utente studente);

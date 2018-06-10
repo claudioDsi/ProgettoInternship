@@ -8,6 +8,7 @@ package org.univaq.tirocinio.datamodel;
 import org.univaq.tirocinio.framework.data.DataLayer;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -26,7 +27,7 @@ public interface InternShipDataLayer extends DataLayer{
     Azienda getInfoAzienda(int idAzienda) throws DataLayerException;
     Azienda getInfoAziendaByLogin(String username , String password) throws DataLayerException;
     Tutore getInfoTutore(int idTutore) throws DataLayerException;
-    Richiesta getInfoRichiesta(int idStudente,int idTirocinio)throws DataLayerException;
+    Richiesta getInfoRichiesta(int idRichiesta)throws DataLayerException;
     Tirocinio getInfoTirocinio(int idTirocinio)throws DataLayerException;    
     
     List<Richiesta> getListaRichiesteStudente(int idStudente) throws DataLayerException;//per lo studente
@@ -41,4 +42,5 @@ public interface InternShipDataLayer extends DataLayer{
     void storeTirocinio(Tirocinio tirocinio) throws DataLayerException; //inserimento o modifica tirocinio
     void storeRichiesta(Richiesta richiesta) throws DataLayerException; //inserimento o modifica richiesta
     
+    List<Tirocinio> searchTirocini(Map<String, Object> parametri) throws DataLayerException; //ricerca tirocini
 }

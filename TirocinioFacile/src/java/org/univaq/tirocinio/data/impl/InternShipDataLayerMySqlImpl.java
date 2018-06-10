@@ -23,6 +23,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
+import java.util.Map;
+import org.univaq.tirocinio.framework.security.SecurityLayer;
 
 /**
  *
@@ -36,7 +38,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement iRichiesta, uRichiesta, dRichiesta, sRichiesta;    
     private PreparedStatement iTirocinio, uTirocinio, dTirocinio, sTirocinio, sTirociniByAzienda;
     private PreparedStatement jUtenteRichiesta;
-    private PreparedStatement orderByDate;
+    private PreparedStatement orderByDate, searchQuery;
    
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
@@ -49,7 +51,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iUtente=connection.prepareStatement("INSERT INTO Utente (Username,Password,Privilegi,Nome,Cognome,DataNasc,LuogoNasc,Residenza,CodiceFisc,Telefono,CorsoLaurea,Handicap,Laurea,Dottorato,ScuolaSpec) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Status,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,Titolo,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (IdStudente,IdTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
                      
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
@@ -76,7 +78,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sAziendaLogin=connection.prepareStatement("SELECT * FROM Azienda WHERE Username = ? AND Password = ?");
             sTutore=connection.prepareStatement("SELECT * FROM Tutore WHERE IdTutore = ?");
             sTutoriByAzienda=connection.prepareStatement("SELECT IdTutore FROM Tutore WHERE CodAzienda=?");
-            sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE CodStudente = ? AND CodTirocinio = ?");
+            sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE IdRichiesta = ?");
             sTirocinio=connection.prepareStatement(creaQuerySelect("Tirocinio","IdTirocinio"));
             sTirociniByAzienda=connection.prepareStatement("SELECT IdTirocinio FROM Tirocinio WHERE CodAzienda=?");
             
@@ -88,7 +90,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }
     }
     
-   public String creaQueryUpdate(String[] campi,String tab,String id){
+    public String creaQueryUpdate(String[] campi,String tab,String id){
         String sql="UPDATE "+tab+ " SET ";
         for(int i=0;i<campi.length;i++){
             if(i!=campi.length-1){
@@ -102,6 +104,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         System.out.println(sql);
         return sql;
     }
+   
     public String creaQuerySelect(String tab,String id){
         return  "SELECT * FROM "+tab+ " WHERE "+ id+" = ?";
     }
@@ -110,7 +113,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     public Utente creaStudente() {
         return new UtenteImpl(this);
     }
-     public Utente creaStudente(ResultSet rs) throws DataLayerException {
+    
+    public Utente creaStudente(ResultSet rs) throws DataLayerException {
         UtenteImpl u = new UtenteImpl(this);
         try{
             u.setIdUtente(rs.getInt("IdUtente"));
@@ -209,6 +213,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             tiro.setModalità(rs.getString("Modalità"));
             tiro.setFacilitazioni(rs.getString("Facilitazioni"));
             tiro.setSettore(rs.getString("Settore"));
+            tiro.setTitolo(rs.getString("Titolo"));
             tiro.setIdTutore(rs.getInt("CodTutore"));
             tiro.setIdAzienda(rs.getInt("CodAzienda"));
             tiro.setAzienda(getInfoAzienda(rs.getInt("CodAzienda")));       
@@ -225,8 +230,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     }
     
     public Richiesta creaRichiesta(ResultSet rs)throws DataLayerException{
-        RichiestaImpl r=new RichiestaImpl(this);
+        RichiestaImpl r = new RichiestaImpl(this);
         try{
+            r.setIdRichiesta(rs.getInt("IdRichiesta"));
             r.setIdStudente(rs.getInt("CodStudente"));
             r.setIdTirocinio(rs.getInt("CodTirocinio"));
             r.setStatus(rs.getString("Status"));
@@ -266,7 +272,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         try{
             sUtenteLogin.setString(1, username);
             sUtenteLogin.setString(2, password);
-            try(ResultSet rs=sUtenteLogin.executeQuery()){
+            try(ResultSet rs = sUtenteLogin.executeQuery()){
                 while(rs.next()){
                     return creaStudente(rs);
                 }
@@ -286,7 +292,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     public Azienda getInfoAzienda(int idAzienda) throws DataLayerException {
         try{
             sAzienda.setInt(1, idAzienda);
-            try(ResultSet rs=sAzienda.executeQuery()){
+            try(ResultSet rs = sAzienda.executeQuery()){
                 while(rs.next()){
                     return creaAzienda(rs);
                 }
@@ -306,7 +312,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         try{
             sAziendaLogin.setString(1, username);
             sAziendaLogin.setString(2, password);
-            try(ResultSet rs=sAziendaLogin.executeQuery()){
+            try(ResultSet rs = sAziendaLogin.executeQuery()){
                 while(rs.next()){
                     return creaAzienda(rs);
                 }
@@ -325,7 +331,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     public Tutore getInfoTutore(int idTutore) throws DataLayerException {
         try{
             sTutore.setInt(1, idTutore);
-            try(ResultSet rs=sTutore.executeQuery()){
+            try(ResultSet rs = sTutore.executeQuery()){
                 while(rs.next()){
                     return creaTutore(rs);
                 }
@@ -341,11 +347,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     }
 
     @Override
-    public Richiesta getInfoRichiesta(int idStudente,int idTirocinio) throws DataLayerException {
+    public Richiesta getInfoRichiesta(int idRichiesta) throws DataLayerException {
         try{
-            sRichiesta.setInt(1,idStudente);
-            sRichiesta.setInt(2, idTirocinio);
-            try(ResultSet rs= sRichiesta.executeQuery()){
+            sRichiesta.setInt(1,idRichiesta);
+            try(ResultSet rs = sRichiesta.executeQuery()){
                 while(rs.next()){
                     return creaRichiesta(rs);
                 }
@@ -364,7 +369,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     public Tirocinio getInfoTirocinio(int idTirocinio) throws DataLayerException {
         try{
             sTirocinio.setInt(1,idTirocinio);            
-            try(ResultSet rs= sTirocinio.executeQuery()){
+            try(ResultSet rs = sTirocinio.executeQuery()){
                 while(rs.next()){
                     return creaTirocinio(rs);
                 }
@@ -387,7 +392,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
 
     @Override
     public List<Tirocinio> getListaTirocini() throws DataLayerException {
-        List<Tirocinio> result = new ArrayList<Tirocinio>();
+        List<Tirocinio> result = new ArrayList<>();
         try{
             try(ResultSet rs = orderByDate.executeQuery()){
                 while(rs.next()){
@@ -404,7 +409,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     
     @Override
     public List<Tirocinio> getListaTirociniByAzienda(Azienda azienda) throws DataLayerException {
-        List<Tirocinio> result = new ArrayList();
+        List<Tirocinio> result = new ArrayList<>();
         try {
             sTirociniByAzienda.setInt(1, azienda.getIdAzienda());
             try (ResultSet rs = sTirociniByAzienda.executeQuery()) {
@@ -425,7 +430,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     
     @Override 
     public List<Tutore> getListaTutoriAzienda(Azienda azienda) throws DataLayerException{
-    List<Tutore> result = new ArrayList();
+    List<Tutore> result = new ArrayList<>();
         try {
             sTutoriByAzienda.setInt(1, azienda.getIdAzienda());
             try (ResultSet rs = sTutoriByAzienda.executeQuery()) {
@@ -683,9 +688,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 uTirocinio.setString(6, tirocinio.getModalità());
                 uTirocinio.setString(7, tirocinio.getFacilitazioni());
                 uTirocinio.setString(8, tirocinio.getSettore());
-                uTirocinio.setInt(9, tirocinio.getIdTutore());
-                uTirocinio.setInt(10, tirocinio.getIdAzienda());
-                uTirocinio.setInt(11, tirocinio.getIdTirocinio());
+                uTirocinio.setString(9, tirocinio.getTitolo());
+                uTirocinio.setInt(10, tirocinio.getIdTutore());
+                uTirocinio.setInt(11, tirocinio.getIdAzienda());
+                uTirocinio.setInt(12, tirocinio.getIdTirocinio());
                 uTirocinio.executeUpdate();
                 
             } else { //insert
@@ -697,8 +703,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 iTirocinio.setString(6, tirocinio.getModalità());
                 iTirocinio.setString(7, tirocinio.getFacilitazioni());
                 iTirocinio.setString(8, tirocinio.getSettore());
-                iTirocinio.setInt(9, tirocinio.getIdTutore());
-                iTirocinio.setInt(10, tirocinio.getIdAzienda());
+                iTirocinio.setString(9, tirocinio.getTitolo());
+                iTirocinio.setInt(10, tirocinio.getIdTutore());
+                iTirocinio.setInt(11, tirocinio.getIdAzienda());
                 if (iTirocinio.executeUpdate() == 1) {
                     //per leggere la chiave generata dal database
                     //per il record appena inserito, usiamo il metodo
@@ -794,12 +801,109 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             //object will ambed any data correction performed by
             //the DBMS
             if (key > 0) {
-                richiesta.copyFrom(getInfoRichiesta(richiesta.getIdStudente(),richiesta.getIdTirocinio()));
+                richiesta.copyFrom(getInfoRichiesta(richiesta.getIdRichiesta()));
             }
             richiesta.setDirty(false);
-        } catch (SQLException ex) {
+        }catch (SQLException ex) {
             throw new DataLayerException("Unable to store tutore", ex);
         }
     }
+    
+    @Override
+    public List<Tirocinio> searchTirocini(Map<String, Object> parametri) throws DataLayerException{
+        try{
+            List<Tirocinio> result = new ArrayList<>();
+            String query = "SELECT * FROM Tirocinio as t JOIN Azienda as a ON t.CodAzienda=a.IdAzienda";
+            String azienda = (String)parametri.get("azienda");
+            String luogo = (String)parametri.get("luogo");
+            String settore = (String)parametri.get("settore");
+            String mesi = (String)parametri.get("nummesi");
+            String ore = (String)parametri.get("numore");
+            int num_mesi, num_ore;
+            if(mesi.equals("")){
+                num_mesi = 0;
+            }else{
+                num_mesi = SecurityLayer.checkNumeric(mesi);
+
+            }
+            if(ore.equals("")){
+                num_ore = 0;
+            }else{
+                num_ore = SecurityLayer.checkNumeric(ore);
+            }            
+            if(!azienda.isEmpty() || !luogo.isEmpty() || !settore.isEmpty() || num_mesi!=0 || num_ore!=0){
+                query = query +" WHERE";
+                if(!azienda.isEmpty()){
+                    query = query + " a.Nome='"+azienda+"',";
+                }
+                if(!luogo.isEmpty()){
+                    query = query + " t.Luogo='"+luogo+"',";
+                }
+                if(!settore.isEmpty()){
+                    query = query + " t.Settore='"+settore+"',";
+                }
+                if(num_ore!=0){
+                    query = query + " t.NumOre="+num_ore+",";
+                }
+                if(num_mesi!=0){
+                    query = query + " t.NumMesi="+num_mesi+",";
+                }
+                query = query.substring(0, query.length() - 1);
+            }
+            searchQuery = connection.prepareStatement(query);
+            try(ResultSet rs = searchQuery.executeQuery()){
+                while(rs.next()){
+                    result.add(creaTirocinio(rs));
+                }
+                return result;
+            }
+            catch(SQLException ex){
+                ex.getMessage();
+            }        }catch(SQLException ex) {
+            throw new DataLayerException("Unable to search tirocini", ex);
+        }    
+        return null;
+    }
+    
+    /*@Override
+    public void destroy() {
+        try {
+            //iUtente.close();
+            //uUtente.close();
+            //dUtente.close();
+            //sUtente.close();
+            //sUtenteLogin.close();
+            
+            //iAzienda.close();
+            //uAzienda.close();
+            //dAzienda.close();
+            //sAzienda.close();
+            //sAziendaLogin.close();
+            
+            //iTutore.close();
+            //uTutore.close();
+            dTutore.close();
+            sTutore.close();
+            sTutoriByAzienda.close();
+            
+            iRichiesta.close();
+            uRichiesta.close();
+            dRichiesta.close();
+            sRichiesta.close();
+
+            iTirocinio.close();
+            uTirocinio.close();
+            dTirocinio.close();
+            sTirocinio.close();
+            sTirociniByAzienda.close();
+            
+            jUtenteRichiesta.close();
+            orderByDate.close();
+            searchQuery.close();
+        } catch (SQLException ex) {
+            //
+        }
+        super.destroy();
+    }*/
     
 }

@@ -1,0 +1,42 @@
+<h2>${page_title}</h2>
+
+<form method="post" action="search">
+    <input type="hidden" name="userid" value=
+    <#if (Session)??>
+        "${Session.getAttribute('userid')}"
+    <#else>
+        ""
+    </#if>
+    />
+    
+    <div>
+        <div>Azienda</div>
+        <div><input type="text" name="azienda" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Luogo</div>
+        <div><input type="text" name="luogo" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Numero di ore</div>
+        <div><input type="text" name="numore" value=""/></div>
+    </div>
+
+    <div>
+        <div>Numero di mesi</div>
+        <div><input type="text" name="nummesi" value=""/></div>
+    </div>
+    
+    <div>
+        <div>Settore</div>
+        <div><input type="text" name="settore" value=""/></div>
+    </div>
+
+    <div>
+        <input type="submit" name="search" value="Search"/>
+    </div>
+    
+</form>
+

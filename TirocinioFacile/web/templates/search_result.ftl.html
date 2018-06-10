@@ -1,0 +1,25 @@
+<h2>${page_title}</h2>
+
+<table style="width:100%">
+    <tr>
+        <th>Azienda</th>
+        <th>Numero di ore</th> 
+        <th>Numero di mesi</th>
+        <th>Luogo</th>
+        <th>Settore</th>
+        <th></th>
+    </tr>
+    <#if (tirocini)??>
+        <#list tirocini as tirocinio>
+            <tr>
+                <td>${tirocinio.azienda.nomeAzienda}</td>
+                <td>${tirocinio.numOre}</td> 
+                <td>${tirocinio.mesi}</td>
+                <td>${tirocinio.luogo}</td>
+                <td>${tirocinio.settore}</td> 
+                <td><a href="show?tid=${tirocinio.idTirocinio}">Mostra dettagli</a></td>
+            </tr>
+        </#list>
+    </#if>
+</table>
+
