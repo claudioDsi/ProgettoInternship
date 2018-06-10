@@ -51,14 +51,24 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (IdStudente,IdTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
-                       
+                     
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
             
-            uUtente=connection.prepareStatement("UPDATE Utente SET Nome=?,Cognome=?,DataNasc=?,LuogoNasc=?, Residenza=?, CodiceFisc=?, Telefono=?, CorsoLaurea=?, Handicap=?, Laurea=?, Dottorato=?, ScuolaSpec=? WHERE IdUtente=?");
-            uAzienda=connection.prepareStatement("UPDATE Azienda SET Nome=?, RagioneSociale=?, Indirizzo=?, PartitaIva=?, CodiceFiscale=?, NomeRappr=?, CognomeRappr=?, NomeResp=?, CognomeResp=?, TelefonoResp=?, EmailResp=?, Foro=? WHERE IdAzienda=?");
-            uTutore=connection.prepareStatement("UPDATE Tutore SET Nome=?, Cognome=?, DataNasc=?, NumTirocini=?, Telefono=?, CodAzienda=? WHERE idTutore=?");            
-            uTirocinio=connection.prepareStatement("UPDATE Tirocinio SET Luogo=?, Orario=?, NumOre=?, NumMesi=?, Obiettivi=?, Modalità=?, Facilitazioni=?, Settore=?, CodTutore=?, CodAzienda=? WHERE idTirocinio=?");
-            uRichiesta=connection.prepareStatement("UPDATE Richiesta SET IdStudente=?, IdTirocinio=?, Status=?, Cfu=?, NomeTutor=?, CognomeTutor=?, EmailTutor=? WHERE idRichiesta=?");
+            //nuove update
+            String[] campiUtente={"Username","Password","Privilegi","Nome","Cognome","DataNasc","LuogoNasc","Residenza","CodiceFisc","Telefono","CorsoLaurea","Handicap","Laurea","Dottorato","ScuolaSpec"};                
+            uUtente=connection.prepareStatement(creaQueryUpdate(campiUtente, "Utente", "IdUtente"));
+            String[] campiAzienda = {"Username","Password","Privilegi","Nome","RagioneSociale","Indirizzo","PartitaIva","CodiceFiscale","NomeRappr","CognomeRappr","NomeResp","CognomeResp","Telefono","EmailResp","Foro"};
+            uAzienda=connection.prepareStatement(creaQueryUpdate(campiAzienda, "Azienda", "IdAzienda"));
+            //uAzienda=connection.prepareStatement("UPDATE Azienda SET Nome=?, RagioneSociale=?, Indirizzo=?, PartitaIva=?, CodiceFiscale=?, NomeRappr=?, CognomeRappr=?, NomeResp=?, CognomeResp=?, TelefonoResp=?, EmailResp=?, Foro=? WHERE IdAzienda=?");
+            String[] campiTutore={"Nome","Cognome","DataNasc","NumTirocini","Telefono","CodAzienda"};
+            uTutore=connection.prepareStatement(creaQueryUpdate(campiTutore, "Tutore", "IdTutore"));
+            //uTutore=connection.prepareStatement("UPDATE Tutore SET Nome=?, Cognome=?, DataNasc=?, NumTirocini=?, Telefono=?, CodAzienda=? WHERE idTutore=?");            
+            String[] campiTirocinio={"Luogo","Orario","NumOrario","NumOre","NumMesi","Obiettivi","Modalità","Facilitazioni","Settore","CodTutore","CodAzienda"};
+            uTirocinio=connection.prepareStatement(creaQueryUpdate(campiTirocinio, "Tirocinio", "IdTirocinio"));            
+            //uTirocinio=connection.prepareStatement("UPDATE Tirocinio SET Luogo=?, Orario=?, NumOre=?, NumMesi=?, Obiettivi=?, Modalità=?, Facilitazioni=?, Settore=?, CodTutore=?, CodAzienda=? WHERE idTirocinio=?");
+            String[] campiRchiesta={"IdStudente","IdTirocinio","Status","Cfu","NomeTutor","EmailTutor"};
+            uRichiesta=connection.prepareStatement(creaQueryUpdate(campiRchiesta, "Richiesta", "IdRichiesta"));
+            //uRichiesta=connection.prepareStatement("UPDATE Richiesta SET IdStudente=?, IdTirocinio=?, Status=?, Cfu=?, NomeTutor=?, CognomeTutor=?, EmailTutor=? WHERE idRichiesta=?");
               
             sUtente=connection.prepareStatement(creaQuerySelect("Utente", "IdUtente"));
             sUtenteLogin=connection.prepareStatement("SELECT * FROM Utente WHERE Username = ? AND Password = ?");
@@ -78,10 +88,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }
     }
     
-    public String creaStringUpdate(String[] campi,String tab,String id){
+   public String creaQueryUpdate(String[] campi,String tab,String id){
         String sql="UPDATE "+tab+ " SET ";
         for(int i=0;i<campi.length;i++){
-            if(i!=campi.length){
+            if(i!=campi.length-1){
                sql+=campi[i]+" = ? ,"; 
             }
             else{
@@ -89,6 +99,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             }         
         }
         sql+="WHERE "+id+ " = ?";
+        System.out.println(sql);
         return sql;
     }
     public String creaQuerySelect(String tab,String id){
@@ -438,6 +449,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 if (!utente.isDirty()) {
                     return;
                 }
+                
                 uUtente.setString(1, utente.getNome());
                 uUtente.setString(2, utente.getCognome());
                 uUtente.setString(3, utente.getDataNasc());
