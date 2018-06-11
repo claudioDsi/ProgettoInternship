@@ -35,6 +35,7 @@ public interface InternShipDataLayer extends DataLayer{
     List<Tirocinio> getListaTirociniByAzienda(Azienda azienda) throws DataLayerException; 
     List<Richiesta> getListaRichiesteTirocinio(int idTirocinio) throws DataLayerException;// per azienda pagina per tirocinio
     List<Tutore> getListaTutoriAzienda(Azienda azienda) throws DataLayerException;//lista tutori di un'azienda
+    Richiesta getRichiestaStudenteTirocinio(int idStudente, int idTirocinio) throws DataLayerException;
     
     void storeStudente(Utente utente) throws DataLayerException; //inserimento o modifica studente
     void storeAzienda(Azienda azienda) throws DataLayerException; //inserimento o modifica azienda

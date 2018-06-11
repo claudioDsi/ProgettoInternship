@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Giu 10, 2018 alle 10:32
+-- Creato il: Giu 11, 2018 alle 16:45
 -- Versione del server: 5.7.19
 -- Versione PHP: 5.6.31
 
@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `tirocinio` (
   `CodTutore` int(11) NOT NULL,
   `CodAzienda` int(11) NOT NULL,
   `Titolo` varchar(50) NOT NULL,
+  `Status` tinyint(1) NOT NULL,
   PRIMARY KEY (`IdTirocinio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
@@ -112,11 +113,11 @@ CREATE TABLE IF NOT EXISTS `tirocinio` (
 -- Dump dei dati per la tabella `tirocinio`
 --
 
-INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `CodTutore`, `CodAzienda`, `Titolo`) VALUES
-(1, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1, 'Tirocinio 1'),
-(2, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1, 'Tirocinio 2'),
-(3, 'f', 'f', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 1, 1, 'Tirocinio 3'),
-(4, 'sdf', 'af', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 1, 1, 'Tirocinio 4');
+INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `CodTutore`, `CodAzienda`, `Titolo`, `Status`) VALUES
+(1, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1, 'Tirocinio 1', 0),
+(2, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1, 'Tirocinio 2', 0),
+(3, 'f', 'f', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 1, 1, 'Tirocinio 3', 0),
+(4, 'sdf', 'af', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 1, 1, 'Tirocinio 4', 0);
 
 -- --------------------------------------------------------
 
@@ -180,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
 --
 
 INSERT INTO `utente` (`IdUtente`, `Username`, `Password`, `Privilegi`, `Nome`, `Cognome`, `DataNasc`, `LuogoNasc`, `Residenza`, `CodiceFisc`, `Telefono`, `CorsoLaurea`, `Handicap`, `Laurea`, `Dottorato`, `ScuolaSpec`) VALUES
-(10, 'vincenzo91', 'vincenzo', 1, 'Vincenzo', 'Battisti', '20-01-1959', 'Arpino', 'Roma', 'lsjhdfd45', '6545612', 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf');
+(5, 'vincenzo91', 'vincenzo', 1, 'Vincenzo', 'Battisti', '20-01-1959', 'Arpino', 'Roma', 'lsjhdfd45', '6545612', 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,6 +2,7 @@
 
 <table style="width:100%">
     <tr>
+        <th>Titolo</th>
         <th>Azienda</th>
         <th>Numero di ore</th> 
         <th>Numero di mesi</th>
@@ -12,6 +13,7 @@
     <#if (tirocini)??>
         <#list tirocini as tirocinio>
             <tr>
+                <td>${tirocinio.titolo}</td> 
                 <td>${tirocinio.azienda.nomeAzienda}</td>
                 <td>${tirocinio.numOre}</td> 
                 <td>${tirocinio.mesi}</td>

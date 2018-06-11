@@ -89,7 +89,8 @@ public class Search extends InternshipDBController {
             action_error(request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
-            action_error(request, response);        }  
+            action_error(request, response);        
+        }  
     }
     
 }

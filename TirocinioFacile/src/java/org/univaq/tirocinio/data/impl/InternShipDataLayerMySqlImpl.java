@@ -35,7 +35,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement iUtente, uUtente, dUtente, sUtente, sUtenteLogin;
     private PreparedStatement iAzienda, uAzienda, dAzienda, sAzienda, sAziendaLogin;
     private PreparedStatement iTutore, uTutore,dTutore, sTutore, sTutoriByAzienda;
-    private PreparedStatement iRichiesta, uRichiesta, dRichiesta, sRichiesta;    
+    private PreparedStatement iRichiesta, uRichiesta, dRichiesta, sRichiesta, sRichiesteByUser, sRichiesteByTirocinio,sRichiestaByStudTiro;    
     private PreparedStatement iTirocinio, uTirocinio, dTirocinio, sTirocinio, sTirociniByAzienda;
     private PreparedStatement jUtenteRichiesta;
     private PreparedStatement orderByDate, searchQuery;
@@ -51,7 +51,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iUtente=connection.prepareStatement("INSERT INTO Utente (Username,Password,Privilegi,Nome,Cognome,DataNasc,LuogoNasc,Residenza,CodiceFisc,Telefono,CorsoLaurea,Handicap,Laurea,Dottorato,ScuolaSpec) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Status,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,Titolo,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,Titolo,Status,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (IdStudente,IdTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
                      
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
@@ -78,11 +78,14 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sAziendaLogin=connection.prepareStatement("SELECT * FROM Azienda WHERE Username = ? AND Password = ?");
             sTutore=connection.prepareStatement("SELECT * FROM Tutore WHERE IdTutore = ?");
             sTutoriByAzienda=connection.prepareStatement("SELECT IdTutore FROM Tutore WHERE CodAzienda=?");
-            sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE IdRichiesta = ?");
+            sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE IdRichiesta=?");
             sTirocinio=connection.prepareStatement(creaQuerySelect("Tirocinio","IdTirocinio"));
             sTirociniByAzienda=connection.prepareStatement("SELECT IdTirocinio FROM Tirocinio WHERE CodAzienda=?");
             
             orderByDate=connection.prepareStatement("SELECT * FROM Tirocinio,Azienda WHERE CodAzienda=IdAzienda ORDER BY IdTirocinio DESC LIMIT 10");
+            sRichiesteByUser=connection.prepareStatement("SELECT * FROM Utente as u JOIN Richiesta as r ON u.IdUtente=r.CodTirocinio WHERE r.CodStudente=?");
+            sRichiesteByTirocinio=connection.prepareStatement("SELECT * FROM Tirocinio as t JOIN Richiesta as r ON t.IdTirocinio=r.CodTirocinio WHERE r.CodTirocinio=?");
+            sRichiestaByStudTiro=connection.prepareStatement("SELECT * FROM Richiesta WHERE CodStudente=? && CodTirocinio=?");
             //Tutti i prepared statement
         }
         catch(SQLException sqlEx){
@@ -101,7 +104,6 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             }         
         }
         sql+="WHERE "+id+ " = ?";
-        System.out.println(sql);
         return sql;
     }
    
@@ -213,7 +215,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             tiro.setModalità(rs.getString("Modalità"));
             tiro.setFacilitazioni(rs.getString("Facilitazioni"));
             tiro.setSettore(rs.getString("Settore"));
-            tiro.setTitolo(rs.getString("Titolo"));
+            tiro.setTitolo(rs.getString("Titolo")); 
+            tiro.setStatus(rs.getBoolean("Status"));
             tiro.setIdTutore(rs.getInt("CodTutore"));
             tiro.setIdAzienda(rs.getInt("CodAzienda"));
             tiro.setAzienda(getInfoAzienda(rs.getInt("CodAzienda")));       
@@ -387,8 +390,18 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
    
     @Override
     public List<Richiesta> getListaRichiesteStudente(int idStudente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        List<Richiesta> result = new ArrayList<>();
+        try{
+            sRichiesteByUser.setInt(1, idStudente);
+            try (ResultSet rs = sRichiesteByUser.executeQuery()) {
+                while (rs.next()) {
+                    result.add(getInfoRichiesta(rs.getInt("IdRichiesta")));
+                }
+            }
+        }catch(SQLException ex) {
+            throw new DataLayerException("Unable to load requests by tirocinio", ex);
+        }
+        return result;    }
 
     @Override
     public List<Tirocinio> getListaTirocini() throws DataLayerException {
@@ -425,7 +438,35 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
 
     @Override
     public List<Richiesta> getListaRichiesteTirocinio(int idTirocinio) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Richiesta> result = new ArrayList<>();
+        try{
+            sRichiesteByTirocinio.setInt(1, idTirocinio);
+            try (ResultSet rs = sRichiesteByTirocinio.executeQuery()) {
+                while (rs.next()) {
+                    result.add(getInfoRichiesta(rs.getInt("IdRichiesta")));
+                }
+            }
+        }catch(SQLException ex) {
+            throw new DataLayerException("Unable to load requests by tirocinio", ex);
+        }
+        return result;
+    }
+    
+    @Override
+    public Richiesta getRichiestaStudenteTirocinio(int idStudente, int idTirocinio) throws DataLayerException{
+        Richiesta richiesta = null;
+        try{            
+            sRichiestaByStudTiro.setInt(1, idStudente);
+            sRichiestaByStudTiro.setInt(2, idTirocinio);
+            try (ResultSet rs = sRichiestaByStudTiro.executeQuery()) {
+                while(rs.next()){
+                    return creaRichiesta(rs);
+                }
+            }
+        }catch(SQLException ex) {
+            throw new DataLayerException("Unable to load requests by tirocinio", ex);
+        }
+        return richiesta;
     }
     
     @Override 
@@ -438,7 +479,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                     result.add(getInfoTutore(rs.getInt("IdTutore")));
                 }
             }
-        } catch (SQLException ex) {
+        } catch(SQLException ex) {
             throw new DataLayerException("Unable to load tutors by company", ex);
         }
         return result;
@@ -689,11 +730,11 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 uTirocinio.setString(7, tirocinio.getFacilitazioni());
                 uTirocinio.setString(8, tirocinio.getSettore());
                 uTirocinio.setString(9, tirocinio.getTitolo());
-                uTirocinio.setInt(10, tirocinio.getIdTutore());
-                uTirocinio.setInt(11, tirocinio.getIdAzienda());
-                uTirocinio.setInt(12, tirocinio.getIdTirocinio());
-                uTirocinio.executeUpdate();
-                
+                uTirocinio.setBoolean(10, tirocinio.getStatus());
+                uTirocinio.setInt(11, tirocinio.getIdTutore());
+                uTirocinio.setInt(12, tirocinio.getIdAzienda());
+                uTirocinio.setInt(13, tirocinio.getIdTirocinio());
+                uTirocinio.executeUpdate();        
             } else { //insert
                 iTirocinio.setString(1, tirocinio.getLuogo());
                 iTirocinio.setString(2, tirocinio.getOrario());
@@ -704,8 +745,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 iTirocinio.setString(7, tirocinio.getFacilitazioni());
                 iTirocinio.setString(8, tirocinio.getSettore());
                 iTirocinio.setString(9, tirocinio.getTitolo());
-                iTirocinio.setInt(10, tirocinio.getIdTutore());
-                iTirocinio.setInt(11, tirocinio.getIdAzienda());
+                iTirocinio.setBoolean(10, tirocinio.getStatus());
+                iTirocinio.setInt(11, tirocinio.getIdTutore());
+                iTirocinio.setInt(12, tirocinio.getIdAzienda());
                 if (iTirocinio.executeUpdate() == 1) {
                     //per leggere la chiave generata dal database
                     //per il record appena inserito, usiamo il metodo
@@ -864,6 +906,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }    
         return null;
     }
+    
+    
     
     /*@Override
     public void destroy() {

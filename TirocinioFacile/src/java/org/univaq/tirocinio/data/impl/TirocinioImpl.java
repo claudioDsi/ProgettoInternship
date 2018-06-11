@@ -27,6 +27,7 @@ public class TirocinioImpl implements Tirocinio{
     private String modalità;
     private String settore;
     private String titolo;
+    private boolean status;
     //riferimenti alle altre tabelle
     private Tutore tutore;    
     private int idTutore;
@@ -50,6 +51,7 @@ public class TirocinioImpl implements Tirocinio{
         obiettivi = "";
         facilitazioni = "";
         modalità = "";
+        status = false;
         tutore = null;
         idTutore = 0;
         azienda = null;
@@ -126,6 +128,17 @@ public class TirocinioImpl implements Tirocinio{
     @Override
     public void setObiettivi(String obiettivi) {
         this.obiettivi = obiettivi;
+        this.dirty = true;
+    }
+    
+    @Override
+    public boolean getStatus() {
+        return status;
+    }
+
+    @Override
+    public void setStatus(boolean status) {
+        this.status=status;
         this.dirty = true;
     }
 
@@ -239,6 +252,7 @@ public class TirocinioImpl implements Tirocinio{
         facilitazioni = tirocinio.getFacilitazioni();
         settore = tirocinio.getSettore();
         titolo = tirocinio.getTitolo();
+        status = tirocinio.getStatus();
         idTutore = tirocinio.getIdTutore();
         idAzienda = tirocinio.getIdAzienda();
         this.dirty = true;

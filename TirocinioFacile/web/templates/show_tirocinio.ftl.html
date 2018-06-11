@@ -1,16 +1,72 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<h2>${page_title}</h2>
+
+<p> SCHEDA TIROCINIO</p>
+<p>Titolo: ${tirocinio.titolo}</p>
+<p>Luogo: ${tirocinio.luogo}</p>
+<p>Orario: ${tirocinio.orario}</p>
+<p>Numero di mesi: ${tirocinio.mesi}</p>
+<p>Numero di ore: ${tirocinio.numOre}</p>
+<p>Obiettivi: ${tirocinio.obiettivi}</p>
+<p>Facilitazioni: ${tirocinio.facilitazioni}</p>
+<p>Settore: ${tirocinio.settore}</p>
+<p>Status: ${tirocinio.status?string}</p>
+<br/>
+<#if (Session)??>
+    <#if Session.getAttribute('type')=="stud">
+        <#if azione=="accepted">
+            <p>Nome del Tutore: ${richiesta.nomeTutor}</p>
+            <p>Cognome del Tutore: ${richiesta.cognomeTutor}</p>
+            <p>Email del Tutore: ${richiesta.emailTutor}</p>
+            <p>Qua ci va il contratto</p>
+            <p>Qua ci va il resoconto</p>
+            <p>N° CFU: ${richiesta.cfu}</p>
+        </#if>
+        <#if azione=="pending">
+            <p>Questa è la tua richiesta di applicazione:</p>
+            <p>Nome del Tutore: ${richiesta.nomeTutor}</p>
+            <p>Cognome del Tutore: ${richiesta.cognomeTutor}</p>
+            <p>Email del Tutore: ${richiesta.emailTutor}</p>
+            <p>N° CFU: ${richiesta.cfu}</p>
+            <p>Status: ${richiesta.status}</p>
+        </#if>
+        <#if azione="applicati">
+            <p>Puoi ancora applicarti per questo tirocinio!</p>
+            <p><a href="richiesta?tid=${tirocinio.idTirocinio}"> Candidati qui! </a></p>
+        </#if>
+        <#if azione=="anonymous">
+            <#if (status)??>
+            <p>La richiesta di tirocinio è scaduta o è stata cancellata, non puoi più applicarti!</p>
+            </#if>
+        </#if>
+    <#else>
+        <#if azione=="accepted">
+            <p>Nome del Tutore: ${richiesta.nomeTutor}</p>
+            <p>Cognome del Tutore: ${richiesta.cognomeTutor}</p>
+            <p>Email del Tutore: ${richiesta.emailTutor}</p>
+            <p>Qua ci va il contratto</p>
+            <p>Qua ci va il resoconto</p>
+            <p>Numero di CFU: ${richiesta.cfu}</p>
+        </#if>
+        <#if azione=="pending">
+            <p>Lista delle richieste attive:</p>
+            <#if (richiesta)??>
+                <#list richiesta as ric>
+                    <p>link alla richiesta ${ric.idRichiesta}</p>
+                </#list>
+            <#else>
+                <p>Nessuna!</p>
+            </#if>
+        </#if>
+        <#if azione=="anonymous">
+            <#if (status)??>
+            <p>La richiesta di tirocinio è scaduta!</p>
+            </#if>
+        </#if>
+    </#if>
+<#else>
+    <#if (status)??>
+        <p>La richiesta di tirocinio è scaduta!</p>
+    </#if>
+    <p>Registrati come <a href="azienda">azienda</a> o come <a href="user?tid=${tirocinio.idTirocinio}">studente</a> oppure <a href="login?tid=${tirocinio.idTirocinio}">loggati</a> per accedere ad altre funzionalità!</p>
+</#if>
+<br/>

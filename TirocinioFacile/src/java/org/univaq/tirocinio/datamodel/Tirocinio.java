@@ -30,6 +30,9 @@ public interface Tirocinio {
     String getTitolo();
     void setTitolo(String titolo);
     
+    boolean getStatus();
+    void setStatus(boolean status);
+    
     int getNumOre();
     void setNumOre(int numOre);
     
