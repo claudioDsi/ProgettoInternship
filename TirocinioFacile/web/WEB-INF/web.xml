@@ -89,6 +89,10 @@
         <servlet-name>Show</servlet-name>
         <servlet-class>org.univaq.tirocinio.controller.Show</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Homepage</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.Homepage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -141,6 +145,10 @@
         <servlet-name>Show</servlet-name>
         <url-pattern>/show</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Homepage</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -153,6 +161,6 @@
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
     <welcome-file-list>
-        <welcome-file>user</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
 </web-app>

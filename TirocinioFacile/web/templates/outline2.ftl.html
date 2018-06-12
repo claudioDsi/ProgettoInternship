@@ -26,7 +26,7 @@ and open the template in the editor.
             <#if (Session??)>
             <#if Session.getAttribute('type')=="stud">
                 <li><a href="modifica">Aggiorna Profilo</a></li>
-                <li><a href="#ricerca">Ricerca Tirocinio</a></li>
+                <li><a href="search">Ricerca Tirocinio</a></li>
                 <li><a href="aziende">Lista Aziende</a></li>
                 <li><a href="riepologoCand">Riepilogo Candidature</a></li>
                 <li><a href="faq">FAQ</a></li>
@@ -36,7 +36,7 @@ and open the template in the editor.
                 <li><a href="faq">FAQ</a></li>
             </#if>
             <#else>
-                <li><a href="#ricerca">Ricerca Tirocinio</a></li>
+                <li><a href="search">Ricerca Tirocinio</a></li>
                 <li><a href="#aziende">Lista Aziende</a></li>
                 <li><a href="#faq">FAQ</a></li>
             </#if>
@@ -44,12 +44,15 @@ and open the template in the editor.
         
         <div class="content">
             <#include content_tpl>
+             
             <div><a href="azienda">Registra la tua azienda!</a></div>
             <div><a href="user">Registrati qui se sei uno studente!</a></div>
             <div><a href="login">Accedi ai nostri servizi!</a></div>
             <div><a href="logout">Logout</a></div>
-            <div><a href="search">Ricerca tirocinio</a></div>
+            
         </div>
+        
+        
         
     </body>
 </html>
