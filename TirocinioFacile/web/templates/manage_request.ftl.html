@@ -1,0 +1,33 @@
+<h2>${page_title}</h2>
+<br/>
+<#if (Session??)>
+    <#if Session.getAttribute('type')=="comp">
+        <#if (lista_richieste)??>
+            <table style="width:100%">
+                <tr>
+                    <th>CFU</th>
+                    <th>Nome del tutore</th>
+                    <th>Cognome del tutore</th> 
+                    <th>Email del tutore</th>
+                    <th>Stato richiesta</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <#list lista_richieste as ric>
+                    <tr>
+                        <td>${ric.cfu}</td> 
+                        <td>${ric.nomeTutor}</td>
+                        <td>${ric.cognomeTutor}</td> 
+                        <td>${ric.emailTutor}</td>
+                        <td>${ric.status}</td>
+                        <td><a href="setric?rid=${ric.idRichiesta}&val=1">Bottone per accettare richiesta</a></td>
+                        <td><a href="setric?rid=${ric.idRichiesta}&val=0">Bottone per rifiutare richiesta</a></td>
+                    </tr>
+                </#list>
+            </table>
+        <#else>
+            <p>Non sono ancora stati proposte delle richieste per il tirocinio!</p>
+        </#if>
+    </#if>
+</#if>
+<br/>

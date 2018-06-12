@@ -35,8 +35,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement iUtente, uUtente, dUtente, sUtente, sUtenteLogin;
     private PreparedStatement iAzienda, uAzienda, dAzienda, sAzienda, sAziendaLogin;
     private PreparedStatement iTutore, uTutore,dTutore, sTutore, sTutoriByAzienda;
-    private PreparedStatement iRichiesta, uRichiesta, dRichiesta, sRichiesta, sRichiesteByUser, sRichiesteByTirocinio,sRichiestaByStudTiro;    
-    private PreparedStatement iTirocinio, uTirocinio, dTirocinio, sTirocinio, sTirociniByAzienda;
+    private PreparedStatement iRichiesta, uRichiesta, dRichiesta, sRichiesta, sRichiesteByUser, sRichiesteByTirocinio, sRichiestaByStudTiro;    
+    private PreparedStatement iTirocinio, uTirocinio, dTirocinio, sTirocinio, sTirociniByAzienda, sTirociniByStudente;
     private PreparedStatement jUtenteRichiesta;
     private PreparedStatement orderByDate, searchQuery;
    
@@ -81,9 +81,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sRichiesta=connection.prepareStatement("SELECT * FROM Richiesta WHERE IdRichiesta=?");
             sTirocinio=connection.prepareStatement(creaQuerySelect("Tirocinio","IdTirocinio"));
             sTirociniByAzienda=connection.prepareStatement("SELECT IdTirocinio FROM Tirocinio WHERE CodAzienda=?");
+            sTirociniByStudente=connection.prepareStatement("SELECT t.* FROM Tirocinio as t JOIN Richiesta as r ON t.IdTirocinio=r.CodTirocinio WHERE r.CodStudente=? AND r.Status='accepted'");
             
             orderByDate=connection.prepareStatement("SELECT * FROM Tirocinio,Azienda WHERE CodAzienda=IdAzienda ORDER BY IdTirocinio DESC LIMIT 10");
-            sRichiesteByUser=connection.prepareStatement("SELECT * FROM Utente as u JOIN Richiesta as r ON u.IdUtente=r.CodTirocinio WHERE r.CodStudente=?");
+            sRichiesteByUser=connection.prepareStatement("SELECT * FROM Utente as u JOIN Richiesta as r ON u.IdUtente=r.CodStudente WHERE r.CodStudente=?");
             sRichiesteByTirocinio=connection.prepareStatement("SELECT * FROM Tirocinio as t JOIN Richiesta as r ON t.IdTirocinio=r.CodTirocinio WHERE r.CodTirocinio=?");
             sRichiestaByStudTiro=connection.prepareStatement("SELECT * FROM Richiesta WHERE CodStudente=? && CodTirocinio=?");
             //Tutti i prepared statement
@@ -431,11 +432,27 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 }
             }
         } catch (SQLException ex) {
-            throw new DataLayerException("Unable to load tirocini by company", ex);
+            throw new DataLayerException("Unable to load tirocini by student", ex);
         }
         return result;
     }
 
+    @Override
+    public List<Tirocinio> getListaTirociniApprovatiByStudente(int idStudente) throws DataLayerException {
+        List<Tirocinio> result = new ArrayList();
+        try {
+            sTirociniByStudente.setInt(1, idStudente);
+            try (ResultSet rs = sTirociniByStudente.executeQuery()) {
+                while (rs.next()) {
+                    result.add(getInfoTirocinio(rs.getInt("IdTirocinio")));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to load tirocini by company", ex);
+        }
+        return result;
+    }
+    
     @Override
     public List<Richiesta> getListaRichiesteTirocinio(int idTirocinio) throws DataLayerException {
         List<Richiesta> result = new ArrayList();
@@ -939,6 +956,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             dTirocinio.close();
             sTirocinio.close();
             sTirociniByAzienda.close();
+            sTirociniByStudente.close();
             
             jUtenteRichiesta.close();
             orderByDate.close();

@@ -1,0 +1,37 @@
+<h2>${page_title}</h2>
+<br/>
+<#if (Session??)>
+    <#if Session.getAttribute('type')=="comp">
+        <h3>I miei tirocini</h3>
+        <br/>
+        <#if (lista_tirocini)??>
+            <table style="width:100%">
+                <tr>
+                    <th>Titolo</th>
+                    <th>Azienda</th>
+                    <th>Numero di ore</th> 
+                    <th>Numero di mesi</th>
+                    <th>Luogo</th>
+                    <th>Settore</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <#list lista_tirocini as tirocinio>
+                    <tr>
+                        <td>${tirocinio.titolo}</td> 
+                        <td>${tirocinio.azienda.nomeAzienda}</td>
+                        <td>${tirocinio.numOre}</td> 
+                        <td>${tirocinio.mesi}</td>
+                        <td>${tirocinio.luogo}</td>
+                        <td>${tirocinio.settore}</td> 
+                        <td><a href="show?tid=${tirocinio.idTirocinio}">Mostra dettagli tirocinio</a></td>
+                        <td><a href="panel?tid=${tirocinio.idTirocinio}">Gestione richieste</a></td>
+                    </tr>
+                </#list>
+            </table>
+        <#else>
+            <p>Non sono ancora stati inseriti tirocini!</p>
+        </#if>
+    </#if>
+</#if>
+<br/>

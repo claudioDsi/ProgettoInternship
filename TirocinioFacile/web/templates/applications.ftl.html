@@ -1,0 +1,62 @@
+<h2>${page_title}</h2>
+<br/>
+<#if (Session??)>
+    <#if Session.getAttribute('type')=="stud">
+        <h3>I miei tirocini approvati</h3>
+        <br/>
+        <#if (lista_tirocini_approvati)??>
+            <table style="width:100%">
+                <tr>
+                    <th>Titolo</th>
+                    <th>Azienda</th>
+                    <th>Numero di ore</th> 
+                    <th>Numero di mesi</th>
+                    <th>Luogo</th>
+                    <th>Settore</th>
+                    <th></th>
+                </tr>
+                <#list lista_tirocini_approvati as tirocinio>
+                    <tr>
+                        <td>${tirocinio.titolo}</td> 
+                        <td>${tirocinio.azienda.nomeAzienda}</td>
+                        <td>${tirocinio.numOre}</td> 
+                        <td>${tirocinio.mesi}</td>
+                        <td>${tirocinio.luogo}</td>
+                        <td>${tirocinio.settore}</td> 
+                        <td><a href="show?tid=${tirocinio.idTirocinio}">Mostra dettagli</a></td>
+                    </tr>
+                </#list>
+            </table>
+        <#else>
+            <p>Non sono ancora stati assegnati tirocini!</p>
+        </#if>
+        <br/>
+        <h3>Le mie richieste</h3>
+        <br/>
+        <#if (lista_richieste)??>
+            <table style="width:100%">
+                <tr>
+                    <th>CFU</th>
+                    <th>Nome del tutore</th>
+                    <th>Cognome del tutore</th> 
+                    <th>Email del tutore</th>
+                    <th>Stato richiesta</th>
+                    <th></th>
+                </tr>
+                <#list lista_richieste as ric>
+                    <tr>
+                        <td>${ric.cfu}</td> 
+                        <td>${ric.nomeTutor}</td>
+                        <td>${ric.cognomeTutor}</td> 
+                        <td>${ric.emailTutor}</td>
+                        <td>${ric.status}</td>
+                        <td><a href="show?tid=${ric.idTirocinio}">Dettagli tirocinio</a></td>
+                    </tr>
+                </#list>
+            </table>
+        <#else>
+            <p>Non sono ancora state effettuate richieste di iscrizione a tirocini!</p>
+        </#if>
+    </#if>
+</#if>
+<br/>
