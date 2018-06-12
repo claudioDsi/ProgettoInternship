@@ -52,7 +52,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Status,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,Titolo,Status,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (IdStudente,IdTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (CodStudente,CodTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
                      
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
             
@@ -390,7 +390,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
    
     @Override
     public List<Richiesta> getListaRichiesteStudente(int idStudente) throws DataLayerException {
-        List<Richiesta> result = new ArrayList<>();
+        List<Richiesta> result = new ArrayList();
         try{
             sRichiesteByUser.setInt(1, idStudente);
             try (ResultSet rs = sRichiesteByUser.executeQuery()) {
@@ -405,7 +405,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
 
     @Override
     public List<Tirocinio> getListaTirocini() throws DataLayerException {
-        List<Tirocinio> result = new ArrayList<>();
+        List<Tirocinio> result = new ArrayList();
         try{
             try(ResultSet rs = orderByDate.executeQuery()){
                 while(rs.next()){
@@ -422,7 +422,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     
     @Override
     public List<Tirocinio> getListaTirociniByAzienda(Azienda azienda) throws DataLayerException {
-        List<Tirocinio> result = new ArrayList<>();
+        List<Tirocinio> result = new ArrayList();
         try {
             sTirociniByAzienda.setInt(1, azienda.getIdAzienda());
             try (ResultSet rs = sTirociniByAzienda.executeQuery()) {
@@ -438,7 +438,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
 
     @Override
     public List<Richiesta> getListaRichiesteTirocinio(int idTirocinio) throws DataLayerException {
-        List<Richiesta> result = new ArrayList<>();
+        List<Richiesta> result = new ArrayList();
         try{
             sRichiesteByTirocinio.setInt(1, idTirocinio);
             try (ResultSet rs = sRichiesteByTirocinio.executeQuery()) {
@@ -454,7 +454,6 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     
     @Override
     public Richiesta getRichiestaStudenteTirocinio(int idStudente, int idTirocinio) throws DataLayerException{
-        Richiesta richiesta = null;
         try{            
             sRichiestaByStudTiro.setInt(1, idStudente);
             sRichiestaByStudTiro.setInt(2, idTirocinio);
@@ -466,12 +465,12 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }catch(SQLException ex) {
             throw new DataLayerException("Unable to load requests by tirocinio", ex);
         }
-        return richiesta;
+        return null;
     }
     
     @Override 
     public List<Tutore> getListaTutoriAzienda(Azienda azienda) throws DataLayerException{
-    List<Tutore> result = new ArrayList<>();
+    List<Tutore> result = new ArrayList();
         try {
             sTutoriByAzienda.setInt(1, azienda.getIdAzienda());
             try (ResultSet rs = sTutoriByAzienda.executeQuery()) {
@@ -843,18 +842,18 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             //object will ambed any data correction performed by
             //the DBMS
             if (key > 0) {
-                richiesta.copyFrom(getInfoRichiesta(richiesta.getIdRichiesta()));
+                richiesta.copyFrom(getInfoRichiesta(key));
             }
             richiesta.setDirty(false);
         }catch (SQLException ex) {
-            throw new DataLayerException("Unable to store tutore", ex);
+            throw new DataLayerException("Unable to store richiesta", ex);
         }
     }
     
     @Override
     public List<Tirocinio> searchTirocini(Map<String, Object> parametri) throws DataLayerException{
         try{
-            List<Tirocinio> result = new ArrayList<>();
+            List<Tirocinio> result = new ArrayList();
             String query = "SELECT * FROM Tirocinio as t JOIN Azienda as a ON t.CodAzienda=a.IdAzienda";
             String azienda = (String)parametri.get("azienda");
             String luogo = (String)parametri.get("luogo");

@@ -25,6 +25,12 @@
     <p>${tirocinio.mesi}</p>
     <p>${tirocinio.obiettivi}</p>
 </#if>
+<#if (nuova_richiesta??)>
+    <p>Richiesta inserita:</p>
+    <p>${nuova_richiesta.cfu}</p>
+    <p>${nuova_richiesta.nomeTutor}</p>
+    <p>${nuova_richiesta.cognomeTutor}</p>
+</#if>
 <#if (Session??)>
     <p>Benvenuto!</p>
     <p>${Session.getAttribute('userid')}</p>

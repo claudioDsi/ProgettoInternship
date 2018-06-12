@@ -5,37 +5,134 @@
  */
 package org.univaq.tirocinio.controller;
 
-import org.univaq.tirocinio.datamodel.Richiesta;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.framework.data.DataLayerException;
+import org.univaq.tirocinio.framework.result.TemplateManagerException;
+import org.univaq.tirocinio.framework.result.TemplateResult;
+import org.univaq.tirocinio.framework.security.SecurityLayer;
+import org.univaq.tirocinio.datamodel.*;
+import org.univaq.tirocinio.framework.result.FailureResult;
 
 public class InsertRichiesta extends InternshipDBController {
+    
+    private void action_default(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException, DataLayerException {
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            HttpSession s = SecurityLayer.checkSession(request);
+            int userid = (int)s.getAttribute("userid");
+            Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, tirocinio.getIdTirocinio());
+            if(tirocinio.getStatus() || richiesta!=null){
+                response.sendRedirect("show?tid="+tirocinio.getIdTirocinio());
+            }else{
+                Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(tirocinio.getIdAzienda());
+                List<Tutore> listaTutori = a.getListaTutori();
+                request.setAttribute("tirocinio", tirocinio);
+                request.setAttribute("Session", s);
+                request.setAttribute("listaTutori", listaTutori);
+                res.activate("add_request.ftl.html", request, response);
+            }
+        }catch(TemplateManagerException ex){
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }
+    }
+    
+    private void action_add(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException {
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            HttpSession s = SecurityLayer.checkSession(request);
+            int session_userid = (int)s.getAttribute("userid");
+            int request_userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
+            int tirocinio_id = tirocinio.getIdTirocinio();
+            Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(request_userid, tirocinio.getIdTirocinio());
+            if(tirocinio.getStatus() || richiesta!=null || session_userid!=request_userid){
+                response.sendRedirect("show?tid="+tirocinio_id);
+            }else{
+                Richiesta new_richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).creaRichiesta();
+                new_richiesta.setCfu(request.getParameter("cfu"));
+                new_richiesta.setIdStudente(request_userid);
+                new_richiesta.setIdTirocinio(tirocinio_id);
+                new_richiesta.setStatus("in attesa");
+                int tutore_id = SecurityLayer.checkNumeric(request.getParameter("tutore"));
+                Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(tutore_id);
+                new_richiesta.setNomeTutor(tutore.getNome());
+                new_richiesta.setCognomeTutor(tutore.getCognome());
+                new_richiesta.setEmailTutor("mancalamail");
+                ((InternShipDataLayer)request.getAttribute("datalayer")).storeRichiesta(new_richiesta);
+                response.sendRedirect("show?tid="+tirocinio_id);
+                //action_activate(request, response, new_richiesta.getIdRichiesta());
+            }    
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }
+    }
+    
+    private void action_activate(HttpServletRequest request, HttpServletResponse response, int richiesta_key) throws IOException, ServletException, TemplateManagerException {
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            HttpSession s = SecurityLayer.checkSession(request);
+            Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoRichiesta(richiesta_key);
+            request.setAttribute("nuova_richiesta", richiesta);
+            request.setAttribute("Session", s);
+            res.activate("result.ftl.html", request, response);
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }
+    }
+
+    
+    private void action_error(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("exception") != null) {
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
+        } else {
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("message"), request, response);
+        }
+    }
 
     @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException {
-            //action_update function dell'esempio del prof
-            try{
-                Richiesta r;
-                r = ((InternShipDataLayer)request.getAttribute("datalayer")).creaRichiesta();
-                r.setIdStudente(1);
-                r.setIdTirocinio(1);
-            r.setStatus("Status");
-            r.setCfu("Cfu");
-            r.setNomeTutor("NomeTutor");
-            r.setCognomeTutor("CognomeTutor");
-            r.setEmailTutor("EmailTutor");
-            ((InternShipDataLayer)request.getAttribute("datalayer")).storeRichiesta(r);
-            }catch (DataLayerException ex) {
-                request.setAttribute("message", "Data access exception: " + ex.getMessage());
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException {
+        try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            int userid = 0;
+            String utype = "";
+            if(s!=null){
+                userid = (int)s.getAttribute("userid");
+                utype = (String)s.getAttribute("type");
+                request.setAttribute("Session", s);
             }
+            int tirocinio_id = SecurityLayer.checkNumeric(request.getParameter("tid"));
+            Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tirocinio_id);
+            if(utype.equals("stud")){
+                //se sei uno studente puoi fare richiesta per il tirocinio
+                if(request.getParameter("add")!=null){
+                    action_add(request, response, tirocinio);
+                }else{
+                    request.setAttribute("page_title", "Aggiungi richiesta");
+                    action_default(request, response, tirocinio);
+                }              
+            }else{
+                //altrimenti (azienda o anonimo) non puoi
+                response.sendRedirect("show?tid="+tirocinio_id);
+            }
+        }catch (IOException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }catch (TemplateManagerException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        } catch (DataLayerException ex) {
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);        
+        }  
     }
     
 }
