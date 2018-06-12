@@ -1,0 +1,20 @@
+
+   
+         <div>       
+        <table>
+            <tr> <th> Titolo tirocinio </th> 
+                <th>Descrizione attivit&agrave;</th>
+                <th>Azienda referente</th>
+            </tr>            
+            <#list tirocini as tirocinio>
+            <tr>
+                <td>${tirocinio.luogo}</td>
+                <td> ${tirocinio.obiettivi}</td>
+                <td> ${tirocinio.azienda.nomeAzienda} </td>   
+            </tr>
+             </#list>     
+           
+        </table>  
+       
+       
+       </div>
