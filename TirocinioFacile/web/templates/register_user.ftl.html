@@ -1,34 +1,39 @@
 <h2>${page_title}</h2>
 
-<form method="post" action="user">
+<form  id="form" method="post" action="user">
     <div>
         <div>Nome</div>
-        <div><input type="text" name="nome" value=""/></div>
+        <input  id="c" type="text" name="nome" value=" " class="required"/>
     </div>
     
     <div>
         <div>Cognome</div>
-        <div><input type="text" name="cognome" value=""/></div>
+        <div><input type="text" name="cognome" value="" class="required"/></div>
     </div>
     
     <div>
         <div>Username</div>
-        <div><input type="text" name="username" value=""/></div>
+        <div><input type="text" name="username" value="" class="required"></div>
     </div>
     
     <div>
         <div>Password</div>
-        <div><input type="password" name="password" value=""/></div>
+        <div><input type="password" name="password" value="" class="required"/></div>
+    </div>
+    
+    <div>
+        <div> Ripeti Password</div>
+        <div><input type="password" name="rpassword" value="" class="required"/></div>
     </div>
     
     <div>
         <div>Data di nascita</div>
-        <div><input type="text" name="datanasc" value=""/></div>
+        <div><input type="text" name="datanasc" value="" class=" number required"/></div>
     </div>
     
     <div>
         <div>Luogo di nascita</div>
-        <div><input type="text" name="luogonasc" value=""/></div>
+        <div><input type="text" name="luogonasc" value="" class="required"/></div>
     </div>
     
     <div>
@@ -83,7 +88,7 @@
     
     <div>
         <div>Email</div>
-        <div><input type="text" name="email" value=""/></div>
+        <div><input type="text" name="email1"  class="email" value=""/></div>
     </div>
     
     <div>
