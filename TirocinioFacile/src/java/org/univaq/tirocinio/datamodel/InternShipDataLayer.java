@@ -45,4 +45,7 @@ public interface InternShipDataLayer extends DataLayer{
     void storeRichiesta(Richiesta richiesta) throws DataLayerException; //inserimento o modifica richiesta
     
     List<Tirocinio> searchTirocini(Map<String, Object> parametri) throws DataLayerException; //ricerca tirocini
+    void modifyRequestStatus(Richiesta richiesta) throws DataLayerException;
+    void modifyTirocinioStatus(Tirocinio tirocinio) throws DataLayerException;
+    void rejectAllRequests(Richiesta richiesta, Tirocinio tirocinio) throws DataLayerException;
 }

@@ -25,6 +25,7 @@ public class TutoreImpl implements Tutore{
     private int numTirocini;
     private String telefono;
     private int codAzienda;
+    private String emailTutore;
     private Tirocinio tirocinio;
     protected Boolean dirty;
     
@@ -37,6 +38,7 @@ public class TutoreImpl implements Tutore{
         numTirocini = 0;
         telefono = "";
         codAzienda = 0;
+        emailTutore = "";
         tirocinio = null;
         dirty = false;
     }
@@ -82,6 +84,17 @@ public class TutoreImpl implements Tutore{
     @Override
     public void setDataNasc(String dataNasc) {
         this.dataNasc=dataNasc;
+        this.dirty = true;
+    }
+    
+    @Override
+    public String getEmailTutore() {
+        return emailTutore;
+    }
+
+    @Override
+    public void setEmailTutore(String emailTutore) {
+        this.emailTutore = emailTutore;
         this.dirty = true;
     }
 

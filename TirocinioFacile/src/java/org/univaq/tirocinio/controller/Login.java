@@ -60,7 +60,14 @@ public class Login extends InternshipDBController {
                     }
                 }
             }
-            res.activate("result.ftl.html", request, response);
+            if(request.getParameter("tid")!=null){
+                System.out.println("popopo");
+                String id_tirocinio = request.getParameter("tid");
+                response.sendRedirect("show?tid="+id_tirocinio);
+            }else{
+                System.out.println("rcorcorco");
+                res.activate("result.ftl.html", request, response);
+            }
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);

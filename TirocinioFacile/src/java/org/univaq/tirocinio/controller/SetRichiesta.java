@@ -5,84 +5,86 @@
  */
 package org.univaq.tirocinio.controller;
 
+import org.univaq.tirocinio.datamodel.Azienda;
+import org.univaq.tirocinio.datamodel.Utente;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.univaq.tirocinio.datamodel.InternShipDataLayer;
+import org.univaq.tirocinio.framework.data.DataLayerException;
+import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.TemplateManagerException;
+import org.univaq.tirocinio.framework.result.TemplateResult;
+import org.univaq.tirocinio.framework.security.SecurityLayer;
+import javax.servlet.http.HttpSession;
+import org.univaq.tirocinio.datamodel.Richiesta;
+import org.univaq.tirocinio.datamodel.Tirocinio;
 
 /**
  *
  * @author vince
  */
-@WebServlet(name = "SetRichiesta", urlPatterns = {"/setric"})
-public class SetRichiesta extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SetRichiesta</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SetRichiesta at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+public class SetRichiesta extends InternshipDBController {
+    
+    private void action_modify_request(HttpServletRequest request, HttpServletResponse response, int value, Richiesta richiesta, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException {
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            if(value==1){
+                //accetto la richiesta, cambio lo stato del tirocinio e rifiuto tutte le altre
+                richiesta.setStatus("accepted");
+                tirocinio.setStatus(true);
+                ((InternShipDataLayer)request.getAttribute("datalayer")).modifyRequestStatus(richiesta);
+                ((InternShipDataLayer)request.getAttribute("datalayer")).modifyTirocinioStatus(tirocinio);
+                ((InternShipDataLayer)request.getAttribute("datalayer")).rejectAllRequests(richiesta, tirocinio);
+            }else if(value==0){
+                //rifiuto la richiesta
+                richiesta.setStatus("rejected");
+                ((InternShipDataLayer)request.getAttribute("datalayer")).modifyRequestStatus(richiesta);
+            }
+            response.sendRedirect("panel?tid="+tirocinio.getIdTirocinio());
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    
+    private void action_error(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("exception") != null) {
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
+        } else {
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("message"), request, response);
+        }
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException {
+            try{
+                int rid = SecurityLayer.checkNumeric(request.getParameter("rid"));
+                int value = SecurityLayer.checkNumeric(request.getParameter("val"));
+                Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoRichiesta(rid);
+                Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(richiesta.getIdTirocinio());
+                HttpSession s = SecurityLayer.checkSession(request);
+                int userid = (int)s.getAttribute("userid");
+                String utype = (String)s.getAttribute("type");
+                if(utype.equals("comp") && userid==tirocinio.getIdAzienda() && tirocinio.getStatus()==false && richiesta.getStatus().equals("pending")){
+                    action_modify_request(request, response, value, richiesta, tirocinio);
+                }else{
+                    response.sendRedirect("show?tid=" + tirocinio.getIdTirocinio());
+                }
+            }catch (IOException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+            }catch (TemplateManagerException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+            } catch (DataLayerException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+            }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
 }
