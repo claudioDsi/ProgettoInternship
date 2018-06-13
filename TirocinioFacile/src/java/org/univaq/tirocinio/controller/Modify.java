@@ -56,6 +56,7 @@ public class Modify extends InternshipDBController {
                 u.setLaurea(request.getParameter("laurea"));
                 u.setDottorato(request.getParameter("dottorato"));
                 u.setSpecializzazione(request.getParameter("specializzazione"));
+                u.setEmailUtente(request.getParameter("email"));
                 u.setIdUtente(userid);
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
                 action_activate(request, response, userid, usertype);

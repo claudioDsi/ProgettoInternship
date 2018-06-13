@@ -33,6 +33,7 @@ public class UtenteImpl implements Utente{
     private String laurea;
     private String dottorato;
     private String specializzazione;
+    private String emailUtente;
     private Boolean handicap;
     private List<Richiesta> listaRichieste;
     protected InternShipDataLayer ownerdatalayer;
@@ -55,6 +56,7 @@ public class UtenteImpl implements Utente{
         laurea = "";
         dottorato = "";
         specializzazione = "";
+        emailUtente = "";
         handicap = false;
         listaRichieste = null;
         dirty = false;
@@ -238,6 +240,17 @@ public class UtenteImpl implements Utente{
     @Override
     public void setCognome(String cognome) {
         this.cognome=cognome;
+        this.dirty = true;
+    }
+    
+    @Override
+    public String getEmailUtente() {
+        return emailUtente;
+    }
+
+    @Override
+    public void setEmailUtente(String emailUtente) {
+        this.emailUtente = emailUtente;
         this.dirty = true;
     }
     

@@ -20,8 +20,12 @@
                         <td>${ric.cognomeTutor}</td> 
                         <td>${ric.emailTutor}</td>
                         <td>${ric.status}</td>
-                        <td><a href="setric?rid=${ric.idRichiesta}&val=1">Bottone per accettare richiesta</a></td>
-                        <td><a href="setric?rid=${ric.idRichiesta}&val=0">Bottone per rifiutare richiesta</a></td>
+                        <#if ric.status=="accepted" || ric.status=="rejected">
+                            <td>Non è più possibile modificare la richiesta</td>
+                        <#else>
+                            <td><a href="setric?rid=${ric.idRichiesta}&val=1">Bottone per accettare richiesta</a></td>
+                            <td><a href="setric?rid=${ric.idRichiesta}&val=0">Bottone per rifiutare richiesta</a></td>
+                        </#if>
                     </tr>
                 </#list>
             </table>

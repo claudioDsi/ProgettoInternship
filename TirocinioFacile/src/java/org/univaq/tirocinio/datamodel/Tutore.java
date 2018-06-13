@@ -25,6 +25,9 @@ public interface Tutore {
     String getDataNasc();
     void setDataNasc(String data);
     
+    String getEmailTutore();
+    void setEmailTutore(String emailTutore);
+    
     int getNumTirocini();
     void setNumTirocini(int numTirocini);
     

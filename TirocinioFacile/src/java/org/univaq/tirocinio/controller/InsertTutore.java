@@ -41,6 +41,7 @@ public class InsertTutore extends InternshipDBController {
             tutore.setCognome(request.getParameter("cognome"));
             tutore.setDataNasc(request.getParameter("datanasc"));
             tutore.setTelefono(request.getParameter("telefono"));
+            tutore.setEmailTutore(request.getParameter("email"));
             tutore.setCodAzienda(userid);
             ((InternShipDataLayer)request.getAttribute("datalayer")).storeTutore(tutore);
             action_activate(request, response, tutore.getIdTutore());

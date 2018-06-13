@@ -7,10 +7,7 @@ package org.univaq.tirocinio.controller;
 
 import org.univaq.tirocinio.datamodel.Utente;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
@@ -33,8 +30,7 @@ public class InsertUser extends InternshipDBController {
 
     private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         try {
-            Utente u;
-            u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
+            Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
             u.setUsername(request.getParameter("username"));
             u.setPassword(request.getParameter("password"));
             u.setPrivilegi(1);
@@ -50,6 +46,7 @@ public class InsertUser extends InternshipDBController {
             u.setLaurea(request.getParameter("laurea"));
             u.setDottorato(request.getParameter("dottorato"));
             u.setSpecializzazione(request.getParameter("specializzazione"));
+            u.setEmailUtente(request.getParameter("email"));
             ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
             action_activate(request, response, u.getIdUtente());
         }catch(DataLayerException ex){

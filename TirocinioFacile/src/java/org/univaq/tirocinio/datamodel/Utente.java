@@ -67,6 +67,9 @@ public interface Utente {
      
     String getSpecializzazione();
     void setSpecializzazione(String specializzazione);
+    
+    String getEmailUtente();
+    void setEmailUtente(String emailUtente);
      
     List<Richiesta> getListaRichieste() throws DataLayerException;
     
