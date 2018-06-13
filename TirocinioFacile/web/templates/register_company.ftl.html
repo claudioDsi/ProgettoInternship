@@ -1,78 +1,54 @@
-<h2>${page_title}</h2>
-
-<form method="post" action="azienda">
-    <div>
-        <div>Username</div>
-        <div><input type="text" name="username" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Password</div>
-        <div><input type="password" name="password" value=""/></div>
-    </div>
-        
-    <div>
-        <div>Nome</div>
-        <div><input type="text" name="nome" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Ragione sociale</div>
-        <div><input type="text" name="ragionesociale" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Indirizzo</div>
-        <div><input type="text" name="indirizzo" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Partita Iva</div>
-        <div><input type="text" name="partitaiva" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Codice fiscale</div>
-        <div><input type="text" name="codicefisc" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Nome Rappresentante</div>
-        <div><input type="text" name="nomerappr" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Cognome Rappresentante</div>
-        <div><input type="text" name="cognomerappr" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Nome Responsabile</div>
-        <div><input type="text" name="nomeresp" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Cognome Responsabile</div>
-        <div><input type="text" name="cognomeresp" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Telefono Responsabile</div>
-        <div><input type="text" name="telefonoresp" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Email Responsabile</div>
-        <div><input type="text" name="emailresp" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Foro</div>
-        <div><input type="text" name="foro" value=""/></div>
-    </div>
-    
-    <div>
-        <input type="submit" name="add" value="Add"/>
-    </div>
-    
-</form>
+<div class="w3-card-4">
+  <div class="w3-container w3-brown">
+    <h2>${page_title}</h2>
+  </div>
+  <form class="w3-container" method="post" action="azienda">
+    <p>      
+    <label class="w3-text-brown"><b>Nome azienda</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="nome" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Ragione sociale</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="ragionesociale" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Partita IVA</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="partitaiva" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Codice Fiscale</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="codicefisc" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Indirizzo</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="indirizzo" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Nome Rappresentante</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="nomerappr" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Cognome Rappresentante</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="cognomerappr" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Nome Responsabile</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="nomeresp" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Cognome Responsabile</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="cognomeresp" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Telefono Responsabile</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="telefonoresp" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Email Responsabile</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="emailresp" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Foro Competente</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="foro" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Username</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="text" name="username" value=""/></p>
+    <p>      
+    <label class="w3-text-brown"><b>Password</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="password" name="password" value=""/></p>
+    <p>      
+    <!--
+    <label class="w3-text-brown"><b>Ripeti Password</b></label>
+    <input class="w3-input w3-animate-input w3-sand" style="width:30%" type="password" name="password" value=""/></p>-->
+    <input class="w3-btn w3-brown" type="submit" name="add" value="Add">
+  </form>
+</div>
