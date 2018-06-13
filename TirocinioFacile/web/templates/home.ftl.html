@@ -26,15 +26,43 @@
         </div>
     </div>
     <div class="w3-container w3-cell w3-mobile">
-        <button class="w3-button w3-block w3-yellow" style="width:50%; float:left;" onclick="show()">Login Studente</button>
-        <button class="w3-button w3-block w3-red" style="width:50%; float:right;">Login Azienda</button>
-        <div id="log" style="display: block">
-            <p><a href="user">Registrati qui se sei uno studente!</a></p>
+        <button class="w3-button w3-block w3-yellow w3-round" style="width:50%; float:left;" onclick="show('log_stud')">Login Studente</button>
+        <button class="w3-button w3-block w3-red w3-round" style="width:50%; float:right;" onclick="show('log_az')">Login Azienda</button>
+        <div id="log_stud" class='w3-yellow w3-round' style="display: block;">
+            <form class="w3-container w3-card-4" method="post" action="login">
+                <p>
+                    <input class="w3-input w3-animate-input w3-yellow" type="text" name="username" value="" style="width:90%" required/>
+                    <label>Name</label>
+                </p>
+                <p>
+                    <input class="w3-input w3-animate-input w3-yellow" type="password" name="password" value="" style="width:90%" required/>
+                    <label>Password</label></p>
+                <p>
+                <p>
+                    <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="login" value="Login"/>
+                </p>
+                <p>
+                    Non sei ancora registrato? <a href="user">Registrati!</a>
+                </p>
+            </form>
         </div>
-        <div id="log" style="display: none">
-            <p><a href="azienda">Registra la tua azienda!</a></p>
+        <div id="log_az" class='w3-red w3-round' style="display: none">
+            <form class="w3-container w3-card-4" method="post" action="login">
+                <p>
+                    <input class="w3-input w3-animate-input w3-red" type="text" name="username" value="" style="width:90%" required/>
+                    <label>Name</label>
+                </p>
+                <p>
+                    <input class="w3-input w3-animate-input w3-red" type="password" name="password" value="" style="width:90%" required/>
+                    <label>Password</label></p>
+                <p>
+                <p>
+                    <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="login" value="Login"/>
+                </p>
+                <p>
+                    Non sei ancora registrato? <a href="azienda">Registrati!</a>
+                </p>
+            </form>
         </div>
     </div>
 </div>
-<p><a href="login">Accedi ai nostri servizi!</a></p>
-<p><a href="logout">Logout</a></p>

@@ -11,17 +11,8 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style/responsive_header.css"/>
         <link rel="stylesheet" type="text/css" href="style/responsive_menu.css"/>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
-        <script>
-        function show() {
-            var x = document.getElementById("log");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            } 
-        </script>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <script type="text/javascript" src="script/test.js"></script>
     </head>
     <body>
         <div class="header">
@@ -30,6 +21,9 @@ and open the template in the editor.
                 <a class="active" href="home">Home</a>
                 <a href="#contact">Contact</a>
                 <a href="#about">About</a>
+                <#if (Session??)>
+                    <a href="logout">Logout</a>
+                </#if>
             </div>
         </div>
 

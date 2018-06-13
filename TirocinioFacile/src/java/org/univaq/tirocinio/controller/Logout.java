@@ -22,7 +22,7 @@ public class Logout extends InternshipDBController {
     private void action_logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try{ 
             SecurityLayer.disposeSession(request);
-            response.sendRedirect("login");
+            response.sendRedirect("home");
         }catch(IOException ex) {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
