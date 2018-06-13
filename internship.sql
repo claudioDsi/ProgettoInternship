@@ -2,10 +2,10 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Creato il: Giu 11, 2018 alle 16:45
--- Versione del server: 5.7.19
--- Versione PHP: 5.6.31
+-- Host: 127.0.0.1
+-- Creato il: Giu 13, 2018 alle 23:09
+-- Versione del server: 10.1.29-MariaDB
+-- Versione PHP: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,9 +28,8 @@ SET time_zone = "+00:00";
 -- Struttura della tabella `azienda`
 --
 
-DROP TABLE IF EXISTS `azienda`;
-CREATE TABLE IF NOT EXISTS `azienda` (
-  `IdAzienda` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `azienda` (
+  `IdAzienda` int(11) NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` char(64) NOT NULL,
   `Privilegi` int(11) NOT NULL,
@@ -47,9 +46,8 @@ CREATE TABLE IF NOT EXISTS `azienda` (
   `TelefonoResp` varchar(20) NOT NULL,
   `EmailResp` varchar(250) NOT NULL,
   `Foro` varchar(250) NOT NULL,
-  `Valutazione` float NOT NULL,
-  PRIMARY KEY (`IdAzienda`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `Valutazione` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `azienda`
@@ -65,18 +63,16 @@ INSERT INTO `azienda` (`IdAzienda`, `Username`, `Password`, `Privilegi`, `Status
 -- Struttura della tabella `richiesta`
 --
 
-DROP TABLE IF EXISTS `richiesta`;
-CREATE TABLE IF NOT EXISTS `richiesta` (
-  `IdRichiesta` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `richiesta` (
+  `IdRichiesta` int(11) NOT NULL,
   `CodStudente` int(11) NOT NULL,
   `CodTirocinio` int(11) NOT NULL,
   `Status` varchar(20) NOT NULL,
   `Cfu` varchar(4) NOT NULL,
   `NomeTutor` varchar(50) NOT NULL,
   `CognomeTutor` varchar(50) NOT NULL,
-  `EmailTutor` varchar(50) NOT NULL,
-  PRIMARY KEY (`IdRichiesta`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `EmailTutor` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `richiesta`
@@ -91,9 +87,8 @@ INSERT INTO `richiesta` (`IdRichiesta`, `CodStudente`, `CodTirocinio`, `Status`,
 -- Struttura della tabella `tirocinio`
 --
 
-DROP TABLE IF EXISTS `tirocinio`;
-CREATE TABLE IF NOT EXISTS `tirocinio` (
-  `IdTirocinio` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tirocinio` (
+  `IdTirocinio` int(11) NOT NULL,
   `Luogo` varchar(250) NOT NULL,
   `Orario` varchar(20) NOT NULL,
   `NumOre` int(11) NOT NULL,
@@ -105,9 +100,8 @@ CREATE TABLE IF NOT EXISTS `tirocinio` (
   `CodTutore` int(11) NOT NULL,
   `CodAzienda` int(11) NOT NULL,
   `Titolo` varchar(50) NOT NULL,
-  `Status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`IdTirocinio`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `Status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `tirocinio`
@@ -125,17 +119,15 @@ INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, 
 -- Struttura della tabella `tutore`
 --
 
-DROP TABLE IF EXISTS `tutore`;
-CREATE TABLE IF NOT EXISTS `tutore` (
-  `IdTutore` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tutore` (
+  `IdTutore` int(11) NOT NULL,
   `Nome` varchar(250) NOT NULL,
   `Cognome` varchar(250) NOT NULL,
   `DataNasc` varchar(20) NOT NULL,
   `NumTirocini` int(11) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
-  `CodAzienda` int(11) NOT NULL,
-  PRIMARY KEY (`IdTutore`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `CodAzienda` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `tutore`
@@ -155,9 +147,8 @@ INSERT INTO `tutore` (`IdTutore`, `Nome`, `Cognome`, `DataNasc`, `NumTirocini`, 
 -- Struttura della tabella `utente`
 --
 
-DROP TABLE IF EXISTS `utente`;
-CREATE TABLE IF NOT EXISTS `utente` (
-  `IdUtente` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `utente` (
+  `IdUtente` int(11) NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` char(64) NOT NULL,
   `Privilegi` int(11) NOT NULL,
@@ -168,20 +159,89 @@ CREATE TABLE IF NOT EXISTS `utente` (
   `Residenza` varchar(250) NOT NULL,
   `CodiceFisc` varchar(16) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
+  `Sesso` varchar(10) NOT NULL,
+  `Email` varchar(30) NOT NULL,
   `CorsoLaurea` varchar(250) NOT NULL,
   `Handicap` tinyint(1) NOT NULL,
   `Laurea` varchar(50) NOT NULL,
   `Dottorato` varchar(50) NOT NULL,
-  `ScuolaSpec` varchar(50) NOT NULL,
-  PRIMARY KEY (`IdUtente`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+  `ScuolaSpec` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `utente`
 --
 
-INSERT INTO `utente` (`IdUtente`, `Username`, `Password`, `Privilegi`, `Nome`, `Cognome`, `DataNasc`, `LuogoNasc`, `Residenza`, `CodiceFisc`, `Telefono`, `CorsoLaurea`, `Handicap`, `Laurea`, `Dottorato`, `ScuolaSpec`) VALUES
-(5, 'vincenzo91', 'vincenzo', 1, 'Vincenzo', 'Battisti', '20-01-1959', 'Arpino', 'Roma', 'lsjhdfd45', '6545612', 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf');
+INSERT INTO `utente` (`IdUtente`, `Username`, `Password`, `Privilegi`, `Nome`, `Cognome`, `DataNasc`, `LuogoNasc`, `Residenza`, `CodiceFisc`, `Telefono`, `Sesso`, `Email`, `CorsoLaurea`, `Handicap`, `Laurea`, `Dottorato`, `ScuolaSpec`) VALUES
+(5, 'vincenzo91', 'vincenzo', 1, 'Vincenzo', 'Battisti', '20-01-1959', 'Arpino', 'Roma', 'lsjhdfd45', '6545612', '', '', 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf');
+
+--
+-- Indici per le tabelle scaricate
+--
+
+--
+-- Indici per le tabelle `azienda`
+--
+ALTER TABLE `azienda`
+  ADD PRIMARY KEY (`IdAzienda`);
+
+--
+-- Indici per le tabelle `richiesta`
+--
+ALTER TABLE `richiesta`
+  ADD PRIMARY KEY (`IdRichiesta`);
+
+--
+-- Indici per le tabelle `tirocinio`
+--
+ALTER TABLE `tirocinio`
+  ADD PRIMARY KEY (`IdTirocinio`);
+
+--
+-- Indici per le tabelle `tutore`
+--
+ALTER TABLE `tutore`
+  ADD PRIMARY KEY (`IdTutore`);
+
+--
+-- Indici per le tabelle `utente`
+--
+ALTER TABLE `utente`
+  ADD PRIMARY KEY (`IdUtente`);
+
+--
+-- AUTO_INCREMENT per le tabelle scaricate
+--
+
+--
+-- AUTO_INCREMENT per la tabella `azienda`
+--
+ALTER TABLE `azienda`
+  MODIFY `IdAzienda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT per la tabella `richiesta`
+--
+ALTER TABLE `richiesta`
+  MODIFY `IdRichiesta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT per la tabella `tirocinio`
+--
+ALTER TABLE `tirocinio`
+  MODIFY `IdTirocinio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT per la tabella `tutore`
+--
+ALTER TABLE `tutore`
+  MODIFY `IdTutore` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT per la tabella `utente`
+--
+ALTER TABLE `utente`
+  MODIFY `IdUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
