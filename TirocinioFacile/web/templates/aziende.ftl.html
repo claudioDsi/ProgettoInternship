@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+           <div>       
+        <table  class="w3-table-all">
+            <tr> <th> Azienda </th> 
+                <th>Indirizzo</th>
+                <th>Partita Iva </th>
+                <th> Nome rappresentante </th>
+                <th>Cognome rappresentante </th>
+                <th> Foro competente </th>
+                <th> Email rappresentante </th>
+            </tr>            
+            <#list aziende as azienda>
+            <tr>
+                <td>${azienda.nomeAzienda}</td>
+                <td> ${azienda.indirizzo}</td>
+                <td> ${azienda.partitaIva} </td>  
+                <td>${azienda.nomeRappr}</td>
+                <td>${azienda.cognomeRappr}</td>
+                <td>${azienda.foro} </td>
+                <td>${azienda.emailResp}</td>
+            </tr>
+             </#list>     
+           
+        </table>  
+    </body>
+</html>

@@ -25,7 +25,7 @@ function ObjCheckRequired() {
 		if (s==null) return false;
 		else return (s.replace(/^\s+|\s+$/g,"") !="");
 	};
-	this.message = "Value must be not empty";
+	this.message = "Campo obbligatorio";
 	
 }
 
@@ -36,7 +36,7 @@ function ObjCheckNumber() {
 		if (bint) return (s == parseInt(s));
 		else return (s == parseFloat(s));
 	};
-	this.message = "Value must be a number";
+	this.message = "Il campo deve contenere un numero";
 }
 
 //oggetto di controllo per il predicato IS IN RANGE (min,max)
@@ -46,7 +46,7 @@ function ObjRangeChecker(min,max) {
 	this.check = function(s) {
 		return(s>=min && s<=max)
 	};
-	this.message =  "Value must be between "+min+" and "+max;
+	this.message =  "Il valore dev'essere compreso tra "+min+" e "+max;
 }
 
 //oggetto di controllo per il predicato MATCHES (rx)
@@ -56,7 +56,7 @@ function ObjRegexpChecker(rx,insensitive) {
 	var orx = new RegExp(rx,(insensitive?"i":""));
 	
 	this.check =  function(s) {	return orx.test(s);	};
-	this.message = "Value must match regular expression /"+rx+"/";
+	this.message = "inserisci una mail valida";
 	
 }	
 
@@ -71,7 +71,7 @@ function ObjDisallowedChecker(set) {
 		}
 		return true;	
 	};
-	this.message = "Value must not contain any of the characters "+set;
+	this.message = "Il campo non pu&ograve contenere  "+set;
 }
 
 //oggetto di controllo che NEGA un altro aggetto di controllo
@@ -95,7 +95,7 @@ function ObjCombinedChecker(arrC,bOr) {
 			for(i=0; i<arrC.length; ++i) if (!arrC[i].check(s)) return false;
 			return true;
 		};
-		for(j=0; j<arrC.length; ++j) this.message +=(this.message!=""?" AND ":"")+arrC[j].message;
+		for(j=0; j<arrC.length; ++j) this.message +=(this.message!=""?" e ":"")+arrC[j].message;
 	}
 	else {
 		this.check = function(s) {	
@@ -103,7 +103,7 @@ function ObjCombinedChecker(arrC,bOr) {
 			for(i=0; i<arrC.length; ++i) if (arrC[i].check(s)) return true;
 			return false;
 		};
-		for(j=0; j<arrC.length; ++j) this.message+=(this.message!=""?" OR ":"")+arrC[j].message;
+		for(j=0; j<arrC.length; ++j) this.message+=(this.message!=""?" o ":"")+arrC[j].message;
 	}
 }
 
@@ -187,6 +187,7 @@ function FormChecker(form) {
 						case "number":	fldchecks.push(new ObjCheckNumber()); break;
 						case "email":	fldchecks.push(CheckEmail);  break;
 						case "required":fldchecks.push(new ObjCheckRequired());  break;
+                                                case "forbidden":fldchecks.push(CheckStrangeChars); break;
 					}	
 	
 				}

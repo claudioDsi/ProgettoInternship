@@ -61,6 +61,11 @@ public interface Utente {
      
     String getLaurea();
     void setLaurea(String laurea);
+    
+    String getSesso();
+    void setSesso(String sesso);
+    
+    
      
     String getDottorato();
     void setDottorato(String dottorato);

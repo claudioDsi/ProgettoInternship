@@ -33,6 +33,7 @@ public class UtenteImpl implements Utente{
     private String laurea;
     private String dottorato;
     private String specializzazione;
+    private String sesso;
     private String emailUtente;
     private Boolean handicap;
     private List<Richiesta> listaRichieste;
@@ -56,6 +57,7 @@ public class UtenteImpl implements Utente{
         laurea = "";
         dottorato = "";
         specializzazione = "";
+        sesso="";
         emailUtente = "";
         handicap = false;
         listaRichieste = null;
@@ -283,5 +285,15 @@ public class UtenteImpl implements Utente{
         dottorato = utente.getDottorato();
         specializzazione = utente.getSpecializzazione();
         this.dirty = true;
+    }
+
+    @Override
+    public String getSesso() {
+        return sesso;
+    }
+
+    @Override
+    public void setSesso(String sesso) {
+        this.sesso=sesso;
     }
 }

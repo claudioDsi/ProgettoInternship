@@ -46,6 +46,7 @@ public class InsertUser extends InternshipDBController {
             u.setLaurea(request.getParameter("laurea"));
             u.setDottorato(request.getParameter("dottorato"));
             u.setSpecializzazione(request.getParameter("specializzazione"));
+            u.setSesso(request.getParameter("sesso"));
             u.setEmailUtente(request.getParameter("email"));
             ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
             action_activate(request, response, u.getIdUtente());

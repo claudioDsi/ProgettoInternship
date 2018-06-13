@@ -35,7 +35,7 @@ and open the template in the editor.
             <#if Session.getAttribute('type')=="stud">
                 <li><a href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">Il tuo profilo</a></li>
                 <li><a href="search">Ricerca Tirocinio</a></li>
-                <li><a href="aziende">Lista Aziende</a></li>
+                <li><a href="listaaziende">Lista Aziende</a></li>
                 <li><a href="applications">Riepilogo Candidature</a></li>
                 <li><a href="faq">FAQ</a></li>
             <#else>
@@ -45,7 +45,7 @@ and open the template in the editor.
             </#if>
             <#else>
                 <li><a href="search">Ricerca Tirocinio</a></li>
-                <li><a href="aziende">Lista Aziende</a></li>
+                <li><a href="listaaziende">Lista Aziende</a></li>
                 <li><a href="faq">FAQ</a></li>
             </#if>
         </ul>

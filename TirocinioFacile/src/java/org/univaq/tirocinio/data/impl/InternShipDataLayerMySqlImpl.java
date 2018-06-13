@@ -40,6 +40,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement jUtenteRichiesta;
     private PreparedStatement orderByDate, searchQuery;
     private PreparedStatement rejectAllRequests, modifyRequestStatus, modifyTirocinioStatus; 
+    private PreparedStatement listaAziende;
    
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
@@ -58,7 +59,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
             
             //nuove update
-            String[] campiUtente={"Nome","Cognome","DataNasc","LuogoNasc","Residenza","CodiceFisc","Telefono","CorsoLaurea","Handicap","Laurea","Dottorato","ScuolaSpec","EmailUtente"};                
+            String[] campiUtente={"Nome","Cognome","DataNasc","LuogoNasc","Residenza","CodiceFisc","Telefono","CorsoLaurea","Sesso","Handicap","Laurea","Dottorato","ScuolaSpec","EmailUtente"};                
             uUtente=connection.prepareStatement(creaQueryUpdate(campiUtente, "Utente", "IdUtente"));
             String[] campiAzienda = {"Nome","RagioneSociale","Indirizzo","PartitaIva","CodiceFiscale","NomeRappr","CognomeRappr","NomeResp","CognomeResp","Telefono","EmailResp","Foro"};
             uAzienda=connection.prepareStatement(creaQueryUpdate(campiAzienda, "Azienda", "IdAzienda"));
@@ -72,7 +73,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             String[] campiRchiesta={"IdStudente","IdTirocinio","Status","Cfu","NomeTutor","EmailTutor"};
             uRichiesta=connection.prepareStatement(creaQueryUpdate(campiRchiesta, "Richiesta", "IdRichiesta"));
             //uRichiesta=connection.prepareStatement("UPDATE Richiesta SET IdStudente=?, IdTirocinio=?, Status=?, Cfu=?, NomeTutor=?, CognomeTutor=?, EmailTutor=? WHERE idRichiesta=?");
-              
+            listaAziende=connection.prepareStatement("SELECT * FROM Azienda");
             sUtente=connection.prepareStatement(creaQuerySelect("Utente", "IdUtente"));
             sUtenteLogin=connection.prepareStatement("SELECT * FROM Utente WHERE Username = ? AND Password = ?");
             sAzienda=connection.prepareStatement(creaQuerySelect("Azienda", "IdAzienda"));
@@ -572,6 +573,22 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }catch(SQLException ex){
             throw new DataLayerException("Unable to store user", ex);
         }
+    }
+    @Override
+    public List<Azienda> showListaAziende(){
+        List<Azienda> list=new ArrayList<Azienda>();
+         try{
+            try(ResultSet rs = listaAziende.executeQuery()){
+                while(rs.next()){
+                    list.add(creaAzienda(rs));
+                }
+            }catch(SQLException ex){
+                ex.getMessage();
+            }
+        }catch(DataLayerException ex){
+            ex.getMessage();
+        }
+        return list;
     }
     
     @Override

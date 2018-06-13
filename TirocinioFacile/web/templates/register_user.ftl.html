@@ -3,7 +3,7 @@
 <form  id="form" method="post" action="user">
     <div>
         <div>Nome</div>
-        <input  id="c" type="text" name="nome" value=" " class="required"/>
+        <input  type="text" name="nome" value=" " class="required forbidden"/>
     </div>
     
     <div>
@@ -38,22 +38,22 @@
     
     <div>
         <div>Residenza</div>
-        <div><input type="text" name="residenza" value=""/></div>
+        <div><input type="text" name="residenza" value="" class="required"/></div>
     </div>
     
     <div>
         <div>Codice fiscale</div>
-        <div><input type="text" name="codfisc" value=""/></div>
+        <div><input type="text" name="codfisc" value=""  class="required"/></div>
     </div>
     
     <div>
         <div>Telefono</div>
-        <div><input type="text" name="telefono" value=""/></div>
+        <div><input type="text" name="telefono" value="" class="number"/></div>
     </div>
     
     <div>
         <div>Corso di laurea</div>
-        <div><input type="text" name="cdl" value=""/></div>
+        <div><input type="text" name="cdl" value="" class="required"/></div>
     </div>
     
     <div>
@@ -66,6 +66,15 @@
         </div>
     </div>
     
+     <div>Sesso</div>
+        <div>
+            <select name="sesso">
+                <option value="maschio" selected="selected">Uomo</option>
+                <option value="donna">Donna</option>
+            </select>
+        </div>
+    
+    
     <div>
         <div>Laurea</div>
         <div>
@@ -75,6 +84,7 @@
             </select>
         </div>
     </div>
+    
     
     <div>
         <div>Dottorato</div>
@@ -88,7 +98,7 @@
     
     <div>
         <div>Email</div>
-        <div><input type="text" name="email1"  class="email" value=""/></div>
+        <div><input type="text" name="email1"  class="email required" value=""/></div>
     </div>
     
     <div>
