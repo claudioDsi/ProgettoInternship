@@ -1,11 +1,40 @@
-
-
-
-
-<div>Benvenuto nel portale per la gestione di tirocini universitari. Qui potrai accedere alla
-procedura telematica per iniziare un tirocinio (se sei uno studente) o proporlo (se sei un'azienda)
-Se non sei ancora registrato, fallo subito per accedere ai nostri servizi </div>
-<div> Elenco degli ultimi tirocini pubblicati:
-        
-    <#include "listanews.ftl.html" >
+<div class="w3-panel w3-round-large w3-teal">
+    <p><h4>Benvenuto nel portale per la gestione di tirocini universitari! 
+        <br>Qui potrai accedere alla
+        procedura telematica per iniziare un tirocinio se sei uno studente, o proporlo se sei un'azienda!
+        <br>Se non sei ancora registrato, fallo subito per accedere ai nostri servizi!</h4></p>
 </div>
+
+<div class="w3-cell-row">
+    <div class="w3-container w3-cell w3-mobile">
+        <h2>News tirocini:</h2>
+        <div class="w3-responsive">
+            <table class="w3-table-all">
+                <tr>
+                    <th>Titolo tirocinio</th>
+                    <th>Azienda referente</th>
+                    <th>Descrizione attivit&agrave;</th>
+                </tr>
+                <#list tirocini as tirocinio>
+                    <tr>
+                        <td>${tirocinio.luogo}</td>
+                        <td> ${tirocinio.azienda.nomeAzienda}</td>   
+                        <td> ${tirocinio.obiettivi}</td>
+                    </tr>
+                </#list> 
+            </table>
+        </div>
+    </div>
+    <div class="w3-container w3-cell w3-mobile">
+        <button class="w3-button w3-block w3-yellow" style="width:50%; float:left;" onclick="show()">Login Studente</button>
+        <button class="w3-button w3-block w3-red" style="width:50%; float:right;">Login Azienda</button>
+        <div id="log" style="display: block">
+            <p><a href="user">Registrati qui se sei uno studente!</a></p>
+        </div>
+        <div id="log" style="display: none">
+            <p><a href="azienda">Registra la tua azienda!</a></p>
+        </div>
+    </div>
+</div>
+<p><a href="login">Accedi ai nostri servizi!</a></p>
+<p><a href="logout">Logout</a></p>

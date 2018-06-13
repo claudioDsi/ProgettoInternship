@@ -11,12 +11,23 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style/responsive_header.css"/>
         <link rel="stylesheet" type="text/css" href="style/responsive_menu.css"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+        <script>
+        function show() {
+            var x = document.getElementById("log");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            } 
+        </script>
     </head>
     <body>
         <div class="header">
             <img src="images/logo.png" style="width: 210px; height: 62px;">
             <div class="header-right">
-                <a class="active" href="#home">Home</a>
+                <a class="active" href="home">Home</a>
                 <a href="#contact">Contact</a>
                 <a href="#about">About</a>
             </div>
@@ -44,12 +55,6 @@ and open the template in the editor.
         
         <div class="content">
             <#include content_tpl>
-             
-            <div><a href="azienda">Registra la tua azienda!</a></div>
-            <div><a href="user">Registrati qui se sei uno studente!</a></div>
-            <div><a href="login">Accedi ai nostri servizi!</a></div>
-            <div><a href="logout">Logout</a></div>
-            
         </div>
     </body>
 </html>
