@@ -25,6 +25,10 @@ public class Show extends InternshipDBController {
     private void action_anonymous(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException, DataLayerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            HttpSession s = SecurityLayer.checkSession(request);
+            if(s!=null){
+                request.setAttribute("Session", s);
+            }
             if(tirocinio.getStatus()){
                 request.setAttribute("status", true);
             }
@@ -81,7 +85,7 @@ public class Show extends InternshipDBController {
             TemplateResult res = new TemplateResult(getServletContext());
             int userid = (int)s.getAttribute("userid");
             if(userid==tirocinio.getIdAzienda()){
-                List<Richiesta> lista_richieste = new ArrayList<>();
+                List<Richiesta> lista_richieste = new ArrayList();
                 lista_richieste = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaRichiesteTirocinio(tirocinio.getIdTirocinio());
                 if(tirocinio.getStatus()){
                     Richiesta richiesta_accettata = null;
@@ -143,7 +147,7 @@ public class Show extends InternshipDBController {
                 //caso studente
                 action_student(request, response, tirocinio, s);
             }else{
-                //caso utente anonimo
+                //caso utente anonimo e admin
                 action_anonymous(request,response, tirocinio);
             }
         }catch (IOException ex) {

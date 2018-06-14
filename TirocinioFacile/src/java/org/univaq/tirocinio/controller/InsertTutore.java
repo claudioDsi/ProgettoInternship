@@ -91,7 +91,7 @@ public class InsertTutore extends InternshipDBController {
                         response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                     }
                 }else if(utype.equals("comp")){
-                    //se sei un'azienda ti mostro la form per agigungere il tutore
+                    //se sei un'azienda ti mostro la form per aggiungere il tutore
                     action_default(request, response);
                 }else{
                     response.sendRedirect("profile?uid="+userid+"&utype="+utype);

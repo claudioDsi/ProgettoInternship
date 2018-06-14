@@ -105,6 +105,14 @@
         <servlet-name>ListaAziende</servlet-name>
         <servlet-class>org.univaq.tirocinio.controller.ListaAziende</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Stats</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.Stats</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageCompany</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.ManageCompany</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -172,6 +180,14 @@
     <servlet-mapping>
         <servlet-name>ListaAziende</servlet-name>
         <url-pattern>/listaaziende</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Stats</servlet-name>
+        <url-pattern>/stats</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCompany</servlet-name>
+        <url-pattern>/managecompany</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

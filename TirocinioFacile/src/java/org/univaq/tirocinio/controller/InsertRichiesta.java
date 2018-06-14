@@ -6,7 +6,6 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +63,7 @@ public class InsertRichiesta extends InternshipDBController {
                 Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(tutore_id);
                 new_richiesta.setNomeTutor(tutore.getNome());
                 new_richiesta.setCognomeTutor(tutore.getCognome());
-                new_richiesta.setEmailTutor("mancalamail");
+                new_richiesta.setEmailTutor(tutore.getEmailTutore());
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeRichiesta(new_richiesta);
                 response.sendRedirect("show?tid="+tirocinio_id);
                 //action_activate(request, response, new_richiesta.getIdRichiesta());
@@ -120,7 +119,7 @@ public class InsertRichiesta extends InternshipDBController {
                     action_default(request, response, tirocinio);
                 }              
             }else{
-                //altrimenti (azienda o anonimo) non puoi
+                //altrimenti (azienda, admin, o anonimo) non puoi
                 response.sendRedirect("show?tid="+tirocinio_id);
             }
         }catch (IOException ex) {

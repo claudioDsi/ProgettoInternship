@@ -5,11 +5,7 @@
  */
 package org.univaq.tirocinio.controller;
 
-import org.univaq.tirocinio.datamodel.Azienda;
-import org.univaq.tirocinio.datamodel.Utente;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,6 +67,7 @@ public class SetRichiesta extends InternshipDBController {
                 int userid = (int)s.getAttribute("userid");
                 String utype = (String)s.getAttribute("type");
                 if(utype.equals("comp") && userid==tirocinio.getIdAzienda() && tirocinio.getStatus()==false && richiesta.getStatus().equals("pending")){
+                    //sono l'azienda che ha inserito il tirocinio e sia il tirocinio che la richiesta ancora sono in attesa
                     action_modify_request(request, response, value, richiesta, tirocinio);
                 }else{
                     response.sendRedirect("show?tid=" + tirocinio.getIdTirocinio());

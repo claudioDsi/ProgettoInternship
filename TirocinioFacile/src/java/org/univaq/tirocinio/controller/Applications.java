@@ -68,7 +68,7 @@ public class Applications extends InternshipDBController {
                         //sei uno studente e mostro le tue candidature e i tuoi tirocini
                         request.setAttribute("page_title", "Riepilogo Tirocini e Candidature");
                         action_show(request, response);
-                    }else{
+                    }else if(type.equals("comp")){
                         //sei un'azienda
                         response.sendRedirect("profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}");
                     }

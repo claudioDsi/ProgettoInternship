@@ -13,11 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
+import org.univaq.tirocinio.framework.security.SecurityLayer;
 
 public class InsertAzienda extends InternshipDBController {
 
@@ -84,12 +86,19 @@ public class InsertAzienda extends InternshipDBController {
         throws ServletException {
             request.setAttribute("page_title", "Inserisci Azienda");
             try{
-                if(request.getParameter("add")!=null){
-                    // se il parametro add ha un valore assegnato allora inserisco l'azienda registrata
-                    action_write(request, response);
+                HttpSession s = SecurityLayer.checkSession(request);
+                if(s!=null){
+                    //non sei loggato quindi puoi registrarti
+                    if(request.getParameter("add")!=null){
+                        // se il parametro add ha un valore assegnato allora inserisco l'azienda registrata
+                        action_write(request, response);
+                    }else{
+                        // altrimenti mostro la pagina per registrarsi
+                        action_default(request, response);
+                    }
                 }else{
-                    // altrimenti mostro la pagina per registrarsi
-                    action_default(request, response);
+                    //sei già loggato
+                    response.sendRedirect("home");
                 }
             }catch (IOException ex) {
                 request.setAttribute("exception", ex);

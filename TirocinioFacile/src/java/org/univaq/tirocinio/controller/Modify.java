@@ -28,7 +28,7 @@ public class Modify extends InternshipDBController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             
-            if(utype.equals("stud")){
+            if(utype.equals("stud") || utype.equals("admin")){
                 res.activate("modify_user.ftl.html", request, response);
             }else{
                 res.activate("modify_company.ftl.html", request, response);
@@ -42,7 +42,7 @@ public class Modify extends InternshipDBController {
     private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            if(usertype.equals("stud")){
+            if(usertype.equals("stud") || usertype.equals("admin")){
                 Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
                 u.setNome(request.getParameter("nome"));
                 u.setCognome(request.getParameter("cognome"));
@@ -88,7 +88,7 @@ public class Modify extends InternshipDBController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             HttpSession s = SecurityLayer.checkSession(request);
-            if(usertype.equals("stud")){
+            if(usertype.equals("stud") || usertype.equals("admin")){
                 Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
                 request.setAttribute("utente", utente);
             }else if(usertype.equals("comp")){
@@ -119,16 +119,18 @@ public class Modify extends InternshipDBController {
             String usertype = (String) s.getAttribute("type");
             try{
                 if(request.getParameter("update")!=null){
+                    //se l'azione di modifica è stata inviata, la eseguo
                     action_modify(request, response, userid, usertype);
                 }else{
                     int uid = SecurityLayer.checkNumeric(request.getParameter("uid"));
                     String utype = request.getParameter("utype");
                     if(uid == userid){
-                        if(utype.equals("stud")){
+                        //se l'utente che si vuole modificare è lo stesso di quello in sessione, posso modificare
+                        if(utype.equals("stud") || utype.equals("admin")){
                             request.setAttribute("page_title", "Modifica Utente");
                             request.setAttribute("Session", s);
                             action_default(request, response, utype);
-                        }else{
+                        }else if(utype.equals("comp")){
                             request.setAttribute("page_title", "Modifica Azienda");
                             request.setAttribute("Session", s);
                             action_default(request, response, utype);

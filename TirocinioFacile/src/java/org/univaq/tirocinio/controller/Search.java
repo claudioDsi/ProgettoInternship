@@ -42,7 +42,7 @@ public class Search extends InternshipDBController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             Map<String,Object> parametri = new HashMap();
-            List<Tirocinio> tirocini = new ArrayList<>();
+            List<Tirocinio> tirocini = new ArrayList();
             parametri.put("azienda", request.getParameter("azienda"));
             parametri.put("luogo", request.getParameter("luogo"));
             parametri.put("numore", request.getParameter("numore"));

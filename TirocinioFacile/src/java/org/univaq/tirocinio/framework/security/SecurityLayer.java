@@ -94,7 +94,7 @@ public class SecurityLayer {
 
     public static void disposeSession(HttpServletRequest request) {
         HttpSession s = request.getSession(false);
-        if (s != null) {
+        if (s!=null) {
             s.invalidate();
         }
     }

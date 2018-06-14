@@ -98,7 +98,7 @@ public class InsertTirocinio extends InternshipDBController {
                     response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                 }
             }else if(utype.equals("comp")){
-                //se sei un'azienda ti mostro la form per agigungere il tirocinio
+                //se sei un'azienda ti mostro la form per aggiungere il tirocinio
                 action_default(request, response, userid);
             }else{
                 response.sendRedirect("profile?uid="+userid+"&utype="+utype);

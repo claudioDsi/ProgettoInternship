@@ -25,11 +25,10 @@ import javax.servlet.http.HttpSession;
  */
 public class Profile extends InternshipDBController {
     
-    private void action_company(HttpServletRequest request, HttpServletResponse response, int uid, String utype) throws IOException, ServletException, TemplateManagerException {
+    private void action_company(HttpServletRequest request, HttpServletResponse response, int uid) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            Azienda a;
-            a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(uid);
+            Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(uid);
             request.setAttribute("azienda", a);
             HttpSession s = SecurityLayer.checkSession(request);
             if(s!=null){
@@ -48,11 +47,10 @@ public class Profile extends InternshipDBController {
         }
     }
     
-    private void action_student(HttpServletRequest request, HttpServletResponse response, int uid, String utype) throws IOException, ServletException, TemplateManagerException {
+    private void action_student(HttpServletRequest request, HttpServletResponse response, int uid) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            Utente u;
-            u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(uid);
+            Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(uid);
             request.setAttribute("utente", u);
             HttpSession s = SecurityLayer.checkSession(request);
             if(s!=null){
@@ -87,11 +85,11 @@ public class Profile extends InternshipDBController {
             try{
                 if(utype.equals("comp")){
                     request.setAttribute("page_title", "Profilo Azienda");
-                    action_company(request, response, uid, utype);
+                    action_company(request, response, uid);
                 }else{
-                    if(utype.equals("stud")){
-                        request.setAttribute("page_title", "Profilo Studente");
-                        action_student(request, response, uid, utype);
+                    if(utype.equals("stud") || utype.equals("admin")){
+                        request.setAttribute("page_title", "Profilo Utente");
+                        action_student(request, response, uid);
                     }
                 }
             }catch (IOException ex) {

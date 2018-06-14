@@ -95,7 +95,7 @@ public class CompanyPanel extends InternshipDBController {
                             request.setAttribute("page_title", "Gestione Tirocini Inseriti");
                             action_show(request, response);
                         }
-                    }else{
+                    }else if(type.equals("stud")){
                         //sei uno studente
                         response.sendRedirect("profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}");
                     }

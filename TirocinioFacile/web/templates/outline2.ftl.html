@@ -32,17 +32,21 @@ and open the template in the editor.
 
         <ul class="sidenav">
             <#if (Session??)>
-            <#if Session.getAttribute('type')=="stud">
-                <li><a href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">Il tuo profilo</a></li>
-                <li><a href="search">Ricerca Tirocinio</a></li>
-                <li><a href="listaaziende">Lista Aziende</a></li>
-                <li><a href="applications">Riepilogo Candidature</a></li>
-                <li><a href="faq">FAQ</a></li>
-            <#else>
-                <li><a href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">Il tuo profilo</a></li>
-                <li><a href="panel">Gestione Tirocini</a></li>
-                <li><a href="faq">FAQ</a></li>
-            </#if>
+                <#if Session.getAttribute('type')=="stud">
+                    <li><a href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">Il tuo profilo</a></li>
+                    <li><a href="search">Ricerca Tirocinio</a></li>
+                    <li><a href="listaaziende">Lista Aziende</a></li>
+                    <li><a href="applications">Riepilogo Candidature</a></li>
+                    <li><a href="faq">FAQ</a></li>
+                <#elseif Session.getAttribute('type')=="comp">
+                    <li><a href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">Il tuo profilo</a></li>
+                    <li><a href="panel">Gestione Tirocini</a></li>
+                    <li><a href="faq">FAQ</a></li>
+                <#else>
+                    <li><a href="managecompany">Gestione delle aziende</a></li>
+                    <li><a href="stats">Statistiche</a></li>
+                    <li><a href="faq">FAQ</a></li>
+                </#if>
             <#else>
                 <li><a href="search">Ricerca Tirocinio</a></li>
                 <li><a href="listaaziende">Lista Aziende</a></li>

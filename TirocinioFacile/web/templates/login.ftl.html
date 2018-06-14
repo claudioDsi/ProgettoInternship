@@ -1,4 +1,9 @@
 <form method="post" action="login">
+    <#if tid="">
+        <input type="hidden" name="tid" value="" />
+    <#else>
+        <input type="hidden" name="tid" value="${tid}" />
+    </#if>
     <div>
         <div>Username</div>
         <div><input type="text" name="username" value=""/></div>

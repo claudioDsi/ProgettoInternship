@@ -57,7 +57,7 @@ public class UtenteImpl implements Utente{
         laurea = "";
         dottorato = "";
         specializzazione = "";
-        sesso="";
+        sesso = "";
         emailUtente = "";
         handicap = false;
         listaRichieste = null;
@@ -294,6 +294,7 @@ public class UtenteImpl implements Utente{
 
     @Override
     public void setSesso(String sesso) {
-        this.sesso=sesso;
+        this.sesso = sesso;
+        this.dirty = true;
     }
 }
