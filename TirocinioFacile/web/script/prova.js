@@ -36,7 +36,7 @@ function ObjCheckNumber() {
 		if (bint) return (s == parseInt(s));
 		else return (s == parseFloat(s));
 	};
-	this.message = "Il campo deve contenere un numero";
+	this.message = "il campo deve contenere un numero";
 }
 
 //oggetto di controllo per il predicato IS IN RANGE (min,max)
@@ -71,7 +71,7 @@ function ObjDisallowedChecker(set) {
 		}
 		return true;	
 	};
-	this.message = "Il campo non pu&ograve contenere  "+set;
+	this.message = "Il campo n  "+set;
 }
 
 //oggetto di controllo che NEGA un altro aggetto di controllo
@@ -79,7 +79,7 @@ function ObjDisallowedChecker(set) {
 function ObjNegatedChecker(c1) {
 
 	this.check =  function(s) {	return !c1.check(s);	};
-	this.message = "NOT ("+c1.message+")";
+	this.message = "non ("+c1.message+")";
 
 }
 
@@ -136,7 +136,7 @@ function InputFieldChecker(element,check) {
 	this.objcheck = check;		
 	this.saveborder = element.style.border;
 	this.messagearea = element.ownerDocument.createElement("div");
-	this.messagearea.className="messagearea";
+	this.messagearea.className="messagearea";        
 	if (element.nextSibling) element.parentNode.insertBefore(this.messagearea,element.nextSibling);
 	else element.parentNode.appendChild(this.messagearea);
 	
