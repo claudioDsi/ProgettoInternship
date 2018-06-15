@@ -71,7 +71,7 @@ function ObjDisallowedChecker(set) {
 		}
 		return true;	
 	};
-	this.message = "Il campo n  "+set;
+	this.message = "il campo non deve contenere "+set;
 }
 
 //oggetto di controllo che NEGA un altro aggetto di controllo
@@ -136,7 +136,9 @@ function InputFieldChecker(element,check) {
 	this.objcheck = check;		
 	this.saveborder = element.style.border;
 	this.messagearea = element.ownerDocument.createElement("div");
-	this.messagearea.className="messagearea";        
+	this.messagearea.id="messagearea"; 
+        this.messagearea.className="alert";
+        this.messagearea.style.display="none";
 	if (element.nextSibling) element.parentNode.insertBefore(this.messagearea,element.nextSibling);
 	else element.parentNode.appendChild(this.messagearea);
 	
@@ -144,10 +146,13 @@ function InputFieldChecker(element,check) {
 		if (!this.objcheck.check(this.element.value)) {
 			this.element.style.border = "1px solid red";			
 			this.messagearea.textContent=this.objcheck.message;
+                        this.messagearea.style.display="flex";
 			return false;
 		} else {
 			this.element.style.border = this.saveborder;
 			this.messagearea.textContent="";
+                        this.messagearea.style.display="none";
+                        
 			return true;
 		}
 	}
