@@ -22,8 +22,8 @@ public interface Tutore {
     String getCognome();
     void setCognome(String cognome);
     
-    String getDataNasc();
-    void setDataNasc(String data);
+    Date getDataNasc();
+    void setDataNasc(Date data);
     
     String getEmailTutore();
     void setEmailTutore(String emailTutore);

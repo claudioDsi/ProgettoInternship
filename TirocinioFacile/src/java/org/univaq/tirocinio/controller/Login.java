@@ -91,7 +91,7 @@ public class Login extends InternshipDBController {
         request.setAttribute("page_title", "Login Utente");
         try{
             HttpSession s = SecurityLayer.checkSession(request);
-            if(s!=null){
+            if(s==null){
                 if(request.getParameter("login")!=null){
                     // se il parametro login ha un valore assegnato allora inserisco faccio loggare l'utente
                     action_login(request, response);

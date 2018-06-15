@@ -1,16 +1,81 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<h2>${page_title}</h2>
+<br/>
+<#if (Session??)>
+    <#if Session.getAttribute('type')=="admin">
+        <h3>I Migliori Tutori</h3>
+        <br/>
+        <#if (best_tutori)??>
+            <table style="width:100%">
+                <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Data di Nascita</th> 
+                    <th>Numero di Tirocini</th>
+                    <th>Email Tutore</th>
+                </tr>
+                <#list best_tutori as tutore>
+                    <tr>
+                        <td>${tutore.nome}</td> 
+                        <td>${tutore.cognome}</td>
+                        <td>${tutore.dataNasc}</td> 
+                        <td>${tutore.numTirocini}</td>
+                        <td>${tutore.emailTutore}</td>
+                    </tr>
+                </#list>
+            </table>
+        <#else>
+            <p>Non ci sono tutori iscritti!</p>
+        </#if>
+        <br/>
+        <h3>Le Migliori Aziende</h3>
+        <br/>
+        <#if (best_aziende)??>
+            <table style="width:100%">
+                <tr>
+                    <th>Nome</th>
+                    <th>Ragione Sociale</th>
+                    <th>Partita IVA</th> 
+                    <th>Numero di Tirocini</th>
+                    <th>Valutazione</th>
+                </tr>
+                <#list best_aziende as azienda>
+                    <tr>
+                        <td>${azienda.nomeAzienda}</td> 
+                        <td>${azienda.ragioneSociale}</td>
+                        <td>${azienda.partitaIva}</td> 
+                        <td>${azienda.numeroTirocini}</td>
+                        <td>${azienda.valutazione}</td>
+                    </tr>
+                </#list>
+            </table>
+        <#else>
+            <p>Non ci sono aziende iscritte!</p>
+        </#if>
+        <br/>
+        <h3>Le Aziende con più Tirocini</h3>
+        <br/>
+        <#if (most_stages)??>
+            <table style="width:100%">
+                <tr>
+                    <th>Nome</th>
+                    <th>Ragione Sociale</th>
+                    <th>Partita IVA</th> 
+                    <th>Numero di Tirocini</th>
+                    <th>Valutazione</th>
+                </tr>
+                <#list most_stages as az>
+                    <tr>
+                        <td>${az.nomeAzienda}</td> 
+                        <td>${az.ragioneSociale}</td>
+                        <td>${az.partitaIva}</td> 
+                        <td>${az.numeroTirocini}</td>
+                        <td>${az.valutazione}</td>
+                    </tr>
+                </#list>
+            </table>
+        <#else>
+            <p>Non ci sono aziende iscritte!</p>
+        </#if>       
+    </#if>
+</#if>
+<br/>

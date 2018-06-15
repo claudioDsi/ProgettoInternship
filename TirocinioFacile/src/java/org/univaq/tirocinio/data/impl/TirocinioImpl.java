@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package org.univaq.tirocinio.data.impl;
+import java.util.Date;
 import org.univaq.tirocinio.datamodel.Tirocinio;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.datamodel.Tutore;
@@ -20,7 +21,7 @@ public class TirocinioImpl implements Tirocinio{
     private int idTirocinio;
     private String luogo;
     private String orario;
-    private String mesi;
+    private int mesi;
     private int numOre;
     private String obiettivi;
     private String facilitazioni;
@@ -28,13 +29,14 @@ public class TirocinioImpl implements Tirocinio{
     private String settore;
     private String titolo;
     private boolean status;
+    private Date dataInizio;
+    private Date dataFine;
     //riferimenti alle altre tabelle
     private Tutore tutore;    
     private int idTutore;
     private Azienda azienda;
     private int idAzienda;
-    protected Boolean dirty;
-    
+    protected Boolean dirty;   
     private List<Richiesta> listaRichieste;
     //data layer
     protected InternShipDataLayer ownLayer;
@@ -44,13 +46,15 @@ public class TirocinioImpl implements Tirocinio{
         idTirocinio = 0;
         luogo = "";
         orario = "";
-        mesi = "";
+        mesi = 0;
         settore = "";
         titolo = "";
         numOre = 0;
         obiettivi = "";
         facilitazioni = "";
         modalità = "";
+        dataInizio = null;
+        dataFine = null;
         status = false;
         tutore = null;
         idTutore = 0;
@@ -88,18 +92,18 @@ public class TirocinioImpl implements Tirocinio{
     }
 
     @Override
-    public String getMesi() {
+    public int getMesi(){
         return mesi;
     }
 
     @Override
-    public void setMesi(String mesi) {
+    public void setMesi(int mesi){
         this.mesi = mesi;
         this.dirty = true;
     }
     
     @Override
-    public String getTitolo() {
+    public String getTitolo(){
         return titolo;
     }
 
@@ -231,6 +235,28 @@ public class TirocinioImpl implements Tirocinio{
     }
     
     @Override
+    public Date getDataInizio() {
+        return dataInizio;
+    }
+
+    @Override
+    public void setDataInizio(Date dataInizio) {
+        this.dataInizio = dataInizio;
+        this.dirty = true;
+    }
+    
+    @Override
+    public Date getDataFine() {
+        return dataFine;
+    }
+
+    @Override
+    public void setDataFine(Date dataFine) {
+        this.dataFine = dataFine;
+        this.dirty = true;
+    }
+    
+    @Override
     public boolean isDirty() {
         return dirty;
     }
@@ -255,6 +281,8 @@ public class TirocinioImpl implements Tirocinio{
         status = tirocinio.getStatus();
         idTutore = tirocinio.getIdTutore();
         idAzienda = tirocinio.getIdAzienda();
+        dataInizio = tirocinio.getDataInizio();
+        dataFine = tirocinio.getDataFine();
         this.dirty = true;
     }
     

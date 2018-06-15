@@ -5,9 +5,9 @@
  */
 package org.univaq.tirocinio.datamodel;
 
+import java.util.Date;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import java.util.List;
-
 
 /**
  *
@@ -24,8 +24,8 @@ public interface Tirocinio {
     String getOrario();
     void setOrario(String orario);
     
-    String getMesi();
-    void setMesi(String mesi);
+    int getMesi();
+    void setMesi(int mesi);
     
     String getTitolo();
     void setTitolo(String titolo);
@@ -59,6 +59,12 @@ public interface Tirocinio {
     
     Tutore getTutore() throws DataLayerException;
     void setTutore(Tutore tutore);
+    
+    Date getDataInizio() throws DataLayerException;
+    void setDataInizio(Date dataInizio);
+    
+    Date getDataFine() throws DataLayerException;
+    void setDataFine(Date dataFine);
     
     List<Richiesta> getListaRichieste() throws DataLayerException;
     

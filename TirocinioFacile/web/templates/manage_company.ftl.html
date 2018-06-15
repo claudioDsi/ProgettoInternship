@@ -1,0 +1,36 @@
+<h2>${page_title}</h2>
+<br/>
+<#if (Session??)>
+    <#if Session.getAttribute('type')=="admin">
+        <#if (lista_aziende)??>
+            <table>
+                <tr>
+                    <th>Azienda</th>
+                    <th>Indirizzo</th>
+                    <th>Partita Iva</th>
+                    <th>Nome rappresentante</th>
+                    <th>Cognome rappresentante</th>
+                    <th>Foro competente</th>
+                    <th>Email rappresentante</th>
+                    <th>Status dell'azienda</th>
+                    <th></th>
+                </tr>            
+                <#list lista_aziende as azienda>
+                    <tr>
+                        <td>${azienda.nomeAzienda}</td>
+                        <td>${azienda.indirizzo}</td>
+                        <td>${azienda.partitaIva}</td>  
+                        <td>${azienda.nomeRappr}</td>
+                        <td>${azienda.cognomeRappr}</td>
+                        <td>${azienda.foro}</td>
+                        <td>${azienda.emailResp}</td>
+                        <td>${azienda.status?string}</td>
+                        <td><#if (azienda.status)> <#else><a href="managecompany?aid=${azienda.idAzienda}&val=1">Abilita azienda</a></#if></td>
+                    </tr>
+                </#list>        
+            </table>
+        <#else>
+            <p>Non ci sono aziende ancora iscritte!</p>
+        </#if>
+    </#if>
+</#if>

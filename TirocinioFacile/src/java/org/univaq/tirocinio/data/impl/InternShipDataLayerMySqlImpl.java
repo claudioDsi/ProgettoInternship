@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 import javax.naming.NamingException;
 import java.util.Map;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
@@ -41,6 +42,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement orderByDate, searchQuery;
     private PreparedStatement rejectAllRequests, modifyRequestStatus, modifyTirocinioStatus; 
     private PreparedStatement listaAziende;
+    private PreparedStatement bestAziende, bestTutori, moreStage, activateAzienda;
+    private PreparedStatement uNumeroTirocini, uDateTirocinio, uValutazione;
    
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
@@ -50,10 +53,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     public void init() throws DataLayerException{
         try{     
             super.init();
-            iUtente=connection.prepareStatement("INSERT INTO Utente (Username,Password,Privilegi,Nome,Cognome,DataNasc,LuogoNasc,Residenza,CodiceFisc,Telefono,CorsoLaurea,Handicap,Laurea,Dottorato,ScuolaSpec,EmailUtente,Sesso) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Status,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iUtente=connection.prepareStatement("INSERT INTO Utente (Username,Password,Privilegi,Nome,Cognome,DataNasc,LuogoNasc,Residenza,CodiceFisc,Telefono,CorsoLaurea,Handicap,Laurea,Dottorato,ScuolaSpec,EmailUtente,Sesso) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iAzienda=connection.prepareStatement("INSERT INTO Azienda (Username,Password,Privilegi,Status,Nome,RagioneSociale,Indirizzo,PartitaIva,CodiceFiscale,NomeRappr,CognomeRappr,NomeResp,CognomeResp,TelefonoResp,EmailResp,Foro,Valutazione,NumeroTirocini,NumTiroCompletati) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda,EmailTutore) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,Titolo,Status,CodTutore,CodAzienda) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,Titolo,Status,CodTutore,CodAzienda,DataInizio,DataFine) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (CodStudente,CodTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor) VALUES (?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
                      
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
@@ -92,6 +95,13 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             rejectAllRequests=connection.prepareStatement("UPDATE Richiesta SET Status='rejected' WHERE IdRichiesta!=? AND CodTirocinio=?");
             modifyRequestStatus=connection.prepareStatement("UPDATE Richiesta SET Status=? WHERE IdRichiesta=?");
             modifyTirocinioStatus=connection.prepareStatement("UPDATE Tirocinio SET Status=1 WHERE IdTirocinio=?");
+            bestAziende=connection.prepareStatement("SELECT * FROM Azienda ORDER BY Valutazione DESC LIMIT 10");
+            bestTutori=connection.prepareStatement("SELECT * FROM Tutore ORDER BY NumTirocini DESC LIMIT 10");
+            moreStage=connection.prepareStatement("SELECT * FROM Azienda ORDER BY NumeroTirocini DESC LIMIT 10");
+            activateAzienda=connection.prepareStatement("UPDATE Azienda SET Status=1 WHERE IdAzienda=?");
+            uNumeroTirocini=connection.prepareStatement("");
+            uDateTirocinio=connection.prepareStatement("UPDATE Tirocinio SET DataInizio=?, DataFine=? WHERE IdTirocinio=?");
+            uValutazione=connection.prepareStatement("");
             //Tutti i prepared statement
         }
         catch(SQLException sqlEx){
@@ -131,7 +141,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             u.setPrivilegi(rs.getInt("Privilegi"));
             u.setNome(rs.getString("Nome"));
             u.setCognome(rs.getString("Cognome"));
-            u.setDataNasc(rs.getString("DataNasc"));
+            u.setDataNasc(rs.getDate("DataNasc"));
             u.setLuogoNasc(rs.getString("LuogoNasc"));
             u.setResidenza(rs.getString("Residenza"));
             u.setCodFisc(rs.getString("CodiceFisc"));
@@ -177,6 +187,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             az.setEmailResp(rs.getString("EmailResp"));
             az.setForo(rs.getString("Foro"));
             az.setValutazione(rs.getFloat("Valutazione"));
+            az.setNumeroTirocini(rs.getInt("NumeroTirocini"));
+            az.setNumTiroCompletati(rs.getInt("NumTiroCompletati"));
         }
         catch (SQLException sqlEx){
             sqlEx.getMessage();
@@ -195,7 +207,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             t.setIdTutore(rs.getInt("IdTutore"));
             t.setNome(rs.getString("Nome"));
             t.setCognome(rs.getString("Cognome"));
-            t.setDataNasc(rs.getString("DataNasc"));
+            t.setDataNasc(rs.getDate("DataNasc"));
             t.setNumTirocini(rs.getInt("NumTirocini"));
             t.setTelefono(rs.getString("Telefono"));
             t.setCodAzienda(rs.getInt("CodAzienda"));
@@ -219,7 +231,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             tiro.setLuogo(rs.getString("Luogo"));
             tiro.setOrario(rs.getString("Orario"));
             tiro.setNumOre(rs.getInt("NumOre"));           
-            tiro.setMesi(rs.getString("NumMesi"));
+            tiro.setMesi(rs.getInt("NumMesi"));
             tiro.setObiettivi(rs.getString("Obiettivi"));
             tiro.setModalità(rs.getString("Modalità"));
             tiro.setFacilitazioni(rs.getString("Facilitazioni"));
@@ -228,7 +240,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             tiro.setStatus(rs.getBoolean("Status"));
             tiro.setIdTutore(rs.getInt("CodTutore"));
             tiro.setIdAzienda(rs.getInt("CodAzienda"));
-            tiro.setAzienda(getInfoAzienda(rs.getInt("CodAzienda")));       
+            tiro.setAzienda(getInfoAzienda(rs.getInt("CodAzienda")));   
+            tiro.setDataInizio(rs.getDate("DataInizio"));
+            tiro.setDataFine(rs.getDate("DataFine"));
         }
         catch(SQLException sqlEx){
             sqlEx.getMessage();
@@ -525,7 +539,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 }
                 uUtente.setString(1, utente.getNome());
                 uUtente.setString(2, utente.getCognome());
-                uUtente.setString(3, utente.getDataNasc());
+                uUtente.setDate(3, new java.sql.Date(utente.getDataNasc().getTime()));
                 uUtente.setString(4, utente.getLuogoNasc());
                 uUtente.setString(5, utente.getResidenza());
                 uUtente.setString(6, utente.getCodFisc());
@@ -545,7 +559,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 iUtente.setInt(3, utente.getPrivilegi());
                 iUtente.setString(4, utente.getNome());
                 iUtente.setString(5, utente.getCognome());
-                iUtente.setString(6, utente.getDataNasc());
+                iUtente.setDate(6, new java.sql.Date(utente.getDataNasc().getTime()));
                 iUtente.setString(7, utente.getLuogoNasc());
                 iUtente.setString(8, utente.getResidenza());
                 iUtente.setString(9, utente.getCodFisc());
@@ -637,6 +651,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 iAzienda.setString(15, azienda.getEmailResp());
                 iAzienda.setString(16, azienda.getForo());
                 iAzienda.setFloat(17, azienda.getValutazione());
+                iAzienda.setInt(18, azienda.getNumeroTirocini());
+                iAzienda.setInt(19, azienda.getNumTiroCompletati());
                 if (iAzienda.executeUpdate() == 1) {
                     //per leggere la chiave generata dal database
                     //per il record appena inserito, usiamo il metodo
@@ -687,7 +703,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 }
                 uTutore.setString(1, tutore.getNome());
                 uTutore.setString(2, tutore.getCognome());
-                uTutore.setString(3, tutore.getDataNasc());
+                uTutore.setDate(3, new java.sql.Date(tutore.getDataNasc().getTime()));
                 uTutore.setInt(4, tutore.getNumTirocini());
                 uTutore.setString(5, tutore.getTelefono());
                 uTutore.setInt(6, tutore.getCodAzienda());
@@ -698,7 +714,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             } else { //insert
                 iTutore.setString(1, tutore.getNome());
                 iTutore.setString(2, tutore.getCognome());
-                iTutore.setString(3, tutore.getDataNasc());
+                iTutore.setDate(3, new java.sql.Date(tutore.getDataNasc().getTime()));
                 iTutore.setInt(4, tutore.getNumTirocini());
                 iTutore.setString(5, tutore.getTelefono());
                 iTutore.setInt(6, tutore.getCodAzienda());
@@ -754,7 +770,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 uTirocinio.setString(1, tirocinio.getLuogo());
                 uTirocinio.setString(2, tirocinio.getOrario());
                 uTirocinio.setInt(3, tirocinio.getNumOre());
-                uTirocinio.setString(4, tirocinio.getMesi());
+                uTirocinio.setInt(4, tirocinio.getMesi());
                 uTirocinio.setString(5, tirocinio.getObiettivi());
                 uTirocinio.setString(6, tirocinio.getModalità());
                 uTirocinio.setString(7, tirocinio.getFacilitazioni());
@@ -769,7 +785,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 iTirocinio.setString(1, tirocinio.getLuogo());
                 iTirocinio.setString(2, tirocinio.getOrario());
                 iTirocinio.setInt(3, tirocinio.getNumOre());
-                iTirocinio.setString(4, tirocinio.getMesi());
+                iTirocinio.setInt(4, tirocinio.getMesi());
                 iTirocinio.setString(5, tirocinio.getObiettivi());
                 iTirocinio.setString(6, tirocinio.getModalità());
                 iTirocinio.setString(7, tirocinio.getFacilitazioni());
@@ -778,6 +794,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 iTirocinio.setBoolean(10, tirocinio.getStatus());
                 iTirocinio.setInt(11, tirocinio.getIdTutore());
                 iTirocinio.setInt(12, tirocinio.getIdAzienda());
+                iTirocinio.setDate(13, new java.sql.Date(tirocinio.getDataInizio().getTime()));
+                iTirocinio.setDate(14, new java.sql.Date(tirocinio.getDataFine().getTime()));
                 if (iTirocinio.executeUpdate() == 1) {
                     //per leggere la chiave generata dal database
                     //per il record appena inserito, usiamo il metodo
@@ -978,6 +996,81 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }
     }
     
+    @Override
+    public List<Azienda> getBestCompanies() throws DataLayerException{
+        List<Azienda> lista_aziende = new ArrayList();
+        try{
+            try(ResultSet rs = bestAziende.executeQuery()){
+                while(rs.next()){
+                    lista_aziende.add(creaAzienda(rs));
+                }
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to get the best companies", ex);
+        }
+        return lista_aziende;
+    }
+    
+    @Override
+    public List<Tutore> getBestTutors() throws DataLayerException{
+        List<Tutore> lista_tutori = new ArrayList();
+        try{
+            try(ResultSet rs = bestTutori.executeQuery()){
+                while(rs.next()){
+                    lista_tutori.add(creaTutore(rs));
+                }
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to get the best tutors", ex);
+        }
+        return lista_tutori;
+    }
+    
+    @Override
+    public List<Azienda> getCompaniesWithMoreStages() throws DataLayerException{
+        List<Azienda> lista_aziende = new ArrayList();
+        try{
+            try(ResultSet rs = moreStage.executeQuery()){
+                while(rs.next()){
+                    lista_aziende.add(creaAzienda(rs));
+                }
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to get the companies with more stages", ex);
+        }
+        return lista_aziende;
+    }
+    
+    @Override
+    public void activateAzienda(Azienda azienda) throws DataLayerException{
+        try{
+            int key = azienda.getIdAzienda();
+            activateAzienda.setInt(1, azienda.getIdAzienda());
+            activateAzienda.executeUpdate();
+            if(key>0){
+                azienda.copyFrom(getInfoAzienda(key));
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to modify the status of the company", ex);
+        }
+    }
+    
+    @Override
+    public void updateDateTirocinio(Date dataInizio, Date dataFine, Tirocinio tirocinio) throws DataLayerException{
+        try{
+            int key = tirocinio.getIdTirocinio();
+            uDateTirocinio.setDate(1, new java.sql.Date(tirocinio.getDataInizio().getTime()));
+            uDateTirocinio.setDate(2, new java.sql.Date(tirocinio.getDataFine().getTime()));
+            uDateTirocinio.setInt(3, tirocinio.getIdTirocinio());
+            uDateTirocinio.executeUpdate();
+            if(key>0){
+                tirocinio.copyFrom(getInfoTirocinio(key));
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to modify the dates of the stage", ex);
+        }
+    }
+    
     /*@Override
     public void destroy() {
         try {
@@ -1018,6 +1111,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             modifyRequestStatus.close();
             modifyTirocinioStatus.close();
             rejectAllRequests.close();
+            bestTutori.close();
+            bestAzienda.close();
+            activateAzienda.close();
+            uValutazione.close()
         } catch (SQLException ex) {
             //
         }

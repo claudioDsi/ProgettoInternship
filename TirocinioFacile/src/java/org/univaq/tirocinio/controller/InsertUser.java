@@ -7,6 +7,7 @@ package org.univaq.tirocinio.controller;
 
 import org.univaq.tirocinio.datamodel.Utente;
 import java.io.IOException;
+import java.text.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,8 @@ import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class InsertUser extends InternshipDBController {
     
@@ -30,15 +33,18 @@ public class InsertUser extends InternshipDBController {
         }
     }
 
-    private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, ParseException {
         try {
             Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date_in_string = request.getParameter("datanasc");
+            Date date = sdf.parse(date_in_string);
             u.setUsername(request.getParameter("username"));
             u.setPassword(request.getParameter("password"));
             u.setPrivilegi(1);
             u.setNome(request.getParameter("nome"));
             u.setCognome(request.getParameter("cognome"));
-            u.setDataNasc(request.getParameter("datanasc"));
+            u.setDataNasc(date);         
             u.setLuogoNasc(request.getParameter("luogonasc"));
             u.setResidenza(request.getParameter("residenza"));
             u.setCodFisc(request.getParameter("codfisc"));
@@ -84,7 +90,7 @@ public class InsertUser extends InternshipDBController {
             request.setAttribute("page_title", "Inserisci Studente");
             try{
                 HttpSession s = SecurityLayer.checkSession(request);
-                if(s!=null){
+                if(s==null){
                     //non sei loggato quindi puoi registrarti
                     if(request.getParameter("add")!=null){
                         // se il parametro add ha un valore assegnato allora inserisco l'utente registrato
@@ -103,6 +109,9 @@ public class InsertUser extends InternshipDBController {
             }catch (TemplateManagerException ex) {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
+        } catch (ParseException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
         }  
     }
     

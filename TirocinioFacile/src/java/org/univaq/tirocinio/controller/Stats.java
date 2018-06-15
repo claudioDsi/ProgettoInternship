@@ -6,83 +6,82 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.univaq.tirocinio.datamodel.InternShipDataLayer;
+import org.univaq.tirocinio.framework.data.DataLayerException;
+import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.TemplateManagerException;
+import org.univaq.tirocinio.framework.result.TemplateResult;
+import org.univaq.tirocinio.framework.security.SecurityLayer;
+import javax.servlet.http.HttpSession;
+import org.univaq.tirocinio.datamodel.Azienda;
+import org.univaq.tirocinio.datamodel.Tutore;
 
 /**
  *
  * @author vince
  */
-@WebServlet(name = "Stats", urlPatterns = {"/stats"})
-public class Stats extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Stats</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Stats at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+public class Stats extends InternshipDBController {
+    
+    private void action_stats(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
+        try{
+            TemplateResult res = new TemplateResult(getServletContext());
+            HttpSession s = SecurityLayer.checkSession(request);
+            //tutori con più tirocini svolti
+            List<Tutore> best_tutori = ((InternShipDataLayer)request.getAttribute("datalayer")).getBestTutors();
+            //aziende con valutazioni migliori
+            List<Azienda> best_aziende = ((InternShipDataLayer)request.getAttribute("datalayer")).getBestCompanies();
+            //aziende con più tirocini assegnati
+            List<Azienda> most_stages = ((InternShipDataLayer)request.getAttribute("datalayer")).getCompaniesWithMoreStages();
+            request.setAttribute("best_tutori", best_tutori);
+            request.setAttribute("best_aziende", best_aziende);
+            request.setAttribute("most_stages", most_stages);
+            request.setAttribute("Session", s);
+            res.activate("stats.ftl.html", request, response);
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    
+    private void action_error(HttpServletRequest request, HttpServletResponse response){
+        if (request.getAttribute("exception") != null) {
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
+        } else {
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("message"), request, response);
+        }
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException {
+            try{
+                HttpSession s = SecurityLayer.checkSession(request);
+                if(s!=null){
+                    int userid = (int)s.getAttribute("userid");
+                    String type = (String)s.getAttribute("type");
+                    if(type.equals("admin")){
+                        //sei admin e mostro la pagina delle statistiche
+                        request.setAttribute("page_title", "Statistiche Utenti ed Aziende");
+                        action_stats(request, response);
+                    }else{
+                    //sei un'azienda o un utente
+                        response.sendRedirect("home");
+                    }
+                }else{
+                //sei un utente anonimo
+                    response.sendRedirect("home");
+                }
+            }catch (IOException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+            }catch (TemplateManagerException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+        }  
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
 }

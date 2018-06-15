@@ -6,6 +6,9 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,14 +35,17 @@ public class InsertTutore extends InternshipDBController {
         }
     }
     
-    private void action_add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, ParseException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).creaTutore();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date_in_string = request.getParameter("datanasc");
+            Date date = sdf.parse(date_in_string);
             int userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
             tutore.setNome(request.getParameter("nome"));
             tutore.setCognome(request.getParameter("cognome"));
-            tutore.setDataNasc(request.getParameter("datanasc"));
+            tutore.setDataNasc(date);
             tutore.setTelefono(request.getParameter("telefono"));
             tutore.setEmailTutore(request.getParameter("email"));
             tutore.setCodAzienda(userid);
@@ -102,7 +108,10 @@ public class InsertTutore extends InternshipDBController {
             }catch (TemplateManagerException ex) {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
-        }  
+        }   catch (ParseException ex) {  
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+            }  
     }
     
 }

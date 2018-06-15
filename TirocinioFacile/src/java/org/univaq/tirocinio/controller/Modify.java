@@ -6,6 +6,9 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,14 +42,17 @@ public class Modify extends InternshipDBController {
         }
     }
     
-    private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException {
+    private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException, ParseException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             if(usertype.equals("stud") || usertype.equals("admin")){
                 Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String date_in_string = request.getParameter("datanasc");
+                Date date = sdf.parse(date_in_string);
                 u.setNome(request.getParameter("nome"));
                 u.setCognome(request.getParameter("cognome"));
-                u.setDataNasc(request.getParameter("datanasc"));
+                u.setDataNasc(date);
                 u.setLuogoNasc(request.getParameter("luogonasc"));
                 u.setResidenza(request.getParameter("residenza"));
                 u.setCodFisc(request.getParameter("codfisc"));
@@ -145,6 +151,9 @@ public class Modify extends InternshipDBController {
             }catch (TemplateManagerException ex) {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
+        } catch (ParseException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
         }  
     }
     

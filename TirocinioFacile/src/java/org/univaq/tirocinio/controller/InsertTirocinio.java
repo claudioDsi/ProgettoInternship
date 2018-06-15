@@ -43,7 +43,7 @@ public class InsertTirocinio extends InternshipDBController {
             int userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
             tirocinio.setLuogo(request.getParameter("luogo"));
             tirocinio.setOrario(request.getParameter("orario"));
-            tirocinio.setMesi(request.getParameter("nummesi"));
+            tirocinio.setMesi(SecurityLayer.checkNumeric(request.getParameter("nummesi")));
             tirocinio.setNumOre(SecurityLayer.checkNumeric(request.getParameter("numore")));
             tirocinio.setObiettivi(request.getParameter("obiettivi"));
             tirocinio.setModalità(request.getParameter("modalita"));

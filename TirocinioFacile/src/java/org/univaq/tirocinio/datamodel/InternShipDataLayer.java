@@ -5,6 +5,7 @@
  */
 package org.univaq.tirocinio.datamodel;
 
+import java.util.Date;
 import org.univaq.tirocinio.framework.data.DataLayer;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import java.util.List;
@@ -48,4 +49,9 @@ public interface InternShipDataLayer extends DataLayer{
     void modifyRequestStatus(Richiesta richiesta) throws DataLayerException;
     void modifyTirocinioStatus(Tirocinio tirocinio) throws DataLayerException;
     void rejectAllRequests(Richiesta richiesta, Tirocinio tirocinio) throws DataLayerException;
+    List<Azienda> getBestCompanies() throws DataLayerException;
+    List<Tutore> getBestTutors() throws DataLayerException;
+    List<Azienda> getCompaniesWithMoreStages() throws DataLayerException;
+    void activateAzienda(Azienda azienda) throws DataLayerException;
+    void updateDateTirocinio(Date dataInizio, Date dataFine, Tirocinio tirocinio) throws DataLayerException;
 }

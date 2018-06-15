@@ -5,6 +5,7 @@
  */
 package org.univaq.tirocinio.data.impl;
 
+import java.util.Date;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.datamodel.Richiesta;
 import org.univaq.tirocinio.framework.data.DataLayerException;
@@ -24,7 +25,7 @@ public class UtenteImpl implements Utente{
     private String username;
     private String password;
     private int privilegi;
-    private String dataNasc;
+    private Date dataNasc;
     private String luogoNasc;
     private String residenza;
     private String codFisc;
@@ -48,7 +49,7 @@ public class UtenteImpl implements Utente{
         privilegi = 0;
         nome = "";
         cognome = "";
-        dataNasc = "";
+        dataNasc = null;
         luogoNasc = "";
         residenza = "";
         codFisc = "";
@@ -76,12 +77,12 @@ public class UtenteImpl implements Utente{
     }
 
     @Override
-    public String getDataNasc() {
+    public Date getDataNasc() {
         return dataNasc;
     }
 
     @Override
-    public void setDataNasc(String dataNasc) {
+    public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
         this.dirty = true;
     }
@@ -284,6 +285,8 @@ public class UtenteImpl implements Utente{
         laurea = utente.getLaurea();
         dottorato = utente.getDottorato();
         specializzazione = utente.getSpecializzazione();
+        sesso = utente.getSesso();
+        emailUtente = utente.getEmailUtente();
         this.dirty = true;
     }
 

@@ -20,7 +20,7 @@ public class TutoreImpl implements Tutore{
     private int idTutore;
     private String nome;
     private String cognome;
-    private String dataNasc;
+    private Date dataNasc;
     private InternShipDataLayer ownLayer;
     private int numTirocini;
     private String telefono;
@@ -34,7 +34,7 @@ public class TutoreImpl implements Tutore{
         ownLayer = data;
         nome = "";
         cognome = "";
-        dataNasc = "";   
+        dataNasc = null;   
         numTirocini = 0;
         telefono = "";
         codAzienda = 0;
@@ -77,12 +77,12 @@ public class TutoreImpl implements Tutore{
     }
 
     @Override
-    public String getDataNasc() {
+    public Date getDataNasc() {
         return dataNasc;
     }
 
     @Override
-    public void setDataNasc(String dataNasc) {
+    public void setDataNasc(Date dataNasc) {
         this.dataNasc=dataNasc;
         this.dirty = true;
     }
@@ -150,6 +150,7 @@ public class TutoreImpl implements Tutore{
         numTirocini = tutore.getNumTirocini();
         telefono = tutore.getTelefono();
         codAzienda = tutore.getCodAzienda();
+        emailTutore = tutore.getEmailTutore();
         this.dirty = true;
     }
     

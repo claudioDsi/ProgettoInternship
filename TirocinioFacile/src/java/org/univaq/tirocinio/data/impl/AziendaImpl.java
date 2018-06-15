@@ -34,6 +34,8 @@ public class AziendaImpl implements Azienda{
     private String emailResp;
     private String foro;
     private float valutazione;
+    private int numeroTirocini;
+    private int numTiroCompletati;
     protected Boolean dirty;
     private List<Tirocinio> listaTirocini;
     private List<Tutore> listaTutori;
@@ -58,7 +60,9 @@ public class AziendaImpl implements Azienda{
         telefonoResp = "";
         emailResp = "";
         foro = "";
-        valutazione = 0;        
+        valutazione = 0;
+        numeroTirocini = 0;
+        numTiroCompletati = 0;
         listaTirocini = null;
         listaTutori = null;
         dirty = false;
@@ -195,6 +199,28 @@ public class AziendaImpl implements Azienda{
         this.valutazione = valutazione;
         this.dirty = true;
     }
+    
+    @Override
+    public int getNumeroTirocini() {
+        return numeroTirocini;
+    }
+
+    @Override
+    public void setNumeroTirocini(int numeroTirocini) {
+        this.numeroTirocini = numeroTirocini;
+        this.dirty = true;
+    }
+    
+    @Override
+    public int getNumTiroCompletati() {
+        return numTiroCompletati;
+    }
+
+    @Override
+    public void setNumTiroCompletati(int numTiroCompletati) {
+        this.numTiroCompletati = numTiroCompletati;
+        this.dirty = true;
+    }
    
     @Override
     public List<Tirocinio> getListaTirocini() throws DataLayerException{
@@ -320,6 +346,8 @@ public class AziendaImpl implements Azienda{
         emailResp = azienda.getEmailResp();
         foro = azienda.getForo();
         valutazione = azienda.getValutazione();
+        numeroTirocini = azienda.getNumeroTirocini();
+        numTiroCompletati = azienda.getNumTiroCompletati();
         this.dirty = true;
     }
 }

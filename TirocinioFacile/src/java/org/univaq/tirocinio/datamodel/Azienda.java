@@ -74,6 +74,12 @@ public interface Azienda {
 
     float getValutazione();
     void setValutazione(float valutazione);
+    
+    int getNumeroTirocini();
+    void setNumeroTirocini(int numeroTirocini);
+    
+    int getNumTiroCompletati();
+    void setNumTiroCompletati(int numTiroCompletati);
 
     boolean isDirty();
     void setDirty(boolean dirty);

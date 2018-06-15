@@ -7,10 +7,7 @@ package org.univaq.tirocinio.controller;
 
 import org.univaq.tirocinio.datamodel.Azienda;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -54,6 +51,7 @@ public class InsertAzienda extends InternshipDBController {
                 a.setEmailResp(request.getParameter("emailresp"));
                 a.setForo(request.getParameter("foro"));
                 a.setValutazione((float)0);
+                a.setNumeroTirocini(0);
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeAzienda(a);
                 action_activate(request, response, a.getIdAzienda());
             }catch (DataLayerException ex) {
@@ -87,7 +85,7 @@ public class InsertAzienda extends InternshipDBController {
             request.setAttribute("page_title", "Inserisci Azienda");
             try{
                 HttpSession s = SecurityLayer.checkSession(request);
-                if(s!=null){
+                if(s==null){
                     //non sei loggato quindi puoi registrarti
                     if(request.getParameter("add")!=null){
                         // se il parametro add ha un valore assegnato allora inserisco l'azienda registrata
