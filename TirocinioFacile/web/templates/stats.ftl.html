@@ -5,7 +5,7 @@
         <h3>I Migliori Tutori</h3>
         <br/>
         <#if (best_tutori)??>
-            <table style="width:100%">
+            <table class="w3-table-all">
                 <tr>
                     <th>Nome</th>
                     <th>Cognome</th>
@@ -15,9 +15,13 @@
                 </tr>
                 <#list best_tutori as tutore>
                     <tr>
+                        <#if (tutore.nome)??>
                         <td>${tutore.nome}</td> 
+                        </#if>
                         <td>${tutore.cognome}</td>
-                        <td>${tutore.dataNasc}</td> 
+                        <#if (tutore.dataNasc)??>
+                        <td>${tutore.dataNasc}</td>
+                        </#if>
                         <td>${tutore.numTirocini}</td>
                         <td>${tutore.emailTutore}</td>
                     </tr>
@@ -30,7 +34,7 @@
         <h3>Le Migliori Aziende</h3>
         <br/>
         <#if (best_aziende)??>
-            <table style="width:100%">
+            <table class="w3-table-all">
                 <tr>
                     <th>Nome</th>
                     <th>Ragione Sociale</th>
@@ -52,10 +56,10 @@
             <p>Non ci sono aziende iscritte!</p>
         </#if>
         <br/>
-        <h3>Le Aziende con più Tirocini</h3>
+        <h3>Le Aziende con pi&ugrave; Tirocini</h3>
         <br/>
         <#if (most_stages)??>
-            <table style="width:100%">
+            <table class="w3-table-all">
                 <tr>
                     <th>Nome</th>
                     <th>Ragione Sociale</th>
