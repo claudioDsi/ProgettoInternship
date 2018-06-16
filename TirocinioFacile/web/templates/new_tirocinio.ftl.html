@@ -2,6 +2,12 @@
 
 <form method="post" action="tirocinio">
     <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
+    
+    <div>
+        <div>Titolo</div>
+        <div><input type="text" name="titolo" value=""/></div>
+    </div>
+    
     <div>
         <div>Luogo</div>
         <div><input type="text" name="luogo" value=""/></div>
@@ -40,17 +46,6 @@
     <div>
         <div>Settore</div>
         <div><input type="text" name="settore" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Tutore</div>
-        <div>
-            <select name="tutore">
-            <#list listaTutori as tutore>
-                <option value="${tutore.idTutore}">${tutore.nome} ${tutore.cognome}</option>
-            </#list>
-            </select>
-        </div>
     </div>
 
     <div>

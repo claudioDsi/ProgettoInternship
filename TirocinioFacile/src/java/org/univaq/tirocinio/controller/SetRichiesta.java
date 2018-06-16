@@ -13,11 +13,12 @@ import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.TemplateManagerException;
-import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
+import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Richiesta;
 import org.univaq.tirocinio.datamodel.Tirocinio;
+import org.univaq.tirocinio.datamodel.Tutore;
 
 /**
  *
@@ -28,12 +29,26 @@ public class SetRichiesta extends InternshipDBController {
     private void action_modify_request(HttpServletRequest request, HttpServletResponse response, int value, Richiesta richiesta, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException {
         try {
             if(value==1){
-                //accetto la richiesta, cambio lo stato del tirocinio e rifiuto tutte le altre
+                HttpSession s = SecurityLayer.checkSession(request);
+                int userid = (int)s.getAttribute("userid");
+                Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                int old_val_a = azienda.getNumeroTirocini();
+                int new_val_a = old_val_a + 1;
+                Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(richiesta.getCodTutore());
+                int old_val_t = tutore.getNumTirocini();
+                int new_val_t = old_val_t + 1;
                 richiesta.setStatus("accepted");
                 tirocinio.setStatus(true);
+                //accetto la richiesta e modifico il suo status
                 ((InternShipDataLayer)request.getAttribute("datalayer")).modifyRequestStatus(richiesta);
-                ((InternShipDataLayer)request.getAttribute("datalayer")).modifyTirocinioStatus(tirocinio);
+                //modifico status e assegno il tutore scelto al tirocinio
+                ((InternShipDataLayer)request.getAttribute("datalayer")).modifyTirocinioStatus(tirocinio,tutore.getIdTutore());
+                //rifiuto le altre richieste
                 ((InternShipDataLayer)request.getAttribute("datalayer")).rejectAllRequests(richiesta, tirocinio);
+                //aggiorno il numero di tirocini dell'azienda
+                ((InternShipDataLayer)request.getAttribute("datalayer")).updateNumTiroAzienda(new_val_a, azienda);
+                //aggiorno il numero di tirocini del tutore
+                ((InternShipDataLayer)request.getAttribute("datalayer")).updateNumTiroTutore(new_val_t, tutore);
                 response.sendRedirect("setdates?tid="+tirocinio.getIdTirocinio());
             }else if(value==0){
                 //rifiuto la richiesta

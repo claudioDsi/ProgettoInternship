@@ -33,6 +33,9 @@ public interface Tirocinio {
     boolean getStatus();
     void setStatus(boolean status);
     
+    boolean getStatusVoto();
+    void setStatusVoto(boolean statusVoto);
+    
     int getNumOre();
     void setNumOre(int numOre);
     

@@ -47,11 +47,15 @@ public interface InternShipDataLayer extends DataLayer{
     
     List<Tirocinio> searchTirocini(Map<String, Object> parametri) throws DataLayerException; //ricerca tirocini
     void modifyRequestStatus(Richiesta richiesta) throws DataLayerException;
-    void modifyTirocinioStatus(Tirocinio tirocinio) throws DataLayerException;
+    void modifyTirocinioStatus(Tirocinio tirocinio, int codTutore) throws DataLayerException;
     void rejectAllRequests(Richiesta richiesta, Tirocinio tirocinio) throws DataLayerException;
     List<Azienda> getBestCompanies() throws DataLayerException;
     List<Tutore> getBestTutors() throws DataLayerException;
     List<Azienda> getCompaniesWithMoreStages() throws DataLayerException;
     void activateAzienda(Azienda azienda) throws DataLayerException;
     void updateDateTirocinio(Date dataInizio, Date dataFine, Tirocinio tirocinio) throws DataLayerException;
+    void updateNumTiroAzienda(int num, Azienda azienda) throws DataLayerException;
+    void updateNumTiroTutore(int num, Tutore tutore) throws DataLayerException;
+    void updateStatusVoto(Tirocinio tirocinio) throws DataLayerException;
+    void updateValutazione(Azienda azienda) throws DataLayerException;
 }

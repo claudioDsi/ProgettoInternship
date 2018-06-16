@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Giu 15, 2018 alle 19:37
+-- Creato il: Giu 16, 2018 alle 13:06
 -- Versione del server: 5.7.19
 -- Versione PHP: 5.6.31
 
@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `azienda` (
 --
 
 INSERT INTO `azienda` (`IdAzienda`, `Username`, `Password`, `Privilegi`, `Status`, `Nome`, `RagioneSociale`, `Indirizzo`, `PartitaIva`, `CodiceFiscale`, `NomeRappr`, `CognomeRappr`, `NomeResp`, `CognomeResp`, `TelefonoResp`, `EmailResp`, `Foro`, `Valutazione`, `NumeroTirocini`, `NumTiroCompletati`) VALUES
-(1, 'brucolandia', 'caroteee', 2, 1, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail', 'Avezzano', 5, 0, NULL),
-(2, 'dsfdf', 'ssfdf', 2, 0, 'dsfd', 'fddf', 'via Solaria', 'fff', 'f', 'ff', 'ff', 'gb', 'gfdf', '', 'dfgdf', 'dfgf', 0, 0, NULL);
+(1, 'brucolandia', 'caroteee', 2, 1, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail', 'Avezzano', 5, 1, 1),
+(2, 'dsfdf', 'ssfdf', 2, 0, 'dsfd', 'fddf', 'via Solaria', 'fff', 'f', 'ff', 'ff', 'gb', 'gfdf', '', 'dfgdf', 'dfgf', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -77,15 +77,17 @@ CREATE TABLE IF NOT EXISTS `richiesta` (
   `NomeTutor` varchar(50) DEFAULT NULL,
   `CognomeTutor` varchar(50) DEFAULT NULL,
   `EmailTutor` varchar(50) DEFAULT NULL,
+  `CodTutore` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdRichiesta`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `richiesta`
 --
 
-INSERT INTO `richiesta` (`IdRichiesta`, `CodStudente`, `CodTirocinio`, `Status`, `Cfu`, `NomeTutor`, `CognomeTutor`, `EmailTutor`) VALUES
-(1, 5, 3, 'accepted', '6', 'Giuseppe', 'Della Penna', 'nome.cognome@univaq.it');
+INSERT INTO `richiesta` (`IdRichiesta`, `CodStudente`, `CodTirocinio`, `Status`, `Cfu`, `NomeTutor`, `CognomeTutor`, `EmailTutor`, `CodTutore`) VALUES
+(1, 5, 3, 'pending', '6', 'Giuseppe', 'Della Penna', 'nome.cognome@univaq.it', 1),
+(2, 5, 5, 'accepted', '6', 'Vittorio', 'Cortellessa', '', 1);
 
 -- --------------------------------------------------------
 
@@ -110,18 +112,20 @@ CREATE TABLE IF NOT EXISTS `tirocinio` (
   `Status` tinyint(1) DEFAULT NULL,
   `DataInizio` date DEFAULT NULL,
   `DataFine` date DEFAULT NULL,
+  `StatusVoto` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`IdTirocinio`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `tirocinio`
 --
 
-INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `CodTutore`, `CodAzienda`, `Titolo`, `Status`, `DataInizio`, `DataFine`) VALUES
-(1, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1, 'Tirocinio 1', 0, NULL, NULL),
-(2, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 1, 1, 'Tirocinio 2', 0, NULL, NULL),
-(3, 'f', 'f', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 1, 1, 'Tirocinio 3', 1, '2018-06-20', '2018-10-20'),
-(4, 'sdf', 'af', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 1, 1, 'Tirocinio 4', 0, NULL, NULL);
+INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `CodTutore`, `CodAzienda`, `Titolo`, `Status`, `DataInizio`, `DataFine`, `StatusVoto`) VALUES
+(1, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 0, 1, 'Tirocinio 1', 0, NULL, NULL, 0),
+(2, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 0, 1, 'Tirocinio 2', 0, NULL, NULL, 0),
+(3, 'f', 'f', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 0, 1, 'Tirocinio 3', 0, NULL, NULL, 0),
+(4, 'sdf', 'af', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 0, 1, 'Tirocinio 4', 0, NULL, NULL, 0),
+(5, 'afds', 'sgf', 4, 5, 'gs', 'sfg', 'sg', 'gs', 1, 1, 'Tirocinio 5', 1, '2018-01-14', '2018-06-14', 1);
 
 -- --------------------------------------------------------
 
@@ -147,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `tutore` (
 --
 
 INSERT INTO `tutore` (`IdTutore`, `Nome`, `Cognome`, `DataNasc`, `NumTirocini`, `Telefono`, `CodAzienda`, `EmailTutore`) VALUES
-(1, 'Vittorio', 'Cortellessa', '1968-03-10', 5, '65896589', 1, ''),
+(1, 'Vittorio', 'Cortellessa', '1968-03-10', 1, '65896589', 1, ''),
 (2, 'fff', 'ssss', NULL, 0, '5156', 1, ''),
 (3, 'sdgdf', 'gdsg', NULL, 0, 'gfsdsfg', 1, ''),
 (4, 'gb', 'gf', NULL, 0, 'dgd', 1, ''),

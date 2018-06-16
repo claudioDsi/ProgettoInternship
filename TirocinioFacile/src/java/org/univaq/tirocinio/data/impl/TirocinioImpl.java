@@ -29,6 +29,7 @@ public class TirocinioImpl implements Tirocinio{
     private String settore;
     private String titolo;
     private boolean status;
+    private boolean statusVoto;
     private Date dataInizio;
     private Date dataFine;
     //riferimenti alle altre tabelle
@@ -56,6 +57,7 @@ public class TirocinioImpl implements Tirocinio{
         dataInizio = null;
         dataFine = null;
         status = false;
+        statusVoto = false;
         tutore = null;
         idTutore = 0;
         azienda = null;
@@ -143,6 +145,17 @@ public class TirocinioImpl implements Tirocinio{
     @Override
     public void setStatus(boolean status) {
         this.status=status;
+        this.dirty = true;
+    }
+    
+    @Override
+    public boolean getStatusVoto() {
+        return statusVoto;
+    }
+
+    @Override
+    public void setStatusVoto(boolean statusVoto) {
+        this.statusVoto=statusVoto;
         this.dirty = true;
     }
 
@@ -279,6 +292,7 @@ public class TirocinioImpl implements Tirocinio{
         settore = tirocinio.getSettore();
         titolo = tirocinio.getTitolo();
         status = tirocinio.getStatus();
+        statusVoto = tirocinio.getStatusVoto();
         idTutore = tirocinio.getIdTutore();
         idAzienda = tirocinio.getIdAzienda();
         dataInizio = tirocinio.getDataInizio();

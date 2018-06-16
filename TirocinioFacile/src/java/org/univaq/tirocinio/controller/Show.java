@@ -6,7 +6,9 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +58,14 @@ public class Show extends InternshipDBController {
                 }
                 if(userid==richiesta_accettata.getIdStudente()){
                     //lo studente in sessione è quello a cui è stato assegnato il tirocinio, quindi può vederne i dettagli
+                    Date dataFine = tirocinio.getDataFine();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dateNow = new Date();
+                    if(dateNow.compareTo(dataFine)>0){
+                        request.setAttribute("valuta", true);
+                    }else{
+                        request.setAttribute("valuta", false);
+                    }
                     request.setAttribute("azione", "accepted");
                     request.setAttribute("richiesta", richiesta_accettata);
                 }else{

@@ -20,6 +20,7 @@ public class RichiestaImpl implements Richiesta{
     private int idRichiesta;
     private int idStudente;
     private int idTirocinio;
+    private int codTutore;
     private String status;    
     private String cfu;
     private Utente studente;
@@ -35,6 +36,7 @@ public class RichiestaImpl implements Richiesta{
         idRichiesta = 0;
         idStudente = 0;
         idTirocinio = 0;
+        codTutore = 0;
         status = "";        
         cfu = "";        
         nomeTutor = "";
@@ -53,6 +55,17 @@ public class RichiestaImpl implements Richiesta{
     @Override
     public void setIdRichiesta(int idRichiesta){
         this.idRichiesta = idRichiesta;
+        this.dirty = true;
+    }
+    
+    @Override
+    public int getCodTutore() {
+        return codTutore;
+    }
+    
+    @Override
+    public void setCodTutore(int codTutore){
+        this.codTutore = codTutore;
         this.dirty = true;
     }
 
@@ -175,6 +188,7 @@ public class RichiestaImpl implements Richiesta{
         nomeTutor = richiesta.getNomeTutor();
         cognomeTutor = richiesta.getCognomeTutor();
         emailTutor = richiesta.getEmailTutor();
+        codTutore = richiesta.getCodTutore();
         this.dirty = true;
     }
 

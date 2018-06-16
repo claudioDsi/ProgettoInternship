@@ -121,6 +121,10 @@
         <servlet-name>SetDates</servlet-name>
         <servlet-class>org.univaq.tirocinio.controller.SetDates</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Vote</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.Vote</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -204,6 +208,10 @@
     <servlet-mapping>
         <servlet-name>SetDates</servlet-name>
         <url-pattern>/setdates</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Vote</servlet-name>
+        <url-pattern>/vote</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

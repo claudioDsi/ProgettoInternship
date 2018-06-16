@@ -16,6 +16,9 @@ public interface Richiesta {
     int getIdRichiesta();
     void setIdRichiesta(int idRichiesta);
     
+    int getCodTutore();
+    void setCodTutore(int codTutore);
+    
     Utente getStudente() throws  DataLayerException;
     void setStudente(Utente studente);
     

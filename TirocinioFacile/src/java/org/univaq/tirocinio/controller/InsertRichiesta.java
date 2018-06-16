@@ -61,6 +61,7 @@ public class InsertRichiesta extends InternshipDBController {
                 new_richiesta.setStatus("pending");
                 int tutore_id = SecurityLayer.checkNumeric(request.getParameter("tutore"));
                 Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(tutore_id);
+                new_richiesta.setCodTutore(tutore.getIdTutore());
                 new_richiesta.setNomeTutor(tutore.getNome());
                 new_richiesta.setCognomeTutor(tutore.getCognome());
                 new_richiesta.setEmailTutor(tutore.getEmailTutore());

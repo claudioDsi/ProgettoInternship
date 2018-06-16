@@ -41,6 +41,7 @@ public class InsertTirocinio extends InternshipDBController {
             TemplateResult res = new TemplateResult(getServletContext());
             Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).creaTirocinio();
             int userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
+            tirocinio.setTitolo(request.getParameter("titolo"));
             tirocinio.setLuogo(request.getParameter("luogo"));
             tirocinio.setOrario(request.getParameter("orario"));
             tirocinio.setMesi(SecurityLayer.checkNumeric(request.getParameter("nummesi")));
@@ -49,7 +50,6 @@ public class InsertTirocinio extends InternshipDBController {
             tirocinio.setModalità(request.getParameter("modalita"));
             tirocinio.setFacilitazioni(request.getParameter("facilitazioni"));
             tirocinio.setSettore(request.getParameter("settore"));
-            tirocinio.setIdTutore(SecurityLayer.checkNumeric(request.getParameter("tutore")));
             tirocinio.setIdAzienda(userid);
             ((InternShipDataLayer)request.getAttribute("datalayer")).storeTirocinio(tirocinio);
             action_activate(request, response, tirocinio.getIdTirocinio());

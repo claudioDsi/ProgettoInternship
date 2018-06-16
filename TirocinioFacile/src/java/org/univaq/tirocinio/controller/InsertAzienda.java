@@ -52,6 +52,7 @@ public class InsertAzienda extends InternshipDBController {
                 a.setForo(request.getParameter("foro"));
                 a.setValutazione((float)0);
                 a.setNumeroTirocini(0);
+                a.setNumTiroCompletati(0);
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeAzienda(a);
                 action_activate(request, response, a.getIdAzienda());
             }catch (DataLayerException ex) {
