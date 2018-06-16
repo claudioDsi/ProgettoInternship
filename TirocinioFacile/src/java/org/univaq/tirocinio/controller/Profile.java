@@ -34,13 +34,34 @@ public class Profile extends InternshipDBController {
             if(s!=null){
                 int session_userid = (int) s.getAttribute("userid");
                 if(uid==session_userid){
+                    //se sono l'azienda stessa posso vedermi in qualsiasi condizione
                     request.setAttribute("modifica", true);
-                }else{
+                    request.setAttribute("Session", s);
+                    if(a.getStatus()){
+                        request.setAttribute("inserisci", true);
+                    }else{
+                        request.setAttribute("inserisci", false);
+                    }
+                    res.activate("profilo.ftl.html", request, response);
+                }else if(a.getStatus()){
+                    //se sono un qualsiasi altro utente posso vedere l'azienda solo se è stata abilitata dall'admin
                     request.setAttribute("modifica", false);
+                    request.setAttribute("inserisci", false);
+                    request.setAttribute("Session", s);
+                    res.activate("profilo.ftl.html", request, response);
+                }else{
+                    response.sendRedirect("home");
+                }
+            }else{
+                if(a.getStatus()){
+                    //se sono un utente anonimo vedo l'azienda solo se abilitata
+                    request.setAttribute("modifica", false);
+                    request.setAttribute("inserisci", false);
+                    res.activate("profilo.ftl.html", request, response);
+                }else {
+                    response.sendRedirect("home");
                 }
             }
-            request.setAttribute("Session", s);
-            res.activate("profilo.ftl.html", request, response);
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);

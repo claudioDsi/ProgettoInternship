@@ -32,6 +32,12 @@ public class SecurityLayer {
         //second, check is the session contains valid data
         if (s.getAttribute("userid") == null) {
             check = false;
+        } else if (s.getAttribute("type") == null ) {
+            check = false;
+        } else if (s.getAttribute("pv") == null ) {
+            check = false;
+        } else if (s.getAttribute("username") == null ) {
+            check = false;
             //check sull'ip del client
             //check if the client ip chaged
         } else if ((s.getAttribute("ip") == null) || !((String) s.getAttribute("ip")).equals(r.getRemoteHost())) {

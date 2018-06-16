@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,18 +89,30 @@ public class InsertTutore extends InternshipDBController {
             int userid = (int)s.getAttribute("userid"); //id utente in sessione
             String utype = (String)s.getAttribute("type");
             try{
-                if(request.getParameter("add")!=null){
-                    //controllo che l'utente in sessione sia quello che ha inviato la form
-                    int form_user = SecurityLayer.checkNumeric(request.getParameter("userid"));
-                    if(userid==form_user){
-                        action_add(request, response);
+                if(request.getParameter("add")!=null && utype.equals("comp")){
+                    Azienda azienda =((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                    //vedo se l'azienda è abilitata
+                    if(azienda.getStatus()){
+                        //controllo che l'utente in sessione sia quello che ha inviato la form
+                        int form_user = SecurityLayer.checkNumeric(request.getParameter("userid"));
+                        if(userid==form_user){
+                            action_add(request, response);
+                        }else{
+                            //ritorno al profilo dell'utente in sessione
+                            response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                        }
                     }else{
-                        //ritorno al profilo dell'utente in sessione
                         response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                     }
                 }else if(utype.equals("comp")){
-                    //se sei un'azienda ti mostro la form per aggiungere il tutore
-                    action_default(request, response);
+                    Azienda azienda =((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                    //vedo se l'azienda è abilitata
+                    if(azienda.getStatus()){
+                        //se sei un'azienda ti mostro la form per aggiungere il tutore
+                        action_default(request, response);
+                    }else{
+                        response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                    }  
                 }else{
                     response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                 }
@@ -111,6 +125,8 @@ public class InsertTutore extends InternshipDBController {
         }   catch (ParseException ex) {  
                 request.setAttribute("exception", ex);
                 action_error(request, response);
+            } catch (DataLayerException ex) {
+                Logger.getLogger(InsertTutore.class.getName()).log(Level.SEVERE, null, ex);
             }  
     }
     

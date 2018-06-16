@@ -22,15 +22,17 @@ and open the template in the editor.
                 <th> Email rappresentante </th>
             </tr>            
             <#list aziende as azienda>
-            <tr>
-                <td>${azienda.nomeAzienda}</td>
-                <td> ${azienda.indirizzo}</td>
-                <td> ${azienda.partitaIva} </td>  
-                <td>${azienda.nomeRappr}</td>
-                <td>${azienda.cognomeRappr}</td>
-                <td>${azienda.foro} </td>
-                <td>${azienda.emailResp}</td>
-            </tr>
+            <#if (azienda.status)>
+                <tr>
+                    <td>${azienda.nomeAzienda}</td>
+                    <td> ${azienda.indirizzo}</td>
+                    <td> ${azienda.partitaIva} </td>  
+                    <td>${azienda.nomeRappr}</td>
+                    <td>${azienda.cognomeRappr}</td>
+                    <td>${azienda.foro} </td>
+                    <td>${azienda.emailResp}</td>
+                </tr>
+            </#if>
              </#list>     
            
         </table>  

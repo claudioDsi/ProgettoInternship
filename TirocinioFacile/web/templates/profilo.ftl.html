@@ -19,13 +19,15 @@
     <p>Partita IVA: ${azienda.partitaIva}</p>
     <p>Nome Rappresentante: ${azienda.nomeRappr}</p>
     <p>Cognome Rappresentante: ${azienda.cognomeRappr}</p>
-    <#if (modifica)??>
+    <#if (modifica)>
         <p><a href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
     </#if>
     <#if (Session??)>
         <#if Session.getAttribute('userid')==azienda.idAzienda>
-            <p><a href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
-            <p><a href="tirocinio?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tirocinio </a></p>
+            <#if (inserisci)>
+                <p><a href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
+                <p><a href="tirocinio?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tirocinio </a></p>
+            </#if>
         </#if>
     </#if>
 </#if>
