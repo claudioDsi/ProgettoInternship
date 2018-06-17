@@ -24,13 +24,13 @@ and open the template in the editor.
             <#list aziende as azienda>
             <#if (azienda.status)>
                 <tr>
-                    <td>${azienda.nomeAzienda}</td>
-                    <td> ${azienda.indirizzo}</td>
-                    <td> ${azienda.partitaIva} </td>  
-                    <td>${azienda.nomeRappr}</td>
-                    <td>${azienda.cognomeRappr}</td>
-                    <td>${azienda.foro} </td>
-                    <td>${azienda.emailResp}</td>
+                    <td>${strip_slashes(azienda.nomeAzienda)}</td>
+                    <td>${strip_slashes(azienda.indirizzo)}</td>
+                    <td>${strip_slashes(azienda.partitaIva)} </td>  
+                    <td>${strip_slashes(azienda.nomeRappr)}</td>
+                    <td>${strip_slashes(azienda.cognomeRappr)}</td>
+                    <td>${strip_slashes(azienda.foro)}</td>
+                    <td>${strip_slashes(azienda.emailResp)}</td>
                 </tr>
             </#if>
              </#list>     

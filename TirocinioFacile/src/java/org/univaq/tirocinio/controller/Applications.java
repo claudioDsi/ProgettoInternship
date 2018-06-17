@@ -19,6 +19,7 @@ import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.Richiesta;
 import org.univaq.tirocinio.datamodel.Tirocinio;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
  *
@@ -41,6 +42,7 @@ public class Applications extends InternshipDBController {
                 request.setAttribute("lista_tirocini_approvati", lista_tirocini_approvati);
             }
             request.setAttribute("Session", s);
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             res.activate("applications.ftl.html", request, response);
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());

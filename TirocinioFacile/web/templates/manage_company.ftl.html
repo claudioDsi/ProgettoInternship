@@ -17,13 +17,13 @@
                 </tr>            
                 <#list lista_aziende as azienda>
                     <tr>
-                        <td>${azienda.nomeAzienda}</td>
-                        <td>${azienda.indirizzo}</td>
-                        <td>${azienda.partitaIva}</td>  
-                        <td>${azienda.nomeRappr}</td>
-                        <td>${azienda.cognomeRappr}</td>
-                        <td>${azienda.foro}</td>
-                        <td>${azienda.emailResp}</td>
+                        <td>${strip_slashes(azienda.nomeAzienda)}</td>
+                        <td>${strip_slashes(azienda.indirizzo)}</td>
+                        <td>${strip_slashes(azienda.partitaIva)}</td>  
+                        <td>${strip_slashes(azienda.nomeRappr)}</td>
+                        <td>${strip_slashes(azienda.cognomeRappr)}</td>
+                        <td>${strip_slashes(azienda.foro)}</td>
+                        <td>${strip_slashes(azienda.emailResp)}</td>
                         <td>${azienda.status?string}</td>
                         <td><#if (azienda.status)> <#else><a href="managecompany?aid=${azienda.idAzienda}&val=1">Abilita azienda</a></#if></td>
                     </tr>

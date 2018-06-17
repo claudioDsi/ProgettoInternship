@@ -13,6 +13,7 @@ import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
@@ -28,6 +29,7 @@ public class MostraAzienda extends InternshipDBController {
             TemplateResult res = new TemplateResult(getServletContext());
             Azienda az = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(key);
             request.setAttribute("azienda", az);
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             res.activate("show_company_by_id.ftl.html", request, response);          
         }catch(DataLayerException dte){
             request.setAttribute("message","Errore nel datalayer"+ dte.getMessage());

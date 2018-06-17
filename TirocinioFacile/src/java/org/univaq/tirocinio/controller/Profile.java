@@ -18,6 +18,7 @@ import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
  *
@@ -28,6 +29,7 @@ public class Profile extends InternshipDBController {
     private void action_company(HttpServletRequest request, HttpServletResponse response, int uid) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(uid);
             request.setAttribute("azienda", a);
             HttpSession s = SecurityLayer.checkSession(request);
@@ -71,6 +73,7 @@ public class Profile extends InternshipDBController {
     private void action_student(HttpServletRequest request, HttpServletResponse response, int uid) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(uid);
             request.setAttribute("utente", u);
             HttpSession s = SecurityLayer.checkSession(request);

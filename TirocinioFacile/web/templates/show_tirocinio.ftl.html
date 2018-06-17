@@ -1,25 +1,25 @@
 <h2>${page_title}</h2>
 
 <p> SCHEDA TIROCINIO</p>
-<p>Titolo: ${tirocinio.titolo}</p>
-<p>Luogo: ${tirocinio.luogo}</p>
-<p>Orario: ${tirocinio.orario}</p>
+<p>Titolo: ${strip_slashes(tirocinio.titolo)}</p>
+<p>Luogo: ${strip_slashes(tirocinio.luogo)}</p>
+<p>Orario: ${strip_slashes(tirocinio.orario)}</p>
 <p>Numero di mesi: ${tirocinio.mesi}</p>
 <p>Numero di ore: ${tirocinio.numOre}</p>
-<p>Obiettivi: ${tirocinio.obiettivi}</p>
-<p>Facilitazioni: ${tirocinio.facilitazioni}</p>
-<p>Settore: ${tirocinio.settore}</p>
+<p>Obiettivi: ${strip_slashes(tirocinio.obiettivi)}</p>
+<p>Facilitazioni: ${strip_slashes(tirocinio.facilitazioni)}</p>
+<p>Settore: ${strip_slashes(tirocinio.settore)}</p>
 <p>Status: ${tirocinio.status?string}</p>
 <br/>
 <#if (Session)??>
     <#if Session.getAttribute('type')=="stud">
         <#if azione=="accepted">
-            <p>Nome del Tutore: ${richiesta.nomeTutor}</p>
-            <p>Cognome del Tutore: ${richiesta.cognomeTutor}</p>
-            <p>Email del Tutore: ${richiesta.emailTutor}</p>
+            <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
+            <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
+            <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
             <p>Qua ci va il contratto</p>
             <p>Qua ci va il resoconto</p>
-            <p>N&deg; CFU: ${richiesta.cfu}</p>
+            <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
             <br/>
             <#if (valuta)>
                 <#if (tirocinio.statusVoto)>
@@ -45,11 +45,11 @@
         </#if>
         <#if azione=="pending">
             <p>Questa è la tua richiesta di applicazione:</p>
-            <p>Nome del Tutore: ${richiesta.nomeTutor}</p>
-            <p>Cognome del Tutore: ${richiesta.cognomeTutor}</p>
-            <p>Email del Tutore: ${richiesta.emailTutor}</p>
-            <p>N° CFU: ${richiesta.cfu}</p>
-            <p>Status: ${richiesta.status}</p>
+            <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
+            <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
+            <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
+            <p>N° CFU: ${strip_slashes(richiesta.cfu)}</p>
+            <p>Status: ${strip_slashes(richiesta.status)}</p>
         </#if>
         <#if azione="applicati">
             <p>Puoi ancora applicarti per questo tirocinio!</p>
@@ -62,12 +62,12 @@
         </#if>
     <#else>
         <#if azione=="accepted">
-            <p>Nome del Tutore: ${richiesta.nomeTutor}</p>
-            <p>Cognome del Tutore: ${richiesta.cognomeTutor}</p>
-            <p>Email del Tutore: ${richiesta.emailTutor}</p>
+            <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
+            <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
+            <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
             <p>Qua ci va il contratto</p>
             <p>Qua ci va il resoconto</p>
-            <p>Numero di CFU: ${richiesta.cfu}</p>
+            <p>Numero di CFU: ${strip_slashes(richiesta.cfu)}</p>
         </#if>
         <#if azione=="pending">
             <p>Lista delle richieste attive:</p>

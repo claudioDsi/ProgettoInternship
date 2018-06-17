@@ -8,6 +8,9 @@ package org.univaq.tirocinio.controller;
 import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Utente;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,7 @@ import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
  *
@@ -41,18 +45,19 @@ public class Login extends InternshipDBController {
         }
     }
     
-    private void action_login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, NoSuchAlgorithmException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtenteByLogin(username, password);
+            String username = SecurityLayer.addSlashes(request.getParameter("username"));
+            String password = SecurityLayer.addSlashes(request.getParameter("password"));
+            String hashedPassword = SecurityLayer.securePassword(password);
+            Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtenteByLogin(username, hashedPassword);
             if(u!=null){
-                if(username.equals(u.getUsername()) && password.equals(u.getPassword()) && u.getPrivilegi()==0){
+                if(username.equals(u.getUsername()) && hashedPassword.equals(u.getPassword()) && u.getPrivilegi()==0){
                     HttpSession s = SecurityLayer.createSession(request, u.getUsername(), u.getIdUtente(), u.getPrivilegi(), "admin");
                         request.setAttribute("Session", s);
                 }else{
-                    if(username.equals(u.getUsername()) && password.equals(u.getPassword())){
+                    if(username.equals(u.getUsername()) && hashedPassword.equals(u.getPassword())){
                         HttpSession s = SecurityLayer.createSession(request, u.getUsername(), u.getIdUtente(), u.getPrivilegi(), "stud");
                         request.setAttribute("Session", s);
                     }
@@ -60,13 +65,14 @@ public class Login extends InternshipDBController {
             }else{
                 Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAziendaByLogin(username, password);
                 if(a!=null){
-                    if(username.equals(a.getUsername()) && password.equals(a.getPassword())){
+                    if(username.equals(a.getUsername()) && hashedPassword.equals(a.getPassword())){
                         HttpSession s = SecurityLayer.createSession(request, a.getUsername(), a.getIdAzienda(), a.getPrivilegi(), "comp");
                         request.setAttribute("Session", s);
                     }
                 }
             }           
             if(request.getParameter("tid").equals("")){
+                request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
                 res.activate("result.ftl.html", request, response);                
             }else{
                 String id_tirocinio = request.getParameter("tid");
@@ -108,7 +114,10 @@ public class Login extends InternshipDBController {
         }catch (TemplateManagerException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
-        }  
+        }catch (NoSuchAlgorithmException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        } 
     }
     
 }

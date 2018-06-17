@@ -17,12 +17,12 @@
                 </tr>
                 <#list lista_tirocini_approvati as tirocinio>
                     <tr>
-                        <td>${tirocinio.titolo}</td> 
-                        <td>${tirocinio.azienda.nomeAzienda}</td>
+                        <td>${strip_slashes(tirocinio.titolo)}</td> 
+                        <td>${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>
                         <td>${tirocinio.numOre}</td> 
                         <td>${tirocinio.mesi}</td>
-                        <td>${tirocinio.luogo}</td>
-                        <td>${tirocinio.settore}</td> 
+                        <td>${strip_slashes(tirocinio.luogo)}</td>
+                        <td>${strip_slashes(tirocinio.settore)}</td> 
                         <td><a href="show?tid=${tirocinio.idTirocinio}">Mostra dettagli</a></td>
                     </tr>
                 </#list>
@@ -46,10 +46,10 @@
                 <#list lista_richieste as ric>
                     <tr>
                         <td>${ric.cfu}</td> 
-                        <td>${ric.nomeTutor}</td>
-                        <td>${ric.cognomeTutor}</td> 
-                        <td>${ric.emailTutor}</td>
-                        <td>${ric.status}</td>
+                        <td>${strip_slashes(ric.nomeTutor)}</td>
+                        <td>${strip_slashes(ric.cognomeTutor)}</td> 
+                        <td>${strip_slashes(ric.emailTutor)}</td>
+                        <td>${strip_slashes(ric.status)}</td>
                         <td><a href="show?tid=${ric.idTirocinio}">Dettagli tirocinio</a></td>
                     </tr>
                 </#list>

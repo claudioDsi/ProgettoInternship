@@ -18,12 +18,14 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import org.univaq.tirocinio.datamodel.*;
 import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 public class InsertRichiesta extends InternshipDBController {
     
     private void action_default(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException, DataLayerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             HttpSession s = SecurityLayer.checkSession(request);
             int userid = (int)s.getAttribute("userid");
             Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, tirocinio.getIdTirocinio());
@@ -45,7 +47,6 @@ public class InsertRichiesta extends InternshipDBController {
     
     private void action_add(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException {
         try {
-            TemplateResult res = new TemplateResult(getServletContext());
             HttpSession s = SecurityLayer.checkSession(request);
             int session_userid = (int)s.getAttribute("userid");
             int request_userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
@@ -55,16 +56,16 @@ public class InsertRichiesta extends InternshipDBController {
                 response.sendRedirect("show?tid="+tirocinio_id);
             }else{
                 Richiesta new_richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).creaRichiesta();
-                new_richiesta.setCfu(request.getParameter("cfu"));
+                new_richiesta.setCfu(SecurityLayer.addSlashes(request.getParameter("cfu")));
                 new_richiesta.setIdStudente(request_userid);
                 new_richiesta.setIdTirocinio(tirocinio_id);
                 new_richiesta.setStatus("pending");
                 int tutore_id = SecurityLayer.checkNumeric(request.getParameter("tutore"));
                 Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(tutore_id);
                 new_richiesta.setCodTutore(tutore.getIdTutore());
-                new_richiesta.setNomeTutor(tutore.getNome());
-                new_richiesta.setCognomeTutor(tutore.getCognome());
-                new_richiesta.setEmailTutor(tutore.getEmailTutore());
+                new_richiesta.setNomeTutor(SecurityLayer.addSlashes(tutore.getNome()));
+                new_richiesta.setCognomeTutor(SecurityLayer.addSlashes(tutore.getCognome()));
+                new_richiesta.setEmailTutor(SecurityLayer.addSlashes(tutore.getEmailTutore()));
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeRichiesta(new_richiesta);
                 response.sendRedirect("show?tid="+tirocinio_id);
                 //action_activate(request, response, new_richiesta.getIdRichiesta());
@@ -78,6 +79,7 @@ public class InsertRichiesta extends InternshipDBController {
     private void action_activate(HttpServletRequest request, HttpServletResponse response, int richiesta_key) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             HttpSession s = SecurityLayer.checkSession(request);
             Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoRichiesta(richiesta_key);
             request.setAttribute("nuova_richiesta", richiesta);

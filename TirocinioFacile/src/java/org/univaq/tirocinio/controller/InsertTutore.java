@@ -22,6 +22,7 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import org.univaq.tirocinio.datamodel.*;
 import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 public class InsertTutore extends InternshipDBController {
     
@@ -45,11 +46,11 @@ public class InsertTutore extends InternshipDBController {
             String date_in_string = request.getParameter("datanasc");
             Date date = sdf.parse(date_in_string);
             int userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
-            tutore.setNome(request.getParameter("nome"));
-            tutore.setCognome(request.getParameter("cognome"));
+            tutore.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));
+            tutore.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
             tutore.setDataNasc(date);
-            tutore.setTelefono(request.getParameter("telefono"));
-            tutore.setEmailTutore(request.getParameter("email"));
+            tutore.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
+            tutore.setEmailTutore(SecurityLayer.addSlashes(request.getParameter("email")));
             tutore.setCodAzienda(userid);
             ((InternShipDataLayer)request.getAttribute("datalayer")).storeTutore(tutore);
             action_activate(request, response, tutore.getIdTutore());
@@ -62,6 +63,7 @@ public class InsertTutore extends InternshipDBController {
     private void action_activate(HttpServletRequest request, HttpServletResponse response, int user_key) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(user_key);
             HttpSession s = SecurityLayer.checkSession(request);
             request.setAttribute("Session", s);

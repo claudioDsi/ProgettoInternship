@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Richiesta;
 import org.univaq.tirocinio.datamodel.Tirocinio;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
  *
@@ -38,6 +39,7 @@ public class CompanyPanel extends InternshipDBController {
             if(!lista_tirocini.isEmpty()){
                 request.setAttribute("lista_tirocini", lista_tirocini);
             }
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             request.setAttribute("Session", s);
             res.activate("company_panel.ftl.html", request, response);
         }catch(DataLayerException ex){
@@ -59,6 +61,7 @@ public class CompanyPanel extends InternshipDBController {
                 if(!lista_richieste.isEmpty()){
                     request.setAttribute("lista_richieste", lista_richieste);
                 }
+                request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
                 request.setAttribute("Session", s);
                 res.activate("manage_request.ftl.html", request, response);
             }else{
@@ -88,6 +91,7 @@ public class CompanyPanel extends InternshipDBController {
                     String type = (String)s.getAttribute("type");
                     if(type.equals("comp")){
                         if(request.getParameter("tid")!=null){
+                            //hai selezionato un tirocinio da gestire
                             request.setAttribute("page_title", "Gestione Richieste Tirocinio");
                             action_richieste(request, response);
                         }else{

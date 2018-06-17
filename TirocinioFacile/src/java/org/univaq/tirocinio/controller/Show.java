@@ -21,12 +21,14 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import org.univaq.tirocinio.datamodel.*;
 import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 public class Show extends InternshipDBController {
     
     private void action_anonymous(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException, DataLayerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             HttpSession s = SecurityLayer.checkSession(request);
             if(s!=null){
                 request.setAttribute("Session", s);
@@ -45,6 +47,7 @@ public class Show extends InternshipDBController {
     private void action_student(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio, HttpSession s) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             List<Richiesta> lista_richieste = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaRichiesteTirocinio(tirocinio.getIdTirocinio());
             int userid =(int)s.getAttribute("userid");
             //controllo che il tirocinio sia già stato assegnato
@@ -93,6 +96,7 @@ public class Show extends InternshipDBController {
     private void action_company(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio, HttpSession s) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             int userid = (int)s.getAttribute("userid");
             if(userid==tirocinio.getIdAzienda()){
                 List<Richiesta> lista_richieste = new ArrayList();

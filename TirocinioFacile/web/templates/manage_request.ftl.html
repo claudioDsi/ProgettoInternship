@@ -15,11 +15,11 @@
                 </tr>
                 <#list lista_richieste as ric>
                     <tr>
-                        <td>${ric.cfu}</td> 
-                        <td>${ric.nomeTutor}</td>
-                        <td>${ric.cognomeTutor}</td> 
-                        <td>${ric.emailTutor}</td>
-                        <td>${ric.status}</td>
+                        <td>${strip_slashes(ric.cfu)}</td> 
+                        <td>${strip_slashes(ric.nomeTutor)}</td>
+                        <td>${strip_slashes(ric.cognomeTutor)}</td> 
+                        <td>${strip_slashes(ric.emailTutor)}</td>
+                        <td>${strip_slashes(ric.status)}</td>
                         <#if ric.status=="accepted" || ric.status=="rejected">
                             <td>Non è più possibile modificare la richiesta</td>
                         <#else>

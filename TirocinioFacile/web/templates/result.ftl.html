@@ -1,35 +1,37 @@
 <#if (utente??)>
     <p>Utente inserito:</p>
-    <p>${utente.nome}</p>
-    <p>${utente.cognome}</p>
-    <p>${utente.username}</p>
+    <p>${strip_slashes(utente.nome)}</p>
+    <p>${strip_slashes(utente.cognome)}</p>
+    <p>${strip_slashes(utente.username)}</p>
+    <p>${strip_slashes(utente.luogoNasc)}</p>
+    <p>${strip_slashes(utente.residenza)}</p>
 </#if>
 <#if (azienda??)>
     <p>Azienda inserita:</p>
-    <p>${azienda.nomeAzienda}</p>
-    <p>${azienda.nomeRappr}</p>
-    <p>${azienda.cognomeRappr}</p>
-    <p>${azienda.username}</p>
+    <p>${strip_slashes(azienda.nomeAzienda)}</p>
+    <p>${strip_slashes(azienda.nomeRappr)}</p>
+    <p>${strip_slashes(azienda.cognomeRappr)}</p>
+    <p>${strip_slashes(azienda.username)}</p>
 </#if>
 <#if (tutore??)>
     <p>Tutore inserito:</p>
-    <p>${tutore.nome}</p>
-    <p>${tutore.cognome}</p>
+    <p>${strip_slashes(tutore.nome)}</p>
+    <p>${strip_slashes(tutore.cognome)}</p>
     <p>${tutore.dataNasc}</p>
-    <p>${tutore.telefono}</p>
+    <p>${strip_slashes(tutore.telefono)}</p>
 </#if>
 <#if (tirocinio??)>
     <p>Tirocinio inserito:</p>
-    <p>${tirocinio.luogo}</p>
-    <p>${tirocinio.orario}</p>
-    <p>${tirocinio.mesi}</p>
-    <p>${tirocinio.obiettivi}</p>
+    <p>${strip_slashes(tirocinio.luogo)}</p>
+    <p>${strip_slashes(tirocinio.orario)}</p>
+    <p>${strip_slashes(tirocinio.mesi)}</p>
+    <p>${strip_slashes(tirocinio.obiettivi)}</p>
 </#if>
 <#if (nuova_richiesta??)>
     <p>Richiesta inserita:</p>
-    <p>${nuova_richiesta.cfu}</p>
-    <p>${nuova_richiesta.nomeTutor}</p>
-    <p>${nuova_richiesta.cognomeTutor}</p>
+    <p>${strip_slashes(nuova_richiesta.cfu)}</p>
+    <p>${strip_slashes(nuova_richiesta.nomeTutor)}</p>
+    <p>${strip_slashes(nuova_richiesta.cognomeTutor)}</p>
 </#if>
 <#if (Session??)>
     <p>Benvenuto!</p>

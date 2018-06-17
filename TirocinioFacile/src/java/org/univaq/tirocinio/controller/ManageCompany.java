@@ -18,7 +18,7 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.Azienda;
-import org.univaq.tirocinio.datamodel.Tutore;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
  *
@@ -33,6 +33,7 @@ public class ManageCompany extends InternshipDBController {
             List<Azienda> lista_aziende = ((InternShipDataLayer)request.getAttribute("datalayer")).showListaAziende();
             request.setAttribute("lista_aziende", lista_aziende);
             request.setAttribute("Session", s);
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             res.activate("manage_company.ftl.html", request, response);
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());

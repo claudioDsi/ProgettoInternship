@@ -21,6 +21,7 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import org.univaq.tirocinio.datamodel.*;
 import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 public class Search extends InternshipDBController {
     
@@ -41,13 +42,14 @@ public class Search extends InternshipDBController {
     private void action_search(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             Map<String,Object> parametri = new HashMap();
             List<Tirocinio> tirocini = new ArrayList();
-            parametri.put("azienda", request.getParameter("azienda"));
-            parametri.put("luogo", request.getParameter("luogo"));
+            parametri.put("azienda", SecurityLayer.addSlashes(request.getParameter("azienda")));
+            parametri.put("luogo", SecurityLayer.addSlashes(request.getParameter("luogo")));
             parametri.put("numore", request.getParameter("numore"));
             parametri.put("nummesi", request.getParameter("nummesi"));
-            parametri.put("settore", request.getParameter("settore"));
+            parametri.put("settore", SecurityLayer.addSlashes(request.getParameter("settore")));
             tirocini = ((InternShipDataLayer)request.getAttribute("datalayer")).searchTirocini(parametri);
             HttpSession s = SecurityLayer.checkSession(request);
             if(s!=null){

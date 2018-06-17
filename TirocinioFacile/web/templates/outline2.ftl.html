@@ -42,6 +42,8 @@ and open the template in the editor.
                 <#elseif Session.getAttribute('type')=="comp">
                     <li><a href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">Il tuo profilo</a></li>
                     <li><a href="panel">Gestione Tirocini</a></li>
+                    <li><a href="tirocinio">Inserisci Tirocinio</a></li>
+                    <li><a href="tutore">Aggiungi Tutore</a></li>
                     <li><a href="faq">FAQ</a></li>
                 <#else>
                     <li><a href="managecompany">Gestione delle aziende</a></li>

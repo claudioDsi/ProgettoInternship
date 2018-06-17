@@ -13,7 +13,7 @@
         <div>
             <select name="tutore">
             <#list listaTutori as tutore>
-                <option value="${tutore.idTutore}">${tutore.nome} ${tutore.cognome}</option>
+                <option value="${tutore.idTutore}">${strip_slashes(tutore.nome)} ${strip_slashes(tutore.cognome)}</option>
             </#list>
             </select>
         </div>

@@ -16,14 +16,14 @@
                 <#list best_tutori as tutore>
                     <tr>
                         <#if (tutore.nome)??>
-                        <td>${tutore.nome}</td> 
+                        <td>${strip_slashes(tutore.nome)}</td> 
                         </#if>
-                        <td>${tutore.cognome}</td>
+                        <td>${strip_slashes(tutore.cognome)}</td>
                         <#if (tutore.dataNasc)??>
                         <td>${tutore.dataNasc}</td>
                         </#if>
                         <td>${tutore.numTirocini}</td>
-                        <td>${tutore.emailTutore}</td>
+                        <td>${strip_slashes(tutore.emailTutore)}</td>
                     </tr>
                 </#list>
             </table>
@@ -44,9 +44,9 @@
                 </tr>
                 <#list best_aziende as azienda>
                     <tr>
-                        <td>${azienda.nomeAzienda}</td> 
-                        <td>${azienda.ragioneSociale}</td>
-                        <td>${azienda.partitaIva}</td> 
+                        <td>${strip_slashes(azienda.nomeAzienda)}</td> 
+                        <td>${strip_slashes(azienda.ragioneSociale)}</td>
+                        <td>${strip_slashes(azienda.partitaIva)}</td> 
                         <td>${azienda.numeroTirocini}</td>
                         <td>${azienda.valutazione}</td>
                     </tr>
@@ -69,9 +69,9 @@
                 </tr>
                 <#list most_stages as az>
                     <tr>
-                        <td>${az.nomeAzienda}</td> 
-                        <td>${az.ragioneSociale}</td>
-                        <td>${az.partitaIva}</td> 
+                        <td>${strip_slashes(az.nomeAzienda)}</td> 
+                        <td>${strip_slashes(az.ragioneSociale)}</td>
+                        <td>${strip_slashes(az.partitaIva)}</td> 
                         <td>${az.numeroTirocini}</td>
                         <td>${az.valutazione}</td>
                     </tr>

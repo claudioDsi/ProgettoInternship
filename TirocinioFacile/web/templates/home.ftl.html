@@ -17,9 +17,9 @@
                 </tr>
                 <#list tirocini as tirocinio>
                     <tr>
-                        <td>${tirocinio.luogo}</td>
-                        <td> ${tirocinio.azienda.nomeAzienda}</td>   
-                        <td> ${tirocinio.obiettivi}</td>
+                        <td>${strip_slashes(tirocinio.luogo)}</td>
+                        <td> ${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>   
+                        <td> ${strip_slashes(tirocinio.obiettivi)}</td>
                     </tr>
                 </#list> 
             </table>

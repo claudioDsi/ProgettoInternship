@@ -18,12 +18,12 @@
                 </tr>
                 <#list lista_tirocini as tirocinio>
                     <tr>
-                        <td>${tirocinio.titolo}</td> 
-                        <td>${tirocinio.azienda.nomeAzienda}</td>
+                        <td>${strip_slashes(tirocinio.titolo)}</td> 
+                        <td>${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>
                         <td>${tirocinio.numOre}</td> 
                         <td>${tirocinio.mesi}</td>
-                        <td>${tirocinio.luogo}</td>
-                        <td>${tirocinio.settore}</td> 
+                        <td>${strip_slashes(tirocinio.luogo)}</td>
+                        <td>${strip_slashes(tirocinio.settore)}</td> 
                         <td><a href="show?tid=${tirocinio.idTirocinio}">Mostra dettagli tirocinio</a></td>
                         <td><a href="panel?tid=${tirocinio.idTirocinio}">Gestione richieste</a></td>
                     </tr>

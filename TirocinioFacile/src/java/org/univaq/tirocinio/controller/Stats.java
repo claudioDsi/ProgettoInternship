@@ -19,6 +19,7 @@ import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Tutore;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Stats extends InternshipDBController {
     private void action_stats(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
         try{
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             HttpSession s = SecurityLayer.checkSession(request);
             //tutori con più tirocini svolti
             List<Tutore> best_tutori = ((InternShipDataLayer)request.getAttribute("datalayer")).getBestTutors();

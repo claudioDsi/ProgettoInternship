@@ -16,6 +16,7 @@ import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.datamodel.Tirocinio;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
@@ -29,8 +30,9 @@ public class Homepage extends InternshipDBController {
     private void action_show_home(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         List<Tirocinio> list = new ArrayList();
         try{
-            TemplateResult res = new TemplateResult(getServletContext());           
-            list = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirocini();              
+            TemplateResult res = new TemplateResult(getServletContext());
+            list = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirocini();  
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             request.setAttribute("tirocini", list);
             HttpSession s = SecurityLayer.checkSession(request);
             if(s!=null){

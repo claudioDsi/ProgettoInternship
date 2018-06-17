@@ -16,6 +16,7 @@ import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import org.univaq.tirocinio.framework.result.FailureResult;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
@@ -36,6 +37,7 @@ public class ListaAziende extends InternshipDBController {
             }
             list = ((InternShipDataLayer)request.getAttribute("datalayer")).showListaAziende();
             request.setAttribute("aziende", list);
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             res.activate("aziende.ftl.html", request, response);
         }catch(DataLayerException dte){
             request.setAttribute("message", "Data access exception: " + dte.getMessage());

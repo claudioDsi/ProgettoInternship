@@ -1,24 +1,24 @@
 <h2>${page_title}</h2>
 
 <#if (utente??)>
-    <p>Nome: ${utente.nome}</p>
-    <p>Cognome: ${utente.cognome}</p>
+    <p>Nome: ${strip_slashes(utente.nome)}</p>
+    <p>Cognome: ${strip_slashes(utente.cognome)}</p>
     <p>Data di nascita: ${utente.dataNasc}</p>
-    <p>Luogo di nascita: ${utente.luogoNasc}</p>
-    <p>Residenza: ${utente.residenza}</p>
-    <p>Telefono: ${utente.telefono}</p>
+    <p>Luogo di nascita: ${strip_slashes(utente.luogoNasc)}</p>
+    <p>Residenza: ${strip_slashes(utente.residenza)}</p>
+    <p>Telefono: ${strip_slashes(utente.telefono)}</p>
     <#if (modifica)>
         <p><a href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
     </#if>
 </#if>
 
 <#if (azienda??)>
-    <p>Nome: ${azienda.nomeAzienda}</p>
-    <p>Ragione sociale: ${azienda.ragioneSociale}</p>
-    <p>Indirizzo: ${azienda.indirizzo}</p>
-    <p>Partita IVA: ${azienda.partitaIva}</p>
-    <p>Nome Rappresentante: ${azienda.nomeRappr}</p>
-    <p>Cognome Rappresentante: ${azienda.cognomeRappr}</p>
+    <p>Nome: ${strip_slashes(azienda.nomeAzienda)}</p>
+    <p>Ragione sociale: ${strip_slashes(azienda.ragioneSociale)}</p>
+    <p>Indirizzo: ${strip_slashes(azienda.indirizzo)}</p>
+    <p>Partita IVA: ${strip_slashes(azienda.partitaIva)}</p>
+    <p>Nome Rappresentante: ${strip_slashes(azienda.nomeRappr)}</p>
+    <p>Cognome Rappresentante: ${strip_slashes(azienda.cognomeRappr)}</p>
     <#if (modifica)>
         <p><a href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
     </#if>
