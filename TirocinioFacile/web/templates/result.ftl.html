@@ -34,7 +34,9 @@
     <p>${strip_slashes(nuova_richiesta.cognomeTutor)}</p>
 </#if>
 <#if (Session??)>
+    
     <p>Benvenuto!</p>
+    
     <p>${Session.getAttribute('userid')}</p>
     <p>${Session.getAttribute('username')}</p>
     <p><a href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Mostra profilo </a></p>

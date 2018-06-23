@@ -62,7 +62,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
             
             //nuove update
-            String[] campiUtente={"Nome","Cognome","DataNasc","LuogoNasc","Residenza","CodiceFisc","Telefono","CorsoLaurea","Sesso","Handicap","Laurea","Dottorato","ScuolaSpec","EmailUtente","Sesso"};                
+            String[] campiUtente={"Nome","Cognome","DataNasc","LuogoNasc","Residenza","CodiceFisc","Telefono","CorsoLaurea","Sesso","Handicap","Laurea","Dottorato","ScuolaSpec","EmailUtente"};                
             uUtente=connection.prepareStatement(creaQueryUpdate(campiUtente, "Utente", "IdUtente"));
             String[] campiAzienda = {"Nome","RagioneSociale","Indirizzo","PartitaIva","CodiceFiscale","NomeRappr","CognomeRappr","NomeResp","CognomeResp","Telefono","EmailResp","Foro"};
             uAzienda=connection.prepareStatement(creaQueryUpdate(campiAzienda, "Azienda", "IdAzienda"));
@@ -110,12 +110,12 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             throw new DataLayerException("errore query",sqlEx);
         }
     }
-    
+    @Override    
     public String creaQueryUpdate(String[] campi,String tab,String id){
         String sql="UPDATE "+tab+ " SET ";
         for(int i=0;i<campi.length;i++){
             if(i!=campi.length-1){
-               sql+=campi[i]+" = ? ,"; 
+               sql+=campi[i]+" = ? , "; 
             }
             else{
                 sql+=campi[i]+" = ? "; 
@@ -296,6 +296,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         
     return null;   
     }
+    
+    
+   
     
     @Override
     public Utente getInfoUtenteByLogin(String username, String password) throws DataLayerException {
@@ -541,6 +544,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 if(!utente.isDirty()){
                     return;
                 }
+                    
                 uUtente.setString(1, utente.getNome());
                 uUtente.setString(2, utente.getCognome());
                 uUtente.setDate(3, new java.sql.Date(utente.getDataNasc().getTime()));
@@ -549,12 +553,12 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 uUtente.setString(6, utente.getCodFisc());
                 uUtente.setString(7, utente.getTelefono());
                 uUtente.setString(8, utente.getCdl());
-                uUtente.setBoolean(9, utente.getHandicap());
-                uUtente.setString(10, utente.getLaurea());
-                uUtente.setString(11, utente.getDottorato());
-                uUtente.setString(12, utente.getSpecializzazione());
-                uUtente.setString(13, utente.getEmailUtente());
-                uUtente.setString(14, utente.getSesso());
+                uUtente.setString(9, utente.getSesso());
+                uUtente.setBoolean(10, utente.getHandicap());
+                uUtente.setString(11, utente.getLaurea());
+                uUtente.setString(12, utente.getDottorato());
+                uUtente.setString(13, utente.getSpecializzazione());
+                uUtente.setString(14, utente.getEmailUtente());
                 uUtente.setInt(15, utente.getIdUtente());
                 uUtente.executeUpdate();
             }else{ //insert
@@ -1198,5 +1202,24 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }
         super.destroy();
     }*/
+
+    @Override
+    public void modificaUtente(String sql,Utente u) throws DataLayerException {
+        try{
+            
+            uUtente.setString(1, u.getNome());
+            uUtente.setString(2, u.getCognome());
+            uUtente.setDate(3, new java.sql.Date(u.getDataNasc().getTime()));
+            uUtente.setString(4, u.getLuogoNasc());
+            uUtente.setString(5, u.getResidenza());
+            uUtente.setString(6, u.getCodFisc());           
+            uUtente.setInt(7, u.getIdUtente());           
+            uUtente.executeUpdate();
+        }
+        catch(SQLException sqe){
+            sqe.getMessage();
+        }
+       
+    }
     
 }

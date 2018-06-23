@@ -8,7 +8,9 @@ package org.univaq.tirocinio.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +43,10 @@ public class Modify extends InternshipDBController {
         }
     }
     
+    
+    
+    
+    
     private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException, ParseException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
@@ -49,13 +55,78 @@ public class Modify extends InternshipDBController {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String date_in_string = request.getParameter("datanasc");
                 Date date = sdf.parse(date_in_string);
-                u.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));
+                
+                
+                List<String> arr=new ArrayList<String>();
+                
+                if(!SecurityLayer.addSlashes(request.getParameter("nome")).equals("")){
+                    arr.add("Nome");
+                }
+                
+                  if(!SecurityLayer.addSlashes(request.getParameter("cognome")).equals("")){
+                    arr.add("Cognome");
+                }
+                  if(!SecurityLayer.addSlashes(request.getParameter("luogonasc")).equals("")){
+                    arr.add("LuogoNasc");
+                }
+                  if(!SecurityLayer.addSlashes(request.getParameter("datanasc")).equals("")){
+                    arr.add("DataNasc");
+                }
+                  if(!SecurityLayer.addSlashes(request.getParameter("codfisc")).equals("")){
+                    arr.add("CodiceFisc");
+                }
+                  if(!SecurityLayer.addSlashes(request.getParameter("residenza")).equals("")){
+                    arr.add("Residenza");
+                }
+                  if(!SecurityLayer.addSlashes(request.getParameter("telefono")).equals("")){
+                    arr.add("Telefono");
+                }
+                  
+                  if(!SecurityLayer.addSlashes(request.getParameter("sesso")).equals("")){
+                    arr.add("Sesso");
+                }
+                
+                  if(!SecurityLayer.addSlashes(request.getParameter("email")).equals("")){
+                    arr.add("EmailUtente");
+                }
+                   if(!SecurityLayer.addSlashes(request.getParameter("handicap")).equals("")){
+                    arr.add("Handicap");
+                }
+                 
+                  if(!SecurityLayer.addSlashes(request.getParameter("laurea")).equals("")){
+                    arr.add("CorsoLaurea");
+                }
+                  if(!SecurityLayer.addSlashes(request.getParameter("dottorato")).equals("")){
+                    arr.add("Dottorato");
+                }
+                    if(!SecurityLayer.addSlashes(request.getParameter("specializzazione")).equals("")){
+                    arr.add("ScuolaSpec");
+                }
+                 
+                if(!SecurityLayer.addSlashes(request.getParameter("cdl")).equals("")){
+                    arr.add("Laurea");
+                }
+               
+                String[] campi =new String[arr.size()];
+                arr.toArray(campi);
+               
+                for(int i=0; i<campi.length;i++){
+                    System.out.println("campo "+campi[i]);
+                }
+                System.out.println(request.getParameter("handicap"));
+                
+                u.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));                
                 u.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
                 u.setDataNasc(date);
-                u.setLuogoNasc(SecurityLayer.addSlashes(request.getParameter("luogonasc")));
+                 if(!SecurityLayer.addSlashes(request.getParameter("luogonasc")).equals("")){
+                    u.setLuogoNasc(SecurityLayer.addSlashes(request.getParameter("luogonasc")));
+                }
+               
                 u.setResidenza(SecurityLayer.addSlashes(request.getParameter("residenza")));
                 u.setCodFisc(SecurityLayer.addSlashes(request.getParameter("codfisc")));
                 u.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
+                
+                u.setSesso(SecurityLayer.addSlashes(request.getParameter("sesso")));
                 u.setCdl(SecurityLayer.addSlashes(request.getParameter("cdl")));
                 u.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
                 u.setLaurea(SecurityLayer.addSlashes(request.getParameter("laurea")));
@@ -63,8 +134,19 @@ public class Modify extends InternshipDBController {
                 u.setSpecializzazione(SecurityLayer.addSlashes(request.getParameter("specializzazione")));
                 u.setEmailUtente(SecurityLayer.addSlashes(request.getParameter("email")));
                 u.setIdUtente(userid);
-                ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
-                action_activate(request, response, userid, usertype);
+                System.out.println(userid);
+               ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
+               
+               //query dinamica da verificare
+               
+               //String up=((InternShipDataLayer)request.getAttribute("datalayer")).creaQueryUpdate(campi, "Utente", "IdUtente");
+               
+               
+               //System.out.println(up);
+               
+              //((InternShipDataLayer)request.getAttribute("datalayer")).modificaUtente(up,u);
+               
+               action_activate(request, response, userid, usertype);
             }else if(usertype.equals("comp")){
                 Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).creaAzienda();
                 a.setNomeAzienda(SecurityLayer.addSlashes(request.getParameter("nome")));

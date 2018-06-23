@@ -116,7 +116,7 @@ var CheckEmail = new ObjRegexpChecker("([a-z0-9_.-]+)@((?:[a-z0-9-]+\\.)+[a-z0-9
 //oggetto di controllo per i caratteri più pericolosi 
 //check object for dangerous characters
 var CheckStrangeChars = new ObjDisallowedChecker("!@#$%^&*()+=-[]\\\';,./{}|\":<>?");
-
+var CheckAlphaNumeric= new ObjRegexpChecker("([a-zA-Z0-9_-]+)");
 //oggetto di controllo combinato: controlla che il valore sia non nullo, sia un numero e NON sia nell'intervallo (1,20)
 //combined check object: checks that the value is not empty, is a number and in NOT in the range (1,20)
 var CheckMyNumber = new ObjCombinedChecker(
@@ -193,6 +193,7 @@ function FormChecker(form) {
 						case "email":	fldchecks.push(CheckEmail);  break;
 						case "required":fldchecks.push(new ObjCheckRequired());  break;
                                                 case "forbidden":fldchecks.push(CheckStrangeChars); break;
+                                                case "code": fldchecks.push(CheckAlphaNumeric); break;
 					}	
 	
 				}
