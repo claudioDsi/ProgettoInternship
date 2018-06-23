@@ -1,6 +1,8 @@
 <h2>${page_title}</h2>
 
 <#if (utente??)>
+<form method="post" action="modify">
+    <div>Nome </div>
     <p>Nome: ${strip_slashes(utente.nome)}</p>
     <p>Cognome: ${strip_slashes(utente.cognome)}</p>
     <p>Data di nascita: ${utente.dataNasc}</p>
@@ -10,6 +12,93 @@
     <#if (modifica)>
         <p><a href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
     </#if>
+     <div>
+        <div>Nome</div>
+        <div><input type="text" name="nome" value="${strip_slashes(utente.nome)}"/></div>
+    </div>
+    
+    <div>
+        <div>Cognome</div>
+        <div><input type="text" name="cognome" value="${strip_slashes(utente.cognome)}"/></div>
+    </div>
+    
+    <div>
+        <div>Data di nascita</div>
+        <div><input type="text" name="datanasc" value="${strip_slashes(utente.dataNasc)}"/></div>
+    </div>
+    
+    <div>
+        <div>Luogo di nascita</div>
+        <div><input type="text" name="luogonasc" value="${strip_slashes(utente.luogoNasc)}"/></div>
+    </div>
+    
+    <div>
+        <div>Residenza</div>
+        <div><input type="text" name="residenza" value="${strip_slashes(utente.residenza)}"/></div>
+    </div>
+    
+    <div>
+        <div>Codice fiscale</div>
+        <div><input type="text" name="codfisc" value="${strip_slashes(utente.codFisc)}"/></div>
+    </div>
+    
+    <div>
+        <div>Telefono</div>
+        <div><input type="text" name="telefono" value="${strip_slashes(utente.telefono)}"/></div>
+    </div>
+    
+    <div>
+        <div>Corso di laurea</div>
+        <div><input type="text" name="cdl" value="${strip_slashes(utente.cdl)}"/></div>
+    </div>
+    
+     <div>Sesso</div>
+        <div>
+            <div> <input type="text" name="cdl" value="${strip_slashes(utente.sesso)}"/></div>
+        </div>
+    
+    <div>
+        <div>Handicap</div>
+        <div>
+           
+            <div> <input type="text" name="cdl" value="${strip_slashes(utente.handicap?string)}"/></div>
+        </div>
+    </div>
+    
+    <div>
+        <div>Laurea</div>
+         <div> <input type="text" name="cdl" value="${strip_slashes(utente.laurea)}"/></div>
+    </div>
+    
+    <div>
+        <div>Dottorato</div>
+        <div><input type="text" name="dottorato" value="${strip_slashes(utente.dottorato)}"/></div>
+    </div>
+    
+    <div>
+        <div>Specializzazione</div>
+        <div><input type="text" name="specializzazione" value="${strip_slashes(utente.specializzazione)}"/></div>
+    </div>
+    
+    <div>
+        <div>Email</div>
+        <div><input type="text" name="email" value="${strip_slashes(utente.emailUtente)}"/></div>
+    </div>
+    
+    <div>
+        <input type="submit" name="update" value="Conferma modifiche"/>
+    </div>
+    
+    
+    
+    
+</form>
+ <#if (modifica)>
+        <p><a href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
+    </#if>
+
+
+   
 </#if>
 
 <#if (azienda??)>

@@ -22,6 +22,7 @@ import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
+import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
  *
@@ -56,16 +57,15 @@ public class Modify extends InternshipDBController {
                 String date_in_string = request.getParameter("datanasc");
                 Date date = sdf.parse(date_in_string);
                 
+                /*
+                List<String> arr=new ArrayList<String>();     
                 
-                List<String> arr=new ArrayList<String>();
                 
                 if(!SecurityLayer.addSlashes(request.getParameter("nome")).equals("")){
                     arr.add("Nome");
-                }
-                
+                }                
                   if(!SecurityLayer.addSlashes(request.getParameter("cognome")).equals("")){
-                    arr.add("Cognome");
-                }
+                    arr.add("Cognome");                }
                   if(!SecurityLayer.addSlashes(request.getParameter("luogonasc")).equals("")){
                     arr.add("LuogoNasc");
                 }
@@ -80,19 +80,16 @@ public class Modify extends InternshipDBController {
                 }
                   if(!SecurityLayer.addSlashes(request.getParameter("telefono")).equals("")){
                     arr.add("Telefono");
-                }
-                  
+                }                  
                   if(!SecurityLayer.addSlashes(request.getParameter("sesso")).equals("")){
                     arr.add("Sesso");
-                }
-                
+                }                
                   if(!SecurityLayer.addSlashes(request.getParameter("email")).equals("")){
                     arr.add("EmailUtente");
                 }
                    if(!SecurityLayer.addSlashes(request.getParameter("handicap")).equals("")){
                     arr.add("Handicap");
-                }
-                 
+                }                 
                   if(!SecurityLayer.addSlashes(request.getParameter("laurea")).equals("")){
                     arr.add("CorsoLaurea");
                 }
@@ -101,27 +98,21 @@ public class Modify extends InternshipDBController {
                 }
                     if(!SecurityLayer.addSlashes(request.getParameter("specializzazione")).equals("")){
                     arr.add("ScuolaSpec");
-                }
-                 
+                }                 
                 if(!SecurityLayer.addSlashes(request.getParameter("cdl")).equals("")){
                     arr.add("Laurea");
-                }
-               
+                }               
                 String[] campi =new String[arr.size()];
-                arr.toArray(campi);
-               
+                arr.toArray(campi);               
                 for(int i=0; i<campi.length;i++){
                     System.out.println("campo "+campi[i]);
                 }
                 System.out.println(request.getParameter("handicap"));
-                
+                */
                 u.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));                
                 u.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
-                u.setDataNasc(date);
-                 if(!SecurityLayer.addSlashes(request.getParameter("luogonasc")).equals("")){
-                    u.setLuogoNasc(SecurityLayer.addSlashes(request.getParameter("luogonasc")));
-                }
-               
+                u.setDataNasc(date);                 
+                u.setLuogoNasc(SecurityLayer.addSlashes(request.getParameter("luogonasc")));                               
                 u.setResidenza(SecurityLayer.addSlashes(request.getParameter("residenza")));
                 u.setCodFisc(SecurityLayer.addSlashes(request.getParameter("codfisc")));
                 u.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
@@ -178,6 +169,8 @@ public class Modify extends InternshipDBController {
             if(usertype.equals("stud") || usertype.equals("admin")){
                 Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
                 request.setAttribute("utente", utente);
+                request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
+                res.activate("modify_user",request,response);
             }else if(usertype.equals("comp")){
                 Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
                 request.setAttribute("azienda", azienda);
