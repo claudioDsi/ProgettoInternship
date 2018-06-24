@@ -22,7 +22,7 @@ and open the template in the editor.
             .w3-sidebar {
               z-index: 3;
               width: 200px;
-              top: 52px;
+              top: 53px;
               bottom: 0;
               height: inherit;
             }
@@ -30,22 +30,36 @@ and open the template in the editor.
     </head>    
     <body>
         <!-- Navbar -->
-        <div class="w3-top">
-          <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
-            <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-            <a href="#" class="w3-bar-item w3-button w3-theme">
-                <img src="images/logo.png" style="width: 100px; height: 36px;">
-            </a>
-            <#if (Session??)>
-                <a href="logout" class="w3-bar-item w3-button w3-xlarge w3-hide-small w3-hover-white w3-right">Logout</a>
-            <#else>
-                <a href="login" class="w3-bar-item w3-button w3-xlarge w3-hide-small w3-hover-white w3-right">Login</a>
-            </#if>
-            <a href="about" class="w3-bar-item w3-button w3-xlarge w3-hide-small w3-hover-white w3-right">About</a>
-            <a href="contact" class="w3-bar-item w3-button w3-xlarge w3-hide-small w3-hover-white w3-right">Contact</a>
-            <a href="home" class="w3-bar-item w3-button w3-xlarge w3-hide-small w3-hover-white  w3-right">Home</a>
-          </div>
-        </div>
+        <noscript>
+            <div id="navbar">
+                <div class="w3-bar w3-theme w3-border w3-row w3-mobile">
+                    <div class="w3-container w3-left w3-rest w3-mobile">
+                        <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+                        <a href="home" class="w3-bar-item w3-button w3-mobile">
+                            <img src="images/logo.png" style="width: 100px; height: 36px;">
+                        </a>
+                    </div>
+                    <div class="w3-col w3-container w3-right w3-mobile" style="width:475px">
+                        <a href="home" class="w3-bar-item w3-button w3-xlarge w3-mobile">
+                        <i class="fa fa-home"></i>Home</a>
+                        <a href="contact" class="w3-bar-item w3-button w3-xlarge w3-mobile">Contact</a>
+                        <a href="about" class="w3-bar-item w3-button w3-xlarge w3-mobile">About</a>
+                        <#if (Session??)>
+                            <a href="logout" class="w3-bar-item w3-button w3-xlarge w3-mobile">Logout</a>
+                        <#else>
+                            <a href="login" class="w3-bar-item w3-button w3-xlarge w3-mobile">Login</a>
+                        </#if>
+                    </div>
+                </div>
+            </div>
+        </noscript>
+        <#if (Session??)>
+            <div id="navbar"></div>
+            <script type="text/javascript" src="script/topnavlogout.js"></script>
+        <#else>
+            <div id="navbar"></div>
+            <script type="text/javascript" src="script/topnavlogin.js"></script>
+        </#if>
         
         <!-- Sidebar -->
         <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
@@ -97,11 +111,10 @@ and open the template in the editor.
         
         <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
         <div class="w3-main" style="margin-left:210px">
-            <div class="w3-row w3-padding-64">
+            <div class="w3-rest w3-padding-64">
                 <#include content_tpl>
             </div>
         </div>
-        
         <script>
             // Get the Sidebar
             var mySidebar = document.getElementById("mySidebar");

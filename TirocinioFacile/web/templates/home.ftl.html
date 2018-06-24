@@ -5,7 +5,27 @@
         <br>Se non sei ancora registrato, fallo subito per accedere ai nostri servizi!</h4>
     </p>
 </div>
-
+<#if (Session??)>
+<div class="w3-container">
+        <h2>News tirocini:</h2>
+        <div class="w3-responsive">
+            <table class="w3-table-all">
+                <tr>
+                    <th>Titolo tirocinio</th>
+                    <th>Azienda referente</th>
+                    <th>Descrizione attivit&agrave;</th>
+                </tr>
+                <#list tirocini as tirocinio>
+                    <tr>
+                        <td>${strip_slashes(tirocinio.luogo)}</td>
+                        <td> ${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>   
+                        <td> ${strip_slashes(tirocinio.obiettivi)}</td>
+                    </tr>
+                </#list> 
+            </table>
+        </div>
+    </div>
+<#else>
 <div class="w3-cell-row">
     <div class="w3-container w3-cell w3-mobile">
         <h2>News tirocini:</h2>
@@ -46,11 +66,28 @@
                 </form>
             </div>
     </noscript>
-    <div id="form_login" style="margin-right:20px"></div>
+    <div id="log" class="w3-container w3-cell w3-mobile"></div>
     <script type="text/javascript" src="script/login.js"></script>
 </div>
-
-<div>
+</#if>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<p>ciao</p>
+<!--
     <div id="log" class="w3-container w3-cell w3-mobile">
     <button class="w3-button w3-block w3-yellow w3-round" style="width:50%; float:left;" onclick="show('log_stud')">Login Studente</button>
     <button class="w3-button w3-block w3-red w3-round" style="width:50%; float:right;" onclick="show('log_az')">Login Azienda</button>
@@ -92,4 +129,4 @@
             </p>
         </form>
     </div>
-</div>
+</div>-->
