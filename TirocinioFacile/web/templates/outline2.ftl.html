@@ -15,8 +15,9 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script type="text/javascript" src="script/test.js"></script>
+        <script type="text/javascript" src="script/showButton.js"></script>
         <script type="text/javascript" src="script/prova.js"></script> 
+        <script type="text/javascript" src="script/topnav.js"></script>
         <style>
         html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
             .w3-sidebar {
@@ -54,11 +55,11 @@ and open the template in the editor.
             </div>
         </noscript>
         <#if (Session??)>
-            <div id="navbar"></div>
-            <script type="text/javascript" src="script/topnavlogout.js"></script>
+            <div id="navbar1"></div>
+            <script> topnav('navbar1'); </script>
         <#else>
-            <div id="navbar"></div>
-            <script type="text/javascript" src="script/topnavlogin.js"></script>
+            <div id="navbar2"></div>
+            <script> topnav('navbar2'); </script>
         </#if>
         
         <!-- Sidebar -->
@@ -111,7 +112,7 @@ and open the template in the editor.
         
         <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
         <div class="w3-main" style="margin-left:210px">
-            <div class="w3-rest w3-padding-64">
+            <div id="content" class="w3-rest">
                 <#include content_tpl>
             </div>
         </div>
