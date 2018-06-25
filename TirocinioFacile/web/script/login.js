@@ -47,7 +47,7 @@ setUsernameSt.setAttribute("class", "w3-input w3-animate-input");
 setUsernameSt.setAttribute("type", "text");
 setUsernameSt.setAttribute("name", "username");
 setUsernameSt.setAttribute("value", "");
-setUsernameSt.setAttribute("style", "width:50%; margin-left:15px;");
+setUsernameSt.setAttribute("style", "width:50%; margin-left:15px; max-width:90%;");
 y.appendChild(setUsernameSt);
 
 var usernameStLabel = document.createElement('label'); // Create Label for Name Field
@@ -63,7 +63,7 @@ setStPassword.setAttribute("class", "w3-input w3-animate-input");
 setStPassword.setAttribute("type", "password");
 setStPassword.setAttribute("name", "password");
 setStPassword.setAttribute("value", "");
-setStPassword.setAttribute("style", "width:50%; margin-left:15px;");
+setStPassword.setAttribute("style", "width:50%; margin-left:15px; max-width:90%;");
 y.appendChild(setStPassword);
 
 var passwordStLabel = document.createElement('label'); // Create Label for Name Field
@@ -121,7 +121,7 @@ setUsernameAz.setAttribute("class", "w3-input w3-animate-input");
 setUsernameAz.setAttribute("type", "text");
 setUsernameAz.setAttribute("name", "username");
 setUsernameAz.setAttribute("value", "");
-setUsernameAz.setAttribute("style", "width:50%; margin-left:15px;");
+setUsernameAz.setAttribute("style", "width:50%; margin-left:15px; max-width:90%;");
 z.appendChild(setUsernameAz);
 
 var usernameAzLabel = document.createElement('label'); // Create Label for Name Field
@@ -138,7 +138,7 @@ setPasswordAz.setAttribute("class", "w3-input w3-animate-input");
 setPasswordAz.setAttribute("type", "password");
 setPasswordAz.setAttribute("name", "password");
 setPasswordAz.setAttribute("value", "");
-setPasswordAz.setAttribute("style", "width:50%; margin-left:15px;");
+setPasswordAz.setAttribute("style", "width:50%; margin-left:15px; max-width:90%;");
 z.appendChild(setPasswordAz);
 
 var passwordAzLabel = document.createElement('label'); // Create Label for Name Field
