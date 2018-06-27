@@ -63,7 +63,10 @@ and open the template in the editor.
         </#if>
         
         <!-- Sidebar -->
-        <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+        <div class="w3-theme-l5 w3-bar-block w3-mobile w3-padding-64" style="width:15%">
+            <#include "sidebar.ftl.html">
+        </div>
+        <!--<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
                 <i class="fa fa-remove"></i>
             </a>
@@ -105,10 +108,10 @@ and open the template in the editor.
                 <a class="w3-bar-item w3-button w3-hover-black" href="listaaziende">Lista Aziende</a>
                 <a class="w3-bar-item w3-button w3-hover-black" href="faq">FAQ</a>
             </#if>
-        </nav>
+        </nav> -->
         
         <!-- Overlay effect when opening sidebar on small screens -->
-        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+        <!--<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>-->
         
         <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
         <div class="w3-main" style="margin-left:210px">
