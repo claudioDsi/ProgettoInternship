@@ -24,7 +24,7 @@ function topnav (id){
     divPrincipale.appendChild(divLogo);
 
     var collapseSide = document.createElement('a');
-    collapseSide.setAttribute("class", "w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1");
+    collapseSide.setAttribute("class", "w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme");
     collapseSide.setAttribute("href", "javascript:void(0)");
     collapseSide.setAttribute("onclick", "w3_open()");
     divLogo.appendChild(collapseSide);

@@ -1,5 +1,33 @@
-  <a href="search" class="w3-bar-item w3-button w3-mobile">Ricerca tirocinio</a>
-  <br>
-  <a href="listaaziende" class="w3-bar-item w3-button w3-mobile">Lista aziende</a>
-  <br>
-  <a href="faq" class="w3-bar-item w3-button w3-mobile">FAQ</a>
+<#if (Session??)>
+    <#if Session.getAttribute('type')=="stud">
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">
+            Il tuo profilo
+        </a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="search">
+            Ricerca Tirocinio
+        </a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="listaaziende">
+            Lista Aziende
+        </a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="applications">
+            Riepilogo Candidature
+        </a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="faq">FAQ</a>
+    <#elseif Session.getAttribute('type')=="comp">
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">
+            Il tuo profilo
+        </a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="panel">Gestione Tirocini</a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="tirocinio">Inserisci Tirocinio</a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="tutore">Aggiungi Tutore</a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="faq">FAQ</a>
+    <#else>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="managecompany">Gestione delle aziende</a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="stats">Statistiche</a>
+        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="faq">FAQ</a>
+    </#if>
+<#else>
+    <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="search">Ricerca Tirocinio</a>
+    <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="listaaziende">Lista Aziende</a>
+    <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="faq">FAQ</a>
+</#if>

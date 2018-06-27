@@ -12,10 +12,16 @@ z.style.display = "block";
 w.style.display = "block";
 
 /*
+ * Abilita div sidebar
+ */
+
+document.getElementById('sidebar').style.display = "block"
+
+/*
  * Aggiorno la classe della div content per il padding
  */
 
-//document.getElementById('content').setAttribute("class", "w3-rest w3-padding-64")
+document.getElementById('content').setAttribute("class", "w3-rest w3-padding-64")
 
 /*
  * Mostra e nasconde le div di login studente e azienda
