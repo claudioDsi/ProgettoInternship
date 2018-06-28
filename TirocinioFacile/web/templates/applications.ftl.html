@@ -1,9 +1,7 @@
 <h2>${page_title}</h2>
-<br/>
 <#if (Session??)>
     <#if Session.getAttribute('type')=="stud">
         <h3>I miei tirocini approvati</h3>
-        <br/>
         <#if (lista_tirocini_approvati)??>
             <table class="w3-table-all">
                 <tr>
@@ -13,26 +11,27 @@
                     <th>Numero di mesi</th>
                     <th>Luogo</th>
                     <th>Settore</th>
-                    <th>Vai ai dettagli</th>
                 </tr>
                 <#list lista_tirocini_approvati as tirocinio>
                     <tr>
-                        <td>${strip_slashes(tirocinio.titolo)}</td> 
+                        <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td> 
                         <td>${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>
                         <td>${tirocinio.numOre}</td> 
                         <td>${tirocinio.mesi}</td>
                         <td>${strip_slashes(tirocinio.luogo)}</td>
                         <td>${strip_slashes(tirocinio.settore)}</td> 
-                        <td><a href="show?tid=${tirocinio.idTirocinio}">Mostra dettagli</a></td>
                     </tr>
                 </#list>
             </table>
         <#else>
-            <p>Non sono ancora stati assegnati tirocini!</p>
+            <div class="w3-container">
+                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border" style="width: 50%">
+                  <p>Non sono ancora stati assegnati tirocini!</p>
+                </div>
+            </div>
         </#if>
         <br/>
         <h3>Le mie richieste</h3>
-        <br/>
         <#if (lista_richieste)??>
             <table class="w3-table-all">
                 <tr>
@@ -55,7 +54,11 @@
                 </#list>
             </table>
         <#else>
-            <p>Non sono ancora state effettuate richieste di iscrizione a tirocini!</p>
+            <div class="w3-container">
+                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border" style="width: 50%">
+                  <p>Non sono ancora state effettuate richieste di iscrizione a tirocini!</p>
+                </div>
+            </div>
         </#if>
     </#if>
 </#if>

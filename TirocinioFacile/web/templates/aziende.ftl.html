@@ -1,40 +1,22 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-           <div>       
-        <table  class="w3-table-all">
-            <tr> <th> Azienda </th> 
-                <th>Indirizzo</th>
-                <th>Partita Iva </th>
-                <th> Nome rappresentante </th>
-                <th>Cognome rappresentante </th>
-                <th> Foro competente </th>
-                <th> Email rappresentante </th>
-            </tr>            
-            <#list aziende as azienda>
+<div>       
+    <table  class="w3-table-all">
+        <tr>
+            <th>Azienda</th>
+            <th>Nome responsabile</th>
+            <th>Cognome responabile</th>
+            <th>Telefono responsabile</th>
+            <th>Email responsabile</th>
+        </tr>            
+        <#list aziende as azienda>
             <#if (azienda.status)>
                 <tr>
                     <td>${strip_slashes(azienda.nomeAzienda)}</td>
-                    <td>${strip_slashes(azienda.indirizzo)}</td>
-                    <td>${strip_slashes(azienda.partitaIva)} </td>  
-                    <td>${strip_slashes(azienda.nomeRappr)}</td>
-                    <td>${strip_slashes(azienda.cognomeRappr)}</td>
-                    <td>${strip_slashes(azienda.foro)}</td>
+                    <td>${strip_slashes(azienda.nomeResp)}</td>
+                    <td>${strip_slashes(azienda.cognomeResp)} </td>  
+                    <td>${strip_slashes(azienda.telefanoResp)}</td>
                     <td>${strip_slashes(azienda.emailResp)}</td>
                 </tr>
             </#if>
-             </#list>     
-           
-        </table>  
-    </body>
-</html>
+        </#list>     
+    </table>
+</div>

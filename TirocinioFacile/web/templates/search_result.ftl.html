@@ -1,27 +1,26 @@
 <h2>${page_title}</h2>
 
-<table  class="w3-table-all">
-    <tr>
-        <th>Titolo</th>
-        <th>Azienda</th>
-        <th>Numero di ore</th> 
-        <th>Numero di mesi</th>
-        <th>Luogo</th>
-        <th>Settore</th>
-        <th></th>
-    </tr>
-    <#if (tirocini)??>
-        <#list tirocini as tirocinio>
-            <tr>
-                <td>${strip_slashes(tirocinio.titolo)}</td> 
-                <td>${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>
-                <td>${tirocinio.numOre}</td> 
-                <td>${tirocinio.mesi}</td>
-                <td>${strip_slashes(tirocinio.luogo)}</td>
-                <td>${strip_slashes(tirocinio.settore)}</td> 
-                <td><a href="show?tid=${tirocinio.idTirocinio}">Mostra dettagli</a></td>
-            </tr>
-        </#list>
-    </#if>
-</table>
-
+<div class="w3-responsive" style="margin-right: 1%">
+    <table  class="w3-table w3-striped w3-border">
+        <tr>
+            <th>Titolo</th>
+            <th>Azienda</th>
+            <th>Numero di ore</th> 
+            <th>Numero di mesi</th>
+            <th>Luogo</th>
+            <th>Settore</th>
+        </tr>
+        <#if (tirocini)??>
+            <#list tirocini as tirocinio>
+                <tr>    
+                    <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td>
+                    <td>${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>
+                    <td>${tirocinio.numOre}</td> 
+                    <td>${tirocinio.mesi}</td>
+                    <td>${strip_slashes(tirocinio.luogo)}</td>
+                    <td>${strip_slashes(tirocinio.settore)}</td> 
+                </tr>
+            </#list>
+        </#if>
+    </table>
+</div>

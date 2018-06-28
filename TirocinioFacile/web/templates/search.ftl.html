@@ -1,34 +1,32 @@
 <h2>${page_title}</h2>
 
 <form method="post" action="search">
+    <p>
+        <label class="w3-text-brown"><b>Azienda</b></label>
+        <input class="required forbidden w3-input w3-animate-input w3-sand" style="width:20%; max-width:30%" type="text" name="azienda" value=""/>
+    </p>
+    <p>
+        <label class="w3-text-brown"><b>Luogo</b></label>
+        <input class="required forbidden w3-input w3-animate-input w3-sand" style="width:20%; max-width:30%" type="text" name="luogo" value=""/>
+    </p>
     
-    <div>
-        <div>Azienda</div>
-        <div><input type="text" name="azienda" value="" class="required forbidden"/></div>
-    </div>
+    <p>
+        <label class="w3-text-brown"><b>Numero di ore di tirocinio</b></label>
+        <input class="number w3-input w3-animate-input w3-sand" style="width:20%; max-width:30%" type="text" name="numore" value=""/>
+    </p>
     
-    <div>
-        <div>Luogo</div>
-        <div><input type="text" name="luogo" value="" class="required forbidden"/></div>
-    </div>
-    
-    <div>
-        <div>Numero di ore</div>
-        <div><input type="text" name="numore" value="" class="number" /></div>
-    </div>
+    <p>
+        <label class="w3-text-brown"><b>Numero di mesi di tirocinio</b></label>
+        <input class="number w3-input w3-animate-input w3-sand" style="width:20%; max-width:30%" type="text" name="nummesi" value=""/>
+    </p>
 
-    <div>
-        <div>Numero di mesi</div>
-        <div><input type="text" name="nummesi" value="" class="number"/></div>
-    </div>
+    <p>
+        <label class="w3-text-brown"><b>Settore</b></label>
+        <input class="number w3-input w3-animate-input w3-sand" style="width:20%; max-width:30%" type="text" name="settore" value=""/>
+    </p>    
     
     <div>
-        <div>Settore</div>
-        <div><input type="text" name="settore" value="" class="number"/></div>
-    </div>
-
-    <div>
-        <input type="submit" name="search" value="Search"/>
+        <input class="w3-btn w3-brown" type="submit" name="search" value="Search"/>
     </div>
     
 </form>
