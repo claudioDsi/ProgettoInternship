@@ -21,6 +21,11 @@ and open the template in the editor.
 
 .quest {   
    margin-left: 2%;
-   margin-top: 1%;
+   max-width: 65%;
+   background-color: #0B615E;
+   color: whitesmoke ;
+   border-radius: 10px;
+   padding: 5px;
+   
    
 }

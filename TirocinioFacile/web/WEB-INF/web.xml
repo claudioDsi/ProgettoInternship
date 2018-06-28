@@ -125,6 +125,10 @@
         <servlet-name>Vote</servlet-name>
         <servlet-class>org.univaq.tirocinio.controller.Vote</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Contatti</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.Contatti</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -212,6 +216,10 @@
     <servlet-mapping>
         <servlet-name>Vote</servlet-name>
         <url-pattern>/vote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contatti</servlet-name>
+        <url-pattern>/contact</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

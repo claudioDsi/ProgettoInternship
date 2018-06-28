@@ -44,7 +44,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement listaAziende;
     private PreparedStatement bestAziende, bestTutori, moreStage, activateAzienda;
     private PreparedStatement uNumTiroAzienda, uNumTiroTutore, uDateTirocinio, uValutazione, uStatusVoto;
-   
+    private PreparedStatement showContact;
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
     }
@@ -58,7 +58,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda,EmailTutore) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,Titolo,Status,CodTutore,CodAzienda,DataInizio,DataFine,StatusVoto) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (CodStudente,CodTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor,CodTutore) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
-                     
+            showContact=connection.prepareStatement("SELECT * FROM Utente WHERE Privilegi = ?");
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
             
             //nuove update
@@ -128,6 +128,27 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     public String creaQuerySelect(String tab,String id){
         return  "SELECT * FROM "+tab+ " WHERE "+ id+" = ?";
     }
+    @Override
+    public Utente showAdminInfo() throws DataLayerException{
+        try{
+            showContact.setInt(1, 0);
+            try(ResultSet rs=showContact.executeQuery()){
+                while(rs.next()){
+                    return creaStudente(rs);
+                }
+                
+            }
+            catch(SQLException ex){
+                ex.getMessage();
+            }
+            
+        }
+        catch(SQLException sqe){
+            sqe.getMessage();
+        }
+        return null;
+    }
+    
 
     @Override
     public Utente creaStudente() {

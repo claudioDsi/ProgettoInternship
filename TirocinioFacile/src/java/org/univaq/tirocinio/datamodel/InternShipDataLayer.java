@@ -61,4 +61,5 @@ public interface InternShipDataLayer extends DataLayer{
     String creaQueryUpdate(String[] campi,String tab,String id);
     
     void modificaUtente(String sql,Utente u) throws DataLayerException;
+    Utente showAdminInfo() throws DataLayerException;
 }
