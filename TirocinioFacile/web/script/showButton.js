@@ -14,7 +14,6 @@ w.style.display = "block";
 /*
  * Abilita div sidebar
  */
-
 document.getElementById('sidebar').style.display = "block"
 
 /*

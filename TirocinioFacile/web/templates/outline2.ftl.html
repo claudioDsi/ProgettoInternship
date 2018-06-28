@@ -111,7 +111,10 @@ and open the template in the editor.
                     <a class="w3-bar-item w3-button w3-hover-black" href="faq">FAQ</a>
                 </#if>
             </nav>
-            </div>
+        </div>
+        <script>
+            document.getElementById('sidebar').style.display = "block"
+        </script>
         
         <!-- Overlay effect when opening sidebar on small screens -->
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
@@ -121,6 +124,9 @@ and open the template in the editor.
             <div id="content" class="w3-rest w3-col">
                 <#include content_tpl>
             </div>
+            <script>
+                document.getElementById('content').setAttribute("class", "w3-rest w3-padding-64");
+            </script>
         </div>
         <script>
             // Get the Sidebar
