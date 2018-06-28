@@ -137,7 +137,8 @@ function InputFieldChecker(element,check) {
 	this.saveborder = element.style.border;
 	this.messagearea = element.ownerDocument.createElement("div");
 	this.messagearea.id="messagearea"; 
-        this.messagearea.className="alert";
+        this.messagearea.className="w3-panel w3-pale-red w3-border-red";
+        this.messagearea.style.width = "35%";
         this.messagearea.style.display="none";
 	if (element.nextSibling) element.parentNode.insertBefore(this.messagearea,element.nextSibling);
 	else element.parentNode.appendChild(this.messagearea);
