@@ -1,0 +1,25 @@
+- Sistemare padding e margin delle pagine (a volte sfarfalla) + css per i vari style aggiunti.
+
+- Riempire il db con dati sensati.
+
+- Cambiare la query di ricerca tirocini: tutti i campi sono in and, si deve poter cercare anche con sottoinsieme di campi.
+
+- Sistemare la login: 
+	- quando si fa login bisogna essere reinderizzati ad una pagina precisa in base al tipo di utente (vedi home.ftl.html): attualmente non funzionante (credo sia da sistemare lato server)
+	- creare alert e quindi controllo su username e password (attualmente la risposta è pagina vuota).
+
+- Fare check nelle form tra password e ripeti password (sia lato client che lato server???).
+
+- Reinderizzamento su homepage anonimo.
+
+- Registrazione azienda non funzionante (perchè???).
+
+- La modifica del profilo avviene sulla pagina del profilo dell'utente (prima c'era pagina di modifica), non funziona submit.
+
+- Generazione documentazione utente (progetto formativo) tramite freemarker.
+
+- Generazione documentazione convenzione azienda tramite freemarker.
+
+- Paginazione aziende e tirocini
+
+- Capire validazione lato server delle form
