@@ -62,4 +62,5 @@ public interface InternShipDataLayer extends DataLayer{
     
     void modificaUtente(String sql,Utente u) throws DataLayerException;
     Utente showAdminInfo() throws DataLayerException;
+    List<Tirocinio> showTirocini() throws DataLayerException;
 }

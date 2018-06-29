@@ -2,6 +2,11 @@
     <div class="w3-container w3-cell w3-mobile w3-half">
         <form class="w3-container w3-card-4 w3-round" method="post" action="login">
             <h3>Sei uno studente?</h3>
+             <#if tid="">
+                <input type="hidden" name="tid" value="" />
+            <#else>
+                <input type="hidden" name="tid" value="${tid}" />
+            </#if>
             <p>
                 <input class="w3-input w3-animate-input" type="text" name="username" value="" style="width:90%" required/>
                 <label>Name</label>

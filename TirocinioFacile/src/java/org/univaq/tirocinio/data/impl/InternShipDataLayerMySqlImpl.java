@@ -44,7 +44,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement listaAziende;
     private PreparedStatement bestAziende, bestTutori, moreStage, activateAzienda;
     private PreparedStatement uNumTiroAzienda, uNumTiroTutore, uDateTirocinio, uValutazione, uStatusVoto;
-    private PreparedStatement showContact;
+    private PreparedStatement showContact,showTirocini;
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
     }
@@ -87,6 +87,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sTirocinio=connection.prepareStatement(creaQuerySelect("Tirocinio","IdTirocinio"));
             sTirociniByAzienda=connection.prepareStatement("SELECT IdTirocinio FROM Tirocinio WHERE CodAzienda=?");
             sTirociniByStudente=connection.prepareStatement("SELECT t.* FROM Tirocinio as t JOIN Richiesta as r ON t.IdTirocinio=r.CodTirocinio WHERE r.CodStudente=? AND r.Status='accepted'");
+            showTirocini=connection.prepareStatement(creaQuerySelect("Tirocinio", ""));
+            
+            
             
             orderByDate=connection.prepareStatement("SELECT * FROM Tirocinio,Azienda WHERE CodAzienda=IdAzienda ORDER BY IdTirocinio DESC LIMIT 10");
             sRichiesteByUser=connection.prepareStatement("SELECT * FROM Utente as u JOIN Richiesta as r ON u.IdUtente=r.CodStudente WHERE r.CodStudente=?");
@@ -126,8 +129,31 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     }
    
     public String creaQuerySelect(String tab,String id){
-        return  "SELECT * FROM "+tab+ " WHERE "+ id+" = ?";
+        
+        if(!id.equals("")){
+           return  "SELECT * FROM "+tab+ " WHERE "+ id+" = ?"; 
+        }
+        else{
+            return "SELECT * FROM "+ tab;
+        }
+        
     }
+    @Override
+    public List<Tirocinio> showTirocini() throws DataLayerException{
+        ArrayList<Tirocinio> tir=new ArrayList<Tirocinio>();        
+            
+        try(ResultSet rs = showTirocini.executeQuery()){
+            while(rs.next()){
+                tir.add(creaTirocinio(rs));
+            }
+        }catch(SQLException sqlEx){
+            sqlEx.getMessage();
+        }
+        
+        return tir;
+    }
+    
+    
     @Override
     public Utente showAdminInfo() throws DataLayerException{
         try{

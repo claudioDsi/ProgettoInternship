@@ -36,5 +36,46 @@
                 <input class="w3-btn w3-brown" type="submit" name="search" value="Search"/>
             </p>
         </div>
-    </form>
+        
+        
+        
+    </form>   
+      <table class="w3-table-all">
+        <tr>
+            <th>Titolo</th>
+            <th>Azienda</th>
+            <th>Luogo</th>
+            <th>Mesi</th>
+            <th>Obiettivi</th>
+        </tr>  
+        <#if tiro??>
+        <#list tiro as t>            
+                <tr>
+                    <td>${t.titolo}</td>
+                    <td>${t.azienda.nomeAzienda}</td>
+                    <td>${t.luogo} </td>  
+                    <td>${t.mesi}</td>
+                    <td>${t.obiettivi}</td>
+                </tr>
+            
+        </#list>        
+        </#if>
+        
+        <#if tirocini??>
+         <#list tirocini as t>            
+                <tr>
+                    <td>${t.titolo}</td>
+                    <td>${t.azienda.nomeAzienda}</td>
+                    <td>${t.luogo} </td>  
+                    <td>${t.mesi}</td>
+                    <td>${t.obiettivi}</td>
+                </tr>
+            
+        </#list>        
+        
+        </#if>
+        
+        
+    </table>
+    
 </div>

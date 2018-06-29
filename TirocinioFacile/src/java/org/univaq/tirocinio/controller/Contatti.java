@@ -43,7 +43,7 @@ public class Contatti extends InternshipDBController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException{
         
-         request.setAttribute("page_title", "Riepilogo tirocini");
+         request.setAttribute("page_title", "Contatti");
         
         try{
             action_show_contact(request, response);               

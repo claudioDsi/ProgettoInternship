@@ -59,6 +59,14 @@ function ObjRegexpChecker(rx,insensitive) {
 	this.message = "inserisci una mail valida";
 	
 }	
+function ObjRegexpCheckerAlpha(rx,insensitive) {
+	rx = "^"+rx+"$";
+	var orx = new RegExp(rx,(insensitive?"i":""));
+	
+	this.check =  function(s) {	return orx.test(s);	};
+	this.message = "codice fiscale non valido";
+	
+}	
 
 //oggetto di controllo per il predicato DOES NOT CONTAIN A CHAR IN (set)
 //check object for the DOES NOT CONTAIN A CHAR IN (set) predicate
@@ -116,7 +124,7 @@ var CheckEmail = new ObjRegexpChecker("([a-z0-9_.-]+)@((?:[a-z0-9-]+\\.)+[a-z0-9
 //oggetto di controllo per i caratteri più pericolosi 
 //check object for dangerous characters
 var CheckStrangeChars = new ObjDisallowedChecker("!@#$%^&*()+=-[]\\\';,./{}|\":<>?");
-var CheckAlphaNumeric= new ObjRegexpChecker("([a-zA-Z0-9_-]+)");
+var CheckAlphaNumeric= new ObjRegexpCheckerAlpha("([a-zA-Z0-9_-]+)");
 //oggetto di controllo combinato: controlla che il valore sia non nullo, sia un numero e NON sia nell'intervallo (1,20)
 //combined check object: checks that the value is not empty, is a number and in NOT in the range (1,20)
 var CheckMyNumber = new ObjCombinedChecker(

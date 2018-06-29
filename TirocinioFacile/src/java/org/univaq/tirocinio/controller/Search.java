@@ -32,6 +32,11 @@ public class Search extends InternshipDBController {
             if(s!=null){
                 request.setAttribute("Session", s);
             }
+            List<Tirocinio> tirocini=((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirocini();
+            
+            
+            request.setAttribute("tiro", tirocini);
+            
             res.activate("search.ftl.html", request, response);
         }catch(TemplateManagerException ex){
             request.setAttribute("exception", ex);
@@ -56,7 +61,7 @@ public class Search extends InternshipDBController {
                 request.setAttribute("Session", s);
             }
             request.setAttribute("tirocini", tirocini);
-            res.activate("search_result.ftl.html", request, response);
+            res.activate("search.ftl.html", request, response);
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
