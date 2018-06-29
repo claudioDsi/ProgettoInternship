@@ -2,7 +2,7 @@
 
 <#if (utente??)>
 <form method="post" action="modify">
-    <div>Nome </div>
+    
     <p>Nome: ${strip_slashes(utente.nome)}</p>
     <p>Cognome: ${strip_slashes(utente.cognome)}</p>
     <p>Data di nascita: ${utente.dataNasc}</p>
@@ -14,7 +14,7 @@
     </#if>
      <div>
         <div>Nome</div>
-        <div><input type="text" name="nome" value="${strip_slashes(utente.nome)}"/></div>
+        <div><input type="text" name="nome" value="${strip_slashes(utente.nome)}" disabled=""/></div>
     </div>
     
     <div>

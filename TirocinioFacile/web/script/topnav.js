@@ -45,7 +45,7 @@ function topnav (id){
 
     var divOther = document.createElement('div');
     divOther.setAttribute("class", "w3-col w3-container w3-right w3-mobile");
-    divOther.setAttribute("style","width:475px");
+    divOther.setAttribute("style","width:350px");
     divPrincipale.appendChild(divOther);
 
     var home = document.createElement('a');
@@ -59,12 +59,6 @@ function topnav (id){
     contact.setAttribute("class", "w3-bar-item w3-button w3-xlarge w3-mobile");
     contact.innerHTML = "Contact";
     divOther.appendChild(contact);
-
-    var about = document.createElement('a');
-    about.setAttribute("href", "about");
-    about.setAttribute("class", "w3-bar-item w3-button w3-xlarge w3-mobile");
-    about.innerHTML = "About";
-    divOther.appendChild(about);
 
     if(id == "navbar2"){
         var login = document.createElement('a');
