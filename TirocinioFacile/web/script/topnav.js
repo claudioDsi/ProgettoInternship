@@ -57,7 +57,7 @@ function topnav (id){
     var contact = document.createElement('a');
     contact.setAttribute("href", "contact");
     contact.setAttribute("class", "w3-bar-item w3-button w3-xlarge w3-mobile");
-    contact.innerHTML = "Contact";
+    contact.innerHTML = "Contatti";
     divOther.appendChild(contact);
 
     if(id == "navbar2"){
