@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,12 +32,17 @@ import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
  */
 public class Modify extends InternshipDBController {
     
-    private void action_default(HttpServletRequest request, HttpServletResponse response, String utype) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, String utype, int userid) throws IOException, ServletException, TemplateManagerException, DataLayerException {
         try {
-            TemplateResult res = new TemplateResult(getServletContext());           
+            TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             if(utype.equals("stud") || utype.equals("admin")){
+                Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
+                request.setAttribute("utente", utente);
                 res.activate("modify_user.ftl.html", request, response);
             }else{
+                Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                request.setAttribute("azienda", azienda);
                 res.activate("modify_company.ftl.html", request, response);
             }
         }catch(TemplateManagerException ex){
@@ -44,13 +51,10 @@ public class Modify extends InternshipDBController {
         }
     }
     
-    
-    
-    
-    
     private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException, ParseException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            System.out.println("ok2");
             if(usertype.equals("stud") || usertype.equals("admin")){
                 Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -125,7 +129,6 @@ public class Modify extends InternshipDBController {
                 u.setSpecializzazione(SecurityLayer.addSlashes(request.getParameter("specializzazione")));
                 u.setEmailUtente(SecurityLayer.addSlashes(request.getParameter("email")));
                 u.setIdUtente(userid);
-                System.out.println(userid);
                ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
                
                //query dinamica da verificare
@@ -170,7 +173,6 @@ public class Modify extends InternshipDBController {
                 Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
                 request.setAttribute("utente", utente);
                 request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
-                res.activate("modify_user",request,response);
             }else if(usertype.equals("comp")){
                 Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
                 request.setAttribute("azienda", azienda);
@@ -199,6 +201,7 @@ public class Modify extends InternshipDBController {
             String usertype = (String) s.getAttribute("type");
             try{
                 if(request.getParameter("update")!=null){
+                    System.out.println("ok1");
                     //se l'azione di modifica è stata inviata, la eseguo
                     action_modify(request, response, userid, usertype);
                 }else{
@@ -209,11 +212,11 @@ public class Modify extends InternshipDBController {
                         if(utype.equals("stud") || utype.equals("admin")){
                             request.setAttribute("page_title", "Modifica Utente");
                             request.setAttribute("Session", s);
-                            action_default(request, response, utype);
+                            action_default(request, response, utype, userid);
                         }else if(utype.equals("comp")){
                             request.setAttribute("page_title", "Modifica Azienda");
                             request.setAttribute("Session", s);
-                            action_default(request, response, utype);
+                            action_default(request, response, utype, userid);
                         }
                     }else{
                         response.sendRedirect("profile?uid="+uid+"&utype="+utype);
@@ -225,7 +228,10 @@ public class Modify extends InternshipDBController {
             }catch (TemplateManagerException ex) {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
-        } catch (ParseException ex) {
+        }catch (ParseException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }catch (DataLayerException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
         }  

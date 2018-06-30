@@ -33,6 +33,7 @@ public class Login extends InternshipDBController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             if(request.getParameter("tid")!=null){
+                System.out.println("sfg");
                 String tirocinio_id = request.getParameter("tid");
                 request.setAttribute("tid", tirocinio_id);
             }else{
@@ -63,17 +64,28 @@ public class Login extends InternshipDBController {
                     }
                 }
             }else{
-                Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAziendaByLogin(username, password);
+                Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAziendaByLogin(username, hashedPassword);
                 if(a!=null){
                     if(username.equals(a.getUsername()) && hashedPassword.equals(a.getPassword())){
                         HttpSession s = SecurityLayer.createSession(request, a.getUsername(), a.getIdAzienda(), a.getPrivilegi(), "comp");
                         request.setAttribute("Session", s);
                     }
+                }else{
+                    request.setAttribute("message", "Username o Password sono errati!");
+                    action_error(request, response);
                 }
             }           
             if(request.getParameter("tid").equals("")){
-                request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
-                res.activate("result.ftl.html", request, response);                
+                HttpSession s = SecurityLayer.checkSession(request);
+                if(s!=null){
+                    if(s.getAttribute("type").equals("stud")){
+                        response.sendRedirect("applications");
+                    }else if(s.getAttribute("type").equals("comp")){
+                        response.sendRedirect("panel");
+                    }else{
+                        response.sendRedirect("managecompany");
+                    }
+                }
             }else{
                 String id_tirocinio = request.getParameter("tid");
                 response.sendRedirect("show?tid="+id_tirocinio);
