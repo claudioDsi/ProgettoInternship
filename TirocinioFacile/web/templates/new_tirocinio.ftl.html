@@ -1,55 +1,63 @@
-<h2>${page_title}</h2>
+<div class="w3-card-4" style="margin-right: 1%">
+    <div class="w3-container w3-theme">
+        <h2>${page_title}</h2>
+    </div>
+
+
+
 
 <form method="post" action="tirocinio">
     <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
     
     <div>
         <div>Titolo</div>
-        <div><input type="text" name="titolo" value=""/></div>
+        <div><input type="text" name="titolo" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
     
     <div>
         <div>Luogo</div>
-        <div><input type="text" name="luogo" value=""/></div>
+        <div><input type="text" name="luogo" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
     
     <div>
         <div>Orario</div>
-        <div><input type="text" name="orario" value=""/></div>
+        <div><input type="text" name="orario" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
     
     <div>
         <div>Numero di ore</div>
-        <div><input type="text" name="numore" value=""/></div>
+        <div><input type="text" name="numore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
 
     <div>
         <div>Numero di mesi</div>
-        <div><input type="text" name="nummesi" value=""/></div>
+        <div><input type="text" name="nummesi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
     
     <div>
         <div>Obiettivi</div>
-        <div><input type="text" name="obiettivi" value=""/></div>
+        <div><input type="text" name="obiettivi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
     
     <div>
-        <div>Modalità</div>
-        <div><input type="text" name="modalita" value=""/></div>
+        <div>Modalit&agrave; </div>
+        <div><input type="text" name="modalita" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
     
     <div>
         <div>Facilitazioni</div>
-        <div><input type="text" name="facilitazioni" value=""/></div>
+        <div><input type="text" name="facilitazioni" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
     
     <div>
         <div>Settore</div>
-        <div><input type="text" name="settore" value=""/></div>
+        <div><input type="text" name="settore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
 
     <div>
-        <input type="submit" name="add" value="Add"/>
+        <input type="submit" name="add" value="Aggiungi tirocinio"  class="w3-button w3-theme" style="margin-top: 1%; margin-bottom: 1%;"/>
     </div>
     
 </form>
+
+</div>

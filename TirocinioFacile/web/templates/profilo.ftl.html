@@ -5,7 +5,7 @@
     
      <div class="w3-card-4"  style="max-width: 55%;">
             <header class="w3-container w3-theme">
-                <h3>Ciao, ${strip_slashes(utente.nome)} ${strip_slashes(utente.cognome)} </h3>
+                <h3>Benvenuto, ${strip_slashes(utente.nome)} ${strip_slashes(utente.cognome)} </h3>
             </header>
 
         <div class="w3-container">
@@ -25,21 +25,37 @@
 </#if>
 
 <#if (azienda??)>
-    <p>Nome: ${strip_slashes(azienda.nomeAzienda)}</p>
-    <p>Ragione sociale: ${strip_slashes(azienda.ragioneSociale)}</p>
-    <p>Indirizzo: ${strip_slashes(azienda.indirizzo)}</p>
-    <p>Partita IVA: ${strip_slashes(azienda.partitaIva)}</p>
-    <p>Nome Rappresentante: ${strip_slashes(azienda.nomeRappr)}</p>
-    <p>Cognome Rappresentante: ${strip_slashes(azienda.cognomeRappr)}</p>
-    <#if (modifica)>
-        <p><a href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
+    
+    
+    <div class="w3-card-4"  style="max-width: 55%;">
+            <header class="w3-container w3-theme">
+                <h3>Benvenuto, ${strip_slashes(azienda.nomeAzienda)} </h3>
+            </header>
+
+        <div class="w3-container">
+            <p>Nome: ${strip_slashes(azienda.nomeAzienda)}</p>
+            <p>Ragione sociale: ${strip_slashes(azienda.ragioneSociale)}</p>
+            <p>Indirizzo: ${strip_slashes(azienda.indirizzo)}</p>
+            <p>Partita IVA: ${strip_slashes(azienda.partitaIva)}</p>
+            <p>Nome Rappresentante: ${strip_slashes(azienda.nomeRappr)}</p>
+            <p>Cognome Rappresentante: ${strip_slashes(azienda.cognomeRappr)}</p>
+            
+            <#if (modifica)>
+        <p><a class="w3-button w3-block w3-theme" href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
     </#if>
-    <#if (Session??)>
+    
+     <#if (Session??)>
         <#if Session.getAttribute('userid')==azienda.idAzienda>
             <#if (inserisci)>
-                <p><a href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
-                <p><a href="tirocinio?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tirocinio </a></p>
+                <p><a class="w3-button w3-block w3-theme" href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
+                <p><a  class="w3-button w3-block w3-theme" href="tirocinio?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tirocinio </a></p>
             </#if>
         </#if>
     </#if>
 </#if>
+    
+        </div>     
+    
+    
+    
+   

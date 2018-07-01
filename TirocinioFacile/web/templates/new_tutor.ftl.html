@@ -1,35 +1,40 @@
-<h2>${page_title}</h2>
+<div class="w3-card-4" style="margin-right: 1%">
+    <div class="w3-container w3-theme">
+        <h2>${page_title}</h2>
+    </div>
+
 
 <form method="post" action="tutore">
     <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
     <div>
         <div>Nome</div>
-        <div><input type="text" name="nome" value=""/></div>
+        <div><input type="text" name="nome" value=""  style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
     
     <div>
         <div>Cognome</div>
-        <div><input type="text" name="cognome" value=""/></div>
+        <div><input type="text" name="cognome" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" /></div>
     </div>
     
     <div>
         <div>Data di nascita</div>
-        <div><input type="date" name="datanasc" value=""/></div>
+        <div><input type="date" name="datanasc" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" /></div>
     </div>
 
     <div>
         <div>Telefono</div>
-        <div><input type="text" name="telefono" value=""/></div>
+        <div><input type="text" name="telefono" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" /></div>
     </div>
     
     <div>
         <div>Email</div>
-        <div><input type="text" name="email" value=""/></div>
+        <div><input type="text" name="email" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" /></div>
     </div>
 
     <div>
-        <input type="submit" name="add" value="Add"/>
+        <input type="submit" name="add" value="Aggiungi tutore" class="w3-button w3-theme" style="margin-top: 1%; margin-bottom: 1%;" />
     </div>
     
 </form>
 
+</div>
