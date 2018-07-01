@@ -1,35 +1,35 @@
 <div class="w3-card-4" style="margin-right: 1%">
-    <div class="w3-container w3-brown">
+    <div class="w3-container w3-theme">
         <h2>${page_title}</h2>
     </div>
     <form class="w3-container" id="form" method="post" action="modify">
         <p>
-            <label class="w3-text-brown"><b>Nome</b></label>
-            <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="nome" value="${strip_slashes(utente.nome)}"/>
+            <label><b>Nome</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nome" value="${strip_slashes(utente.nome)}"/>
         </p>
         <p>
-            <label class="w3-text-brown"><b>Cognome</b></label>
-            <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="cognome" value="${strip_slashes(utente.cognome)}"/>
+            <label><b>Cognome</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognome" value="${strip_slashes(utente.cognome)}"/>
         </p>
         <p>
-            <label class="w3-text-brown"><b>Data di nascita</b></label>
-            <input class="number required w3-input w3-sand" style="width:30%; max-width:50%" type="date" name="datanasc" value="${strip_slashes(utente.dataNasc)}"/>
+            <label ><b>Data di nascita</b></label>
+            <input class="number required w3-input w3-pale-green" style="width:30%; max-width:50%" type="date" name="datanasc" value="${strip_slashes(utente.dataNasc)}"/>
         </p>
     
         <p>
-            <label class="w3-text-brown"><b>Luogo di nascita</b></label>
-            <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="luogonasc" value="${strip_slashes(utente.luogoNasc)}"/>
+            <label ><b>Luogo di nascita</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="luogonasc" value="${strip_slashes(utente.luogoNasc)}"/>
         </p>
         
         <p>
-            <label class="w3-text-brown"><b>Codice fiscale</b></label>
-            <input class="code required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="codfisc" value="${strip_slashes(utente.codFisc)}"/>
+            <label><b>Codice fiscale</b></label>
+            <input class="code required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="codfisc" value="${strip_slashes(utente.codFisc)}"/>
         </p>
         
         <p>
-            <label class="w3-text-brown"><b>Sesso</b></label>
+            <label><b>Sesso</b></label>
             <br>
-            <select class="w3-select w3-sand" style="max-width:30%" name="sesso">
+            <select class="w3-select w3-pale-green" style="max-width:30%" name="sesso">
                 
                 <option value="maschio"
                 <#if (utente.sesso?? && utente.sesso="maschio")>
@@ -45,19 +45,19 @@
         </p>
         
         <p>
-            <label class="w3-text-brown"><b>Residenza</b></label>
-            <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="residenza" value="${strip_slashes(utente.residenza)}"/>
+            <label><b>Residenza</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="residenza" value="${strip_slashes(utente.residenza)}"/>
         </p>
         
         <p>
-            <label class="w3-text-brown"><b>Telefono</b></label>
-            <input class="number w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="telefono" value="${strip_slashes(utente.telefono)}"/>
+            <label><b>Telefono</b></label>
+            <input class="number w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="telefono" value="${strip_slashes(utente.telefono)}"/>
         </p>
 
         <p>
-            <label class="w3-text-brown"><b>Handicap</b></label>
+            <label><b>Handicap</b></label>
             <br>
-            <select class="w3-select w3-sand" style="max-width:30%" name="handicap">
+            <select class="w3-select w3-pale-green" style="max-width:30%" name="handicap">
                 <option value="false"
                 <#if (utente.handicap?? && utente.handicap=false)>
                     selected="selected"
@@ -72,19 +72,19 @@
         </p>
         
         <p>
-            <label class="w3-text-brown"><b>Email</b></label>
-            <input class="email required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="email" value="${strip_slashes(utente.emailUtente)}"/>
+            <label><b>Email</b></label>
+            <input class="email required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="email" value="${strip_slashes(utente.emailUtente)}"/>
         </p>
         
         <p>
-            <label class="w3-text-brown"><b>Corso di laurea</b></label>
-            <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="cdl" value="${strip_slashes(utente.cdl)}"/>
+            <label><b>Corso di laurea</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cdl" value="${strip_slashes(utente.cdl)}"/>
         </p>
         
         <p>
-            <label class="w3-text-brown"><b>Laurea</b></label>
+            <label><b>Laurea</b></label>
             <br>
-            <select class="w3-select w3-sand" style="max-width:30%" name="laurea">
+            <select class="w3-select w3-pale-green" style="max-width:30%" name="laurea">
                 <option value="triennale"
                 <#if (utente.laurea?? && utente.laurea="triennale")>
                     selected="selected"
@@ -99,37 +99,41 @@
         </p>
 
         <p>
-            <label class="w3-text-brown"><b>Dottorato</b></label>
-            <input class="w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="dottorato" value="${strip_slashes(utente.dottorato)}"/>
+            <label><b>Dottorato</b></label>
+            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="dottorato" value="${strip_slashes(utente.dottorato)}"/>
         </p>
 
         <p>
-            <label class="w3-text-brown"><b>Specializzazione</b></label>
-            <input class="w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="specializzazione" value="${strip_slashes(utente.specializzazione)}"/>
+            <label><b>Specializzazione</b></label>
+            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="specializzazione" value="${strip_slashes(utente.specializzazione)}"/>
         </p>
 
         <p>
-            <label class="w3-text-brown"><b>Username</b></label>
-            <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="username" value="${strip_slashes(utente.username)}"/>
+            <label><b>Username</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="username" value="${strip_slashes(utente.username)}"/>
         </p>
-        <#if (usernamemessage??)>
+        
+         <#if (usernamemessage??)>
             <p>${usernamemessage}</p>
         </#if>
+		
+
         
         <p>
-            <label class="w3-text-brown"><b>Password</b></label>
-            <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="password" name="password" value=""/>
+            <label><b>Password</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="password" value=""/>
         </p>
         
         <p>
-            <label class="w3-text-brown"><b>Ripeti password</b></label>
-            <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="password" name="rpassword" value=""/>
+            <label><b>Ripeti password</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="rpassword" value=""/>
         </p>
+        
         <#if (passwordmessage??)>
             <p>${passwordmessage}</p>
         </#if>
         
-        <input class="w3-btn w3-brown" type="submit" name="update" value="Update">
+        <input class="w3-btn w3-theme" style="margin-bottom: 1%;" type="submit" name="update" value="Conferma modifiche">
     </form>
 </div>  
 
