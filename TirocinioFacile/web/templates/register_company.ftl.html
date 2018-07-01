@@ -42,7 +42,12 @@
     <p>      
     <label><b>Username</b></label>
     <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="username" value=""/></p>
-    <p>      
+    <p>
+    
+    <#if (usernamemessage??)>
+        <p>${usernamemessage}</p>
+    </#if>
+    
     <label><b>Password</b></label>
     <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="password" value=""/></p>
     <p>      
@@ -50,6 +55,10 @@
     <label><b>Ripeti password</b></label>
     <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="rpassword" value=""/></p>
     <p>
+        
+    <#if (passwordmessage??)>
+        <p>${passwordmessage}</p>
+    </#if>
     <input class="w3-btn w3-theme" type="submit" name="add" value="Add">
   </form>
 </div>

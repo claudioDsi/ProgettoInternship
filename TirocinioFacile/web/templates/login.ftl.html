@@ -2,10 +2,14 @@
     <div class="w3-container w3-cell w3-mobile w3-half">
         <form class="w3-container w3-card-4 w3-round" method="post" action="login">
             <h3>Sei uno studente?</h3>
-            <#if tid=="">
-                <input type="hidden" name="tid" value="" />
+            <#if (tid??)>
+                <#if (tid="")>
+                    <input type="hidden" name="tid" value="" />
+                <#else>
+                    <input type="hidden" name="tid" value="${tid}" />
+                </#if>
             <#else>
-                <input type="hidden" name="tid" value="${tid}" />
+                <input type="hidden" name="tid" value="" />
             </#if>
             <p>
                 <input class="w3-input w3-animate-input" type="text" name="username" value="" style="width:90%" required/>
@@ -15,8 +19,11 @@
                 <input class="w3-input w3-animate-input" type="password" name="password" value="" style="width:90%" required/>
                 <label>Password</label>
             </p>
+            <#if (usererror??)>
+                <p>${usererror}</p>
+            </#if>
             <p>
-                <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="login" value="Login"/>
+                <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="loginuser" value="Login"/>
             </p>
             <p>
                 Non sei ancora registrato? <a href="user">Registrati!</a>
@@ -25,7 +32,6 @@
     </div>
     <div class="w3-container w3-cell w3-mobile w3-half">
         <form class="w3-container w3-card-4 w3-round" method="post" action="login">
-            <input type="hidden" name="tid" value="" />
             <h3>Sei un'azienda?</h3>
             <p>
                 <input class="w3-input w3-animate-input" type="text" name="username" value="" style="width:90%" required/>
@@ -35,8 +41,11 @@
                 <input class="w3-input w3-animate-input" type="password" name="password" value="" style="width:90%" required/>
                 <label>Password</label>
             </p>
+            <#if (companyerror??)>
+                <p>${companyerror}</p>
+            </#if>
             <p>
-                <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="login" value="Login"/>
+                <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="logincomp" value="Login"/>
             </p>
             <p>
                 Non sei ancora registrato? <a href="azienda">Registrati!</a>

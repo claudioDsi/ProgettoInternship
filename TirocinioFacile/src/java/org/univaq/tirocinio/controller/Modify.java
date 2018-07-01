@@ -6,6 +6,7 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,115 +52,161 @@ public class Modify extends InternshipDBController {
         }
     }
     
-    private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException, ParseException {
+    private void action_modify(HttpServletRequest request, HttpServletResponse response,int userid, String usertype) throws IOException, ServletException, TemplateManagerException, ParseException, NoSuchAlgorithmException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            System.out.println("ok2");
+            //si controlla che l'username inserito o è quello vecchio o è uno nuovo ma non già scelto da altri utenti
+            Azienda azienda;
+            Utente utente;
+            String current_username="";
+            boolean no_update = false;
             if(usertype.equals("stud") || usertype.equals("admin")){
-                Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String date_in_string = request.getParameter("datanasc");
-                Date date = sdf.parse(date_in_string);
-                
-                /*
-                List<String> arr=new ArrayList<String>();     
-                
-                
-                if(!SecurityLayer.addSlashes(request.getParameter("nome")).equals("")){
-                    arr.add("Nome");
-                }                
-                  if(!SecurityLayer.addSlashes(request.getParameter("cognome")).equals("")){
-                    arr.add("Cognome");                }
-                  if(!SecurityLayer.addSlashes(request.getParameter("luogonasc")).equals("")){
-                    arr.add("LuogoNasc");
-                }
-                  if(!SecurityLayer.addSlashes(request.getParameter("datanasc")).equals("")){
-                    arr.add("DataNasc");
-                }
-                  if(!SecurityLayer.addSlashes(request.getParameter("codfisc")).equals("")){
-                    arr.add("CodiceFisc");
-                }
-                  if(!SecurityLayer.addSlashes(request.getParameter("residenza")).equals("")){
-                    arr.add("Residenza");
-                }
-                  if(!SecurityLayer.addSlashes(request.getParameter("telefono")).equals("")){
-                    arr.add("Telefono");
-                }                  
-                  if(!SecurityLayer.addSlashes(request.getParameter("sesso")).equals("")){
-                    arr.add("Sesso");
-                }                
-                  if(!SecurityLayer.addSlashes(request.getParameter("email")).equals("")){
-                    arr.add("EmailUtente");
-                }
-                   if(!SecurityLayer.addSlashes(request.getParameter("handicap")).equals("")){
-                    arr.add("Handicap");
-                }                 
-                  if(!SecurityLayer.addSlashes(request.getParameter("laurea")).equals("")){
-                    arr.add("CorsoLaurea");
-                }
-                  if(!SecurityLayer.addSlashes(request.getParameter("dottorato")).equals("")){
-                    arr.add("Dottorato");
-                }
-                    if(!SecurityLayer.addSlashes(request.getParameter("specializzazione")).equals("")){
-                    arr.add("ScuolaSpec");
-                }                 
-                if(!SecurityLayer.addSlashes(request.getParameter("cdl")).equals("")){
-                    arr.add("Laurea");
-                }               
-                String[] campi =new String[arr.size()];
-                arr.toArray(campi);               
-                for(int i=0; i<campi.length;i++){
-                    System.out.println("campo "+campi[i]);
-                }
-                System.out.println(request.getParameter("handicap"));
-                */
-                u.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));                
-                u.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
-                u.setDataNasc(date);                 
-                u.setLuogoNasc(SecurityLayer.addSlashes(request.getParameter("luogonasc")));                               
-                u.setResidenza(SecurityLayer.addSlashes(request.getParameter("residenza")));
-                u.setCodFisc(SecurityLayer.addSlashes(request.getParameter("codfisc")));
-                u.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
-                
-                u.setSesso(SecurityLayer.addSlashes(request.getParameter("sesso")));
-                u.setCdl(SecurityLayer.addSlashes(request.getParameter("cdl")));
-                u.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
-                u.setLaurea(SecurityLayer.addSlashes(request.getParameter("laurea")));
-                u.setDottorato(SecurityLayer.addSlashes(request.getParameter("dottorato")));
-                u.setSpecializzazione(SecurityLayer.addSlashes(request.getParameter("specializzazione")));
-                u.setEmailUtente(SecurityLayer.addSlashes(request.getParameter("email")));
-                u.setIdUtente(userid);
-               ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
-               
-               //query dinamica da verificare
-               
-               //String up=((InternShipDataLayer)request.getAttribute("datalayer")).creaQueryUpdate(campi, "Utente", "IdUtente");
-               
-               
-               //System.out.println(up);
-               
-              //((InternShipDataLayer)request.getAttribute("datalayer")).modificaUtente(up,u);
-               
-               action_activate(request, response, userid, usertype);
+                utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
+                current_username = utente.getUsername();
             }else if(usertype.equals("comp")){
-                Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).creaAzienda();
-                a.setNomeAzienda(SecurityLayer.addSlashes(request.getParameter("nome")));
-                a.setRagioneSociale(SecurityLayer.addSlashes(request.getParameter("ragionesociale")));
-                a.setIndirizzo(SecurityLayer.addSlashes(request.getParameter("indirizzo")));
-                a.setPartitaIva(SecurityLayer.addSlashes(request.getParameter("partitaiva")));
-                a.setCodiceFisc(SecurityLayer.addSlashes(request.getParameter("codicefisc")));
-                a.setNomeRappr(SecurityLayer.addSlashes(request.getParameter("nomerappr")));
-                a.setCognomeRappr(SecurityLayer.addSlashes(request.getParameter("cognomerappr")));
-                a.setNomeResp(SecurityLayer.addSlashes(request.getParameter("nomeresp")));
-                a.setCognomeResp(SecurityLayer.addSlashes(request.getParameter("cognomeresp")));
-                a.setTelefonoResp(SecurityLayer.addSlashes(request.getParameter("telefonoresp")));
-                a.setEmailResp(SecurityLayer.addSlashes(request.getParameter("emailresp")));
-                a.setForo(SecurityLayer.addSlashes(request.getParameter("foro")));
-                a.setIdAzienda(userid);
-                ((InternShipDataLayer)request.getAttribute("datalayer")).storeAzienda(a);
-                action_activate(request, response, userid, usertype);
+                azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                current_username = azienda.getUsername();
             }
-        }catch(DataLayerException ex){
+            if(!(current_username.equals(request.getParameter("username")))){
+                List<String> lista_username_azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameAzienda();
+                List<String> lista_username_utenti = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameUtenti();
+                for(int i = 0; i < lista_username_azienda.size(); i++){
+                    if(lista_username_azienda.get(i).equals(request.getParameter("username"))){
+                        request.setAttribute("usernamemessage", "The username is already chosen!");
+                        no_update = true;
+                    }
+                }
+                for(int i = 0; i < lista_username_utenti.size(); i++){
+                    if(lista_username_utenti.get(i).equals(request.getParameter("username"))){
+                        request.setAttribute("usernamemessage", "The username is already chosen!");
+                        no_update = true;
+                    }
+                } 
+            }
+            //controllo che la password inserita sia stata ripetuta correttamente
+            if(!(request.getParameter("password").equals(request.getParameter("rpassword")))){
+                request.setAttribute("passwordmessage", "You have to repeat the right password!");
+                no_update = true;
+            }
+            if(!no_update){
+                if(usertype.equals("stud") || usertype.equals("admin")){
+                    Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String date_in_string = request.getParameter("datanasc");
+                    Date date = sdf.parse(date_in_string);              
+                    /*
+                    List<String> arr=new ArrayList<String>();     
+
+
+                    if(!SecurityLayer.addSlashes(request.getParameter("nome")).equals("")){
+                        arr.add("Nome");
+                    }                
+                      if(!SecurityLayer.addSlashes(request.getParameter("cognome")).equals("")){
+                        arr.add("Cognome");                }
+                      if(!SecurityLayer.addSlashes(request.getParameter("luogonasc")).equals("")){
+                        arr.add("LuogoNasc");
+                    }
+                      if(!SecurityLayer.addSlashes(request.getParameter("datanasc")).equals("")){
+                        arr.add("DataNasc");
+                    }
+                      if(!SecurityLayer.addSlashes(request.getParameter("codfisc")).equals("")){
+                        arr.add("CodiceFisc");
+                    }
+                      if(!SecurityLayer.addSlashes(request.getParameter("residenza")).equals("")){
+                        arr.add("Residenza");
+                    }
+                      if(!SecurityLayer.addSlashes(request.getParameter("telefono")).equals("")){
+                        arr.add("Telefono");
+                    }                  
+                      if(!SecurityLayer.addSlashes(request.getParameter("sesso")).equals("")){
+                        arr.add("Sesso");
+                    }                
+                      if(!SecurityLayer.addSlashes(request.getParameter("email")).equals("")){
+                        arr.add("EmailUtente");
+                    }
+                       if(!SecurityLayer.addSlashes(request.getParameter("handicap")).equals("")){
+                        arr.add("Handicap");
+                    }                 
+                      if(!SecurityLayer.addSlashes(request.getParameter("laurea")).equals("")){
+                        arr.add("CorsoLaurea");
+                    }
+                      if(!SecurityLayer.addSlashes(request.getParameter("dottorato")).equals("")){
+                        arr.add("Dottorato");
+                    }
+                        if(!SecurityLayer.addSlashes(request.getParameter("specializzazione")).equals("")){
+                        arr.add("ScuolaSpec");
+                    }                 
+                    if(!SecurityLayer.addSlashes(request.getParameter("cdl")).equals("")){
+                        arr.add("Laurea");
+                    }               
+                    String[] campi =new String[arr.size()];
+                    arr.toArray(campi);               
+                    for(int i=0; i<campi.length;i++){
+                        System.out.println("campo "+campi[i]);
+                    }
+                    System.out.println(request.getParameter("handicap"));
+                    */
+                    u.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));                
+                    u.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
+                    u.setDataNasc(date);                 
+                    u.setLuogoNasc(SecurityLayer.addSlashes(request.getParameter("luogonasc")));                               
+                    u.setResidenza(SecurityLayer.addSlashes(request.getParameter("residenza")));
+                    u.setCodFisc(SecurityLayer.addSlashes(request.getParameter("codfisc")));
+                    u.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
+
+                    u.setSesso(SecurityLayer.addSlashes(request.getParameter("sesso")));
+                    u.setCdl(SecurityLayer.addSlashes(request.getParameter("cdl")));
+                    u.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
+                    u.setLaurea(SecurityLayer.addSlashes(request.getParameter("laurea")));
+                    u.setDottorato(SecurityLayer.addSlashes(request.getParameter("dottorato")));
+                    u.setSpecializzazione(SecurityLayer.addSlashes(request.getParameter("specializzazione")));
+                    u.setEmailUtente(SecurityLayer.addSlashes(request.getParameter("email")));
+                    u.setIdUtente(userid);
+                    u.setUsername(SecurityLayer.addSlashes(request.getParameter("username")));
+                    String password = SecurityLayer.addSlashes(request.getParameter("password"));
+                    u.setPassword(SecurityLayer.securePassword(password));
+                   ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
+
+                   //query dinamica da verificare
+
+                   //String up=((InternShipDataLayer)request.getAttribute("datalayer")).creaQueryUpdate(campi, "Utente", "IdUtente");
+
+
+                   //System.out.println(up);
+
+                  //((InternShipDataLayer)request.getAttribute("datalayer")).modificaUtente(up,u);
+
+                   action_activate(request, response, userid, usertype);
+                }else if(usertype.equals("comp")){
+                    Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).creaAzienda();
+                    a.setNomeAzienda(SecurityLayer.addSlashes(request.getParameter("nome")));
+                    a.setRagioneSociale(SecurityLayer.addSlashes(request.getParameter("ragionesociale")));
+                    a.setIndirizzo(SecurityLayer.addSlashes(request.getParameter("indirizzo")));
+                    a.setPartitaIva(SecurityLayer.addSlashes(request.getParameter("partitaiva")));
+                    a.setCodiceFisc(SecurityLayer.addSlashes(request.getParameter("codicefisc")));
+                    a.setNomeRappr(SecurityLayer.addSlashes(request.getParameter("nomerappr")));
+                    a.setCognomeRappr(SecurityLayer.addSlashes(request.getParameter("cognomerappr")));
+                    a.setNomeResp(SecurityLayer.addSlashes(request.getParameter("nomeresp")));
+                    a.setCognomeResp(SecurityLayer.addSlashes(request.getParameter("cognomeresp")));
+                    a.setTelefonoResp(SecurityLayer.addSlashes(request.getParameter("telefonoresp")));
+                    a.setEmailResp(SecurityLayer.addSlashes(request.getParameter("emailresp")));
+                    a.setForo(SecurityLayer.addSlashes(request.getParameter("foro")));
+                    a.setIdAzienda(userid);
+                    a.setUsername(SecurityLayer.addSlashes(request.getParameter("username")));
+                    String password = SecurityLayer.addSlashes(request.getParameter("password"));
+                    a.setPassword(SecurityLayer.securePassword(password));
+                    ((InternShipDataLayer)request.getAttribute("datalayer")).storeAzienda(a);
+                    action_activate(request, response, userid, usertype);
+                }
+            }else{
+                if(usertype.equals("stud") || usertype.equals("admin")){
+                    request.setAttribute("page_title", "Modifica Utente");
+                }else{
+                    request.setAttribute("page_title", "Modifica Azienda");
+                }
+                action_default(request, response, usertype, userid);
+            }
+        }catch(DataLayerException ex){            
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
         }
@@ -201,7 +248,6 @@ public class Modify extends InternshipDBController {
             String usertype = (String) s.getAttribute("type");
             try{
                 if(request.getParameter("update")!=null){
-                    System.out.println("ok1");
                     //se l'azione di modifica è stata inviata, la eseguo
                     action_modify(request, response, userid, usertype);
                 }else{
@@ -232,6 +278,9 @@ public class Modify extends InternshipDBController {
             request.setAttribute("exception", ex);
             action_error(request, response);
         }catch (DataLayerException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        } catch (NoSuchAlgorithmException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
         }  

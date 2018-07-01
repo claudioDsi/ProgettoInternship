@@ -62,6 +62,28 @@
     </div>
     
     <div>
+        <div>Username</div>
+        <div><input type="text" name="username" value="${strip_slashes(azienda.username)}" class="required forbidden"/></div>
+    </div>
+    <#if (usernamemessage??)>
+        <p>${usernamemessage}</p>
+    </#if>
+    
+    <div>
+        <div>Password</div>
+        <div><input type="password" name="password" value="" class="required forbidden"/></div>
+    </div>
+    
+    <div>
+        <div>Ripeti Password</div>
+        <div><input type="password" name="rpassword" value="" class="required forbidden"/></div>
+    </div>
+    
+    <#if (passwordmessage??)>
+        <p>${passwordmessage}</p>
+    </#if>
+    
+    <div>
         <input type="submit" name="update" value="Update"/>
     </div>
     

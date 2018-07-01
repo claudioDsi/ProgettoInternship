@@ -112,6 +112,9 @@
             <label class="w3-text-brown"><b>Username</b></label>
             <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="text" name="username" value="${strip_slashes(utente.username)}"/>
         </p>
+        <#if (usernamemessage??)>
+            <p>${usernamemessage}</p>
+        </#if>
         
         <p>
             <label class="w3-text-brown"><b>Password</b></label>
@@ -122,6 +125,9 @@
             <label class="w3-text-brown"><b>Ripeti password</b></label>
             <input class="required w3-input w3-animate-input w3-sand" style="width:30%; max-width:50%" type="password" name="rpassword" value=""/>
         </p>
+        <#if (passwordmessage??)>
+            <p>${passwordmessage}</p>
+        </#if>
         
         <input class="w3-btn w3-brown" type="submit" name="update" value="Update">
     </form>

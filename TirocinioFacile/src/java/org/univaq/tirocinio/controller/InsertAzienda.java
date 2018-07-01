@@ -8,8 +8,7 @@ package org.univaq.tirocinio.controller;
 import org.univaq.tirocinio.datamodel.Azienda;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +35,28 @@ public class InsertAzienda extends InternshipDBController {
     
     private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, NoSuchAlgorithmException {
         try {
+            boolean no_update = false;
+            //si controlla che l'username inserito è uno nuovo ma non già scelto da altri utenti
+            List<String> lista_username_azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameAzienda();
+            List<String> lista_username_utenti = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameUtenti();
+            for(int i = 0; i < lista_username_azienda.size(); i++){
+                if(lista_username_azienda.get(i).equals(request.getParameter("username"))){
+                    request.setAttribute("usernamemessage", "The username is already chosen!");
+                    no_update = true;
+                }
+            }
+            for(int i = 0; i < lista_username_utenti.size(); i++){
+                if(lista_username_utenti.get(i).equals(request.getParameter("username"))){
+                    request.setAttribute("usernamemessage", "The username is already chosen!");
+                    no_update = true;
+                }
+            } 
+            //controllo che la password inserita sia stata ripetuta correttamente
+            if(!(request.getParameter("password").equals(request.getParameter("rpassword")))){
+                request.setAttribute("passwordmessage", "You have to repeat the right password!");
+                no_update = true;
+            }
+            if(!no_update){
                 Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).creaAzienda();
                 a.setUsername(SecurityLayer.addSlashes(request.getParameter("username")));
                 String password = SecurityLayer.addSlashes(request.getParameter("password"));
@@ -59,6 +80,9 @@ public class InsertAzienda extends InternshipDBController {
                 a.setNumTiroCompletati(0);
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeAzienda(a);
                 action_activate(request, response, a.getIdAzienda());
+            }else{
+                action_default(request, response);
+            }
             }catch (DataLayerException ex) {
                 request.setAttribute("message", "Data access exception: " + ex.getMessage());
             }

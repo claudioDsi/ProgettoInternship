@@ -8,7 +8,9 @@
 	-- quando si fa login bisogna essere reinderizzati ad una pagina precisa in base al tipo di utente (vedi home.ftl.html): attualmente non funzionante (credo sia da sistemare lato server)
 	-- creare alert e quindi controllo su username e password (attualmente la risposta è pagina vuota).
 
-- Fare check nelle form tra password e ripeti password (sia lato client che lato server???).
+- Fare check nelle form tra password e ripeti password (l'ho fatto lato server, forse è da fare anche lato client).
+
+- Fare check sull'username, in caso occupato non si deve fare registrazione o modifica (fatto lato server, da vedere se farlo lato client).
 
 -- Reinderizzamento su homepage anonimo.
 
@@ -23,3 +25,5 @@
 - Paginazione aziende e tirocini
 
 - Capire validazione lato server delle form
+
+- Simulazione invio email 

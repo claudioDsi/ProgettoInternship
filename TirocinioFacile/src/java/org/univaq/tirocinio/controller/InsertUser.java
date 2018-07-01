@@ -21,8 +21,7 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 public class InsertUser extends InternshipDBController {
@@ -39,30 +38,55 @@ public class InsertUser extends InternshipDBController {
 
     private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, ParseException, NoSuchAlgorithmException {
         try {
-            Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String date_in_string = request.getParameter("datanasc");
-            Date date = sdf.parse(date_in_string);
-            u.setUsername(SecurityLayer.addSlashes(request.getParameter("username")));
-            String password = SecurityLayer.addSlashes(request.getParameter("password"));
-            u.setPassword(SecurityLayer.securePassword(password));
-            u.setPrivilegi(1);
-            u.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));
-            u.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
-            u.setDataNasc(date);
-            u.setLuogoNasc(SecurityLayer.addSlashes(request.getParameter("luogonasc")));
-            u.setResidenza(SecurityLayer.addSlashes(request.getParameter("residenza")));
-            u.setCodFisc(SecurityLayer.addSlashes(request.getParameter("codfisc")));
-            u.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
-            u.setCdl(SecurityLayer.addSlashes(request.getParameter("cdl")));
-            u.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
-            u.setLaurea(SecurityLayer.addSlashes(request.getParameter("laurea")));
-            u.setDottorato(SecurityLayer.addSlashes(request.getParameter("dottorato")));
-            u.setSpecializzazione(SecurityLayer.addSlashes(request.getParameter("specializzazione")));
-            u.setSesso(SecurityLayer.addSlashes(request.getParameter("sesso")));
-            u.setEmailUtente(SecurityLayer.addSlashes(request.getParameter("email")));
-            ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
-            action_activate(request, response, u.getIdUtente());
+            boolean no_update = false;
+            //si controlla che l'username inserito è uno nuovo ma non già scelto da altri utenti
+            List<String> lista_username_azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameAzienda();
+            List<String> lista_username_utenti = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameUtenti();
+            for(int i = 0; i < lista_username_azienda.size(); i++){
+                if(lista_username_azienda.get(i).equals(request.getParameter("username"))){
+                    request.setAttribute("usernamemessage", "The username is already chosen!");
+                    no_update = true;
+                }
+            }
+            for(int i = 0; i < lista_username_utenti.size(); i++){
+                if(lista_username_utenti.get(i).equals(request.getParameter("username"))){
+                    request.setAttribute("usernamemessage", "The username is already chosen!");
+                    no_update = true;
+                }
+            } 
+            //controllo che la password inserita sia stata ripetuta correttamente
+            if(!(request.getParameter("password").equals(request.getParameter("rpassword")))){
+                request.setAttribute("passwordmessage", "You have to repeat the right password!");
+                no_update = true;
+            }
+            if(!no_update){
+                Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).creaStudente();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String date_in_string = request.getParameter("datanasc");
+                Date date = sdf.parse(date_in_string);
+                u.setUsername(SecurityLayer.addSlashes(request.getParameter("username")));
+                String password = SecurityLayer.addSlashes(request.getParameter("password"));
+                u.setPassword(SecurityLayer.securePassword(password));
+                u.setPrivilegi(1);
+                u.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));
+                u.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
+                u.setDataNasc(date);
+                u.setLuogoNasc(SecurityLayer.addSlashes(request.getParameter("luogonasc")));
+                u.setResidenza(SecurityLayer.addSlashes(request.getParameter("residenza")));
+                u.setCodFisc(SecurityLayer.addSlashes(request.getParameter("codfisc")));
+                u.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
+                u.setCdl(SecurityLayer.addSlashes(request.getParameter("cdl")));
+                u.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
+                u.setLaurea(SecurityLayer.addSlashes(request.getParameter("laurea")));
+                u.setDottorato(SecurityLayer.addSlashes(request.getParameter("dottorato")));
+                u.setSpecializzazione(SecurityLayer.addSlashes(request.getParameter("specializzazione")));
+                u.setSesso(SecurityLayer.addSlashes(request.getParameter("sesso")));
+                u.setEmailUtente(SecurityLayer.addSlashes(request.getParameter("email")));
+                ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
+                action_activate(request, response, u.getIdUtente());
+            }else{
+                action_default(request, response);
+            }
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
