@@ -7,6 +7,9 @@ package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +48,7 @@ public class InsertRichiesta extends InternshipDBController {
         }
     }
     
-    private void action_add(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException {
+    private void action_add(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException, MessagingException {
         try {
             HttpSession s = SecurityLayer.checkSession(request);
             int session_userid = (int)s.getAttribute("userid");
@@ -67,6 +70,19 @@ public class InsertRichiesta extends InternshipDBController {
                 new_richiesta.setCognomeTutor(SecurityLayer.addSlashes(tutore.getCognome()));
                 new_richiesta.setEmailTutor(SecurityLayer.addSlashes(tutore.getEmailTutore()));
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeRichiesta(new_richiesta);
+                Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(tutore.getCodAzienda());
+                String toTutor = tutore.getEmailTutore();
+                String toCompanyResp = azienda.getEmailResp();
+                String from = "admin@internship.com";
+                Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(session_userid);
+                String subject = "Nuova Richiesta per il Tirocinio '" + tirocinio.getTitolo() + "'";
+                String body = "Lo Studente " + utente.getNome() + " " + utente.getCognome() + " ha fatto richiesta per il tirocinio '" + tirocinio.getTitolo() + "'. Sul sito potete trovare tutte le informazioni al riguardo.";
+                String filename1 = "tutor" + new_richiesta.getIdRichiesta();
+                String filename2 = "company" + new_richiesta.getIdRichiesta();
+                //invio email al tutore
+                SecurityLayer.createMessage(toTutor, from, subject, body, filename1);
+                SecurityLayer.createMessage(toCompanyResp, from, subject, body, filename2);
+                //invio email al responsabile dell'azienda
                 response.sendRedirect("show?tid="+tirocinio_id);
                 //action_activate(request, response, new_richiesta.getIdRichiesta());
             }    
@@ -134,6 +150,9 @@ public class InsertRichiesta extends InternshipDBController {
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);        
+        } catch (MessagingException ex) {
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response); 
         }  
     }
     

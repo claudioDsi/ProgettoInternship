@@ -5,6 +5,8 @@
  */
 package org.univaq.tirocinio.framework.security;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +15,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /**
  *
@@ -204,5 +214,35 @@ public class SecurityLayer {
             }
         }
     }
+    
+    public static void createMessage(String to, String from, String subject, String body, String name) throws IOException, MessagingException {
+    try {
+        Message message = new MimeMessage(Session.getInstance(System.getProperties()));
+        message.setFrom(new InternetAddress(from));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        message.setSubject(subject);
+        // create the message part 
+        MimeBodyPart content = new MimeBodyPart();
+        // fill message
+        content.setText(body);
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(content);
+        // integration
+        message.setContent(multipart);
+        //create directory for email
+        String dir_path = "../email";
+        File directory = new File(dir_path);
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+        // store file
+        String filename = "../email/" + name + ".txt";
+        message.writeTo(new FileOutputStream(new File(filename)));
+    } catch (MessagingException ex) {
+        throw new MessagingException("Cannot send message!");
+    } catch (IOException ex) {
+        throw new IOException("Cannot create file!");
+    }
+}
     
 }
