@@ -36,6 +36,9 @@ public interface Azienda {
     boolean getStatus();
     void setStatus(boolean status);
     
+    boolean getStatusConvenzione();
+    void setStatusConvenzione(boolean statusConvenzione);
+    
     String getIndirizzo();
     void setIndirizzo(String indirizzo); 
     
@@ -80,6 +83,9 @@ public interface Azienda {
     
     int getNumTiroCompletati();
     void setNumTiroCompletati(int numTiroCompletati);
+    
+    int getIdConvenzione();
+    void setIdConvenzione(int idConvenzione);
 
     boolean isDirty();
     void setDirty(boolean dirty);

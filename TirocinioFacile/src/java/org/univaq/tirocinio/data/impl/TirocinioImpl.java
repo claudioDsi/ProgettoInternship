@@ -32,6 +32,8 @@ public class TirocinioImpl implements Tirocinio{
     private boolean statusVoto;
     private Date dataInizio;
     private Date dataFine;
+    private boolean statusProgetto;
+    private int idProgetto;
     //riferimenti alle altre tabelle
     private Tutore tutore;    
     private int idTutore;
@@ -56,6 +58,8 @@ public class TirocinioImpl implements Tirocinio{
         modalità = "";
         dataInizio = null;
         dataFine = null;
+        statusProgetto = false;
+        idProgetto = 0;
         status = false;
         statusVoto = false;
         tutore = null;
@@ -270,6 +274,28 @@ public class TirocinioImpl implements Tirocinio{
     }
     
     @Override
+    public boolean getStatusProgetto() {
+        return statusProgetto;
+    }
+
+    @Override
+    public void setStatusProgetto(boolean statusProgetto) {
+        this.statusProgetto=statusProgetto;
+        this.dirty = true;
+    }
+    
+    @Override
+    public int getIdProgetto(){
+        return idProgetto;
+    }
+    
+    @Override
+    public void setIdProgetto(int idProgetto){
+        this.idProgetto=idProgetto;
+        this.dirty = true;
+    }
+    
+    @Override
     public boolean isDirty() {
         return dirty;
     }
@@ -297,6 +323,8 @@ public class TirocinioImpl implements Tirocinio{
         idAzienda = tirocinio.getIdAzienda();
         dataInizio = tirocinio.getDataInizio();
         dataFine = tirocinio.getDataFine();
+        statusProgetto = tirocinio.getStatusProgetto();
+        idProgetto = tirocinio.getIdProgetto();
         this.dirty = true;
     }
     

@@ -69,6 +69,12 @@ public interface Tirocinio {
     Date getDataFine() throws DataLayerException;
     void setDataFine(Date dataFine);
     
+    boolean getStatusProgetto();
+    void setStatusProgetto(boolean statusProgetto);
+    
+    int getIdProgetto();
+    void setIdProgetto(int idProgetto);
+    
     List<Richiesta> getListaRichieste() throws DataLayerException;
     
     boolean isDirty();

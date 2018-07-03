@@ -22,12 +22,14 @@ public interface InternShipDataLayer extends DataLayer{
     Tutore creaTutore();
     Tirocinio creaTirocinio();
     Richiesta creaRichiesta();
+    Documento creaDocumento();
     
     Utente getInfoUtente(int idUtente) throws DataLayerException;
     Utente getInfoUtenteByLogin(String username , String password) throws DataLayerException;
     Azienda getInfoAzienda(int idAzienda) throws DataLayerException;
     Azienda getInfoAziendaByLogin(String username , String password) throws DataLayerException;
     Tutore getInfoTutore(int idTutore) throws DataLayerException;
+    Documento getInfoDocumento(int docId) throws DataLayerException;
     Richiesta getInfoRichiesta(int idRichiesta)throws DataLayerException;
     Tirocinio getInfoTirocinio(int idTirocinio)throws DataLayerException;    
     List<Azienda> showListaAziende() throws DataLayerException;
