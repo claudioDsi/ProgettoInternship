@@ -1282,37 +1282,39 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     
     @Override
     public void destroy() {
+        
         try {
+            
             iUtente.close();
             uUtente.close();
-            dUtente.close();
+            //dUtente.close();
             sUtente.close();
             sUtenteLogin.close();
             
             iAzienda.close();
             uAzienda.close();
-            dAzienda.close();
+            //dAzienda.close();
             sAzienda.close();
             sAziendaLogin.close();
             
             iTutore.close();
             uTutore.close();
-            dTutore.close();
+            //dTutore.close();
             sTutore.close();
             sTutoriByAzienda.close();            
             iRichiesta.close();
             uRichiesta.close();
-            dRichiesta.close();
+            //dRichiesta.close();
             sRichiesta.close();
             iTirocinio.close();
             uTirocinio.close();
-            dTirocinio.close();
+            //dTirocinio.close();
             sTirocinio.close();
             sTirociniByAzienda.close();
             sTirociniByStudente.close();
             jUtenteRichiesta.close();
             orderByDate.close();
-            searchQuery.close();
+            //searchQuery.close();
             modifyRequestStatus.close();
             modifyTirocinioStatus.close();
             rejectAllRequests.close();
@@ -1328,9 +1330,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sDocumento.close();
             showTirocini.close();
         } catch (SQLException ex) {
-            //
+            
         }
         super.destroy();
+
     }
 
     @Override
