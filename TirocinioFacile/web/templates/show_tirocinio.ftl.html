@@ -1,25 +1,38 @@
 <h2>${page_title}</h2>
 
-<p> SCHEDA TIROCINIO</p>
-<p>Titolo: ${strip_slashes(tirocinio.titolo)}</p>
-<p>Luogo: ${strip_slashes(tirocinio.luogo)}</p>
-<p>Orario: ${strip_slashes(tirocinio.orario)}</p>
-<p>Numero di mesi: ${tirocinio.mesi}</p>
-<p>Numero di ore: ${tirocinio.numOre}</p>
-<p>Obiettivi: ${strip_slashes(tirocinio.obiettivi)}</p>
-<p>Facilitazioni: ${strip_slashes(tirocinio.facilitazioni)}</p>
-<p>Settore: ${strip_slashes(tirocinio.settore)}</p>
-<p>Status: ${tirocinio.status?string}</p>
-<br/>
+<div class="w3-card-4"  style="max-width: 55%;">
+    <header class="w3-container w3-theme">
+        <h3>Scheda tirocinio </h3>
+    </header>
+    <div class="w3-container">
+        <p>Titolo: ${strip_slashes(tirocinio.titolo)}</p>
+        <p>Luogo: ${strip_slashes(tirocinio.luogo)}</p>
+        <p>Orario: ${strip_slashes(tirocinio.orario)}</p>
+        <p>Numero di mesi: ${tirocinio.mesi}</p>
+        <p>Numero di ore: ${tirocinio.numOre}</p>
+        <p>Obiettivi: ${strip_slashes(tirocinio.obiettivi)}</p>
+        <p>Facilitazioni: ${strip_slashes(tirocinio.facilitazioni)}</p>
+        <p>Settore: ${strip_slashes(tirocinio.settore)}</p>
+        <p>Status: ${tirocinio.status?string}</p>
+    </div>
+</div>
 <#if (Session)??>
     <#if Session.getAttribute('type')=="stud">
         <#if azione=="accepted">
-            <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
-            <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
-            <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
-            <p>Qua ci va il contratto</p>
-            <p>Qua ci va il resoconto</p>
-            <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
+            <div class="w3-card-4"  style="max-width: 55%;">
+                <header class="w3-container w3-theme">
+                    <h3>Dettagli tirocinio </h3>
+                </header>
+                <div class="w3-container">
+                    <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
+                    <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
+                    <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
+                    <p>Qua ci va il contratto</p>
+                    <p>Qua ci va il resoconto</p>
+                    <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
+                </div>
+            </div>
+
             <br/>
             <#if (valuta)>
                 <#if (tirocinio.statusVoto)>
@@ -70,14 +83,14 @@
             <p>Numero di CFU: ${strip_slashes(richiesta.cfu)}</p>
         </#if>
         <#if azione=="pending">
-            <p>Lista delle richieste attive:</p>
-            <#if (richiesta)??>
-                <#list richiesta as ric>
-                    <p>link alla richiesta ${ric.idRichiesta}</p>
-                </#list>
-            <#else>
-                <p>Nessuna!</p>
-            </#if>
+        <br>
+            <p>
+                <a class="w3-button w3-theme" href="panel?tid=${tirocinio.idTirocinio}"> 
+                    Visualizza le candidature 
+                </a>
+            </p>
+
+            
         </#if>
         <#if azione=="anonymous">
             <#if (status)??>

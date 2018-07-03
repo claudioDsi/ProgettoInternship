@@ -5,42 +5,42 @@
     <form class="w3-container" id="form" method="post" action="modify">
         <p>
             <label><b>Nome</b></label>
-            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nome" value="${strip_slashes(utente.nome)}"/>
+            <input class="required w3-input w3-animate-input w3-pale-green w3-opacity" style="width:30%; max-width:50%" type="text" name="nome" value="${strip_slashes(utente.nome)}" disabled/>
         </p>
         <p>
             <label><b>Cognome</b></label>
-            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognome" value="${strip_slashes(utente.cognome)}"/>
+            <input class="required w3-input w3-animate-input w3-pale-green w3-opacity" style="width:30%; max-width:50%" type="text" name="cognome" value="${strip_slashes(utente.cognome)}" disabled/>
         </p>
         <p>
-            <label ><b>Data di nascita</b></label>
-            <input class="number required w3-input w3-pale-green" style="width:30%; max-width:50%" type="date" name="datanasc" value="${strip_slashes(utente.dataNasc)}"/>
+            <label><b>Data di nascita</b></label>
+            <input class="number required w3-input w3-pale-green  w3-opacity" style="width:30%; max-width:50%" type="date" name="datanasc" value="${strip_slashes(utente.dataNasc)}" disabled/>
         </p>
     
         <p>
             <label ><b>Luogo di nascita</b></label>
-            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="luogonasc" value="${strip_slashes(utente.luogoNasc)}"/>
+            <input class="required w3-input w3-animate-input w3-pale-green w3-opacity" style="width:30%; max-width:50%" type="text" name="luogonasc" value="${strip_slashes(utente.luogoNasc)}" disabled/>
         </p>
         
         <p>
             <label><b>Codice fiscale</b></label>
-            <input class="code required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="codfisc" value="${strip_slashes(utente.codFisc)}"/>
+            <input class="code required w3-input w3-animate-input w3-pale-green w3-opacity" style="width:30%; max-width:50%" type="text" name="codfisc" value="${strip_slashes(utente.codFisc)}" disabled/>
         </p>
         
         <p>
             <label><b>Sesso</b></label>
             <br>
-            <select class="w3-select w3-pale-green" style="max-width:30%" name="sesso">
+            <select class="w3-select w3-pale-green w3-opacity" style="max-width:30%" name="sesso" disabled>
                 
-                <option value="maschio"
+                <option value="maschio">
                 <#if (utente.sesso?? && utente.sesso="maschio")>
-                    selected="selected"
+                    <!--selected="selected"-->
                 </#if>
-                >Uomo</option>
-                <option value="donna"
+                Uomo</option>
+                <option value="donna">
                 <#if (utente.sesso?? && utente.sesso="donna")>
-                    selected="selected"
+                    <!--selected="selected"-->
                 </#if>
-                >Donna</option>
+                Donna</option>
             </select> 
         </p>
         
@@ -58,16 +58,16 @@
             <label><b>Handicap</b></label>
             <br>
             <select class="w3-select w3-pale-green" style="max-width:30%" name="handicap">
-                <option value="false"
+                <option value="false">
                 <#if (utente.handicap?? && utente.handicap=false)>
-                    selected="selected"
+                    <!--selected="selected"-->
                 </#if>        
-                >No</option>
-                <option value="true"
+                No</option>
+                <option value="true">
                 <#if (utente.handicap?? && utente.handicap=true)>
-                    selected="selected"
+                    <!--selected="selected"-->
                 </#if>
-                >Si</option>
+                Si</option>
             </select> 
         </p>
         
@@ -85,16 +85,16 @@
             <label><b>Laurea</b></label>
             <br>
             <select class="w3-select w3-pale-green" style="max-width:30%" name="laurea">
-                <option value="triennale"
+                <option value="triennale">
                 <#if (utente.laurea?? && utente.laurea="triennale")>
-                    selected="selected"
+                    <!--selected="selected"-->
                 </#if>        
-                >Triennale</option>
-                <option value="magistrale"
+                Triennale</option>
+                <option value="magistrale">
                 <#if (utente.laurea?? && utente.laurea="magistrale")>
-                    selected="selected"
+                    <!--selected="selected"-->
                 </#if>        
-                >Magistrale</option>
+                Magistrale</option>
             </select> 
         </p>
 
