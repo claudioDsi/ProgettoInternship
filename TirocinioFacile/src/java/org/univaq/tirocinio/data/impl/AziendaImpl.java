@@ -36,6 +36,8 @@ public class AziendaImpl implements Azienda{
     private float valutazione;
     private int numeroTirocini;
     private int numTiroCompletati;
+    private boolean statusConvenzione;
+    private int idConvenzione;
     protected Boolean dirty;
     private List<Tirocinio> listaTirocini;
     private List<Tutore> listaTutori;
@@ -63,6 +65,8 @@ public class AziendaImpl implements Azienda{
         valutazione = 0;
         numeroTirocini = 0;
         numTiroCompletati = 0;
+        statusConvenzione = false;
+        idConvenzione = 0;
         listaTirocini = null;
         listaTutori = null;
         dirty = false;
@@ -293,6 +297,17 @@ public class AziendaImpl implements Azienda{
         this.status=status;
         this.dirty = true;
     }
+    
+    @Override
+    public boolean getStatusConvenzione() {
+        return statusConvenzione;
+    }
+
+    @Override
+    public void setStatusConvenzione(boolean statusConvenzione) {
+        this.statusConvenzione=statusConvenzione;
+        this.dirty = true;
+    }
 
     @Override
     public String getRagioneSociale() {
@@ -317,6 +332,17 @@ public class AziendaImpl implements Azienda{
     }
     
     @Override
+    public int getIdConvenzione() {
+        return idConvenzione;
+    }
+
+    @Override
+    public void setIdConvenzione(int idConvenzione) {
+        this.idConvenzione = idConvenzione;
+        this.dirty = true;
+    }
+    
+    @Override
     public boolean isDirty() {
         return dirty;
     }
@@ -337,6 +363,7 @@ public class AziendaImpl implements Azienda{
         indirizzo = azienda.getIndirizzo();
         partitaIva = azienda.getPartitaIva();
         status = azienda.getStatus();
+        statusConvenzione = azienda.getStatusConvenzione();
         codiceFisc = azienda.getCodiceFisc();
         nomeRappr = azienda.getNomeRappr();
         cognomeRappr = azienda.getCognomeRappr();
@@ -348,6 +375,7 @@ public class AziendaImpl implements Azienda{
         valutazione = azienda.getValutazione();
         numeroTirocini = azienda.getNumeroTirocini();
         numTiroCompletati = azienda.getNumTiroCompletati();
+        idConvenzione = azienda.getIdConvenzione();
         this.dirty = true;
     }
 }

@@ -49,6 +49,8 @@ public class InsertTirocinio extends InternshipDBController {
             tirocinio.setFacilitazioni(SecurityLayer.addSlashes(request.getParameter("facilitazioni")));
             tirocinio.setSettore(SecurityLayer.addSlashes(request.getParameter("settore")));
             tirocinio.setIdAzienda(userid);
+            tirocinio.setStatusProgetto(false);
+            tirocinio.setIdProgetto(0);
             ((InternShipDataLayer)request.getAttribute("datalayer")).storeTirocinio(tirocinio);
             action_activate(request, response, tirocinio.getIdTirocinio());
         }catch(DataLayerException ex){

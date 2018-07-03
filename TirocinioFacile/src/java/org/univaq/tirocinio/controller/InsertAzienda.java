@@ -78,6 +78,8 @@ public class InsertAzienda extends InternshipDBController {
                 a.setValutazione((float)0);
                 a.setNumeroTirocini(0);
                 a.setNumTiroCompletati(0);
+                a.setStatusConvenzione(false);
+                a.setIdConvenzione(0);
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeAzienda(a);
                 action_activate(request, response, a.getIdAzienda());
             }else{
