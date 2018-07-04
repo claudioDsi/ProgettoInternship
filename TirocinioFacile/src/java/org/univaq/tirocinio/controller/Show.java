@@ -163,7 +163,8 @@ public class Show extends InternshipDBController {
             }else{
                 //caso utente anonimo e admin
                 action_anonymous(request,response, tirocinio);
-            }
+            } 
+            
         }catch (IOException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
