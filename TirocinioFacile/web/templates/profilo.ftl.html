@@ -49,7 +49,11 @@
             <#if (inserisci)>
                 <p><a class="w3-button w3-block w3-theme" href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
                 <p><a  class="w3-button w3-block w3-theme" href="tirocinio?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tirocinio </a></p>
+            <#else>
+                <p class="w3-panel w3-pale-yellow w3-border w3-border-yellow"  > Attenzione:  non sei ancora abilitata per proporre nuovi tirocini </p>
+                
             </#if>
+           
         </#if>
     </#if>
 </#if>
