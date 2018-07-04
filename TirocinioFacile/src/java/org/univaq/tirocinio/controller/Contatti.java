@@ -73,9 +73,9 @@ public class Contatti extends InternshipDBController {
             Utente admin=((InternShipDataLayer)request.getAttribute("datalayer")).showAdminInfo();            
             request.setAttribute("contact", admin);
             HttpSession s = SecurityLayer.checkSession(request);
-             if(s!=null){
-                 request.setAttribute("Session", s);
-             }
+            if(s!=null){
+                request.setAttribute("Session", s);
+            }
             res.activate("contact.ftl.html", request, response);          
         }catch(DataLayerException dte){
             request.setAttribute("message","Errore nel datalayer"+ dte.getMessage());

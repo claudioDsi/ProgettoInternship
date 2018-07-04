@@ -128,7 +128,8 @@ public class InsertTutore extends InternshipDBController {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
             } catch (DataLayerException ex) {
-                Logger.getLogger(InsertTutore.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("exception", ex);
+                action_error(request, response);
             }  
     }
     

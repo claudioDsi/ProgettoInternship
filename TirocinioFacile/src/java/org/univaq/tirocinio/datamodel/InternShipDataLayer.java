@@ -55,6 +55,7 @@ public interface InternShipDataLayer extends DataLayer{
     List<Tutore> getBestTutors() throws DataLayerException;
     List<Azienda> getCompaniesWithMoreStages() throws DataLayerException;
     void activateAzienda(Azienda azienda) throws DataLayerException;
+    void activateConvenzione(Azienda azienda) throws DataLayerException;
     void updateDateTirocinio(Date dataInizio, Date dataFine, Tirocinio tirocinio) throws DataLayerException;
     void updateNumTiroAzienda(int num, Azienda azienda) throws DataLayerException;
     void updateNumTiroTutore(int num, Tutore tutore) throws DataLayerException;

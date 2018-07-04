@@ -129,6 +129,14 @@
         <servlet-name>Contatti</servlet-name>
         <servlet-class>org.univaq.tirocinio.controller.Contatti</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GenerateConvention</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.GenerateConvention</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowConvenzione</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.ShowConvenzione</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -220,6 +228,14 @@
     <servlet-mapping>
         <servlet-name>Contatti</servlet-name>
         <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GenerateConvention</servlet-name>
+        <url-pattern>/generateconvention</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowConvenzione</servlet-name>
+        <url-pattern>/showconvenzione</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

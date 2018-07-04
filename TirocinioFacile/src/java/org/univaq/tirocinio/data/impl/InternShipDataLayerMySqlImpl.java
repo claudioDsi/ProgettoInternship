@@ -47,7 +47,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement uNumTiroAzienda, uNumTiroTutore, uDateTirocinio, uValutazione, uStatusVoto;
     private PreparedStatement showContact,showTirocini;
     private PreparedStatement sUsernameUtenti,sUsernameAzienda;
-    private PreparedStatement sDocumento;
+    private PreparedStatement activateConvenzione, sDocumento;
     
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
@@ -111,6 +111,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             uStatusVoto=connection.prepareStatement("UPDATE Tirocinio SET StatusVoto=1 WHERE IdTirocinio=?");
             sUsernameUtenti=connection.prepareStatement("SELECT Username FROM Azienda");
             sUsernameAzienda=connection.prepareStatement("SELECT Username FROM Utente");
+            activateConvenzione=connection.prepareStatement("UPDATE Azienda SET StatusConvenzione=1 WHERE IdAzienda=?");
             sDocumento = connection.prepareStatement("SELECT * FROM Documenti WHERE DocId=?");
             //Tutti i prepared statement
         }
@@ -1280,6 +1281,20 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         return lista_username;
     }
     
+     @Override
+    public void activateConvenzione(Azienda azienda) throws DataLayerException{
+        try{
+            int key = azienda.getIdAzienda();
+            activateConvenzione.setInt(1, azienda.getIdAzienda());
+            activateConvenzione.executeUpdate();
+            if(key>0){
+                azienda.copyFrom(getInfoAzienda(key));
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to modify the status of the convention for the company", ex);
+        }
+    }
+    
     @Override
     public void destroy() {
         
@@ -1329,6 +1344,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sUsernameAzienda.close();
             sDocumento.close();
             showTirocini.close();
+            activateConvenzione.close();
         } catch (SQLException ex) {
             
         }

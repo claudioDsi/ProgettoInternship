@@ -84,11 +84,11 @@ public class InsertTirocinio extends InternshipDBController {
 
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException {
-        request.setAttribute("page_title", "Inserisci nuovo tirocinio");
-        HttpSession s = SecurityLayer.checkSession(request);
-        int userid = (int)s.getAttribute("userid"); //id utente in sessione
-        String utype = (String)s.getAttribute("type");
+        request.setAttribute("page_title", "Inserisci nuovo tirocinio");       
         try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            int userid = (int)s.getAttribute("userid"); //id utente in sessione
+            String utype = (String)s.getAttribute("type");
             if(request.getParameter("add")!=null && utype.equals("comp")){
                 Azienda azienda =((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
                 //vedo se l'azienda è abilitata

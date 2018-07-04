@@ -1,0 +1,28 @@
+<script>
+    function printDiv(divName) {
+         var printContents = document.getElementById(divName).innerHTML;
+         var originalContents = document.body.innerHTML;
+
+         document.body.innerHTML = printContents;
+
+         window.print();
+
+         document.body.innerHTML = originalContents;
+    }
+</script>
+
+<p><b>Stampa questa pagina e carica il documento firmato per far approvare la tua azienda!</b></p>
+<button onclick="printDiv('toPrint')">Print</button>
+
+<div id="toPrint">
+    <p>CONVENZIONE PER LO SVOLGIMENTO DI ATTIVITA' DI TIROCINIO E DI ORIENTAMENTO 
+    (AI SENSI DELL'ART.18 L.196/97,  DELL'ART.1 DECRETO MINISTERO DEL LAVORO E PREVIDENZA SOCIALE N.142/98 E 
+    DELLA LEGGE 148 del 14/09/2011) PER STUDENTI E LAUREATI DEL DIPARTIMENTO DI INGEGNERIA E 
+    SCIENZE DELL’INFORMAZIONE E MATEMATICA DELL'UNIVERSITA' DEGLI STUDI DELL'AQUILA</p>
+
+    <p>tra</p>
+
+    <p>L’Ente/Azienda ${azienda.nomeAzienda} con sede legale in (indirizzo) ${azienda.indirizzo}.....</p>
+</div>
+
+

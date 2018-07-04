@@ -25,6 +25,7 @@
                         <td>${strip_slashes(azienda.foro)}</td>
                         <td>${strip_slashes(azienda.emailResp)}</td>
                         <td>${azienda.status?string}</td>
+                        <td><#if (azienda.statusConvenzione)> <#else><a href="generateconvention?aid=${azienda.idAzienda}&val=1">Genera Convenzione</a></#if></td>
                         <td><#if (azienda.status)> <#else><a href="managecompany?aid=${azienda.idAzienda}&val=1">Abilita azienda</a></#if></td>
                     </tr>
                 </#list>        
