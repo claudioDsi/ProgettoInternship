@@ -1,37 +1,23 @@
 <#if (utente??)>
-    <p>Utente inserito:</p>
-    <p>${strip_slashes(utente.nome)}</p>
-    <p>${strip_slashes(utente.cognome)}</p>
-    <p>${strip_slashes(utente.username)}</p>
-    <p>${strip_slashes(utente.luogoNasc)}</p>
-    <p>${strip_slashes(utente.residenza)}</p>
+    <div class="w3-container w3-pale-green w3-border-green w3-border profile" >Registrazione effettuata con successo</div>
+    <p><a class="w3-btn w3-theme" href="login"> Prosegui </a></p>
+    
 </#if>
 <#if (azienda??)>
-    <p>Azienda inserita:</p>
-    <p>${strip_slashes(azienda.nomeAzienda)}</p>
-    <p>${strip_slashes(azienda.nomeRappr)}</p>
-    <p>${strip_slashes(azienda.cognomeRappr)}</p>
-    <p>${strip_slashes(azienda.username)}</p>
+    <div class="w3-container w3-pale-green w3-border-green w3-border profile" >Registrazione effettuata con successo</div>
+    <p><a class="w3-btn w3-theme" href="login"> Prosegui </a></p>
 </#if>
 <#if (tutore??)>
-    <p>Tutore inserito:</p>
-    <p>${strip_slashes(tutore.nome)}</p>
-    <p>${strip_slashes(tutore.cognome)}</p>
-    <p>${tutore.dataNasc}</p>
-    <p>${strip_slashes(tutore.telefono)}</p>
+    <div class="w3-container w3-pale-green w3-border-green w3-border profile" >Tutore inserito con successo</div>
+    <p><a class="w3-btn w3-theme" href="login"> Torna al profilo </a></p>
 </#if>
 <#if (tirocinio??)>
-    <p>Tirocinio inserito:</p>
-    <p>${strip_slashes(tirocinio.luogo)}</p>
-    <p>${strip_slashes(tirocinio.orario)}</p>
-    <p>${strip_slashes(tirocinio.mesi)}</p>
-    <p>${strip_slashes(tirocinio.obiettivi)}</p>
+     <div class="w3-container w3-pale-green w3-border-green w3-border profile" >Tirocinio inserito con successo</div>
+    <p><a class="w3-btn w3-theme" href="login"> Torna al profilo </a></p>
 </#if>
 <#if (nuova_richiesta??)>
-    <p>Richiesta inserita:</p>
-    <p>${strip_slashes(nuova_richiesta.cfu)}</p>
-    <p>${strip_slashes(nuova_richiesta.nomeTutor)}</p>
-    <p>${strip_slashes(nuova_richiesta.cognomeTutor)}</p>
+    <div class="w3-container w3-pale-green w3-border-green w3-border profile" >Richiesta efettuata con successo</div>
+    <p><a class="w3-btn w3-theme" href="login"> Torna al profilo </a></p>
 </#if>
 <#if (Session??)>
     
