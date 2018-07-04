@@ -38,6 +38,7 @@ public class ServletFaq extends InternshipDBController{
              }
              res.activate("faq.ftl.html", request, response);   
         }catch(TemplateManagerException tex){
+            action_error(request, response);
             tex.getMessage();            
         }      
     }
