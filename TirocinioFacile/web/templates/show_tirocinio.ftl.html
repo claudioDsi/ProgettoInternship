@@ -110,12 +110,12 @@
             
         </#if>
         <#if azione="applicati">
-            <p>Puoi ancora applicarti per questo tirocinio!</p>
+            <p>Puoi ancora candidarti per questo tirocinio!</p>
             <p><a href="richiesta?tid=${tirocinio.idTirocinio}"> Candidati qui! </a></p>
         </#if>
         <#if azione=="anonymous">
             <#if (status)??>
-            <p>La richiesta di tirocinio è scaduta o è stata cancellata, non puoi più applicarti!</p>
+            <p>La richiesta di tirocinio è scaduta o è stata cancellata, non puoi più candidarti!</p>
             </#if>
         </#if>
     <#else>
@@ -155,6 +155,6 @@
     <#if (status)??>
         <p>La richiesta di tirocinio è scaduta!</p>
     </#if>
-    <p>Registrati come <a href="azienda">azienda</a> o come <a href="user?tid=${tirocinio.idTirocinio}">studente</a> oppure <a href="login?tid=${tirocinio.idTirocinio}">loggati</a> per accedere ad altre funzionalità!</p>
+    <p>Registrati come <a href="azienda">azienda</a> o come <a href="user?tid=${tirocinio.idTirocinio}">studente</a> oppure <a href="login?tid=${tirocinio.idTirocinio}">loggati</a> per accedere ad altre funzionalit&agrave;!</p>
 </#if>
 <br/>

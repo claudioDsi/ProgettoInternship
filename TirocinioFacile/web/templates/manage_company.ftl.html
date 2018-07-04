@@ -13,7 +13,8 @@
                     <th>Foro competente</th>
                     <th>Email rappresentante</th>
                     <th>Status dell'azienda</th>
-                    <th></th>
+                    <th> Genera convenzione</th>
+                    <th> Abilita </th>
                 </tr>            
                 <#list lista_aziende as azienda>
                     <tr>
@@ -24,7 +25,9 @@
                         <td>${strip_slashes(azienda.cognomeRappr)}</td>
                         <td>${strip_slashes(azienda.foro)}</td>
                         <td>${strip_slashes(azienda.emailResp)}</td>
+                       
                         <td>${azienda.status?string}</td>
+                     
                         <td><#if (azienda.statusConvenzione)> <#else><a href="generateconvention?aid=${azienda.idAzienda}&val=1">Genera Convenzione</a></#if></td>
                         <td><#if (azienda.status)> <#else><a href="managecompany?aid=${azienda.idAzienda}&val=1">Abilita azienda</a></#if></td>
                     </tr>

@@ -48,6 +48,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement showContact,showTirocini;
     private PreparedStatement sUsernameUtenti,sUsernameAzienda;
     private PreparedStatement activateConvenzione, sDocumento;
+    private PreparedStatement deleteTirocinio;
     
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
@@ -64,7 +65,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (CodStudente,CodTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor,CodTutore) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             showContact=connection.prepareStatement("SELECT * FROM Utente WHERE Privilegi = ?");
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
-            
+            deleteTirocinio=connection.prepareStatement("DELETE FROM Tirocinio WHERE IdTirocinio = ?");
             //nuove update
             String[] campiUtente={"Nome","Cognome","DataNasc","LuogoNasc","Residenza","CodiceFisc","Telefono","CorsoLaurea","Sesso","Handicap","Laurea","Dottorato","ScuolaSpec","EmailUtente","Username","Password"};                
             uUtente=connection.prepareStatement(creaQueryUpdate(campiUtente, "Utente", "IdUtente"));
@@ -1369,6 +1370,18 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sqe.getMessage();
         }
        
+    }
+
+    @Override
+    public void eliminaTirocinio(int id) {
+        try{
+            deleteTirocinio.setInt(1,id);
+            deleteTirocinio.executeUpdate();
+            
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
     }
     
 }
