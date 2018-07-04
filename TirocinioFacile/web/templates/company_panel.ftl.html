@@ -38,11 +38,17 @@
                         </tr>
                     </#list>
                 </table>
+                <br >
+                <button class="w3-button w3-large w3-circle w3-teal w3-right">+</button>
+                <span style="position:absolute; right: 18pt" class="w3-text w3-tag">Inserisci tirocinio</span>
             </div>
         <#else>
-            <div class="w3-container">
-                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border" style="width: 50%">
-                  <p>Non sono ancora stati inseriti tirocini!</p>
+        <div class="w3-container">
+                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border">
+                    <p>Non sono ancora stati inseriti tirocini!
+                        <button class="w3-button w3-large w3-circle w3-teal">+</button>
+                        <span style="position:absolute;right:18pt" class="w3-text w3-tag">Inserisci nuovo tirocinio</span>
+                    </p>
                 </div>
             </div>
         </#if>
