@@ -2,7 +2,7 @@
 <br/>
 <#if (Session??)>
     <#if Session.getAttribute('type')=="admin">
-        <h3>I Migliori Tutori</h3>
+        <h3 class="w3-theme profile">I Migliori Tutori</h3>
         <br/>
         <#if (best_tutori)??>
             <table class="w3-table-all">
@@ -21,9 +21,20 @@
                         <td>${strip_slashes(tutore.cognome)}</td>
                         <#if (tutore.dataNasc)??>
                         <td>${tutore.dataNasc}</td>
+                        <#else>
+                        <td> N.D </td>
                         </#if>
+                        <#if (tutore.numTirocini)!=0>
                         <td>${tutore.numTirocini}</td>
+                        <#else>
+                        <td> N.D.</td>
+                        </#if>
+                        <#if (tutore.emailTutore)?has_content>
                         <td>${strip_slashes(tutore.emailTutore)}</td>
+                        <#else>
+                        <td> N.D </td>
+                        </#if>
+                        
                     </tr>
                 </#list>
             </table>
@@ -31,7 +42,7 @@
             <p>Non ci sono tutori iscritti!</p>
         </#if>
         <br/>
-        <h3>Le Migliori Aziende</h3>
+        <h3 class="w3-theme profile">Le Migliori Aziende</h3>
         <br/>
         <#if (best_aziende)??>
             <table class="w3-table-all">
@@ -56,7 +67,7 @@
             <p>Non ci sono aziende iscritte!</p>
         </#if>
         <br/>
-        <h3>Le Aziende con pi&ugrave; Tirocini</h3>
+        <h3 class="w3-theme profile">Le Aziende con pi&ugrave; Tirocini</h3>
         <br/>
         <#if (most_stages)??>
             <table class="w3-table-all">

@@ -57,12 +57,57 @@
             </#if>
         </#if>
         <#if azione=="pending">
-            <p>Questa è la tua richiesta di applicazione:</p>
-            <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
+        
+        
+           
+           <div class="w3-card-4 profile" >
+            <header class="w3-container w3-theme">
+                <h3>Questa &egrave; la tua richiesta di applicazione: </h3>
+            </header>
+
+        <div class="w3-container">
+            
+            
+            <div class="w3-card-4"  style="max-width: 55%;">
+                <header class="w3-container w3-theme">
+                    <h3>Dettagli tirocinio </h3>
+                </header>
+                <div class="w3-container">
+                   <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
             <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
             <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
-            <p>N° CFU: ${strip_slashes(richiesta.cfu)}</p>
+            <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
             <p>Status: ${strip_slashes(richiesta.status)}</p>
+                </div>
+            </div>
+            
+            
+           
+            
+             <div class="w3-card-4"  style="max-width: 55%;">
+                <header class="w3-container w3-theme">
+                    <h3>Dettagli tutore </h3>
+                </header>
+                <div class="w3-container">
+                    <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
+                    <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
+                    <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
+                    <p>Qua ci va il contratto</p>
+                    <p>Qua ci va il resoconto</p>
+                    <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
+                </div>
+            </div>
+            
+            
+        </div>            
+         
+            
+
+        </div> 
+            
+            
+            
+            
         </#if>
         <#if azione="applicati">
             <p>Puoi ancora applicarti per questo tirocinio!</p>
@@ -75,12 +120,20 @@
         </#if>
     <#else>
         <#if azione=="accepted">
-            <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
-            <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
-            <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
-            <p>Qua ci va il contratto</p>
-            <p>Qua ci va il resoconto</p>
-            <p>Numero di CFU: ${strip_slashes(richiesta.cfu)}</p>
+               <div class="w3-card-4"  style="max-width: 55%;">
+                <header class="w3-container w3-theme">
+                    <h3>Dettagli tutore </h3>
+                </header>
+                <div class="w3-container">
+                    <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
+                    <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
+                    <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
+                    <p>Qua ci va il contratto</p>
+                    <p>Qua ci va il resoconto</p>
+                    <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
+                </div>
+            </div>
+            
         </#if>
         <#if azione=="pending">
         <br>
