@@ -49,6 +49,11 @@ public class Profile extends InternshipDBController {
                     }else{
                         request.setAttribute("convenzione", false);
                     }
+                    if(a.getIdConvenzione()!=0){
+                        request.setAttribute("scarica", true);
+                    }else{
+                        request.setAttribute("scarica", false);
+                    }
                     res.activate("profilo.ftl.html", request, response);
                 }else if(a.getStatus()){
                     //se sono un qualsiasi altro utente posso vedere l'azienda solo se è stata abilitata dall'admin

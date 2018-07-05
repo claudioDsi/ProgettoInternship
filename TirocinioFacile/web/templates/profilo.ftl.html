@@ -55,7 +55,9 @@
             <#if (convenzione)>
                 <p><a  class="w3-button w3-block w3-theme" href="showconvenzione?uid=${Session.getAttribute('userid')}"> Scarica Convenzione </a></p>
             </#if>
-           
+            <#if (scarica)>
+                <p><a  class="w3-button w3-block w3-theme" href="downloadconvenzione?cid=${azienda.idConvenzione}"> Scarica Convenzione Firmata</a></p>
+            </#if>
         </#if>
     </#if>    
 </#if>

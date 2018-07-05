@@ -105,7 +105,6 @@ public class DocumentoImpl implements Documento{
     public void setDocData(InputStream is, OutputStream os, MessageDigest md) throws DataLayerException {
         try {
             byte[] buffer = new byte[1024];
-            os = new FileOutputStream(filename);
             int read;
             while ((read = is.read(buffer)) > 0) {
                 os.write(buffer, 0, read);

@@ -150,6 +150,10 @@
             <!-- <file-size-threshold>1048576</file-size-threshold> max size of files to hold in memory (without writing to temporary disk file) (DEF: 0) -->
         </multipart-config>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadConvenzione</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.DownloadConvenzione</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -253,6 +257,10 @@
     <servlet-mapping>
         <servlet-name>UploadConvenzione</servlet-name>
         <url-pattern>/uploadconvenzione</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadConvenzione</servlet-name>
+        <url-pattern>/downloadconvenzione</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

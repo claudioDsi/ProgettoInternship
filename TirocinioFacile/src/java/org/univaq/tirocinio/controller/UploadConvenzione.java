@@ -73,9 +73,6 @@ public class UploadConvenzione extends InternshipDBController {
         doc.setLocalfile(uploaded_file.getName());//localfile       
         try (InputStream is = file_to_upload.getInputStream();
                 OutputStream os = new FileOutputStream(uploaded_file)) {
-            System.out.println(doc.getFilename());
-            System.out.println(doc.getLocalfile());
-            System.out.println(doc.getSize());
             doc.setDocData(is,os,md);
             byte[] digest = md.digest();
             String sdigest = "";
@@ -83,7 +80,6 @@ public class UploadConvenzione extends InternshipDBController {
                 sdigest += String.valueOf(b);
             }
             doc.setDigest(sdigest); //digest
-            System.out.println(doc.getDigest());
             ((InternShipDataLayer)request.getAttribute("datalayer")).storeDocumento(doc);
             Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(aid);
             ((InternShipDataLayer)request.getAttribute("datalayer")).updateConvenzioneAzienda(azienda, doc.getDocId());
