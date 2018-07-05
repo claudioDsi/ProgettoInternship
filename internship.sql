@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Lug 03, 2018 alle 14:26
+-- Creato il: Lug 05, 2018 alle 10:17
 -- Versione del server: 5.7.19
 -- Versione PHP: 5.6.31
 
@@ -53,16 +53,17 @@ CREATE TABLE IF NOT EXISTS `azienda` (
   `StatusConvenzione` tinyint(4) DEFAULT NULL,
   `IdConvenzione` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdAzienda`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `azienda`
 --
 
 INSERT INTO `azienda` (`IdAzienda`, `Username`, `Password`, `Privilegi`, `Status`, `Nome`, `RagioneSociale`, `Indirizzo`, `PartitaIva`, `CodiceFiscale`, `NomeRappr`, `CognomeRappr`, `NomeResp`, `CognomeResp`, `TelefonoResp`, `EmailResp`, `Foro`, `Valutazione`, `NumeroTirocini`, `NumTiroCompletati`, `StatusConvenzione`, `IdConvenzione`) VALUES
-(1, 'brucolandia', 'caroteee', 2, 1, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail.com', 'Avezzano', 5, 1, 1, 0, 0),
+(1, 'brucolandia', 'caroteee', 2, 1, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail.com', 'Avezzano', 5, 1, 1, 0, 1),
 (2, 'dsfdf', 'ssfdf', 2, 0, 'dsfd', 'fddf', 'via Solaria', 'fff', 'f', 'ff', 'ff', 'gb', 'gfdf', '', 'dfgdf', 'dfgf', 0, 0, 0, 0, 0),
-(3, 'azienda', 'f6f0dd53202d2a2a31c792b40db1a1b6', 2, 0, 'sdfd', 'dsdf', 'dsvjdsf', 'sdfjndfjn', 'dsfsdkldfk', 'fdsd', 'addsf', 'sdfd', 'sfd', 'dsfd', 'f.c@c.com', 'd', 0, 0, 0, 0, 0);
+(3, 'azienda', 'f6f0dd53202d2a2a31c792b40db1a1b6', 2, 0, 'sdfd', 'dsdf', 'dsvjdsf', 'sdfjndfjn', 'dsfsdkldfk', 'fdsd', 'addsf', 'sdfd', 'sfd', 'dsfd', 'f.c@c.com', 'd', 0, 0, 0, 1, 0),
+(4, 'az', '900150983cd24fb0d6963f7d28e17f72', 2, 0, 'Azienda', 'SRL', 'indirizzo', '54da4d6', 'd6f54d56s', 'Mario', 'Rossi', 'Mario', 'Rossi', '64454', 'b@b.com', 'Roma', 0, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -74,11 +75,12 @@ DROP TABLE IF EXISTS `documenti`;
 CREATE TABLE IF NOT EXISTS `documenti` (
   `DocId` int(11) NOT NULL AUTO_INCREMENT,
   `Size` int(11) DEFAULT NULL,
-  `Descrizione` int(255) DEFAULT NULL,
-  `Tipo` int(45) DEFAULT NULL,
-  `Filename` int(255) DEFAULT NULL,
+  `Localfile` varchar(255) DEFAULT NULL,
+  `Tipo` varchar(45) DEFAULT NULL,
+  `Filename` varchar(255) DEFAULT NULL,
+  `Digest` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`DocId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -214,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
 --
 
 INSERT INTO `utente` (`IdUtente`, `Username`, `Password`, `Privilegi`, `Nome`, `Cognome`, `DataNasc`, `LuogoNasc`, `Residenza`, `CodiceFisc`, `Telefono`, `Sesso`, `EmailUtente`, `CorsoLaurea`, `Handicap`, `Laurea`, `Dottorato`, `ScuolaSpec`) VALUES
-(1, 'admin', 'admin', 0, 'Admin', 'Admin', '2010-12-11', 'Roma', 'Roma', 'daljhsf', '165456', 'Maschio', 'admin@admin.com', 'Informatica', 0, 'Magistrale', '', ''),
+(1, 'admin', '900150983cd24fb0d6963f7d28e17f72', 0, 'Admin', 'Admin', '2010-12-11', 'Roma', 'Roma', 'daljhsf', '165456', 'Maschio', 'admin@admin.com', 'Informatica', 0, 'Magistrale', '', ''),
 (5, 'vincenzo91', 'vincenzo', 1, 'Vincenzo', 'Battisti', '2000-10-10', 'Arpino', 'Roma', 'lsjhdfd45', '6545612', 'Maschio', '', 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf'),
 (6, 'fsda', 'fc', 1, ' adsf', 'afsd', '0022-01-12', 'ad', 'das', 'das', '156', 'maschio', NULL, 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf'),
 (7, 'dsfg', 'abc', 1, ' fsd', 'fd', '0022-01-12', 'ads', 'ad', 'sdaf', '5156', 'maschio', NULL, 'asdf', 0, 'triennale', 'af', 'afsd'),

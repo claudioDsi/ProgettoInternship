@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.MessageDigest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.univaq.tirocinio.datamodel.Documento;
@@ -25,9 +26,10 @@ public class DocumentoImpl implements Documento{
     
     private int docId;
     private long size;
-    private String descrizione;
+    private String localfile;
     private String tipo;
     private String filename;
+    private String digest;
     protected InternShipDataLayer ownLayer;
     private boolean dirty;
     
@@ -35,9 +37,10 @@ public class DocumentoImpl implements Documento{
         this.ownLayer = dataLayer;
         docId = 0;
         size = 0;
-        descrizione = "";
+        localfile = "";
         tipo = "";
         filename = "";
+        digest = "";
         dirty = false;
     }
     
@@ -47,16 +50,27 @@ public class DocumentoImpl implements Documento{
     }
 
     @Override
-    public String getDescrizione() {
-        return descrizione;
+    public String getLocalfile() {
+        return localfile;
     }
 
     @Override
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setLocalfile(String localfile) {
+        this.localfile = localfile;
         this.dirty = true;
     }
+    
+    @Override
+    public String getDigest() {
+        return digest;
+    }
 
+    @Override
+    public void setDigest(String digest) {
+        this.digest = digest;
+        this.dirty = true;
+    }
+    
     @Override
     public String getFilename() {
         return filename;
@@ -88,15 +102,14 @@ public class DocumentoImpl implements Documento{
     }
 
     @Override
-    public void setDocData(InputStream is) throws DataLayerException {
-
-        OutputStream os = null;
+    public void setDocData(InputStream is, OutputStream os, MessageDigest md) throws DataLayerException {
         try {
             byte[] buffer = new byte[1024];
             os = new FileOutputStream(filename);
             int read;
             while ((read = is.read(buffer)) > 0) {
                 os.write(buffer, 0, read);
+                md.update(buffer, 0, read);
             }
             this.dirty = true;
         } catch (FileNotFoundException ex) {
@@ -127,6 +140,12 @@ public class DocumentoImpl implements Documento{
     public long getSize() {
         return size;
     }
+    
+    @Override
+    public void setSize(long size) {
+        this.size = size;
+        this.dirty = true;
+    }
 
     @Override
     public void setDirty(boolean dirty) {
@@ -137,16 +156,23 @@ public class DocumentoImpl implements Documento{
     public boolean isDirty() {
         return dirty;
     }
+    
+    @Override
+    public void copyFrom(Documento documento) throws DataLayerException {
+        docId = documento.getDocId();
+        size = documento.getSize();
+        localfile = documento.getLocalfile();
+        filename = documento.getFilename();
+        tipo = documento.getTipo();
+        digest = documento.getDigest();
+        this.dirty = true;
+    }
 
     //questi metodi sono protetti per essere accessibili solo alle altre classi
     //del data model
     //these methods are protected to be accessible to other datamodel classes only
     protected void setDocId(int docId) {
         this.docId = docId;
-    }
-
-    protected void setSize(long size) {
-        this.size = size;
     }
     
 }

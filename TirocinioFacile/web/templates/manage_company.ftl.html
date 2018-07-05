@@ -30,6 +30,7 @@
                      
                         <td><#if (azienda.statusConvenzione)> <#else><a href="generateconvention?aid=${azienda.idAzienda}&val=1">Genera Convenzione</a></#if></td>
                         <td><#if (azienda.status)> <#else><a href="managecompany?aid=${azienda.idAzienda}&val=1">Abilita azienda</a></#if></td>
+                        <td><#if (azienda.idConvenzione=0)><a href="uploadconvenzione?aid=${azienda.idAzienda}">Upload Convenzione Azienda</a></#if></td>
                     </tr>
                 </#list>        
             </table>

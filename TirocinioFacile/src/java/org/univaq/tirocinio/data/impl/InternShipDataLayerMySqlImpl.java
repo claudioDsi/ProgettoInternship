@@ -47,7 +47,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement uNumTiroAzienda, uNumTiroTutore, uDateTirocinio, uValutazione, uStatusVoto;
     private PreparedStatement showContact,showTirocini;
     private PreparedStatement sUsernameUtenti,sUsernameAzienda;
-    private PreparedStatement activateConvenzione, sDocumento;
+    private PreparedStatement activateConvenzione, sDocumento, iDocumento, updateConvAzienda;
     private PreparedStatement deleteTirocinio;
     
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
@@ -63,6 +63,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iTutore=connection.prepareStatement("INSERT INTO Tutore (Nome,Cognome,DataNasc,NumTirocini,Telefono,CodAzienda,EmailTutore) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iTirocinio=connection.prepareStatement("INSERT INTO Tirocinio (Luogo,Orario,NumOre,NumMesi,Obiettivi,Modalità,Facilitazioni,Settore,Titolo,Status,CodTutore,CodAzienda,DataInizio,DataFine,StatusVoto,StatusProgetto,IdProgetto) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             iRichiesta=connection.prepareStatement("INSERT INTO Richiesta (CodStudente,CodTirocinio,Status,Cfu,NomeTutor,CognomeTutor,EmailTutor,CodTutore) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            iDocumento=connection.prepareStatement("INSERT INTO Documenti (Size,Localfile,Tipo,Filename,Digest) VALUES (?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             showContact=connection.prepareStatement("SELECT * FROM Utente WHERE Privilegi = ?");
             jUtenteRichiesta=connection.prepareStatement("SELECT Nome,Cognome,Residenza,Status,Cfu FROM Utente,Richiesta WHERE IdUtente=IdStudente"); 
             deleteTirocinio=connection.prepareStatement("DELETE FROM Tirocinio WHERE IdTirocinio = ?");
@@ -113,6 +114,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sUsernameUtenti=connection.prepareStatement("SELECT Username FROM Azienda");
             sUsernameAzienda=connection.prepareStatement("SELECT Username FROM Utente");
             activateConvenzione=connection.prepareStatement("UPDATE Azienda SET StatusConvenzione=1 WHERE IdAzienda=?");
+            updateConvAzienda=connection.prepareStatement("UPDATE Azienda SET IdConvenzione=? WHERE IdAzienda=?");
             sDocumento = connection.prepareStatement("SELECT * FROM Documenti WHERE DocId=?");
             //Tutti i prepared statement
         }
@@ -120,6 +122,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             throw new DataLayerException("errore query",sqlEx);
         }
     }
+    
     @Override    
     public String creaQueryUpdate(String[] campi,String tab,String id){
         String sql="UPDATE "+tab+ " SET ";
@@ -145,6 +148,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }
         
     }
+    
     @Override
     public List<Tirocinio> showTirocini() throws DataLayerException{
         ArrayList<Tirocinio> tir = new ArrayList<>();        
@@ -158,8 +162,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }
         
         return tir;
-    }
-    
+    }   
     
     @Override
     public Utente showAdminInfo() throws DataLayerException{
@@ -180,8 +183,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sqe.getMessage();
         }
         return null;
-    }
-    
+    }   
 
     @Override
     public Utente creaStudente() {
@@ -341,17 +343,18 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     }
 
     public Documento creaDocumento(ResultSet rs) throws DataLayerException {
-        DocumentoImpl i = new DocumentoImpl(this);
+        DocumentoImpl doc = new DocumentoImpl(this);
         try {
-            i.setDocId(rs.getInt("DocId"));
-            i.setSize(rs.getLong("Size"));
-            i.setDescrizione(rs.getString("Descrizione"));
-            i.setTipo(rs.getString("Tipo"));
-            i.setFilename(rs.getString("Filename"));
+            doc.setDocId(rs.getInt("DocId"));
+            doc.setSize(rs.getLong("Size"));
+            doc.setLocalfile(rs.getString("Localfile"));
+            doc.setTipo(rs.getString("Tipo"));
+            doc.setFilename(rs.getString("Filename"));
+            doc.setDigest(rs.getString("Digest"));
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create document object from ResultSet", ex);
         }
-        return i;
+        return doc;
     }
    
     @Override
@@ -373,10 +376,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         
     return null;   
     }
-    
-    
-   
-    
+
     @Override
     public Utente getInfoUtenteByLogin(String username, String password) throws DataLayerException {
         try{
@@ -1020,6 +1020,55 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     }
     
     @Override
+    public void storeDocumento(Documento documento) throws DataLayerException {
+        int key = documento.getDocId();
+        try {
+            if (documento.getDocId() == 0) {
+                //insert
+                iDocumento.setLong(1, documento.getSize());
+                iDocumento.setString(2, documento.getLocalfile());
+                iDocumento.setString(3, documento.getTipo());
+                iDocumento.setString(4, documento.getFilename());
+                iDocumento.setString(5, documento.getDigest());
+                if (iDocumento.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iDocumento.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                        //restituiamo l'oggetto appena inserito RICARICATO
+                        //dal database tramite le API del modello. In tal
+                        //modo terremo conto di ogni modifica apportata
+                        //durante la fase di inserimento
+                        //we return the just-inserted object RELOADED from the
+                        //database through our API. In this way, the resulting
+                        //object will ambed any data correction performed by
+                        //the DBMS
+                        if (key > 0) {
+                            documento.copyFrom(getInfoDocumento(key));
+                        }
+                        documento.setDirty(false);
+                    }
+                }
+            }          
+        }catch (SQLException ex) {
+            throw new DataLayerException("Unable to store document", ex);
+        }
+    }
+    
+    @Override
     public List<Tirocinio> searchTirocini(Map<String, Object> parametri) throws DataLayerException{
         try{
             List<Tirocinio> result = new ArrayList();
@@ -1282,7 +1331,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         return lista_username;
     }
     
-     @Override
+    @Override
     public void activateConvenzione(Azienda azienda) throws DataLayerException{
         try{
             int key = azienda.getIdAzienda();
@@ -1293,6 +1342,21 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             }
         }catch(SQLException ex){
             throw new DataLayerException("Unable to modify the status of the convention for the company", ex);
+        }
+    }
+    
+    @Override
+    public void updateConvenzioneAzienda(Azienda azienda, int docId) throws DataLayerException{
+        try{
+            int key = azienda.getIdAzienda();
+            updateConvAzienda.setInt(1, docId);
+            updateConvAzienda.setInt(2, azienda.getIdAzienda());
+            updateConvAzienda.executeUpdate();
+            if(key>0){
+                azienda.copyFrom(getInfoAzienda(key));
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to modify the id of the convention for the company", ex);
         }
     }
     
@@ -1344,6 +1408,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sUsernameUtenti.close();
             sUsernameAzienda.close();
             sDocumento.close();
+            iDocumento.close();
+            updateConvAzienda.close();
             showTirocini.close();
             activateConvenzione.close();
         } catch (SQLException ex) {

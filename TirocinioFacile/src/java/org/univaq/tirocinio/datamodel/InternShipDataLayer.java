@@ -46,6 +46,7 @@ public interface InternShipDataLayer extends DataLayer{
     void storeTutore(Tutore tutore) throws DataLayerException; //inserimento o modifica tutore
     void storeTirocinio(Tirocinio tirocinio) throws DataLayerException; //inserimento o modifica tirocinio
     void storeRichiesta(Richiesta richiesta) throws DataLayerException; //inserimento o modifica richiesta
+    void storeDocumento(Documento documento) throws DataLayerException; //inserimento documento
     
     List<Tirocinio> searchTirocini(Map<String, Object> parametri) throws DataLayerException; //ricerca tirocini
     void modifyRequestStatus(Richiesta richiesta) throws DataLayerException;
@@ -62,6 +63,7 @@ public interface InternShipDataLayer extends DataLayer{
     void updateStatusVoto(Tirocinio tirocinio) throws DataLayerException;
     void updateValutazione(Azienda azienda) throws DataLayerException;
     String creaQueryUpdate(String[] campi,String tab,String id);
+    void updateConvenzioneAzienda(Azienda azienda, int docId) throws DataLayerException;
     
     void modificaUtente(String sql,Utente u) throws DataLayerException;
     Utente showAdminInfo() throws DataLayerException;
