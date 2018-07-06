@@ -69,6 +69,16 @@ public class Show extends InternshipDBController {
                     }else{
                         request.setAttribute("valuta", false);
                     }
+                    if(tirocinio.getStatusProgetto()){
+                        request.setAttribute("progetto", true);
+                    }else{
+                        request.setAttribute("progetto", false);
+                    }
+                    if(tirocinio.getIdProgetto()==0){
+                        request.setAttribute("upload", true);
+                    }else{
+                        request.setAttribute("upload", false);
+                    }
                     request.setAttribute("azione", "accepted");
                     request.setAttribute("richiesta", richiesta_accettata);
                 }else{
@@ -108,6 +118,16 @@ public class Show extends InternshipDBController {
                         if(lista_richieste.get(i).getStatus().equals("accepted")){
                             richiesta_accettata = lista_richieste.get(i);
                         }
+                    }
+                    if(tirocinio.getStatusProgetto()){
+                        request.setAttribute("progetto", true);
+                    }else{
+                        request.setAttribute("progetto", false);
+                    }
+                    if(tirocinio.getIdProgetto()==0){
+                        request.setAttribute("upload", true);
+                    }else{
+                        request.setAttribute("upload", false);
                     }
                     request.setAttribute("azione", "accepted");
                     request.setAttribute("richiesta", richiesta_accettata);

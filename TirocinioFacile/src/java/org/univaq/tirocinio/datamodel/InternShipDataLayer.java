@@ -57,6 +57,7 @@ public interface InternShipDataLayer extends DataLayer{
     List<Azienda> getCompaniesWithMoreStages() throws DataLayerException;
     void activateAzienda(Azienda azienda) throws DataLayerException;
     void activateConvenzione(Azienda azienda) throws DataLayerException;
+    void activateProgetto(Tirocinio tirocinio) throws DataLayerException;
     void updateDateTirocinio(Date dataInizio, Date dataFine, Tirocinio tirocinio) throws DataLayerException;
     void updateNumTiroAzienda(int num, Azienda azienda) throws DataLayerException;
     void updateNumTiroTutore(int num, Tutore tutore) throws DataLayerException;
@@ -64,6 +65,7 @@ public interface InternShipDataLayer extends DataLayer{
     void updateValutazione(Azienda azienda) throws DataLayerException;
     String creaQueryUpdate(String[] campi,String tab,String id);
     void updateConvenzioneAzienda(Azienda azienda, int docId) throws DataLayerException;
+    void updateProgettoTirocinio(Tirocinio tirocinio, int docId) throws DataLayerException;
     
     void modificaUtente(String sql,Utente u) throws DataLayerException;
     Utente showAdminInfo() throws DataLayerException;

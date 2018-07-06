@@ -47,7 +47,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement uNumTiroAzienda, uNumTiroTutore, uDateTirocinio, uValutazione, uStatusVoto;
     private PreparedStatement showContact,showTirocini;
     private PreparedStatement sUsernameUtenti,sUsernameAzienda;
-    private PreparedStatement activateConvenzione, sDocumento, iDocumento, updateConvAzienda;
+    private PreparedStatement activateConvenzione, sDocumento, iDocumento, updateConvAzienda, activateProgetto, updateProgettoTiro;
     private PreparedStatement deleteTirocinio;
     
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
@@ -114,7 +114,9 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sUsernameUtenti=connection.prepareStatement("SELECT Username FROM Azienda");
             sUsernameAzienda=connection.prepareStatement("SELECT Username FROM Utente");
             activateConvenzione=connection.prepareStatement("UPDATE Azienda SET StatusConvenzione=1 WHERE IdAzienda=?");
+            activateProgetto=connection.prepareStatement("UPDATE Tirocinio SET StatusProgetto=1 WHERE IdTirocinio=?");
             updateConvAzienda=connection.prepareStatement("UPDATE Azienda SET IdConvenzione=? WHERE IdAzienda=?");
+            updateProgettoTiro=connection.prepareStatement("UPDATE Tirocinio SET IdProgetto=? WHERE IdTirocinio=?");
             sDocumento = connection.prepareStatement("SELECT * FROM Documenti WHERE DocId=?");
             //Tutti i prepared statement
         }
@@ -1346,6 +1348,20 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     }
     
     @Override
+    public void activateProgetto(Tirocinio tirocinio) throws DataLayerException{
+        try{
+            int key = tirocinio.getIdTirocinio();
+            activateProgetto.setInt(1, tirocinio.getIdTirocinio());
+            activateProgetto.executeUpdate();
+            if(key>0){
+                tirocinio.copyFrom(getInfoTirocinio(key));
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to modify the status of the project for the stage", ex);
+        }
+    }
+    
+    @Override
     public void updateConvenzioneAzienda(Azienda azienda, int docId) throws DataLayerException{
         try{
             int key = azienda.getIdAzienda();
@@ -1357,6 +1373,21 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             }
         }catch(SQLException ex){
             throw new DataLayerException("Unable to modify the id of the convention for the company", ex);
+        }
+    }
+    
+    @Override
+    public void updateProgettoTirocinio(Tirocinio tirocinio, int docId) throws DataLayerException{
+        try{
+            int key = tirocinio.getIdTirocinio();
+            updateProgettoTiro.setInt(1, docId);
+            updateProgettoTiro.setInt(2, tirocinio.getIdTirocinio());
+            updateProgettoTiro.executeUpdate();
+            if(key>0){
+                tirocinio.copyFrom(getInfoTirocinio(key));
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to modify the id of the project for the stage", ex);
         }
     }
     
@@ -1410,8 +1441,10 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sDocumento.close();
             iDocumento.close();
             updateConvAzienda.close();
+            updateProgettoTiro.close();
             showTirocini.close();
             activateConvenzione.close();
+            activateProgetto.close();
         } catch (SQLException ex) {
             
         }

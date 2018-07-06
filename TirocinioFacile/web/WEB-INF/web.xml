@@ -154,6 +154,27 @@
         <servlet-name>DownloadConvenzione</servlet-name>
         <servlet-class>org.univaq.tirocinio.controller.DownloadConvenzione</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowProgetto</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.ShowProgetto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadProgetto</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.UploadProgetto</servlet-class>
+        <multipart-config>
+            <!--
+            <location>/tmp</location> temporary files location (DEF: "") -->
+            <max-file-size>20848820</max-file-size>
+            <!-- max size of accepted uploadd (DEF: unlimited!) -->
+            <max-request-size>418018841</max-request-size>
+            <!-- max size of multipart requests (may contain more files or data) (DEF: ulimited!) -->
+            <!-- <file-size-threshold>1048576</file-size-threshold> max size of files to hold in memory (without writing to temporary disk file) (DEF: 0) -->
+        </multipart-config>
+    </servlet>
+    <servlet>
+        <servlet-name>DownloadProgetto</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.DownloadProgetto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -261,6 +282,18 @@
     <servlet-mapping>
         <servlet-name>DownloadConvenzione</servlet-name>
         <url-pattern>/downloadconvenzione</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProgetto</servlet-name>
+        <url-pattern>/showprogetto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadProgetto</servlet-name>
+        <url-pattern>/uploadprogetto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadProgetto</servlet-name>
+        <url-pattern>/downloadprogetto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

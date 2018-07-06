@@ -12,10 +12,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,15 +23,8 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Documento;
-import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
  *
@@ -126,26 +115,6 @@ public class UploadConvenzione extends InternshipDBController {
                                 //la convenzione è stata già caricata
                                 response.sendRedirect("managecompany");
                             }
-                        }else if(request.getPart("filetoupload")!=null){
-                            
-                            // Create a factory for disk-based file items
-                            FileItemFactory factory = new DiskFileItemFactory();
-                            ServletFileUpload upload = new ServletFileUpload(factory);
-                            List /* FileItem */ items = upload.parseRequest((RequestContext) request);
-                            Iterator iter = items.iterator();
-                            int id_azienda = 0;
-                            while (iter.hasNext()) {
-                                FileItem item = (FileItem) iter.next();
-                                if (item.isFormField()) {
-                                    String name = item.getFieldName();
-                                    String value = item.getString();
-                                    if(name.equals("aid")){
-                                        id_azienda = SecurityLayer.checkNumeric(value);
-                                    }
-                                }
-                            }    
-                            System.out.println(id_azienda);
-                            action_upload(request, response, id_azienda);
                         }else{
                             response.sendRedirect("managecompany");
                         }    
@@ -169,10 +138,7 @@ public class UploadConvenzione extends InternshipDBController {
             } catch (NoSuchAlgorithmException ex) {  
                 request.setAttribute("exception", ex);
                 action_error(request, response);
-            } catch (FileUploadException ex) {  
-                request.setAttribute("exception", ex);
-                action_error(request, response);
-            }  
+            } 
     }
     
 }
