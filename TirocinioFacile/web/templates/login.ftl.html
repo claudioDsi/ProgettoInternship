@@ -20,7 +20,7 @@
                 <label>Password</label>
             </p>
             <#if (usererror??)>
-                <p>${usererror}</p>
+                <p class="w3-panel w3-pale-red w3-border-red">${usererror}</p>
             </#if>
             <p>
                 <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="loginuser" value="Login"/>
@@ -42,7 +42,7 @@
                 <label>Password</label>
             </p>
             <#if (companyerror??)>
-                <p>${companyerror}</p>
+                <p class="w3-panel w3-pale-red w3-border-red">${companyerror}</p>
             </#if>
             <p>
                 <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="logincomp" value="Login"/>

@@ -39,6 +39,8 @@ public class CompanyPanel extends InternshipDBController {
             if(!lista_tirocini.isEmpty()){
                 request.setAttribute("lista_tirocini", lista_tirocini);
             }
+          
+            
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             request.setAttribute("Session", s);
             res.activate("company_panel.ftl.html", request, response);
@@ -93,6 +95,15 @@ public class CompanyPanel extends InternshipDBController {
                         if(request.getParameter("tid")!=null){
                             //hai selezionato un tirocinio da gestire
                             request.setAttribute("page_title", "Gestione Richieste Tirocinio");
+                            
+                            if(request.getParameter("del")!=null){
+                                 String strdel= request.getParameter("del");
+                                int del=Integer.parseInt(strdel);
+                                if(del>0){
+                                    ((InternShipDataLayer)request.getAttribute("datalayer")).eliminaTirocinio(del);                                
+                                }
+                            }
+                           
                             action_richieste(request, response);
                         }else{
                         //sei un'azienda e mostro le tue candidature e i tuoi tirocini

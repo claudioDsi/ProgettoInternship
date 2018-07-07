@@ -22,12 +22,12 @@
     
     <div>
         <div>Partita Iva</div>
-        <div><input type="text" name="partitaiva" value="${strip_slashes(azienda.partitaIva)}" style="width:30%; max-width:50%" class="required forbidden number  w3-input w3-animate-input w3-pale-green"/></div>
+        <div><input type="text" name="partitaiva" value="${strip_slashes(azienda.partitaIva)}" style="width:30%; max-width:50%" class="required forbidden number  w3-input w3-animate-input w3-pale-green" disabled="disabled"/></div>
     </div>
     
     <div>
         <div>Codice fiscale</div>
-        <div><input type="text" name="codicefisc" value="${strip_slashes(azienda.codiceFisc)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
+        <div><input type="text" name="codicefisc" value="${strip_slashes(azienda.codiceFisc)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" disabled="disabled"/></div>
     </div>
     
     <div>
@@ -88,7 +88,7 @@
     </#if>
     
     <div>
-        <input class="w3-button w3-theme" type="submit" name="update" value="Conferma modifche"/>
+        <input class="w3-button w3-theme button-margin" type="submit" name="update" value="Conferma modifche" />
     </div>
     
 </form>

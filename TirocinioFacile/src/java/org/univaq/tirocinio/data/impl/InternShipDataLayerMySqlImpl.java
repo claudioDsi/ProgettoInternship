@@ -70,7 +70,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             //nuove update
             String[] campiUtente={"Nome","Cognome","DataNasc","LuogoNasc","Residenza","CodiceFisc","Telefono","CorsoLaurea","Sesso","Handicap","Laurea","Dottorato","ScuolaSpec","EmailUtente","Username","Password"};                
             uUtente=connection.prepareStatement(creaQueryUpdate(campiUtente, "Utente", "IdUtente"));
-            String[] campiAzienda = {"Nome","RagioneSociale","Indirizzo","PartitaIva","CodiceFiscale","NomeRappr","CognomeRappr","NomeResp","CognomeResp","Telefono","EmailResp","Foro","Username","Password"};
+            String[] campiAzienda = {"Nome","RagioneSociale","Indirizzo","PartitaIva","CodiceFiscale","NomeRappr","CognomeRappr","NomeResp","CognomeResp","TelefonoResp","EmailResp","Foro","Username","Password"};
             uAzienda=connection.prepareStatement(creaQueryUpdate(campiAzienda, "Azienda", "IdAzienda"));
             //uAzienda=connection.prepareStatement("UPDATE Azienda SET Nome=?, RagioneSociale=?, Indirizzo=?, PartitaIva=?, CodiceFiscale=?, NomeRappr=?, CognomeRappr=?, NomeResp=?, CognomeResp=?, TelefonoResp=?, EmailResp=?, Foro=? WHERE IdAzienda=?");
             String[] campiTutore={"Nome","Cognome","DataNasc","NumTirocini","Telefono","CodAzienda","EmailTutore"};
@@ -1476,6 +1476,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         try{
             deleteTirocinio.setInt(1,id);
             deleteTirocinio.executeUpdate();
+            
             
         }
         catch(SQLException ex){

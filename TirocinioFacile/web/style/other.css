@@ -34,3 +34,8 @@ and open the template in the editor.
    
     max-width: 55%;
 }
+
+.button-margin{
+    margin-top: 1%; 
+    margin-bottom: 1%;
+}
