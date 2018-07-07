@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Lug 05, 2018 alle 10:17
+-- Creato il: Lug 07, 2018 alle 16:29
 -- Versione del server: 5.7.19
 -- Versione PHP: 5.6.31
 
@@ -60,10 +60,10 @@ CREATE TABLE IF NOT EXISTS `azienda` (
 --
 
 INSERT INTO `azienda` (`IdAzienda`, `Username`, `Password`, `Privilegi`, `Status`, `Nome`, `RagioneSociale`, `Indirizzo`, `PartitaIva`, `CodiceFiscale`, `NomeRappr`, `CognomeRappr`, `NomeResp`, `CognomeResp`, `TelefonoResp`, `EmailResp`, `Foro`, `Valutazione`, `NumeroTirocini`, `NumTiroCompletati`, `StatusConvenzione`, `IdConvenzione`) VALUES
-(1, 'brucolandia', 'caroteee', 2, 1, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail.com', 'Avezzano', 5, 1, 1, 0, 1),
+(1, 'brucolandia', '900150983cd24fb0d6963f7d28e17f72', 2, 1, 'micron', 'srl', 'via via', '556434334', 'CCDD454545', 'Riccardo', 'Rubei', 'Claudio', 'Di Sipio', '554443', 'email@gmail.com', 'Avezzano', 5, 1, 1, 0, 0),
 (2, 'dsfdf', 'ssfdf', 2, 0, 'dsfd', 'fddf', 'via Solaria', 'fff', 'f', 'ff', 'ff', 'gb', 'gfdf', '', 'dfgdf', 'dfgf', 0, 0, 0, 0, 0),
 (3, 'azienda', 'f6f0dd53202d2a2a31c792b40db1a1b6', 2, 0, 'sdfd', 'dsdf', 'dsvjdsf', 'sdfjndfjn', 'dsfsdkldfk', 'fdsd', 'addsf', 'sdfd', 'sfd', 'dsfd', 'f.c@c.com', 'd', 0, 0, 0, 1, 0),
-(4, 'az', '900150983cd24fb0d6963f7d28e17f72', 2, 0, 'Azienda', 'SRL', 'indirizzo', '54da4d6', 'd6f54d56s', 'Mario', 'Rossi', 'Mario', 'Rossi', '64454', 'b@b.com', 'Roma', 0, 0, 0, 1, 0);
+(4, 'az', '900150983cd24fb0d6963f7d28e17f72', 2, 0, 'Azienda', 'SRL', 'indirizzo', '54da4d6', 'd6f54d56s', 'Mario', 'Rossi', 'Mario', 'Rossi', '64454', 'b@b.com', 'Roma', 0, 0, 0, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,16 @@ CREATE TABLE IF NOT EXISTS `documenti` (
   `Filename` varchar(255) DEFAULT NULL,
   `Digest` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`DocId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `documenti`
+--
+
+INSERT INTO `documenti` (`DocId`, `Size`, `Localfile`, `Tipo`, `Filename`, `Digest`) VALUES
+(3, 45056, 'upload_9211088413647419974', 'application/pdf', 'Internship Helper.pdf', '74-27-1031-3912-118-107-123-735660-1108886713-8034-42'),
+(4, 40960, 'upload_5069977613869361033', 'application/pdf', 'Internship Helper.pdf', '-2083421-18-49-5-75-70-6572-14109986-61635134-41'),
+(5, 40960, 'upload_8608345256948304001', 'application/pdf', 'Internship Helper.pdf', '-2083421-18-49-5-75-70-6572-14109986-61635134-41');
 
 -- --------------------------------------------------------
 
@@ -137,6 +146,9 @@ CREATE TABLE IF NOT EXISTS `tirocinio` (
   `StatusVoto` tinyint(4) DEFAULT NULL,
   `StatusProgetto` tinyint(1) DEFAULT NULL,
   `IdProgetto` int(11) DEFAULT NULL,
+  `Descrizione` varchar(255) DEFAULT NULL,
+  `Risultato` varchar(255) DEFAULT NULL,
+  `StatusResoconto` tinyint(1) NOT NULL,
   PRIMARY KEY (`IdTirocinio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
@@ -144,12 +156,12 @@ CREATE TABLE IF NOT EXISTS `tirocinio` (
 -- Dump dei dati per la tabella `tirocinio`
 --
 
-INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `CodTutore`, `CodAzienda`, `Titolo`, `Status`, `DataInizio`, `DataFine`, `StatusVoto`, `StatusProgetto`, `IdProgetto`) VALUES
-(1, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 0, 1, 'Tirocinio 1', 0, NULL, NULL, 0, 0, 0),
-(2, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 0, 1, 'Tirocinio 2', 0, NULL, NULL, 0, 0, 0),
-(3, 'f', 'f', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 0, 1, 'Tirocinio 3', 0, NULL, NULL, 0, 0, 0),
-(4, 'sdf', 'af', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 0, 1, 'Tirocinio 4', 0, NULL, NULL, 0, 0, 0),
-(5, 'afds', 'sgf', 4, 5, 'gs', 'sfg', 'sg', 'gs', 1, 1, 'Tirocinio 5', 1, '2018-01-14', '2018-06-14', 1, 0, 0);
+INSERT INTO `tirocinio` (`IdTirocinio`, `Luogo`, `Orario`, `NumOre`, `NumMesi`, `Obiettivi`, `Modalità`, `Facilitazioni`, `Settore`, `CodTutore`, `CodAzienda`, `Titolo`, `Status`, `DataInizio`, `DataFine`, `StatusVoto`, `StatusProgetto`, `IdProgetto`, `Descrizione`, `Risultato`, `StatusResoconto`) VALUES
+(1, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 0, 1, 'Tirocinio 1', 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0),
+(2, 'Kadara', 'dalle 9 alle 13', 4, 8, 'Fare lo schiavo', 'carota', 'fotocopiatrice', 'ortolano', 0, 1, 'Tirocinio 2', 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0),
+(3, 'f', 'f', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 0, 1, 'Tirocinio 3', 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0),
+(4, 'sdf', 'af', 4, 5, 'dsf', 'fsddfsd', 'asdf', 'adf', 0, 1, 'Tirocinio 4', 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0),
+(5, 'afds', 'sgf', 4, 5, 'gs', 'sfg', 'sg', 'gs', 1, 1, 'Tirocinio 5', 1, '2018-01-14', '2018-06-14', 1, 1, 5, 'Descrizione', 'Risultati', 1);
 
 -- --------------------------------------------------------
 
@@ -217,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
 
 INSERT INTO `utente` (`IdUtente`, `Username`, `Password`, `Privilegi`, `Nome`, `Cognome`, `DataNasc`, `LuogoNasc`, `Residenza`, `CodiceFisc`, `Telefono`, `Sesso`, `EmailUtente`, `CorsoLaurea`, `Handicap`, `Laurea`, `Dottorato`, `ScuolaSpec`) VALUES
 (1, 'admin', '900150983cd24fb0d6963f7d28e17f72', 0, 'Admin', 'Admin', '2010-12-11', 'Roma', 'Roma', 'daljhsf', '165456', 'Maschio', 'admin@admin.com', 'Informatica', 0, 'Magistrale', '', ''),
-(5, 'vincenzo91', 'vincenzo', 1, 'Vincenzo', 'Battisti', '2000-10-10', 'Arpino', 'Roma', 'lsjhdfd45', '6545612', 'Maschio', '', 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf'),
+(5, 'vincenzo91', '900150983cd24fb0d6963f7d28e17f72', 1, 'Vincenzo', 'Battisti', '2000-10-10', 'Arpino', 'Roma', 'lsjhdfd45', '6545612', 'Maschio', 'abc@abc.com', 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf'),
 (6, 'fsda', 'fc', 1, ' adsf', 'afsd', '0022-01-12', 'ad', 'das', 'das', '156', 'maschio', NULL, 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf'),
 (7, 'dsfg', 'abc', 1, ' fsd', 'fd', '0022-01-12', 'ads', 'ad', 'sdaf', '5156', 'maschio', NULL, 'asdf', 0, 'triennale', 'af', 'afsd'),
 (8, 'afsdsd', 'abc', 1, ' asfdsd', 'asdfsd', '0022-01-12', 'ads', 'afsd', 'asfd', '566', 'maschio', NULL, 'Informatica', 0, 'triennale', 'oiehfd', 'sdsddf'),

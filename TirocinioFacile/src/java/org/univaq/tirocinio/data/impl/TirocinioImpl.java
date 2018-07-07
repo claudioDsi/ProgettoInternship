@@ -34,6 +34,9 @@ public class TirocinioImpl implements Tirocinio{
     private Date dataFine;
     private boolean statusProgetto;
     private int idProgetto;
+    private String descrizione;
+    private String risultato;
+    private boolean statusResoconto;
     //riferimenti alle altre tabelle
     private Tutore tutore;    
     private int idTutore;
@@ -56,6 +59,9 @@ public class TirocinioImpl implements Tirocinio{
         obiettivi = "";
         facilitazioni = "";
         modalità = "";
+        descrizione = "";
+        risultato = "";
+        statusResoconto = false;
         dataInizio = null;
         dataFine = null;
         statusProgetto = false;
@@ -252,6 +258,28 @@ public class TirocinioImpl implements Tirocinio{
     }
     
     @Override
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    @Override
+    public void setDescrizione(String descrizione) {
+       this.descrizione=descrizione;
+       this.dirty = true;
+    }
+    
+    @Override
+    public String getRisultato() {
+        return risultato;
+    }
+
+    @Override
+    public void setRisultato(String risultato) {
+       this.risultato=risultato;
+       this.dirty = true;
+    }
+    
+    @Override
     public Date getDataInizio() {
         return dataInizio;
     }
@@ -281,6 +309,17 @@ public class TirocinioImpl implements Tirocinio{
     @Override
     public void setStatusProgetto(boolean statusProgetto) {
         this.statusProgetto=statusProgetto;
+        this.dirty = true;
+    }
+    
+    @Override
+    public boolean getStatusResoconto() {
+        return statusResoconto;
+    }
+
+    @Override
+    public void setStatusResoconto(boolean statusResoconto) {
+        this.statusResoconto=statusResoconto;
         this.dirty = true;
     }
     
@@ -325,6 +364,9 @@ public class TirocinioImpl implements Tirocinio{
         dataFine = tirocinio.getDataFine();
         statusProgetto = tirocinio.getStatusProgetto();
         idProgetto = tirocinio.getIdProgetto();
+        descrizione = tirocinio.getDescrizione();
+        risultato = tirocinio.getRisultato();
+        statusResoconto = tirocinio.getStatusResoconto();
         this.dirty = true;
     }
     

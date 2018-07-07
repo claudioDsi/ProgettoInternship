@@ -51,6 +51,12 @@ public interface Tirocinio {
     String getSettore();
     void setSettore(String settore);
     
+    String getDescrizione();
+    void setDescrizione(String descrizione);
+    
+    String getRisultato();
+    void setRisultato(String risultato);
+    
     int getIdTutore();
     void setIdTutore(int idTutore); 
     
@@ -71,6 +77,9 @@ public interface Tirocinio {
     
     boolean getStatusProgetto();
     void setStatusProgetto(boolean statusProgetto);
+    
+    boolean getStatusResoconto();
+    void setStatusResoconto(boolean statusResoconto);
     
     int getIdProgetto();
     void setIdProgetto(int idProgetto);

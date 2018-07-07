@@ -175,6 +175,14 @@
         <servlet-name>DownloadProgetto</servlet-name>
         <servlet-class>org.univaq.tirocinio.controller.DownloadProgetto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CompilaResoconto</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.CompilaResoconto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowResoconto</servlet-name>
+        <servlet-class>org.univaq.tirocinio.controller.ShowResoconto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertUser</servlet-name>
         <url-pattern>/user</url-pattern>
@@ -294,6 +302,14 @@
     <servlet-mapping>
         <servlet-name>DownloadProgetto</servlet-name>
         <url-pattern>/downloadprogetto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompilaResoconto</servlet-name>
+        <url-pattern>/compilaresoconto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowResoconto</servlet-name>
+        <url-pattern>/showresoconto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -34,6 +34,18 @@
                                     <span class="glyphicon glyphicon-remove"></span>
                                     <span style="position:absolute;right:18pt" class="w3-text w3-tag">Elimina tirocinio</span>
                                 </a>
+                                <#if (tirocinio.statusResoconto)>
+                                <#else>
+                                    <#if (resoconto??)>
+                                        <#list resoconto as key,value>
+                                            <#if (tirocinio.idTirocinio==key)>
+                                                <#if (value)>
+                                                    <a class="w3-tooltip" href="compilaresoconto?tid=${tirocinio.idTirocinio}">Compila Resoconto</a>
+                                                </#if>
+                                            </#if>
+                                        </#list>
+                                    </#if>
+                                </#if>
                             </td>
                         </tr>
                     </#list>

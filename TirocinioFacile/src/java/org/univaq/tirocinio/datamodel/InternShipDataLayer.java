@@ -66,6 +66,7 @@ public interface InternShipDataLayer extends DataLayer{
     String creaQueryUpdate(String[] campi,String tab,String id);
     void updateConvenzioneAzienda(Azienda azienda, int docId) throws DataLayerException;
     void updateProgettoTirocinio(Tirocinio tirocinio, int docId) throws DataLayerException;
+    void updateResocontoTirocinio(Tirocinio tirocinio) throws DataLayerException;
     
     void modificaUtente(String sql,Utente u) throws DataLayerException;
     Utente showAdminInfo() throws DataLayerException;

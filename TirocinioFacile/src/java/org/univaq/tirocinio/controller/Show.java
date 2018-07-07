@@ -79,6 +79,11 @@ public class Show extends InternshipDBController {
                     }else{
                         request.setAttribute("upload", false);
                     }
+                    if(tirocinio.getStatusResoconto()){
+                        request.setAttribute("resoconto", true);
+                    }else{
+                        request.setAttribute("resoconto", false);
+                    }
                     request.setAttribute("azione", "accepted");
                     request.setAttribute("richiesta", richiesta_accettata);
                 }else{

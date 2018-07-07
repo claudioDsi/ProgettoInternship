@@ -1,0 +1,24 @@
+<script>
+    function printDiv(divName) {
+         var printContents = document.getElementById(divName).innerHTML;
+         var originalContents = document.body.innerHTML;
+
+         document.body.innerHTML = printContents;
+
+         window.print();
+
+         document.body.innerHTML = originalContents;
+    }
+</script>
+<h2>${page_title}</h2>
+<br/>
+<p><b>Stampa questa pagina e portala in segreteria!</b></p>
+<button onclick="printDiv('toPrint')">Print</button>
+
+<div id="toPrint">
+    <p>RESOCONTO TIROCINIO DA RIEMPIRE (penultima pagina progetto formativo)</p>
+
+    <p>tra</p>
+
+    <p>L’Ente/Azienda ${strip_slashes(azienda.nomeAzienda)} con sede legale in (indirizzo) ${strip_slashes(azienda.indirizzo)}.....</p>
+</div>

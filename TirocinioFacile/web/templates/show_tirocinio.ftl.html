@@ -39,6 +39,9 @@
             <#else>
                 <p><a  class="w3-button w3-block w3-theme" href="downloadprogetto?tid=${tirocinio.idTirocinio}"> Download Progetto Firmato</a></p>
             </#if>
+            <#if (resoconto)>
+                <p><a  class="w3-button w3-block w3-theme" href="showresoconto?tid=${tirocinio.idTirocinio}"> Scarica Resoconto Tirocinio </a></p>
+            </#if>
             </div>
             <#if (valuta)>
                 <#if (tirocinio.statusVoto)>

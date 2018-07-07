@@ -6,7 +6,11 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,9 +42,21 @@ public class CompanyPanel extends InternshipDBController {
             List<Tirocinio> lista_tirocini = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirociniByAzienda(azienda);
             if(!lista_tirocini.isEmpty()){
                 request.setAttribute("lista_tirocini", lista_tirocini);
-            }
-          
-            
+                Map resoconto = new HashMap();
+                for (int i = 0; i < lista_tirocini.size(); i++) {	
+                    Date dataFine = lista_tirocini.get(i).getDataFine();
+                    if(dataFine!=null){
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Date dateNow = new Date();
+                        if(dateNow.compareTo(dataFine)>0){
+                            resoconto.put(lista_tirocini.get(i).getIdTirocinio(), true);
+                        }else{
+                            resoconto.put(lista_tirocini.get(i).getIdTirocinio(), false);
+                        }
+                    }
+                }
+                request.setAttribute("resoconto", resoconto);
+            }      
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             request.setAttribute("Session", s);
             res.activate("company_panel.ftl.html", request, response);
