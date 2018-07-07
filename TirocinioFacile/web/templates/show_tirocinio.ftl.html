@@ -98,13 +98,16 @@
             </div>            
         </div>
         </#if>
+        <#if azione="reject">
+            <p>Purtroppo la tua richiesta è stata rifiutata!</p>
+        </#if>
         <#if azione="applicati">
             <p>Puoi ancora candidarti per questo tirocinio!</p>
             <p><a href="richiesta?tid=${tirocinio.idTirocinio}"> Candidati qui! </a></p>
         </#if>
         <#if azione=="anonymous">
             <#if (status)??>
-            <p>La richiesta di tirocinio è scaduta o è stata cancellata, non puoi più candidarti!</p>
+                <p>La richiesta di tirocinio è scaduta o è stata cancellata, non puoi più candidarti!</p>
             </#if>
         </#if>
     <#else>

@@ -52,6 +52,7 @@ public class Show extends InternshipDBController {
             int userid =(int)s.getAttribute("userid");
             //controllo che il tirocinio sia già stato assegnato
             if(tirocinio.getStatus()){
+                //il tirocinio è stato accettato quindi controllo se lui è l'utente a cui è stato assegnato
                 Richiesta richiesta_accettata = null;
                 request.setAttribute("status", true);
                 for(int i = 0; i < lista_richieste.size(); i++){
@@ -91,11 +92,18 @@ public class Show extends InternshipDBController {
                     request.setAttribute("azione", "anonymous");
                 }
             }else{
+                //il tirocinio non è stato ancora assegnato
                 Richiesta richiesta_studente = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, tirocinio.getIdTirocinio());
                 if(richiesta_studente!=null){
-                    request.setAttribute("azione", "pending");
+                    //l'utente ha già una richiesta per il tirocinio
+                    if(richiesta_studente.getStatus().equals("pending")){
+                        request.setAttribute("azione", "pending");
+                    }else if(richiesta_studente.getStatus().equals("rejected")){
+                        request.setAttribute("azione", "reject");
+                    }                  
                     request.setAttribute("richiesta", richiesta_studente);
                 }else{
+                    //l'utente non ha mai fatto richiesta per il tirocinio quindi può applicarsi
                     request.setAttribute("azione", "applicati");
                 }
             }
