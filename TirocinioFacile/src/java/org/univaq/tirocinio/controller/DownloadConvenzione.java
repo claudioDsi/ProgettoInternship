@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +22,10 @@ import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 import org.univaq.tirocinio.framework.result.StreamResult;
 
+/**
+ *
+ * @author vince
+ */
 public class DownloadConvenzione extends InternshipDBController {
     
     private void action_download(HttpServletRequest request, HttpServletResponse response, int id_convenzione) throws IOException, ServletException, TemplateManagerException, DataLayerException {
@@ -32,9 +35,9 @@ public class DownloadConvenzione extends InternshipDBController {
             if(documento!=null){
                 String dir_path = "../uploads";
                 try (InputStream is = new FileInputStream(dir_path + File.separatorChar + documento.getLocalfile())) {
-                            request.setAttribute("contentType", documento.getTipo());
-                            result.activate(is, documento.getSize(), documento.getFilename(), request, response);
-                        }
+                    request.setAttribute("contentType", documento.getTipo());
+                    result.activate(is, documento.getSize(), documento.getFilename(), request, response);
+                }
             }else {
                 request.setAttribute("exception", new Exception("Resurce not found in file database"));
                 action_error(request, response);
@@ -57,24 +60,33 @@ public class DownloadConvenzione extends InternshipDBController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException {      
         try{
             HttpSession s = SecurityLayer.checkSession(request);
-            int userid = (int)s.getAttribute("userid"); //id utente in sessione
-            String utype = (String)s.getAttribute("type");
-            if(utype.equals("comp")){
-                Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
-                if(request.getParameter("cid")!=null){
-                    int id_convenzione = SecurityLayer.checkNumeric(request.getParameter("cid"));
-                    if(id_convenzione==azienda.getIdConvenzione()){
-                        //ti faccio scaricare la tua convenzione
-                        action_download(request, response, azienda.getIdConvenzione());
+            if(s!=null){
+                //sei loggato
+                int userid = (int)s.getAttribute("userid"); //id utente in sessione
+                String utype = (String)s.getAttribute("type");
+                if(utype.equals("comp")){
+                    //sei un'azienda
+                    Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                    if(request.getParameter("cid")!=null){
+                        int id_convenzione = SecurityLayer.checkNumeric(request.getParameter("cid"));
+                        if(id_convenzione==azienda.getIdConvenzione()){
+                            //sei l'azienda a cui è associata la convenzione ti faccio scaricare la tua convenzione
+                            action_download(request, response, azienda.getIdConvenzione());
+                        }else{
+                            //non puoi
+                            response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                        }
                     }else{
-                        //non puoi
+                        //non è stato specificato un id di convenzione
                         response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                     }
                 }else{
+                    //sei studente o admin
                     response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                 }
             }else{
-                response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                //sei anonimo
+                response.sendRedirect("home");
             }
         }catch (IOException ex) {
             request.setAttribute("exception", ex);

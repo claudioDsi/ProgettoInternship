@@ -100,19 +100,24 @@ public class UploadConvenzione extends InternshipDBController {
                         if(request.getParameter("aid")!=null){
                             int aid = SecurityLayer.checkNumeric(request.getParameter("aid"));
                             Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(aid);
-                            if(request.getParameter("upload")!=null){
-                                if(request.getPart("filetoupload")!=null){
-                                    //posso fare l'upload della convenzione
-                                    action_upload(request, response, aid);
-                                }else{
+                            if(azienda!=null){
+                                if(request.getParameter("upload")!=null){
+                                    if(request.getPart("filetoupload")!=null){
+                                        //posso fare l'upload della convenzione
+                                        action_upload(request, response, aid);
+                                    }else{
+                                        //faccio scegliere il file da caricare
+                                        action_default(request, response, aid);
+                                    }
+                                }else if(azienda.getIdConvenzione()==0){
                                     //faccio scegliere il file da caricare
                                     action_default(request, response, aid);
+                                }else{
+                                    //la convenzione è stata già caricata
+                                    response.sendRedirect("managecompany");
                                 }
-                            }else if(azienda.getIdConvenzione()==0){
-                                //faccio scegliere il file da caricare
-                                action_default(request, response, aid);
                             }else{
-                                //la convenzione è stata già caricata
+                                //l'azienda non esiste
                                 response.sendRedirect("managecompany");
                             }
                         }else{

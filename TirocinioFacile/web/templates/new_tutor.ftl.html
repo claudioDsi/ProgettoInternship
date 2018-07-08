@@ -6,6 +6,9 @@
 
 <form method="post" action="tutore">
     <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
+    <#if (messaggiocampi??)>
+        <p>${messaggiocampi}</p>
+    </#if>
     <div>
         <div>Nome</div>
         <div><input type="text" name="nome" value="" class="required forbidden  w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%;"/></div>

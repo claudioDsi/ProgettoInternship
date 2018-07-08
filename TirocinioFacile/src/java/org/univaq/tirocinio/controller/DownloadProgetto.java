@@ -22,6 +22,10 @@ import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 import org.univaq.tirocinio.framework.result.StreamResult;
 
+/**
+ *
+ * @author vince
+ */
 public class DownloadProgetto extends InternshipDBController {
     
     private void action_download(HttpServletRequest request, HttpServletResponse response, int id_progetto) throws IOException, ServletException, TemplateManagerException, DataLayerException {
@@ -31,9 +35,9 @@ public class DownloadProgetto extends InternshipDBController {
             if(documento!=null){
                 String dir_path = "../uploads";
                 try (InputStream is = new FileInputStream(dir_path + File.separatorChar + documento.getLocalfile())) {
-                            request.setAttribute("contentType", documento.getTipo());
-                            result.activate(is, documento.getSize(), documento.getFilename(), request, response);
-                        }
+                    request.setAttribute("contentType", documento.getTipo());
+                    result.activate(is, documento.getSize(), documento.getFilename(), request, response);
+                }
             }else {
                 request.setAttribute("exception", new Exception("Resource not found in file database"));
                 action_error(request, response);
@@ -56,63 +60,78 @@ public class DownloadProgetto extends InternshipDBController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException {      
         try{
             HttpSession s = SecurityLayer.checkSession(request);
-                if(s!=null){
-                    int userid = (int)s.getAttribute("userid");
-                    String type = (String)s.getAttribute("type");
-                    if(type.equals("comp")){
-                        //sei un'azienda
-                        if(request.getParameter("tid")!=null){
-                            int tid = SecurityLayer.checkNumeric(request.getParameter("tid"));
-                            Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tid);
+            if(s!=null){
+                int userid = (int)s.getAttribute("userid");
+                String type = (String)s.getAttribute("type");
+                if(type.equals("comp")){
+                    //sei un'azienda
+                    if(request.getParameter("tid")!=null){
+                        int tid = SecurityLayer.checkNumeric(request.getParameter("tid"));
+                        Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tid);
+                        if(tirocinio!=null){
                             if(tirocinio.getIdAzienda()==userid){
                                 //sei l'azienda che ha creato il tirocinio
                                 int id_progetto = tirocinio.getIdProgetto();
                                 if(id_progetto!=0){
-                                    //ti faccio scaricare la tua convenzione
+                                    //ti faccio scaricare il tuo progetto
                                     action_download(request, response, tirocinio.getIdProgetto());
                                 }else{
-                                    //non puoi
-                                    response.sendRedirect("profile?uid="+userid+"&utype="+type);
+                                    //non ci sono progetti da scaricare
+                                    response.sendRedirect("show?tid="+tid);
                                 }
                             }else{
                                 //non puoi scaricare la scansione del progetto per questo tirocinio
                                 response.sendRedirect("show?tid="+tid);
                             }
                         }else{
-                            //non è stato scelto un tirocinio
-                            response.sendRedirect("profile?uid="+userid+"&utype="+type);
+                            //il tirocinio non esiste
+                            response.sendRedirect("panel");
                         }
-                    }else if(type.equals("stud")){
-                        //sei uno studente
-                        if(request.getParameter("tid")!=null){
-                            int tid = SecurityLayer.checkNumeric(request.getParameter("tid"));
-                            Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tid);
+                    }else{
+                        //non è stato scelto un tirocinio
+                        response.sendRedirect("panel");
+                    }
+                }else if(type.equals("stud")){
+                    //sei uno studente
+                    if(request.getParameter("tid")!=null){
+                        int tid = SecurityLayer.checkNumeric(request.getParameter("tid"));
+                        Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tid);
+                        if(tirocinio!=null){
                             Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, tirocinio.getIdTirocinio());
-                            if(richiesta.getStatus().equals("accepted")){
-                                //sei lo studente a cui è stato assegnato il tirocinio
-                                int id_progetto = tirocinio.getIdProgetto();
-                                if(id_progetto!=0){
-                                    //ti faccio scaricare la tua convenzione
-                                    action_download(request, response, tirocinio.getIdProgetto());
+                            if(richiesta!=null){
+                                if(richiesta.getStatus().equals("accepted")){
+                                    //sei lo studente a cui è stato assegnato il tirocinio
+                                    int id_progetto = tirocinio.getIdProgetto();
+                                    if(id_progetto!=0){
+                                        //ti faccio scaricare il progetto
+                                        action_download(request, response, tirocinio.getIdProgetto());
+                                    }else{
+                                        //non puoi
+                                        response.sendRedirect("show?tid="+tid);
+                                    }
                                 }else{
-                                    //non puoi
-                                    response.sendRedirect("profile?uid="+userid+"&utype="+type);
+                                    //non puoi scaricare la scansione del progetto per questo tirocinio
+                                    response.sendRedirect("show?tid="+tid);
                                 }
                             }else{
-                                //non puoi scaricare la scansione del progetto per questo tirocinio
-                                response.sendRedirect("show?tid="+tid);
+                                //non hai fatto richiesta per il tirocinio
+                                response.sendRedirect("profile?uid="+userid+"&utype="+type);
                             }
                         }else{
-                            //non hai scelto un tirocinio
+                            //il tirocinio non esiste
                             response.sendRedirect("profile?uid="+userid+"&utype="+type);
                         }
                     }else{
-                    //non sei azienda o studente
-                        response.sendRedirect("home");
+                        //non hai scelto un tirocinio
+                        response.sendRedirect("profile?uid="+userid+"&utype="+type);
                     }
                 }else{
-                //sei un utente anonimo
+                    //non sei azienda o studente
                     response.sendRedirect("home");
+                }
+            }else{
+                //sei un utente anonimo
+                response.sendRedirect("home");
             }  
         }catch (IOException ex) {
             request.setAttribute("exception", ex);

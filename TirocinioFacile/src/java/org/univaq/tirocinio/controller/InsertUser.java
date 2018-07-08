@@ -24,6 +24,10 @@ import java.util.Date;
 import java.util.List;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
+/**
+ *
+ * @author vince
+ */
 public class InsertUser extends InternshipDBController {
     
     private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
@@ -38,7 +42,93 @@ public class InsertUser extends InternshipDBController {
 
     private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, ParseException, NoSuchAlgorithmException {
         try {
+            //tutti i campi devono essere riempiti
             boolean no_update = false;
+            //controllo campo nome
+            if(request.getParameter("nome")==null || request.getParameter("nome").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo cognome
+            if(request.getParameter("cognome")==null || request.getParameter("cognome").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo datanasc
+            if(request.getParameter("datanasc")==null || request.getParameter("datanasc").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo luogonasc
+            if(request.getParameter("luogonasc")==null || request.getParameter("luogonasc").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo codfisc
+            if(request.getParameter("codfisc")==null || request.getParameter("codfisc").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo sesso
+            if(request.getParameter("sesso")==null || request.getParameter("sesso").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo residenza
+            if(request.getParameter("residenza")==null || request.getParameter("residenza").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo telefono
+            if(request.getParameter("telefono")==null || request.getParameter("telefono").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo handicap
+            if(request.getParameter("handicap")==null || request.getParameter("handicap").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo email
+            if(request.getParameter("email")==null || request.getParameter("email").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo cdl
+            if(request.getParameter("cdl")==null || request.getParameter("cdl").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo laurea
+            if(request.getParameter("laurea")==null || request.getParameter("laurea").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo dottorato
+            if(request.getParameter("dottorato")==null || request.getParameter("dottorato").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo specializzazione
+            if(request.getParameter("specializzazione")==null || request.getParameter("specializzazione").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo username
+            if(request.getParameter("username")==null || request.getParameter("username").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo password
+            if(request.getParameter("password")==null || request.getParameter("password").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo rpassword
+            if(request.getParameter("rpassword")==null || request.getParameter("rpassword").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
             //si controlla che l'username inserito è uno nuovo ma non già scelto da altri utenti
             List<String> lista_username_azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameAzienda();
             List<String> lista_username_utenti = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameUtenti();
@@ -85,6 +175,7 @@ public class InsertUser extends InternshipDBController {
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
                 action_activate(request, response, u.getIdUtente());
             }else{
+                //è stato generato un messaggio di errore
                 action_default(request, response);
             }
         }catch(DataLayerException ex){

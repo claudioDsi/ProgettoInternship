@@ -58,33 +58,43 @@ public class ShowProgetto extends InternshipDBController {
                 if(request.getParameter("tid")!=null){
                     int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tid"));
                     Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(id_tirocinio);
-                    if(utype.equals("comp")){   
-                        Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
-                        //vedo se è possibile generare il progetto e che l'azienda in sessione sia la proprietaria del tirocinio
-                        if(tirocinio.getStatusProgetto()&& tirocinio.getIdAzienda()==azienda.getIdAzienda()){
-                            List<Richiesta> lista_richieste = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaRichiesteTirocinio(id_tirocinio);
-                            Utente utente = null;
-                            for (int i = 0; i < lista_richieste.size(); i++) {
-                                if(lista_richieste.get(i).getStatus().equals("accepted")){
-                                    utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(lista_richieste.get(i).getIdStudente());
+                    if(tirocinio!=null){
+                        if(utype.equals("comp")){   
+                            Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                            //vedo se è possibile generare il progetto e che l'azienda in sessione sia la proprietaria del tirocinio
+                            if(tirocinio.getStatusProgetto()&& tirocinio.getIdAzienda()==azienda.getIdAzienda()){
+                                List<Richiesta> lista_richieste = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaRichiesteTirocinio(id_tirocinio);
+                                Utente utente = null;
+                                for (int i = 0; i < lista_richieste.size(); i++) {
+                                    if(lista_richieste.get(i).getStatus().equals("accepted")){
+                                        utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(lista_richieste.get(i).getIdStudente());
+                                    }
                                 }
+                                action_show(request,response, tirocinio, azienda, utente);
+                            }else{
+                                response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                             }
-                            action_show(request,response, tirocinio, azienda, utente);
+                        }else if(utype.equals("stud")){
+                            Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
+                            Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(utente.getIdUtente(), id_tirocinio);
+                            if(richiesta!=null){
+                                //vedo se è possibile generare il progetto e che l'utente in sessione sia il tirocinante assegnato
+                                if(tirocinio.getStatusProgetto()&& richiesta.getStatus().equals("accepted")){
+                                    Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(tirocinio.getIdAzienda());
+                                    action_show(request,response, tirocinio, azienda, utente);
+                                }else{
+                                    response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                                }
+                            }else{
+                                //lo studente non ha fatto richiesta per questo tirocinio
+                                response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                            }
                         }else{
-                            response.sendRedirect("profile?uid="+userid+"&utype="+utype);
-                        }
-                    }else if(utype.equals("stud")){
-                        Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
-                        Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(utente.getIdUtente(), id_tirocinio);
-                        //vedo se è possibile generare il progetto e che l'utente in sessione sia il tirocinante assegnato
-                        if(tirocinio.getStatusProgetto()&& richiesta.getStatus().equals("accepted")){
-                            Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(tirocinio.getIdAzienda());
-                            action_show(request,response, tirocinio, azienda, utente);
-                        }else{
+                            //non sei un'azienda o uno studente
                             response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                         }
                     }else{
-                        //non sei un'azienda o uno studente
+                        //il tirocinio specificato non esiste
                         response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                     }
                 }else{

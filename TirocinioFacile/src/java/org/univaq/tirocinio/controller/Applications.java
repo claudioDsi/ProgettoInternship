@@ -32,7 +32,7 @@ public class Applications extends InternshipDBController {
             TemplateResult res = new TemplateResult(getServletContext());
             HttpSession s = SecurityLayer.checkSession(request);
             int userid = (int)s.getAttribute("userid");
-            String type = (String)s.getAttribute("type");
+            //ottengo dal db le richieste e i tirocini relativi allo studente
             List<Richiesta> lista_richieste = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaRichiesteStudente(userid);
             List<Tirocinio> lista_tirocini_approvati = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirociniApprovatiByStudente(userid);
             if(!lista_richieste.isEmpty()){
@@ -70,9 +70,9 @@ public class Applications extends InternshipDBController {
                         //sei uno studente e mostro le tue candidature e i tuoi tirocini
                         request.setAttribute("page_title", "Riepilogo Tirocini e Candidature");
                         action_show(request, response);
-                    }else if(type.equals("comp")){
-                        //sei un'azienda
-                        response.sendRedirect("profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}");
+                    }else if(type.equals("comp") || type.equals("admin")){
+                        //sei un'azienda o un admin
+                        response.sendRedirect("profile?uid="+userid+"&utype="+type);
                     }
                 }else{
                     //non sei iscritto

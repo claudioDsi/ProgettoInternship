@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +22,10 @@ import org.univaq.tirocinio.datamodel.*;
 import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
+/**
+ *
+ * @author vince
+ */
 public class InsertTutore extends InternshipDBController {
     
         private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
@@ -40,20 +42,52 @@ public class InsertTutore extends InternshipDBController {
     
     private void action_add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, ParseException {
         try {
-            TemplateResult res = new TemplateResult(getServletContext());
-            Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).creaTutore();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String date_in_string = request.getParameter("datanasc");
-            Date date = sdf.parse(date_in_string);
-            int userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
-            tutore.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));
-            tutore.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
-            tutore.setDataNasc(date);
-            tutore.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
-            tutore.setEmailTutore(SecurityLayer.addSlashes(request.getParameter("email")));
-            tutore.setCodAzienda(userid);
-            ((InternShipDataLayer)request.getAttribute("datalayer")).storeTutore(tutore);
-            action_activate(request, response, tutore.getIdTutore());
+            //tutti i campi devono essere riempiti
+            boolean no_update = false;
+            //controllo campo nome
+            if(request.getParameter("nome")==null || request.getParameter("nome").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo cognome
+            if(request.getParameter("cognome")==null || request.getParameter("cognome").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo datanasc
+            if(request.getParameter("datanasc")==null || request.getParameter("datanasc").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo telefono
+            if(request.getParameter("telefono")==null || request.getParameter("telefono").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            //controllo campo email
+            if(request.getParameter("email")==null || request.getParameter("email").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }
+            if(!no_update){
+                TemplateResult res = new TemplateResult(getServletContext());
+                Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).creaTutore();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String date_in_string = request.getParameter("datanasc");
+                Date date = sdf.parse(date_in_string);
+                int userid = SecurityLayer.checkNumeric(request.getParameter("userid"));
+                tutore.setNome(SecurityLayer.addSlashes(request.getParameter("nome")));
+                tutore.setCognome(SecurityLayer.addSlashes(request.getParameter("cognome")));
+                tutore.setDataNasc(date);
+                tutore.setTelefono(SecurityLayer.addSlashes(request.getParameter("telefono")));
+                tutore.setEmailTutore(SecurityLayer.addSlashes(request.getParameter("email")));
+                tutore.setCodAzienda(userid);
+                ((InternShipDataLayer)request.getAttribute("datalayer")).storeTutore(tutore);
+                action_activate(request, response, tutore.getIdTutore());
+            }else{
+                //è stato generato un messaggio di errore
+                action_default(request, response);
+            }
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -86,37 +120,44 @@ public class InsertTutore extends InternshipDBController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException {
-            request.setAttribute("page_title", "Inserisci nuovo tutore");
-            HttpSession s = SecurityLayer.checkSession(request);
-            int userid = (int)s.getAttribute("userid"); //id utente in sessione
-            String utype = (String)s.getAttribute("type");
             try{
-                if(request.getParameter("add")!=null && utype.equals("comp")){
-                    Azienda azienda =((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
-                    //vedo se l'azienda è abilitata
-                    if(azienda.getStatus()){
-                        //controllo che l'utente in sessione sia quello che ha inviato la form
-                        int form_user = SecurityLayer.checkNumeric(request.getParameter("userid"));
-                        if(userid==form_user){
-                            action_add(request, response);
+                request.setAttribute("page_title", "Inserisci nuovo tutore");
+                HttpSession s = SecurityLayer.checkSession(request);            
+                if(s!=null){
+                    int userid = (int)s.getAttribute("userid"); //id utente in sessione
+                    String utype = (String)s.getAttribute("type");
+                    if(request.getParameter("add")!=null && utype.equals("comp")){
+                        Azienda azienda =((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                        //vedo se l'azienda è abilitata
+                        if(azienda.getStatus()){
+                            //controllo che l'utente in sessione sia quello che ha inviato la form
+                            int form_user = SecurityLayer.checkNumeric(request.getParameter("userid"));
+                            if(userid==form_user){
+                                action_add(request, response);
+                            }else{
+                                //ritorno al profilo dell'utente in sessione
+                                response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                            }
                         }else{
-                            //ritorno al profilo dell'utente in sessione
+                            //non sei abilitata
                             response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                         }
+                    }else if(utype.equals("comp")){
+                        Azienda azienda =((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                        //vedo se l'azienda è abilitata
+                        if(azienda.getStatus()){
+                            //se sei un'azienda ti mostro la form per aggiungere il tutore
+                            action_default(request, response);
+                        }else{
+                            //non sei abilitata
+                            response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                        }  
                     }else{
                         response.sendRedirect("profile?uid="+userid+"&utype="+utype);
                     }
-                }else if(utype.equals("comp")){
-                    Azienda azienda =((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
-                    //vedo se l'azienda è abilitata
-                    if(azienda.getStatus()){
-                        //se sei un'azienda ti mostro la form per aggiungere il tutore
-                        action_default(request, response);
-                    }else{
-                        response.sendRedirect("profile?uid="+userid+"&utype="+utype);
-                    }  
                 }else{
-                    response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                    //sei anonimo
+                    response.sendRedirect("home");
                 }
             }catch (IOException ex) {
                 request.setAttribute("exception", ex);
@@ -124,10 +165,10 @@ public class InsertTutore extends InternshipDBController {
             }catch (TemplateManagerException ex) {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
-        }   catch (ParseException ex) {  
+            }catch (ParseException ex) {  
                 request.setAttribute("exception", ex);
                 action_error(request, response);
-            } catch (DataLayerException ex) {
+            }catch (DataLayerException ex) {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
             }  

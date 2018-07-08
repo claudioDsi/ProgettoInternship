@@ -28,7 +28,6 @@ public class Vote extends InternshipDBController {
     
     private void action_vote(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio, Azienda azienda) throws IOException, ServletException, TemplateManagerException {
         try {
-            TemplateResult res = new TemplateResult(getServletContext());
             int valutazione = SecurityLayer.checkNumeric(request.getParameter("voto"));
             tirocinio.setStatusVoto(true);
             //modifico lo stato del voto sul tirocinio
@@ -66,20 +65,43 @@ public class Vote extends InternshipDBController {
                     String type = (String)s.getAttribute("type");
                     if(type.equals("stud")){
                         //sei uno studente
-                        int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tid"));
-                        int id_azienda = SecurityLayer.checkNumeric(request.getParameter("aid"));
-                        Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(id_azienda);
-                        Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(id_tirocinio);
-                        Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, id_tirocinio);
-                        if(richiesta.getStatus().equals("accepted") && !tirocinio.getStatusVoto() && userid==richiesta.getIdStudente() && tirocinio.getStatus()){
-                            //sono lo studente la cui richiesta per quel tirocinio è stata accettata
-                            action_vote(request, response, tirocinio, azienda);
+                        if(request.getParameter("tid")!=null && request.getParameter("aid")!=null){
+                            int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tid"));
+                            int id_azienda = SecurityLayer.checkNumeric(request.getParameter("aid"));
+                            Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(id_azienda);
+                            if(azienda!=null){
+                                Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(id_tirocinio);
+                                if(tirocinio!=null){
+                                    Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, id_tirocinio);
+                                    if(richiesta!=null){
+                                        if(richiesta.getStatus().equals("accepted") && !tirocinio.getStatusVoto() && userid==richiesta.getIdStudente() && tirocinio.getStatus()){
+                                            //sono lo studente la cui richiesta per quel tirocinio è stata accettata
+                                            action_vote(request, response, tirocinio, azienda);
+                                        }else{
+                                            response.sendRedirect("profile?uid="+userid+"&utype="+type);
+                                        }
+                                    }else{
+                                        //lo studente non ha mai fatto richiesta per il tirocinio
+                                        response.sendRedirect("show?tid="+tirocinio.getIdTirocinio());
+                                    }
+                                }else{
+                                    //il tirocinio non esiste
+                                    response.sendRedirect("profile?uid="+userid+"&utype="+type);
+                                }
+                            }else{
+                                //l'azienda non esiste
+                                response.sendRedirect("profile?uid="+userid+"&utype="+type);
+                            }
                         }else{
-                            response.sendRedirect("profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}");
+                            //id tirocinio o azienda mancanti
+                            response.sendRedirect("profile?uid="+userid+"&utype="+type);
                         }
                     }else if(type.equals("comp")){
                         //sei un'azienda
-                        response.sendRedirect("profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}");
+                        response.sendRedirect("profile?uid="+userid+"&utype="+type);
+                    }else{
+                        //sei admin
+                        response.sendRedirect("profile?uid="+userid+"&utype="+type);
                     }
                 }else{
                     //non sei iscritto

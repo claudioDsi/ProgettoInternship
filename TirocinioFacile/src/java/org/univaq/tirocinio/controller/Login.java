@@ -45,17 +45,16 @@ public class Login extends InternshipDBController {
     
     private void action_login_user(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, NoSuchAlgorithmException {
         try {
-            TemplateResult res = new TemplateResult(getServletContext());
             String username = SecurityLayer.addSlashes(request.getParameter("username"));
             String password = SecurityLayer.addSlashes(request.getParameter("password"));
             String hashedPassword = SecurityLayer.securePassword(password);
             Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtenteByLogin(username, hashedPassword);
             if(u!=null){
                 if(username.equals(u.getUsername()) && hashedPassword.equals(u.getPassword()) && u.getPrivilegi()==0){
-                    HttpSession s = SecurityLayer.createSession(request, u.getUsername(), u.getIdUtente(), u.getPrivilegi(), "admin");
+                    HttpSession s = SecurityLayer.createSession(request, u.getIdUtente(), u.getPrivilegi(), "admin");
                         request.setAttribute("Session", s);
                 }else if(username.equals(u.getUsername()) && hashedPassword.equals(u.getPassword()) && u.getPrivilegi()==1){
-                    HttpSession s = SecurityLayer.createSession(request, u.getUsername(), u.getIdUtente(), u.getPrivilegi(), "stud");
+                    HttpSession s = SecurityLayer.createSession(request, u.getIdUtente(), u.getPrivilegi(), "stud");
                     request.setAttribute("Session", s);
                 }
                 //controllo se voglio essere reindirizzato ad un tirocinio
@@ -96,7 +95,7 @@ public class Login extends InternshipDBController {
             Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAziendaByLogin(username, hashedPassword);
             if(a!=null){
                 if(username.equals(a.getUsername()) && hashedPassword.equals(a.getPassword())){
-                    HttpSession s = SecurityLayer.createSession(request, a.getUsername(), a.getIdAzienda(), a.getPrivilegi(), "comp");
+                    HttpSession s = SecurityLayer.createSession(request, a.getIdAzienda(), a.getPrivilegi(), "comp");
                     request.setAttribute("Session", s);
                     response.sendRedirect("panel");
                 }else{

@@ -5,6 +5,9 @@
 
 
 <form method="post" action="modify">
+    <#if (messaggiocampi??)>
+        <p>${messaggiocampi}</p>
+    </#if>
     <div>
         <div>Nome</div>
         <div><input type="text" name="nome" value="${strip_slashes(azienda.nomeAzienda)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>

@@ -44,8 +44,10 @@ public class ManageCompany extends InternshipDBController {
     private void action_activate(HttpServletRequest request, HttpServletResponse response, int aid, int val) throws IOException, ServletException, TemplateManagerException{
         try{
             Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(aid);
-            if(val==1 && azienda.getStatus()==false){
-                ((InternShipDataLayer)request.getAttribute("datalayer")).activateAzienda(azienda);
+            if(azienda!=null){
+                if(val==1 && azienda.getStatus()==false){
+                    ((InternShipDataLayer)request.getAttribute("datalayer")).activateAzienda(azienda);
+                }
             }
             action_manage(request, response);
         }catch(DataLayerException ex){
@@ -68,7 +70,6 @@ public class ManageCompany extends InternshipDBController {
             try{
                 HttpSession s = SecurityLayer.checkSession(request);
                 if(s!=null){
-                    int userid = (int)s.getAttribute("userid");
                     String type = (String)s.getAttribute("type");
                     if(type.equals("admin")){
                         //sei admin

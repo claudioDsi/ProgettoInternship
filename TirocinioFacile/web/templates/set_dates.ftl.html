@@ -2,7 +2,9 @@
 <br/>
 <form method="post" action="setdates">
     <input type="hidden" name="tid" value="${tirocinio.idTirocinio}" />
-    
+    <#if (messaggiocampi??)>
+        <p>${messaggiocampi}</p>
+    </#if>
     <div>
         <div>Numero di mesi</div>
         <input type="text" name="nummesi" value="${tirocinio.mesi}" readonly>

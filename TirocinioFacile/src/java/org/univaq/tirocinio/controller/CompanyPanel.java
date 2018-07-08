@@ -37,7 +37,6 @@ public class CompanyPanel extends InternshipDBController {
             TemplateResult res = new TemplateResult(getServletContext());
             HttpSession s = SecurityLayer.checkSession(request);
             int userid = (int)s.getAttribute("userid");
-            String type = (String)s.getAttribute("type");
             Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
             List<Tirocinio> lista_tirocini = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirociniByAzienda(azienda);
             if(!lista_tirocini.isEmpty()){
@@ -71,18 +70,24 @@ public class CompanyPanel extends InternshipDBController {
             TemplateResult res = new TemplateResult(getServletContext());
             HttpSession s = SecurityLayer.checkSession(request);
             int userid = (int)s.getAttribute("userid");
-            String type = (String)s.getAttribute("type");
             int tirocinioid = SecurityLayer.checkNumeric(request.getParameter("tid"));
             Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tirocinioid);
-            if(tirocinio.getIdAzienda()==userid){
-                List<Richiesta> lista_richieste = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaRichiesteTirocinio(tirocinioid);
-                if(!lista_richieste.isEmpty()){
-                    request.setAttribute("lista_richieste", lista_richieste);
+            if(tirocinio!=null){
+                if(tirocinio.getIdAzienda()==userid){
+                    //sei l'azienda che ha creato il tirocinio quindi puoi vederne i dettagli
+                    List<Richiesta> lista_richieste = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaRichiesteTirocinio(tirocinioid);
+                    if(!lista_richieste.isEmpty()){
+                        request.setAttribute("lista_richieste", lista_richieste);
+                    }
+                    request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
+                    request.setAttribute("Session", s);
+                    res.activate("manage_request.ftl.html", request, response);
+                }else{
+                    //non puoi vedere i dettagli delle richieste
+                    response.sendRedirect("panel");
                 }
-                request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
-                request.setAttribute("Session", s);
-                res.activate("manage_request.ftl.html", request, response);
             }else{
+                //il tirocinio non esiste
                 response.sendRedirect("panel");
             }
         }catch(DataLayerException ex){
@@ -91,6 +96,29 @@ public class CompanyPanel extends InternshipDBController {
         }
     }
     
+    private void action_delete(HttpServletRequest request, HttpServletResponse response, int del) throws IOException, ServletException, TemplateManagerException{
+        try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            int userid = (int)s.getAttribute("userid");
+            Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(del);
+            if(tirocinio!=null){
+                if(tirocinio.getIdAzienda()==userid){
+                    //sei l'azienda che ha creato il tirocinio quindi puoi eliminarlo
+                    ((InternShipDataLayer)request.getAttribute("datalayer")).eliminaTirocinio(del);
+                    action_show(request, response);
+                }else{
+                    //non puoi cancellare il tirocinio
+                    response.sendRedirect("panel");
+                }
+            }else{
+                //il tirocinio non esiste
+                response.sendRedirect("panel");
+            }
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }
+    }
     private void action_error(HttpServletRequest request, HttpServletResponse response){
         if (request.getAttribute("exception") != null) {
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
@@ -105,30 +133,26 @@ public class CompanyPanel extends InternshipDBController {
             try{
                 HttpSession s = SecurityLayer.checkSession(request);
                 if(s!=null){
-                    int userid = (int)s.getAttribute("userid");
                     String type = (String)s.getAttribute("type");
                     if(type.equals("comp")){
+                        //sei un'azienda
                         if(request.getParameter("tid")!=null){
                             //hai selezionato un tirocinio da gestire
-                            request.setAttribute("page_title", "Gestione Richieste Tirocinio");
-                            
-                            if(request.getParameter("del")!=null){
-                                 String strdel= request.getParameter("del");
-                                int del=Integer.parseInt(strdel);
-                                if(del>0){
-                                    ((InternShipDataLayer)request.getAttribute("datalayer")).eliminaTirocinio(del);                                
-                                }
-                            }
-                           
+                            request.setAttribute("page_title", "Gestione Richieste Tirocinio");                           
                             action_richieste(request, response);
+                        }else if(request.getParameter("del")!=null){
+                            //vuoi cancellare il tirocinio
+                            int del = SecurityLayer.checkNumeric(request.getParameter("del"));
+                            action_delete(request, response, del);
                         }else{
-                        //sei un'azienda e mostro le tue candidature e i tuoi tirocini
+                            //sei un'azienda e mostro le tue candidature e i tuoi tirocini
                             request.setAttribute("page_title", "Gestione Tirocini Inseriti");
                             action_show(request, response);
                         }
-                    }else if(type.equals("stud")){
-                        //sei uno studente
-                        response.sendRedirect("profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}");
+                    }else if(type.equals("stud") || type.equals("admin")){
+                        //sei uno studente o un admin
+                        int userid = (int)s.getAttribute("userid");
+                        response.sendRedirect("profile?uid="+ userid +"&utype="+type);
                     }
                 }else{
                     //non sei iscritto

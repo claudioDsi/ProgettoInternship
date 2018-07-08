@@ -61,11 +61,14 @@ public class ListaAziende extends InternshipDBController {
             if(s!=null){
                 String type = (String)s.getAttribute("type");
                 if(type.equals("stud")){
+                    //sei studente
                     action_show_lista_az(request, response);
                 }else{
+                    //sei azienda o admin
                     response.sendRedirect("home");
                 }
             }else{
+                //sei anonimo
                 action_show_lista_az(request, response);                
             }                
         }catch (IOException ex) {

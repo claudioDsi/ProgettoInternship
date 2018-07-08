@@ -71,32 +71,45 @@ public class SetRichiesta extends InternshipDBController {
     }
     
     @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException {
-            try{
-                int rid = SecurityLayer.checkNumeric(request.getParameter("rid"));
-                int value = SecurityLayer.checkNumeric(request.getParameter("val"));
-                Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoRichiesta(rid);
-                Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(richiesta.getIdTirocinio());
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        try{
+            if(request.getParameter("rid")!=null && request.getParameter("val")!=null){
                 HttpSession s = SecurityLayer.checkSession(request);
-                int userid = (int)s.getAttribute("userid");
-                String utype = (String)s.getAttribute("type");
-                if(utype.equals("comp") && userid==tirocinio.getIdAzienda() && tirocinio.getStatus()==false && richiesta.getStatus().equals("pending")){
-                    //sono l'azienda che ha inserito il tirocinio e sia il tirocinio che la richiesta ancora sono in attesa
-                    action_modify_request(request, response, value, richiesta, tirocinio);
+                if(s!=null){
+                    int userid = (int)s.getAttribute("userid");
+                    String utype = (String)s.getAttribute("type");
+                    int rid = SecurityLayer.checkNumeric(request.getParameter("rid"));
+                    int value = SecurityLayer.checkNumeric(request.getParameter("val"));
+                    Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoRichiesta(rid);
+                    if(richiesta!=null){
+                        Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(richiesta.getIdTirocinio());
+                        if(utype.equals("comp") && userid==tirocinio.getIdAzienda() && tirocinio.getStatus()==false && richiesta.getStatus().equals("pending")){
+                            //sono l'azienda che ha inserito il tirocinio e sia il tirocinio che la richiesta ancora sono in attesa
+                            action_modify_request(request, response, value, richiesta, tirocinio);
+                        }else{
+                            response.sendRedirect("show?tid=" + tirocinio.getIdTirocinio());
+                        }
+                    }else{
+                        //la richiesta specificata non esiste
+                        response.sendRedirect("home");
+                    }
                 }else{
-                    response.sendRedirect("show?tid=" + tirocinio.getIdTirocinio());
+                    //sei anonimo
+                    response.sendRedirect("home");
                 }
-            }catch (IOException ex) {
-                request.setAttribute("exception", ex);
-                action_error(request, response);
-            }catch (TemplateManagerException ex) {
-                request.setAttribute("exception", ex);
-                action_error(request, response);
-            } catch (DataLayerException ex) {
-                request.setAttribute("exception", ex);
-                action_error(request, response);
+            }else{
+                //i campi non sono stati definiti
             }
+        }catch (IOException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }catch (TemplateManagerException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        } catch (DataLayerException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }
     }
     
 }

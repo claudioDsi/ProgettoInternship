@@ -3,6 +3,9 @@
         <h2>${page_title}</h2>
     </div>
     <form class="w3-container" id="form" method="post" action="modify">
+        <#if (messaggiocampi??)>
+            <p>${messaggiocampi}</p>
+        </#if>
         <p>
             <label><b>Nome</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green w3-opacity" style="width:30%; max-width:50%" type="text" name="nome" value="${strip_slashes(utente.nome)}" disabled/>

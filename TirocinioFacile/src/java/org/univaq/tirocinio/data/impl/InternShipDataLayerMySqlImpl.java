@@ -1115,17 +1115,18 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 }
                 query = query.substring(0, query.length() - 4);
             }
-            System.out.println(query);
             searchQuery = connection.prepareStatement(query);
             try(ResultSet rs = searchQuery.executeQuery()){
                 while(rs.next()){
                     result.add(creaTirocinio(rs));
                 }
                 return result;
-            }
-            catch(SQLException ex){
+                
+            }catch(SQLException ex){
                 ex.getMessage();
-            }        
+            }finally{
+                searchQuery.close();
+            }      
         }catch(SQLException ex) {
             throw new DataLayerException("Unable to search tirocini", ex);
         }    
@@ -1411,12 +1412,40 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             throw new DataLayerException("Unable to modify the description and the results for the stage", ex);
         }
     }
+
+    @Override
+    public void modificaUtente(String sql,Utente u) throws DataLayerException {
+        try{
+            
+            uUtente.setString(1, u.getNome());
+            uUtente.setString(2, u.getCognome());
+            uUtente.setDate(3, new java.sql.Date(u.getDataNasc().getTime()));
+            uUtente.setString(4, u.getLuogoNasc());
+            uUtente.setString(5, u.getResidenza());
+            uUtente.setString(6, u.getCodFisc());           
+            uUtente.setInt(7, u.getIdUtente());           
+            uUtente.executeUpdate();
+        }
+        catch(SQLException sqe){
+            sqe.getMessage();
+        }
+       
+    }
+
+    @Override
+    public void eliminaTirocinio(int id) {
+        try{
+            deleteTirocinio.setInt(1,id);
+            deleteTirocinio.executeUpdate();  
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
+    }
     
     @Override
     public void destroy() {
-        
-        try {
-            
+        try {          
             iUtente.close();
             uUtente.close();
             //dUtente.close();
@@ -1446,7 +1475,6 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sTirociniByStudente.close();
             jUtenteRichiesta.close();
             orderByDate.close();
-            //searchQuery.close();
             modifyRequestStatus.close();
             modifyTirocinioStatus.close();
             rejectAllRequests.close();
@@ -1463,46 +1491,14 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             iDocumento.close();
             updateConvAzienda.close();
             updateProgettoTiro.close();
+            updateResoconto.close();
             showTirocini.close();
             activateConvenzione.close();
             activateProgetto.close();
-        } catch (SQLException ex) {
+        }catch(SQLException ex){
             
         }
         super.destroy();
-
-    }
-
-    @Override
-    public void modificaUtente(String sql,Utente u) throws DataLayerException {
-        try{
-            
-            uUtente.setString(1, u.getNome());
-            uUtente.setString(2, u.getCognome());
-            uUtente.setDate(3, new java.sql.Date(u.getDataNasc().getTime()));
-            uUtente.setString(4, u.getLuogoNasc());
-            uUtente.setString(5, u.getResidenza());
-            uUtente.setString(6, u.getCodFisc());           
-            uUtente.setInt(7, u.getIdUtente());           
-            uUtente.executeUpdate();
-        }
-        catch(SQLException sqe){
-            sqe.getMessage();
-        }
-       
-    }
-
-    @Override
-    public void eliminaTirocinio(int id) {
-        try{
-            deleteTirocinio.setInt(1,id);
-            deleteTirocinio.executeUpdate();
-            
-            
-        }
-        catch(SQLException ex){
-            ex.getMessage();
-        }
     }
     
 }

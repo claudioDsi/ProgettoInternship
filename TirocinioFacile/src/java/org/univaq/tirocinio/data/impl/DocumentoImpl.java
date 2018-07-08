@@ -81,16 +81,6 @@ public class DocumentoImpl implements Documento{
         this.filename = filename;
         this.dirty = true;
     }
-
-//    @Override
-//    public InputStream getImageData() throws DataLayerException {
-//        return ownerdatalayer.getImageData(key);
-//    }
-//    @Override
-//    public void setImageData(InputStream is) throws DataLayerException {
-//        ownerdatalayer.storeImageData(key, is);
-//        this.dirty = true;
-//    }
     
     @Override
     public InputStream getDocData() throws DataLayerException {

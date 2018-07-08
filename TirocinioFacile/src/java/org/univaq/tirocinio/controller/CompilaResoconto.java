@@ -19,6 +19,10 @@ import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 
+/**
+ *
+ * @author vince
+ */
 public class CompilaResoconto extends InternshipDBController {
     
     private void action_default(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws ServletException, TemplateManagerException, DataLayerException {
@@ -65,25 +69,32 @@ public class CompilaResoconto extends InternshipDBController {
                 int userid = (int)s.getAttribute("userid"); //id utente in sessione
                 String utype = (String)s.getAttribute("type");
                 if(utype.equals("comp")){
+                    //sei un'azienda
                     Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
                     if(request.getParameter("tid")!=null){
                         int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tid"));
                         Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(id_tirocinio);
-                        if(tirocinio.getIdAzienda()==azienda.getIdAzienda()){
-                            //sei l'azienda che ha inserito il tirocinio
-                            if(request.getParameter("add")!=null){
-                                //hai inviato la form
-                                action_compila(request, response, tirocinio);
+                        if(tirocinio!=null){
+                            if(tirocinio.getIdAzienda()==azienda.getIdAzienda()){
+                                //sei l'azienda che ha inserito il tirocinio
+                                if(request.getParameter("add")!=null){
+                                    //hai inviato la form
+                                    action_compila(request, response, tirocinio);
+                                }else{
+                                    //ti mostro la form da compilare
+                                    action_default(request, response, tirocinio);
+                                }
                             }else{
-                                //ti mostro la form da compilare
-                                action_default(request, response, tirocinio);
+                                //non sei l'azienda che ha inserito il tirocinio
+                                response.sendRedirect("panel");
                             }
                         }else{
-                            //non sei l'azienda che ha inserito il tirocinio
+                            //il tirocinio non esiste
+                            response.sendRedirect("panel");
                         }
                     }else{
                         //non è stato definito un valore per il tirocinio
-                        response.sendRedirect("profile?uid="+userid+"&utype="+utype);
+                        response.sendRedirect("panel");
                     }
                 }else{
                     //sei utente o admin

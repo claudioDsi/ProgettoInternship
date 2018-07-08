@@ -23,6 +23,10 @@ import org.univaq.tirocinio.datamodel.*;
 import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
+/**
+ *
+ * @author vince
+ */
 public class Show extends InternshipDBController {
     
     private void action_anonymous(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException, DataLayerException {
@@ -185,19 +189,28 @@ public class Show extends InternshipDBController {
                 utype = (String)s.getAttribute("type");
                 request.setAttribute("Session", s);
             }
-            int tirocinio_id = SecurityLayer.checkNumeric(request.getParameter("tid"));
-            Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tirocinio_id);
-            if(utype.equals("comp")){
-                //caso azienda
-                action_company(request, response, tirocinio, s);
-            }else if(utype.equals("stud")){
-                //caso studente
-                action_student(request, response, tirocinio, s);
+            if(request.getParameter("tid")!=null){
+                int tirocinio_id = SecurityLayer.checkNumeric(request.getParameter("tid"));
+                Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tirocinio_id);
+                if(tirocinio!=null){
+                    if(utype.equals("comp")){
+                        //caso azienda
+                        action_company(request, response, tirocinio, s);
+                    }else if(utype.equals("stud")){
+                        //caso studente
+                        action_student(request, response, tirocinio, s);
+                    }else{
+                        //caso utente anonimo e admin
+                        action_anonymous(request,response, tirocinio);
+                    }
+                }else{
+                    //il tirocinio richiesto non esiste
+                    response.sendRedirect("home");
+                }
             }else{
-                //caso utente anonimo e admin
-                action_anonymous(request,response, tirocinio);
-            } 
-            
+                //id tirocinio mancante
+                response.sendRedirect("home");
+            }
         }catch (IOException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);

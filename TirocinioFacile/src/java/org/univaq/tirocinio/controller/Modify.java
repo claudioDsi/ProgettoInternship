@@ -8,12 +8,7 @@ package org.univaq.tirocinio.controller;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,39 +49,155 @@ public class Modify extends InternshipDBController {
     
     private void action_modify(HttpServletRequest request, HttpServletResponse response, int userid, String usertype) throws IOException, ServletException, TemplateManagerException, ParseException, NoSuchAlgorithmException {
         try {
-            TemplateResult res = new TemplateResult(getServletContext());
-            //si controlla che l'username inserito o è quello vecchio o è uno nuovo ma non già scelto da altri utenti
+            //tutti i campi devono essere riempiti
+            boolean no_update = false;
             Azienda azienda;
             Utente utente;
-            String current_username="";
-            boolean no_update = false;
-            if(usertype.equals("stud") || usertype.equals("admin")){
-                utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
-                current_username = utente.getUsername();
-            }else if(usertype.equals("comp")){
-                azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
-                current_username = azienda.getUsername();
-            }
-            if(!(current_username.equals(request.getParameter("username")))){
-                List<String> lista_username_azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameAzienda();
-                List<String> lista_username_utenti = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameUtenti();
-                for(int i = 0; i < lista_username_azienda.size(); i++){
-                    if(lista_username_azienda.get(i).equals(request.getParameter("username"))){
-                        request.setAttribute("usernamemessage", "The username is already chosen!");
-                        no_update = true;
-                    }
-                }
-                for(int i = 0; i < lista_username_utenti.size(); i++){
-                    if(lista_username_utenti.get(i).equals(request.getParameter("username"))){
-                        request.setAttribute("usernamemessage", "The username is already chosen!");
-                        no_update = true;
-                    }
-                } 
-            }
-            //controllo che la password inserita sia stata ripetuta correttamente
-            if(!(request.getParameter("password").equals(request.getParameter("rpassword")))){
-                request.setAttribute("passwordmessage", "You have to repeat the right password!");
+            String current_username = "";
+            //controllo campo username
+            if(request.getParameter("username")==null || request.getParameter("username").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                //si controlla che l'username inserito o è quello vecchio o è uno nuovo ma non già scelto da altri utenti            
+                if(usertype.equals("stud") || usertype.equals("admin")){
+                    utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
+                    current_username = utente.getUsername();
+                }else if(usertype.equals("comp")){
+                    azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
+                    current_username = azienda.getUsername();
+                }
+                if(!(current_username.equals(request.getParameter("username")))){
+                    List<String> lista_username_azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameAzienda();
+                    List<String> lista_username_utenti = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameUtenti();
+                    for(int i = 0; i < lista_username_azienda.size(); i++){
+                        if(lista_username_azienda.get(i).equals(request.getParameter("username"))){
+                            request.setAttribute("usernamemessage", "The username is already chosen!");
+                            no_update = true;
+                        }
+                    }
+                    for(int i = 0; i < lista_username_utenti.size(); i++){
+                        if(lista_username_utenti.get(i).equals(request.getParameter("username"))){
+                            request.setAttribute("usernamemessage", "The username is already chosen!");
+                            no_update = true;
+                        }
+                    } 
+                }
+            }
+            //controllo campo password e rpassword
+            if(request.getParameter("password")==null || request.getParameter("password").equals("") || request.getParameter("rpassword")==null || request.getParameter("rpassword").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }else{
+                //controllo che la password inserita sia stata ripetuta correttamente
+                if(!(request.getParameter("password").equals(request.getParameter("rpassword")))){
+                    request.setAttribute("passwordmessage", "You have to repeat the right password!");
+                    no_update = true;
+                }
+            }
+            //controllo gli altri campi inseriti
+            if(usertype.equals("stud") || usertype.equals("admin")){
+                //controllo campo residenza
+                if(request.getParameter("residenza")==null || request.getParameter("residenza").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo telefono
+                if(request.getParameter("telefono")==null || request.getParameter("telefono").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo handicap
+                if(request.getParameter("handicap")==null || request.getParameter("handicap").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo email
+                if(request.getParameter("email")==null || request.getParameter("email").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo cdl
+                if(request.getParameter("cdl")==null || request.getParameter("cdl").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo laurea
+                if(request.getParameter("laurea")==null || request.getParameter("laurea").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo dottorato
+                if(request.getParameter("dottorato")==null || request.getParameter("dottorato").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo specializzazione
+                if(request.getParameter("specializzazione")==null || request.getParameter("specializzazione").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+            }else if(usertype.equals("comp")){
+                //controllo campo nome
+                if(request.getParameter("nome")==null || request.getParameter("nome").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo ragionesociale
+                if(request.getParameter("ragionesociale")==null || request.getParameter("ragionesociale").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo indirizzo
+                if(request.getParameter("indirizzo")==null || request.getParameter("indirizzo").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo partitaiva
+                if(request.getParameter("partitaiva")==null || request.getParameter("partitaiva").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo codicefisc
+                if(request.getParameter("codicefisc")==null || request.getParameter("codicefisc").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo nomerappr
+                if(request.getParameter("nomerappr")==null || request.getParameter("nomerappr").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo cognomerappr
+                if(request.getParameter("cognomerappr")==null || request.getParameter("cognomerappr").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo nomeresp
+                if(request.getParameter("nomeresp")==null || request.getParameter("nomeresp").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo cognomeresp
+                if(request.getParameter("cognomeresp")==null || request.getParameter("cognomeresp").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo telefonoresp
+                if(request.getParameter("telefonoresp")==null || request.getParameter("telefonoresp").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo emailresp
+                if(request.getParameter("emailresp")==null || request.getParameter("emailresp").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
+                //controllo campo foro
+                if(request.getParameter("foro")==null || request.getParameter("foro").equals("")){
+                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                    no_update = true;
+                }
             }
             if(!no_update){
                 if(usertype.equals("stud") || usertype.equals("admin")){
@@ -126,6 +237,7 @@ public class Modify extends InternshipDBController {
                     action_activate(request, response, userid, usertype);
                 }
             }else{
+                //è stato rilevato un errore nei campi inseriti
                 if(usertype.equals("stud") || usertype.equals("admin")){
                     request.setAttribute("page_title", "Modifica Utente");
                 }else{
@@ -141,7 +253,6 @@ public class Modify extends InternshipDBController {
     
     private void action_activate(HttpServletRequest request, HttpServletResponse response, int userid, String usertype) throws IOException, ServletException, TemplateManagerException {
         try {
-            TemplateResult res = new TemplateResult(getServletContext());
             HttpSession s = SecurityLayer.checkSession(request);
             if(usertype.equals("stud") || usertype.equals("admin")){
                 Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
@@ -194,13 +305,16 @@ public class Modify extends InternshipDBController {
                                     action_default(request, response, utype, userid);
                                 }
                             }else{
+                                //non sei lo stesso utente che si vuole modificare
                                 response.sendRedirect("profile?uid="+userid+"&utype="+usertype);
                             }
                         }else{
+                            //id dell'utente da modificare non specificato
                             response.sendRedirect("profile?uid="+userid+"&utype="+usertype);
                         }
                     }
                 }else{
+                    //sei anonimo
                     response.sendRedirect("home");
                 }
             }catch (IOException ex) {

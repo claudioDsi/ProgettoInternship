@@ -3,6 +3,9 @@
 <form method="post" action="richiesta">
     <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
     <input type="hidden" name="tid" value="${tirocinio.idTirocinio}"/>
+    <#if (messaggiocampi??)>
+        <p>${messaggiocampi}</p>
+    </#if>
     <div>
         <div>CFU</div>
         <div><input type="text" name="cfu" value=""/></div>

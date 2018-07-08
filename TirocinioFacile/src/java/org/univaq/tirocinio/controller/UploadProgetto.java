@@ -23,7 +23,6 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Documento;
 import org.univaq.tirocinio.datamodel.Richiesta;
 import org.univaq.tirocinio.datamodel.Tirocinio;
@@ -102,26 +101,31 @@ public class UploadProgetto extends InternshipDBController {
                         if(request.getParameter("tid")!=null){
                             int tid = SecurityLayer.checkNumeric(request.getParameter("tid"));
                             Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tid);
-                            if(tirocinio.getIdAzienda()==userid){
-                                //sei l'azienda che ha creato il tirocinio
-                                if(request.getParameter("upload")!=null){
-                                    if(request.getPart("filetoupload")!=null){
-                                        //posso fare l'upload della convenzione
-                                        action_upload(request, response, tid);
-                                    }else{
+                            if(tirocinio!=null){
+                                if(tirocinio.getIdAzienda()==userid){
+                                    //sei l'azienda che ha creato il tirocinio
+                                    if(request.getParameter("upload")!=null){
+                                        if(request.getPart("filetoupload")!=null){
+                                            //posso fare l'upload della convenzione
+                                            action_upload(request, response, tid);
+                                        }else{
+                                            //faccio scegliere il file da caricare
+                                            action_default(request, response, tid);
+                                        }
+                                    }else if(tirocinio.getIdProgetto()==0){
                                         //faccio scegliere il file da caricare
                                         action_default(request, response, tid);
+                                    }else{
+                                        //il progetto è stato già caricato
+                                        response.sendRedirect("show?tid="+tid);
                                     }
-                                }else if(tirocinio.getIdProgetto()==0){
-                                    //faccio scegliere il file da caricare
-                                    action_default(request, response, tid);
                                 }else{
-                                    //il progetto è stato già caricato
+                                    //non puoi caricare la scansione del progetto per questo tirocinio
                                     response.sendRedirect("show?tid="+tid);
                                 }
                             }else{
-                                //non puoi caricare la scansione del progetto per questo tirocinio
-                                response.sendRedirect("show?tid="+tid);
+                                //il tirocinio non esiste
+                                response.sendRedirect("profile?uid="+userid+"&utype="+type);
                             }
                         }else{
                             //non è stato scelto un tirocinio
@@ -132,27 +136,37 @@ public class UploadProgetto extends InternshipDBController {
                         if(request.getParameter("tid")!=null){
                             int tid = SecurityLayer.checkNumeric(request.getParameter("tid"));
                             Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tid);
-                            Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, tirocinio.getIdTirocinio());
-                            if(richiesta.getStatus().equals("accepted")){
-                                //sei lo studente a cui è stato assegnato il tirocinio
-                                if(request.getParameter("upload")!=null){
-                                    if(request.getPart("filetoupload")!=null){
-                                        //posso fare l'upload della convenzione
-                                        action_upload(request, response, tid);
+                            if(tirocinio!=null){
+                                Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, tirocinio.getIdTirocinio());
+                                if(richiesta!=null){
+                                    if(richiesta.getStatus().equals("accepted")){
+                                        //sei lo studente a cui è stato assegnato il tirocinio
+                                        if(request.getParameter("upload")!=null){
+                                            if(request.getPart("filetoupload")!=null){
+                                                //posso fare l'upload della convenzione
+                                                action_upload(request, response, tid);
+                                            }else{
+                                                //faccio scegliere il file da caricare
+                                                action_default(request, response, tid);
+                                            }
+                                        }else if(tirocinio.getIdProgetto()==0){
+                                            //faccio scegliere il file da caricare
+                                            action_default(request, response, tid);
+                                        }else{
+                                            //il progetto è stato già caricato
+                                            response.sendRedirect("show?tid="+tid);
+                                        }
                                     }else{
-                                        //faccio scegliere il file da caricare
-                                        action_default(request, response, tid);
+                                        //non puoi caricare la scansione del progetto per questo tirocinio
+                                        response.sendRedirect("show?tid="+tid);
                                     }
-                                }else if(tirocinio.getIdProgetto()==0){
-                                    //faccio scegliere il file da caricare
-                                    action_default(request, response, tid);
                                 }else{
-                                    //il progetto è stato già caricato
+                                    //lo studente non ha fatto richiesta per il tirocinio
                                     response.sendRedirect("show?tid="+tid);
                                 }
                             }else{
-                                //non puoi caricare la scansione del progetto per questo tirocinio
-                                response.sendRedirect("show?tid="+tid);
+                                //il tirocinio non esiste
+                                response.sendRedirect("profile?uid="+userid+"&utype="+type);
                             }
                         }else{
                             //non hai scelto un tirocinio

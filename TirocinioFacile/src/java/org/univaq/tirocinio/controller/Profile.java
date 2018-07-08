@@ -31,48 +31,53 @@ public class Profile extends InternshipDBController {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(uid);
-            request.setAttribute("azienda", a);
-            HttpSession s = SecurityLayer.checkSession(request);
-            if(s!=null){
-                int session_userid = (int) s.getAttribute("userid");
-                if(uid==session_userid){
-                    //se sono l'azienda stessa posso vedermi in qualsiasi condizione
-                    request.setAttribute("modifica", true);
-                    request.setAttribute("Session", s);
-                    if(a.getStatus()){
-                        request.setAttribute("inserisci", true);
-                    }else{
+            if(a!=null){
+                request.setAttribute("azienda", a);
+                HttpSession s = SecurityLayer.checkSession(request);
+                if(s!=null){
+                    int session_userid = (int) s.getAttribute("userid");
+                    if(uid==session_userid){
+                        //se sono l'azienda stessa posso vedermi in qualsiasi condizione
+                        request.setAttribute("modifica", true);
+                        request.setAttribute("Session", s);
+                        if(a.getStatus()){
+                            request.setAttribute("inserisci", true);
+                        }else{
+                            request.setAttribute("inserisci", false);
+                        }
+                        if(a.getStatusConvenzione()){
+                            request.setAttribute("convenzione", true);
+                        }else{
+                            request.setAttribute("convenzione", false);
+                        }
+                        if(a.getIdConvenzione()!=0){
+                            request.setAttribute("scarica", true);
+                        }else{
+                            request.setAttribute("scarica", false);
+                        }
+                        res.activate("profilo.ftl.html", request, response);
+                    }else if(a.getStatus()){
+                        //se sono un qualsiasi altro utente posso vedere l'azienda solo se è stata abilitata dall'admin
+                        request.setAttribute("modifica", false);
                         request.setAttribute("inserisci", false);
-                    }
-                    if(a.getStatusConvenzione()){
-                        request.setAttribute("convenzione", true);
+                        request.setAttribute("Session", s);
+                        res.activate("profilo.ftl.html", request, response);
                     }else{
-                        request.setAttribute("convenzione", false);
+                        response.sendRedirect("home");
                     }
-                    if(a.getIdConvenzione()!=0){
-                        request.setAttribute("scarica", true);
-                    }else{
-                        request.setAttribute("scarica", false);
-                    }
-                    res.activate("profilo.ftl.html", request, response);
-                }else if(a.getStatus()){
-                    //se sono un qualsiasi altro utente posso vedere l'azienda solo se è stata abilitata dall'admin
-                    request.setAttribute("modifica", false);
-                    request.setAttribute("inserisci", false);
-                    request.setAttribute("Session", s);
-                    res.activate("profilo.ftl.html", request, response);
                 }else{
-                    response.sendRedirect("home");
+                    if(a.getStatus()){
+                        //se sono un utente anonimo vedo l'azienda solo se abilitata
+                        request.setAttribute("modifica", false);
+                        request.setAttribute("inserisci", false);
+                        res.activate("profilo.ftl.html", request, response);
+                    }else {
+                        response.sendRedirect("home");
+                    }
                 }
             }else{
-                if(a.getStatus()){
-                    //se sono un utente anonimo vedo l'azienda solo se abilitata
-                    request.setAttribute("modifica", false);
-                    request.setAttribute("inserisci", false);
-                    res.activate("profilo.ftl.html", request, response);
-                }else {
-                    response.sendRedirect("home");
-                }
+                //l'azienda non esiste
+                response.sendRedirect("home");
             }
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
@@ -85,18 +90,23 @@ public class Profile extends InternshipDBController {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             Utente u = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(uid);
-            request.setAttribute("utente", u);
-            HttpSession s = SecurityLayer.checkSession(request);
-            if(s!=null){
-                int session_userid = (int) s.getAttribute("userid");
-                if(uid==session_userid){
-                    request.setAttribute("modifica", true);
-                }else{
-                    request.setAttribute("modifica", false);
+            if(u!=null){
+                request.setAttribute("utente", u);
+                HttpSession s = SecurityLayer.checkSession(request);
+                if(s!=null){
+                    int session_userid = (int) s.getAttribute("userid");
+                    if(uid==session_userid){
+                        request.setAttribute("modifica", true);
+                    }else{
+                        request.setAttribute("modifica", false);
+                    }
                 }
+                request.setAttribute("Session", s);
+                res.activate("profilo.ftl.html", request, response);
+            }else{
+                //l'utente specificato non esiste
+                response.sendRedirect("home");
             }
-            request.setAttribute("Session", s);
-            res.activate("profilo.ftl.html", request, response);
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -112,26 +122,31 @@ public class Profile extends InternshipDBController {
     }
     
     @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException {
-            int uid = SecurityLayer.checkNumeric(request.getParameter("uid"));
-            String utype = request.getParameter("utype");
-            try{
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        try{
+            if(request.getParameter("uid")!=null && request.getParameter("utype")!=null){
+                int uid = SecurityLayer.checkNumeric(request.getParameter("uid"));
+                String utype = request.getParameter("utype");
                 if(utype.equals("comp")){
                     request.setAttribute("page_title", "Profilo Azienda");
                     action_company(request, response, uid);
+                }else if(utype.equals("stud") || utype.equals("admin")){
+                    request.setAttribute("page_title", "Profilo Utente");
+                    action_student(request, response, uid);
                 }else{
-                    if(utype.equals("stud") || utype.equals("admin")){
-                        request.setAttribute("page_title", "Profilo Utente");
-                        action_student(request, response, uid);
-                    }
+                    //tipo utente errato
+                    response.sendRedirect("home");
                 }
-            }catch (IOException ex) {
-                request.setAttribute("exception", ex);
-                action_error(request, response);
-            }catch (TemplateManagerException ex) {
-                request.setAttribute("exception", ex);
-                action_error(request, response);
+            }else{
+                //non sono stati specificati tipo ed id utente
+                response.sendRedirect("home");
+            }
+        }catch (IOException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }catch (TemplateManagerException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
         }  
     }
     

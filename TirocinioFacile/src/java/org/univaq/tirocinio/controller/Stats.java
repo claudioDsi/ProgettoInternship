@@ -63,7 +63,6 @@ public class Stats extends InternshipDBController {
             try{
                 HttpSession s = SecurityLayer.checkSession(request);
                 if(s!=null){
-                    int userid = (int)s.getAttribute("userid");
                     String type = (String)s.getAttribute("type");
                     if(type.equals("admin")){
                         //sei admin e mostro la pagina delle statistiche
