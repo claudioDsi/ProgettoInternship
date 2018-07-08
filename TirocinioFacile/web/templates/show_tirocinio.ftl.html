@@ -67,10 +67,10 @@
         <#if azione=="pending">   
         <div class="w3-card-4 profile" >
             <header class="w3-container w3-theme">
-                <h3>Questa &egrave; la tua richiesta di applicazione: </h3>
+                <h3>Questa &egrave; la tua candidatura </h3>
             </header>
-            <div class="w3-container">          
-                <div class="w3-card-4"  style="max-width: 55%;">
+                    
+                <div class="w3-card-4 button-margin"  style="max-width: 55%;">
                     <header class="w3-container w3-theme">
                         <h3>Dettagli tirocinio </h3>
                     </header>
@@ -82,7 +82,7 @@
                        <p>Status: ${strip_slashes(richiesta.status)}</p>
                     </div>
                 </div>     
-                <div class="w3-card-4"  style="max-width: 55%;">
+                <div class="w3-card-4 button-margin"  style="max-width: 55%;">
                     <header class="w3-container w3-theme">
                         <h3>Dettagli tutore </h3>
                     </header>
@@ -96,10 +96,10 @@
                     </div>
                 </div>         
             </div>            
-        </div>
+        
         </#if>
         <#if azione="reject">
-            <p>Purtroppo la tua richiesta è stata rifiutata!</p>
+        <p>Purtroppo la tua richiesta &egrave; stata rifiutata!</p>
         </#if>
         <#if azione="applicati">
             <p>Puoi ancora candidarti per questo tirocinio!</p>
