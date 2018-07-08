@@ -68,7 +68,7 @@ public class ShowResoconto extends InternshipDBController {
                             Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(utente.getIdUtente(), id_tirocinio);
                             if(richiesta!=null){
                                 //vedo se è possibile generare il progetto e che l'utente in sessione sia il tirocinante assegnato
-                                if(tirocinio.getStatusProgetto()&& richiesta.getStatus().equals("accepted")){
+                                if(tirocinio.getStatusResoconto()&& richiesta.getStatus().equals("accepted")){
                                     Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(tirocinio.getIdAzienda());
                                     action_show(request,response, tirocinio, azienda, utente);
                                 }else{

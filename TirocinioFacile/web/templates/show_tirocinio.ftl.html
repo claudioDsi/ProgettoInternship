@@ -111,40 +111,42 @@
             </#if>
         </#if>
     <#else>
-        <#if azione=="accepted">
-            <div class="w3-card-4"  style="max-width: 55%;">
-                <header class="w3-container w3-theme">
-                    <h3>Dettagli tutore </h3>
-                </header>
-                <div class="w3-container">
-                    <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
-                    <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
-                    <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
-                    <p>Qua ci va il contratto</p>
-                    <p>Qua ci va il resoconto</p>
-                    <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
+        <#if Session.getAttribute('type')=="comp">
+            <#if azione=="accepted">
+                <div class="w3-card-4"  style="max-width: 55%;">
+                    <header class="w3-container w3-theme">
+                        <h3>Dettagli tutore </h3>
+                    </header>
+                    <div class="w3-container">
+                        <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
+                        <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
+                        <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
+                        <p>Qua ci va il contratto</p>
+                        <p>Qua ci va il resoconto</p>
+                        <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
+                    </div>
+                    <#if (progetto)>
+                        <p><a  class="w3-button w3-block w3-theme" href="showprogetto?tid=${tirocinio.idTirocinio}"> Scarica Progetto </a></p>
+                    </#if>
+                    <#if (upload)>
+                        <p><a  class="w3-button w3-block w3-theme" href="uploadprogetto?tid=${tirocinio.idTirocinio}"> Upload Progetto </a></p>
+                    <#else>
+                        <p><a  class="w3-button w3-block w3-theme" href="downloadprogetto?tid=${tirocinio.idTirocinio}"> Download Progetto Firmato</a></p>
+                    </#if>
                 </div>
-                <#if (progetto)>
-                    <p><a  class="w3-button w3-block w3-theme" href="showprogetto?tid=${tirocinio.idTirocinio}"> Scarica Progetto </a></p>
+            </#if>
+            <#if azione=="pending">
+            <br>
+                <p>
+                    <a class="w3-button w3-theme" href="panel?tid=${tirocinio.idTirocinio}"> 
+                        Visualizza le candidature 
+                    </a>
+                </p>     
+            </#if>
+            <#if azione=="anonymous">
+                <#if (status)??>
+                <p>La richiesta di tirocinio è scaduta!</p>
                 </#if>
-                <#if (upload)>
-                    <p><a  class="w3-button w3-block w3-theme" href="uploadprogetto?tid=${tirocinio.idTirocinio}"> Upload Progetto </a></p>
-                <#else>
-                    <p><a  class="w3-button w3-block w3-theme" href="downloadprogetto?tid=${tirocinio.idTirocinio}"> Download Progetto Firmato</a></p>
-                </#if>
-            </div>
-        </#if>
-        <#if azione=="pending">
-        <br>
-            <p>
-                <a class="w3-button w3-theme" href="panel?tid=${tirocinio.idTirocinio}"> 
-                    Visualizza le candidature 
-                </a>
-            </p>     
-        </#if>
-        <#if azione=="anonymous">
-            <#if (status)??>
-            <p>La richiesta di tirocinio è scaduta!</p>
             </#if>
         </#if>
     </#if>
