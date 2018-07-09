@@ -93,7 +93,9 @@ public class InsertRichiesta extends InternshipDBController {
                     String from = "admin@internship.com";
                     Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(session_userid);
                     String subject = "Nuova Richiesta per il Tirocinio '" + tirocinio.getTitolo() + "'";
-                    String body = "Lo Studente " + utente.getNome() + " " + utente.getCognome() + " ha fatto richiesta per il tirocinio '" + tirocinio.getTitolo() + "'. Sul sito potete trovare tutte le informazioni al riguardo.";
+                    String body = "Lo Studente " + utente.getNome() + " " + utente.getCognome() + " ha fatto richiesta per il tirocinio '" 
+                            + tirocinio.getTitolo() + "'. Il tutore scelto è" + tutore.getNome() + " " + tutore.getCognome() + " ed il numero di CFU richiesti sono "
+                            + new_richiesta.getCfu()+". Sul sito potete trovare tutte le informazioni al riguardo.";
                     String filename1 = "tutor" + new_richiesta.getIdRichiesta();
                     String filename2 = "company" + new_richiesta.getIdRichiesta();
                     //invio email al tutore
