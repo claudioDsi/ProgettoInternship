@@ -36,22 +36,21 @@
                                 </a>
                                 
                             </td>
-                        </tr>
-                   
-                </table>
+                        </tr>              
                 <#if (tirocinio.statusResoconto)>
-                                <#else>
-                                    <#if (resoconto??)>
-                                        <#list resoconto as key,value>
-                                            <#if (tirocinio.idTirocinio==key)>
-                                                <#if (value)>
-                                                    <a class="w3-button w3-theme button-margin" href="compilaresoconto?tid=${tirocinio.idTirocinio}">Compila Resoconto</a>
-                                                </#if>
-                                            </#if>
-                                        </#list>
-                                    </#if>
+                <#else>
+                    <#if (resoconto??)>
+                        <#list resoconto as key,value>
+                            <#if (tirocinio.idTirocinio==key)>
+                                <#if (value)>
+                                    <a class="w3-button w3-theme button-margin" href="compilaresoconto?tid=${tirocinio.idTirocinio}">Compila Resoconto</a>
                                 </#if>
-                 </#list>
+                            </#if>
+                        </#list>
+                    </#if>
+                </#if>
+                </#list>
+                </table>
                 <div class="w3-tooltip">
                     <a href="tirocinio" class="w3-button w3-large w3-circle w3-teal w3-right">+</a>
                     <span style="position:absolute; right: 18pt" class="w3-text w3-tag">Inserisci tirocinio</span>
