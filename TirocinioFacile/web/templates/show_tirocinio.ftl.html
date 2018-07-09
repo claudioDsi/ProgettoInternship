@@ -1,35 +1,53 @@
-<h2>${page_title}</h2>
+<!--<h2>${page_title}</h2>-->
 
 <div class="w3-card-4"  style="max-width: 55%;">
     <header class="w3-container w3-theme">
         <h3>Scheda tirocinio </h3>
     </header>
-    <div class="w3-container">
-        <p>Titolo: ${strip_slashes(tirocinio.titolo)}</p>
-        <p>Luogo: ${strip_slashes(tirocinio.luogo)}</p>
-        <p>Orario: ${strip_slashes(tirocinio.orario)}</p>
-        <p>Numero di mesi: ${tirocinio.mesi}</p>
-        <p>Numero di ore: ${tirocinio.numOre}</p>
-        <p>Obiettivi: ${strip_slashes(tirocinio.obiettivi)}</p>
-        <p>Facilitazioni: ${strip_slashes(tirocinio.facilitazioni)}</p>
-        <p>Settore: ${strip_slashes(tirocinio.settore)}</p>
-        <p>Status: ${tirocinio.status?string}</p>
-    </div>
+    <ul class="w3-ul">
+        <li><b>Titolo:</b> ${strip_slashes(tirocinio.titolo)}</li>
+        <li><b>Luogo:</b> ${strip_slashes(tirocinio.luogo)}</li>
+        <li><b>Orario:</b> ${strip_slashes(tirocinio.orario)}</li>
+        <li><b>Numero di mesi:</b> ${tirocinio.mesi}</li>
+        <li><b>Numero di ore:</b> ${tirocinio.numOre}</li>
+        <li><b>Obiettivi:</b> ${strip_slashes(tirocinio.obiettivi)}</li>
+        <li><b>Facilitazioni:</b> ${strip_slashes(tirocinio.facilitazioni)}</li>
+        <li><b>Settore:</b> ${strip_slashes(tirocinio.settore)}</li>
+        <li><b>Status:</b> ${tirocinio.status?string}</li>
+    </ul>
 </div>
+
+<form id="ratingsForm">
+	<div class="stars">
+		<input type="radio" name="star" class="star-1" id="star-1" />
+		<label class="star-1" for="star-1">1</label>
+		<input type="radio" name="star" class="star-2" id="star-2" />
+		<label class="star-2" for="star-2">2</label>
+		<input type="radio" name="star" class="star-3" id="star-3" />
+		<label class="star-3" for="star-3">3</label>
+		<input type="radio" name="star" class="star-4" id="star-4" />
+		<label class="star-4" for="star-4">4</label>
+		<input type="radio" name="star" class="star-5" id="star-5" />
+		<label class="star-5" for="star-5">5</label>
+		<span></span>
+	</div>
+  
+</form>
 <#if (Session)??>
     <#if Session.getAttribute('type')=="stud">
         <#if azione=="accepted">
             <div class="w3-card-4"  style="max-width: 55%;">
+                <!--
                 <header class="w3-container w3-theme">
                     <h3>Dettagli tirocinio </h3>
-                </header>
-                <div class="w3-container">
-                    <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
-                    <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
-                    <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
-                    <p>Qua ci va il resoconto</p>
-                    <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
-                </div>
+                </header>-->
+                <ul class="w3-ul">
+                    <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
+                    <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
+                    <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
+                    <li><b>Qua ci va il resoconto</b></li>
+                    <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
+                </ul>
             <br/>
             <#if (progetto)>
                 <p><a  class="w3-button w3-block w3-theme" href="showprogetto?tid=${tirocinio.idTirocinio}"> Scarica Progetto </a></p>
@@ -53,11 +71,11 @@
                         <input type="hidden" name="aid" value="${tirocinio.idAzienda}" />
 
                         <select name="voto">
-                            <option value="5">1</option>
-                            <option value="5">2</option>
-                            <option value="5">3</option>
-                            <option value="5">4</option>
-                            <option value="5" selected>5</option>
+                            <option value="1" class="fa fa-star">1</option>
+                            <option value="2" class="fa fa-star">2</option>
+                            <option value="3" class="fa fa-star">3</option>
+                            <option value="4" class="fa fa-star">4</option>
+                            <option value="5" class="fa fa-star" selected>5</option>
                         </select>
                         <input type="submit" name="vote" value="Vote"/>
                     </form>
@@ -71,43 +89,50 @@
             </header>
                     
                 <div class="w3-card-4 button-margin"  style="max-width: 55%;">
+                    <!--
                     <header class="w3-container w3-theme">
                         <h3>Dettagli tirocinio </h3>
-                    </header>
-                    <div class="w3-container">
-                       <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
-                       <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
-                       <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
-                       <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
-                       <p>Status: ${strip_slashes(richiesta.status)}</p>
-                    </div>
+                    </header> -->
+                    <ul class="w3-ul">
+                       <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
+                       <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
+                       <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
+                       <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
+                       <li><b>Status:</b> ${strip_slashes(richiesta.status)}</li>
+                    </ul>
                 </div>     
                 <div class="w3-card-4 button-margin"  style="max-width: 55%;">
                     <header class="w3-container w3-theme">
                         <h3>Dettagli tutore </h3>
                     </header>
-                    <div class="w3-container">
-                        <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
-                        <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
-                        <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
-                        <p>Qua ci va il contratto</p>
-                        <p>Qua ci va il resoconto</p>
-                        <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
-                    </div>
+                    <ul class="w3-ul">
+                        <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
+                        <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
+                        <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
+                        <li><b>Qua ci va il contratto</b></li>
+                        <li><b>Qua ci va il resoconto</b></li>
+                        <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
+                    </ul>
                 </div>         
             </div>            
         
         </#if>
         <#if azione="reject">
-        <p>Purtroppo la tua richiesta &egrave; stata rifiutata!</p>
+            <div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin-right: 50%;">
+                <p>Purtroppo la tua richiesta &egrave; stata rifiutata!</p>
+            </div>
         </#if>
         <#if azione="applicati">
+            <div class="w3-panel w3-border-left w3-pale-green w3-border-green" style="margin-right: 50%;">
             <p>Puoi ancora candidarti per questo tirocinio!</p>
             <p><a href="richiesta?tid=${tirocinio.idTirocinio}"> Candidati qui! </a></p>
+            </div>
         </#if>
         <#if azione=="anonymous">
             <#if (status)??>
-                <p>La richiesta di tirocinio è scaduta o è stata cancellata, non puoi più candidarti!</p>
+                <div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin-right: 50%;">
+                    <p>La richiesta di tirocinio &egrave; scaduta o &egrave; stata cancellata, non puoi pi&ugrave; candidarti!</p>
+                </div>
             </#if>
         </#if>
     <#else>
@@ -117,14 +142,14 @@
                     <header class="w3-container w3-theme">
                         <h3>Dettagli tutore </h3>
                     </header>
-                    <div class="w3-container">
-                        <p>Nome del Tutore: ${strip_slashes(richiesta.nomeTutor)}</p>
-                        <p>Cognome del Tutore: ${strip_slashes(richiesta.cognomeTutor)}</p>
-                        <p>Email del Tutore: ${strip_slashes(richiesta.emailTutor)}</p>
-                        <p>Qua ci va il contratto</p>
-                        <p>Qua ci va il resoconto</p>
-                        <p>N&deg; CFU: ${strip_slashes(richiesta.cfu)}</p>
-                    </div>
+                    <ul class="w3-ul">
+                        <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
+                        <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
+                        <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
+                        <li><b>Qua ci va il contratto</b></li>
+                        <li><b>Qua ci va il resoconto</b></li>
+                        <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
+                    </ul>
                     <#if (progetto)>
                         <p><a  class="w3-button w3-block w3-theme" href="showprogetto?tid=${tirocinio.idTirocinio}"> Scarica Progetto </a></p>
                     </#if>
@@ -145,15 +170,24 @@
             </#if>
             <#if azione=="anonymous">
                 <#if (status)??>
-                <p>La richiesta di tirocinio è scaduta!</p>
+                <div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin-right: 50%;">
+                    <p>La richiesta di tirocinio &egrave; scaduta!</p>
+                </div>
                 </#if>
             </#if>
         </#if>
     </#if>
 <#else>
     <#if (status)??>
-        <p>La richiesta di tirocinio è scaduta!</p>
+    <div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin-right: 50%;">
+        <p>La richiesta di tirocinio &egrave; scaduta!</p>
+    </div>
     </#if>
-    <p>Registrati come <a href="azienda">azienda</a> o come <a href="user?tid=${tirocinio.idTirocinio}">studente</a> oppure <a href="login?tid=${tirocinio.idTirocinio}">loggati</a> per accedere ad altre funzionalit&agrave;!</p>
+    <p><b>
+        <a href="user?tid=${tirocinio.idTirocinio}">
+            Registrati
+        </a> 
+            oppure effettua il
+        <a href="login?tid=${tirocinio.idTirocinio}">login</a> per per candidarti a questo tirocinio!</p></b>
 </#if>
 <br/>
