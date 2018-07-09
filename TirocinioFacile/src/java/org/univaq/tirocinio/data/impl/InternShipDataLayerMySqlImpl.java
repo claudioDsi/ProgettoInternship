@@ -42,7 +42,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement jUtenteRichiesta;
     private PreparedStatement orderByDate, searchQuery;
     private PreparedStatement rejectAllRequests, modifyRequestStatus, modifyTirocinioStatus; 
-    private PreparedStatement listaAziende;
+    private PreparedStatement listaAziende, aziendeConv;
     private PreparedStatement bestAziende, bestTutori, moreStage, activateAzienda;
     private PreparedStatement uNumTiroAzienda, uNumTiroTutore, uDateTirocinio, uValutazione, uStatusVoto;
     private PreparedStatement showContact,showTirocini;
@@ -83,6 +83,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             uRichiesta=connection.prepareStatement(creaQueryUpdate(campiRchiesta, "Richiesta", "IdRichiesta"));
             //uRichiesta=connection.prepareStatement("UPDATE Richiesta SET IdStudente=?, IdTirocinio=?, Status=?, Cfu=?, NomeTutor=?, CognomeTutor=?, EmailTutor=? WHERE idRichiesta=?");
             listaAziende=connection.prepareStatement("SELECT * FROM Azienda");
+            aziendeConv=connection.prepareStatement("SELECT * FROM Azienda WHERE Status = 1 ORDER BY IdAzienda DESC LIMIT 5");
             sUtente=connection.prepareStatement(creaQuerySelect("Utente", "IdUtente"));
             sUtenteLogin=connection.prepareStatement("SELECT * FROM Utente WHERE Username = ? AND Password = ?");
             sAzienda=connection.prepareStatement(creaQuerySelect("Azienda", "IdAzienda"));
