@@ -49,7 +49,7 @@ public class Search extends InternshipDBController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
-            if(request.getParameter("azienda")!=null && request.getParameter("luogo")!=null && request.getParameter("numore")!=null && request.getParameter("nummesi")!=null && request.getParameter("settore")!=null){
+            if(request.getParameter("obiettivi")!=null && request.getParameter("azienda")!=null && request.getParameter("luogo")!=null && request.getParameter("numore")!=null && request.getParameter("nummesi")!=null && request.getParameter("settore")!=null){
                 //i campi sono stati inviati tutti
                 Map<String,Object> parametri = new HashMap();
                 parametri.put("azienda", SecurityLayer.addSlashes(request.getParameter("azienda")));
@@ -58,11 +58,24 @@ public class Search extends InternshipDBController {
                 parametri.put("nummesi", SecurityLayer.addSlashes(request.getParameter("nummesi")));
                 parametri.put("settore", SecurityLayer.addSlashes(request.getParameter("settore")));
                 List<Tirocinio> tirocini = ((InternShipDataLayer)request.getAttribute("datalayer")).searchTirocini(parametri);
+                List<Tirocinio> tirocini_obiettivi = new ArrayList<Tirocinio>();
                 HttpSession s = SecurityLayer.checkSession(request);
                 if(s!=null){
                     request.setAttribute("Session", s);
                 }
-                request.setAttribute("tirocini", tirocini);
+                //filtro i risultati per la parola chiave specificata in obiettivi
+                if(request.getParameter("obiettivi").equals("")){
+                    request.setAttribute("tirocini", tirocini);
+		}else{                   
+                    
+                    String obiettivo = SecurityLayer.addSlashes(request.getParameter("obiettivi"));
+                    for (int i = 0; i < tirocini.size(); i++) {
+                        if(tirocini.get(i).getObiettivi().contains(obiettivo)){
+                            tirocini_obiettivi.add(tirocini.get(i));
+                        }
+                    }
+                    request.setAttribute("tirocini", tirocini_obiettivi);
+                }
                 res.activate("search.ftl.html", request, response);
             }else{
                 //alcuni campi non sono stati inviati
