@@ -58,6 +58,7 @@ public class SetDates extends InternshipDBController {
                 tirocinio.setDataInizio(date_start);
                 tirocinio.setDataFine(date_end);
                 ((InternShipDataLayer)request.getAttribute("datalayer")).updateDateTirocinio(date_start, date_end, tirocinio);
+                ((InternShipDataLayer)request.getAttribute("datalayer")).activateProgetto(tirocinio);
                 response.sendRedirect("panel");
             }else{
                 //è stato generato un messaggio di errore

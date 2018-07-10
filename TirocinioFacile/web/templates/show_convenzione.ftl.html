@@ -1,13 +1,28 @@
+<style>
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    
+    @media print {
+        .header, .hide { visibility: hidden }
+    }
+</style>
 <script>
     function printDiv(divName) {
-         var printContents = document.getElementById(divName).innerHTML;
-         var originalContents = document.body.innerHTML;
-
-         document.body.innerHTML = printContents;
-
-         window.print();
-
-         document.body.innerHTML = originalContents;
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        document.getElementById(1).style.maxWidth = "100%";
+        document.getElementById(1).style.maxHeight = "100%";
+        document.getElementById(1).style.display = "block";
+        document.getElementById(1).style.marginLeft = "auto";
+        document.getElementById(1).style.marginRight = "auto";
+        window.print();
+        document.body.innerHTML = originalContents;
     }
 </script>
 
@@ -17,12 +32,52 @@
 <button onclick="printDiv('toPrint')">Print</button>
 
 <div id="toPrint">
-    <p>CONVENZIONE PER LO SVOLGIMENTO DI ATTIVITA' DI TIROCINIO E DI ORIENTAMENTO 
+    <img src="images/logounivaq.jpg" alt="" height="85" width="65" id="1">
+    <h3 align='center'>UNIVERSITA' DEGLI STUDI DELL'AQUILA</h3>
+    <h5 align='center'>Dipartimento di INGEGNERIA E SCIENZE DELL'INFORMAZIONE</h5>
+    <h6 align="center">SEGRETERIA AMMINISTRATIVA PER LA DIDATTICA</h6>
+    <p>Da mettere</p>
+    <p><b>CONVENZIONE PER LO SVOLGIMENTO DI ATTIVITA' DI TIROCINIO E DI ORIENTAMENTO 
     (AI SENSI DELL'ART.18 L.196/97,  DELL'ART.1 DECRETO MINISTERO DEL LAVORO E PREVIDENZA SOCIALE N.142/98 E 
     DELLA LEGGE 148 del 14/09/2011) PER STUDENTI E LAUREATI DEL DIPARTIMENTO DI INGEGNERIA E 
-    SCIENZE DELL’INFORMAZIONE E MATEMATICA DELL'UNIVERSITA' DEGLI STUDI DELL'AQUILA</p>
-
-    <p>tra</p>
-
-    <p>L’Ente/Azienda ${strip_slashes(azienda.nomeAzienda)} con sede legale in (indirizzo) ${strip_slashes(azienda.indirizzo)}.....</p>
+    SCIENZE DELL’INFORMAZIONE E MATEMATICA DELL'UNIVERSITA' DEGLI STUDI DELL'AQUILA</b></p>
+    <p align="center">tra:</p>
+    <p>L’Università degli Studi di L’Aquila – Dipartimento di Ingegneria e Scienze dell’Informazione e Matematica, con sede legale in L’Aquila, C.F./P.I. 01021630668, rappresentata per la stipula del presente atto convenzionale, dal Direttore del Dipartimento di Ingegneria e Scienze dell’Informazione e Matematica Prof. Guido Proietti, nato a Roma il 13/06/1966,domiciliato per il presente atto presso la sede legale del l’Università, e autorizzato e delegato alla stipula della presente Convenzione dal Rettore dell’Università con D.R. n. 522/2018, prot. n. 22151 del 17.05.2018</p>
+    <p align="center">e</p>
+    <p>L’Ente/Azienda ${strip_slashes(azienda.nomeAzienda)},</p>
+    <p>con sede legale in (indirizzo) ${strip_slashes(azienda.indirizzo)},</p>
+    <p>Codice Fiscale(o Partita IVA)${strip_slashes(azienda.indirizzo)},</p>
+    <p>rappresentato da ${strip_slashes(azienda.nomeRappr)} ${strip_slashes(azienda.cognomeRappr)}</p>
+    <br/>
+    <p align="center">Premesso:</p>
+    <br/>
+    <ul>
+        <li>che i tirocini formativi e di orientamento sono ora disciplinati dall'articolo 18 della legge 24 giugno 1997 n.196, dal suo regolamento di attuazione emanato con Decreto 25 marzo 1998, n.142 e dalla legge 148 del 14/09/2011;</li>
+        <li>che il Dipartimento di Ingegneria e Scienze dell’Informazione e Matematica intende attuare progetti diretti al raggiungimento delle finalità indicate dall'art.18 L. 24 giugno 1997 n.196 e dall'art.1 del suddetto decreto 25 marzo 1998 n. 142, che promuovono tirocini formativi e di orientamento presso le aziende;</li>
+        <li>che al fine di agevolare le scelte professionali mediante la conoscenza diretta del mondo del lavoro e realizzare momenti di alternanza tra studio e lavoro nell'ambito dei processi formativi i soggetti richiamati dall'art.18, comma 1, lett. a) della legge 24 giugno 1997 n.196, tra cui le Università, possono promuovere tirocini formativi e di orientamento presso datori di lavori pubblici e privati a beneficio di coloro che abbiano già assolto l'obbligo scolastico ai sensi della legge 31.12.62 n.1859;</li>
+    </ul>
+    <br/>
+    <p align="center">si conviene quanto segue:</p>
+    <p>le premesse costituiscono parte integrante e sostanziale della presente Convenzione.</p>
+    <p><b>Art. 1 Oggetto</b></p>
+    <p><b>1.1</b> L'Ente/l'Azienda si impegna ad accogliere presso le proprie strutture soggetti in tirocinio di formazione ed orientamento, ai sensi dell'art. 18 della legge 24 giugno 1997 n. 196 e della legge 148 del 14/09/2011, in numero non superiore a quanto disposto dall'articolo 1, comma 3, lettera c), del decreto 142/98. In particolare non possono essere attivati tirocini presso aziende che non hanno dipendenti.
+    Potranno effettuare periodi di tirocinio (stage),  studenti, neo-laureati e neo-diplomati del Dipartimento di Ingegneria e Scienze dell’Informazione e Matematica dell'Università degli Studi di L'Aquila, a condizione che il tirocinio inizi non oltre i 12 mesi successivi al conseguimento della laurea o dei diploma.
+    Potranno effettuare periodi di tirocinio (stage),  anche coloro che frequentano dottorati di ricerca e scuole o corsi di perfezionamento e specializzazione.
+    </p>
+    <p><b>1.2</b> Ai fini dello svolgimento del tirocinio l’ Ente/l'Azienda mette a disposizione del Dipartimento di Ingegneria e Scienze dell’Informazione e Matematica dell'Università le proprie strutture. L'accesso alle strutture sarà guidato dal personale dell’Ente/Azienda ospitante, con compiti di illustrazione e formazione.</p>
+    <p><b>Art. 2 Rapporti con i tirocinanti</b></p>
+    <p><b>2.1</b> Il tirocinio formativo e di orientamento, ai sensi dell'art. 18, comma 1 lett. d) della legge 196 del 1997 non costituisce rapporto di lavoro e non dà luogo ad alcuna ipotesi di attività occupazionale. L'Ente/l'Azienda non ha alcun obbligo di assunzione al termine del periodo di tirocinio.</p>
+    <p><b>2.2</b> Durante lo svolgimento del tirocinio, l'attività di formazione ed orientamento è seguita e verificata da un tutore designato dal Dipartimento di Ingegneria e Scienze dell’Informazione e Matematica dell'Università in veste di responsabile didattico - organizzativo (il cui nominativo risulterà dal Progetto formativo e di orientamento dei singoli stagisti) e da un responsabile aziendale indicato dall’ Ente/l'Azienda (risultante dal predetto Progetto).</p>
+    <p>
+        <b>2.3</b> Per ciascun tirocinante da inserirsi nell'Ente/Azienda ospitante verrà predisposto tra le parti un Progetto formativo e di orientamento, come da ALLEGATO 1, contenente:
+        <ol type="a">
+            <li>le generalità del tirocinante;</li>
+            <li>i nominativi del tutore e del responsabile aziendale;</li>
+            <li>durata, obiettivi e modalità di svolgimento del tirocinio;</li>
+            <li>le strutture aziendali (sedi ed uffici) presso cui si svolge il tirocinio;</li>
+            <li>gli estremi identificativi delle assicurazioni INAIL e per la responsabilità civile.</li>
+        </ol>
+    </p>
+    <p><b>2.4</b> L'avvio operativo per lo svolgimento dei singoli tirocini avverrà con scambio di lettera di conferma tra l'Ente/l'Azienda ospitante ed il tirocinante, con allegata copia del relativo Progetto di cui al n.2.3 che precede, sottoscritto dall’Ente/l'Azienda, dal Dipartimento di Ingegneria e Scienze dell’Informazione e Matematica e dallo stagista per adesione ed accettazione.</p>
+    <p><b>2.5</b> E' consentita, con l'approvazione del responsabile aziendale, la partecipazione del tirocinante ad attività aziendali fuori sede. In tal caso le spese di viaggio e di soggiorno o eventuali altre spese saranno sostenute dall'Ente/Azienda, secondo le norme e le procedure interne all'Ente/Azienda stessa.</p>
 </div>
