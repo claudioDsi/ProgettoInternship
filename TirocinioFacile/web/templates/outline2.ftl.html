@@ -65,15 +65,17 @@ and open the template in the editor.
         <!-- Sidebar -->
         <noscript>
             <div id="mySidebar" class="w3-large w3-col w3-theme-l5 w3-bar-block w3-mobile w3-animate-left" style="width:15%">
-                <#include "sidebar.ftl.html">
+                <#if (Session)??>
+                    <#include "sidebar.ftl.html">
+                </#if>
             </div>
         </noscript>
-        <div id="sidebar" style="display:none">
-            <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
-                <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
-                    <i class="fa fa-remove"></i>
-                </a>
-                <#if (Session??)>
+        <#if (Session)??>
+            <div id="sidebar" style="display:none">
+                <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+                    <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+                        <i class="fa fa-remove"></i>
+                    </a>
                     <#if Session.getAttribute('type')=="stud">
                         <a class="w3-bar-item w3-button w3-hover-black" 
                            href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">
@@ -103,15 +105,10 @@ and open the template in the editor.
                     <#else>
                         <a class="w3-bar-item w3-button w3-hover-black" href="managecompany">Gestione delle aziende</a>
                         <a class="w3-bar-item w3-button w3-hover-black" href="stats">Statistiche</a>
-                        <a class="w3-bar-item w3-button w3-hover-black" href="faq">FAQ</a>
                     </#if>
-                <#else>
-                    <a class="w3-bar-item w3-button w3-hover-black" href="search">Ricerca Tirocinio</a>
-                    <a class="w3-bar-item w3-button w3-hover-black" href="listaaziende">Lista Aziende</a>
-                    <a class="w3-bar-item w3-button w3-hover-black" href="faq">FAQ</a>
-                </#if>
-            </nav>
-        </div>
+                </nav>
+            </div>
+        </#if>
         <script>
             document.getElementById('sidebar').style.display = "block"
         </script>
@@ -120,14 +117,23 @@ and open the template in the editor.
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
         
         <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
-        <div class="w3-main" style="margin-left:210px">
-            <div id="content" class="w3-rest w3-col">
+        <#if (Session)??>
+            <div class="w3-main" style="margin-left:210px">
+                <div id="content" class="w3-rest w3-col">
+                    <#include content_tpl>
+                </div>
+                <script>
+                    document.getElementById('content').setAttribute("class", "w3-rest w3-padding-64");
+                </script>
+            </div>
+        <#else>
+            <div id="content2" class="w3-main">
                 <#include content_tpl>
             </div>
             <script>
-                document.getElementById('content').setAttribute("class", "w3-rest w3-padding-64");
+                    document.getElementById('content2').setAttribute("class", "w3-padding-32");
             </script>
-        </div>
+        </#if>
         <script>
             // Get the Sidebar
             var mySidebar = document.getElementById("mySidebar");

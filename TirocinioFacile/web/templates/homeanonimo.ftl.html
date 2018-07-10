@@ -1,75 +1,35 @@
-<!-- Header with full-height image -->
-<!--
-<div class="w3-display-container w3-grayscale-min" id="home" style="background-position: center; background-size: cover; background-image: url('/images/mac.jpg'); min-height: 100%;">
-    <div class="w3-display-left w3-text-white" style="padding:48px">
-        <span class="w3-jumbo w3-hide-small">Start something that matters</span><br>
-        <span class="w3-xxlarge w3-hide-large w3-hide-medium">Start something that matters</span><br>
-        <span class="w3-large">Stop wasting valuable time with projects that just isn't you.</span>
-        <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and start today</a></p>
-    </div> 
-</div> -->
-
-<div class="w3-display-container w3-grayscale-min w3-text-white" style="padding:48px; background-position: center; background-size: cover; background-image: url('images/home.jpg'); min-height: 100%;">
- <span class="w3-jumbo w3-hide-small">Comincia qualcosa che conta</span><br>
+<div class="w3-display-container w3-grayscale-min w3-text-white w3-row" style="padding:48px; background-position: center; background-size: cover; background-image: url('images/home.jpg'); min-height: 100%;">
+    <div class="w3-threequarter">
+        <span class="w3-jumbo w3-hide-small">Comincia qualcosa che conta</span><br>
         <span class="w3-xxlarge w3-hide-large w3-hide-medium">Comincia qualcosa che conta</span><br>
         <span class="w3-large">Se sei uno studente, metti in campo le tue conoscenze con un tirocinio!</span><br>
         <span class="w3-large">Se sei un'azienda cogli l'occasione di reclutare studenti!</span>
-        <div class="w3-row">
-            <div class="w3-container w3-third">
-                <span><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Scopri di pi&ugrave</a></span>   
-            </div>
-            <div class="w3-container w3-third">
+        <div class="w3-row" style="margin-top: 50pt">
+            <div class="w3-container w3-half">
                 <span><a href="search" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Ricerca un tirocinio</a></span>
             </div>
-            <div class="w3-container w3-third">
+            <div class="w3-container w3-half">
                 <span><a href="listaaziende" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Aziende convenzionate</a></span>
             </div>
-        </div>
-</div>
-
-<div class="w3-panel w3-round-large w3-teal" style="margin-right: 10px" id="about">
-    <p><h4>Benvenuto nel portale per la gestione di tirocini universitari! 
-        <br>Qui potrai accedere alla
-        procedura telematica per iniziare un tirocinio se sei uno studente, o proporlo se sei un'azienda!
-        <br>Se non sei ancora registrato, fallo subito per accedere ai nostri servizi!</h4>
-    </p>
-</div>
-<div class="w3-cell-row">
-    <div class="w3-container w3-cell w3-mobile">
-        <h2>News tirocini:</h2>
-        <div class="w3-responsive">
-            <table class="w3-table-all">
-                <tr>
-                    <th>Titolo tirocinio</th>
-                    <th>Azienda referente</th>
-                    <th>Descrizione attivit&agrave;</th>
-                </tr>
-                <#list tirocini as tirocinio>
-                    <tr>
-                        <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td>
-                        <td> ${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>   
-                        <td> ${strip_slashes(tirocinio.obiettivi)}</td>
-                    </tr>
-                </#list> 
-            </table>
-        </div>
+        </div>    
     </div>
-    <div id="log" class="w3-container w3-cell w3-mobile">
-        <button id="button1" class="w3-button w3-block w3-cyan w3-round" style="width:50%; float:left; display:none;" onclick="show('log_stud')">Login Studente</button>
-        <button id="button2" class="w3-button w3-block w3-blue w3-round" style="width:50%; float:right; display:none;" onclick="show('log_az')">Login Azienda</button>
+    <div id="log" class="w3-rest w3-mobile w3-text-white">
+        <button id="button1" class="w3-button w3-block w3-cyan w3-text-white w3-left-align" style="width:50%; float:left; display:none;" onclick="show('log_stud')"><b>LOGIN STUDENTE</b></button>
+        <button id="button2" class="w3-button w3-block w3-blue w3-text-white w3-left-align" style="width:50%; float:right; display:none;" onclick="show('log_az')"><b>LOGIN AZIENDA</b></button>
         <!--<script type="text/javascript" src="script/showButton.js"></script>-->
         <noscript>
             <h2>Effettua il login!</h2>
         </noscript>
-        <div id="log_stud" class='w3-cyan w3-round' style="display: block;">
-            <form class="w3-container w3-card-4" method="post" action="login">
+        <div id="log_stud" class='w3-light-grey w3-round w3-border-cyan w3-leftbar w3-rightbar w3-bottombar' style="display: block;">
+            <form class="w3-container w3-card" method="post" action="login">
                 <input type="hidden" name="tid" value="" />
+                <br>
                 <p>
-                    <input class="w3-input w3-animate-input w3-cyan" type="text" name="username" value="" style="width:60%" required/>
+                    <input class="w3-input w3-border-cyan w3-animate-input" type="text" name="username" value="" style="width:60%" required/>
                     <label>Name</label>
                 </p>
                 <p>
-                    <input class="w3-input w3-animate-input w3-cyan" type="password" name="password" value="" style="width:60%" required/>
+                    <input class="w3-input w3-border-cyan w3-animate-input" type="password" name="password" value="" style="width:60%" required/>
                     <label>Password</label></p>
                 </p>
                 <p>
@@ -87,25 +47,73 @@
                 </p>
             </form>
         </div>
-        <div id="log_az" class='w3-blue w3-round' style="display: none">
-            <form class="w3-container w3-card-4" method="post" action="login">
+        <div id="log_az" class='w3-light-grey w3-round w3-border-blue w3-leftbar w3-rightbar w3-bottombar' style="display: none">
+            <form class="w3-container w3-card" method="post" action="login">
                 <input type="hidden" name="tid" value="" />
+                <br>
                 <p>
-                    <input class="w3-input w3-animate-input w3-blue" type="text" name="username" value="" style="width:60%" required/>
+                    <input class="w3-input w3-animate-input w3-border-blue" type="text" name="username" value="" style="width:60%" required/>
                     <label>Name</label>
                 </p>
                 <p>
-                    <input class="w3-input w3-animate-input w3-blue" type="password" name="password" value="" style="width:60%" required/>
+                    <input class="w3-input w3-animate-input w3-border-blue" type="password" name="password" value="" style="width:60%" required/>
                     <label>Password</label></p>
                 <p>
                 <p>
                     <input class="w3-button w3-section w3-teal w3-ripple" type="submit" name="logincomp" value="Login"/>
                 </p>
                 <p>
-                    Non sei ancora registrato? <br><a href="azienda">Registrati!</a>
+                    <b>Non sei ancora registrato?</b> <br><a href="azienda">Registrati!</a>
                 </p>
             </form>
         </div>
     </div>
-    
+</div>
+
+<div class="w3-panel w3-round-large w3-teal" style="margin-right: 10px" id="about">
+    <p><h4>Benvenuto nel portale per la gestione di tirocini universitari! 
+        <br>Qui potrai accedere alla
+        procedura telematica per iniziare un tirocinio se sei uno studente, o proporlo se sei un'azienda!
+        <br>Se non sei ancora registrato, fallo subito per accedere ai nostri servizi!</h4>
+    </p>
+</div>
+<div class="w3-row">
+    <div class="w3-container w3-half w3-mobile w3-border-right">
+        <h2>News tirocini:</h2>
+        <div class="w3-responsive">
+            <table class="w3-table w3-striped">
+                <tr>
+                    <th>Titolo tirocinio</th>
+                    <th>Azienda referente</th>
+                    <th>Descrizione attivit&agrave;</th>
+                </tr>
+                <#list tirocini as tirocinio>
+                    <tr>
+                        <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td>
+                        <td> ${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>   
+                        <td> ${strip_slashes(tirocinio.obiettivi)}</td>
+                    </tr>
+                </#list> 
+            </table>
+        </div>
+    </div>
+    <div class="w3-container w3-half w3-mobile">
+        <h2>Ultime aziende convenzionate:</h2>
+        <div class="w3-responsive">
+            <table class="w3-table w3-striped">
+                <tr>
+                    <th>Titolo tirocinio</th>
+                    <th>Azienda referente</th>
+                    <th>Descrizione attivit&agrave;</th>
+                </tr>
+                <#list tirocini as tirocinio>
+                    <tr>
+                        <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td>
+                        <td> ${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>   
+                        <td> ${strip_slashes(tirocinio.obiettivi)}</td>
+                    </tr>
+                </#list> 
+            </table>
+        </div>
+    </div>
 </div>
