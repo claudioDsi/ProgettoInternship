@@ -75,7 +75,7 @@
         <br>Qui potrai accedere alla
         procedura telematica per iniziare un tirocinio se sei uno studente, o proporlo se sei un'azienda!
         <br>Se non sei ancora registrato, fallo subito per accedere ai nostri servizi!</h4>
-    </p>
+   
 </div>
 <div class="w3-row">
     <div class="w3-container w3-half w3-mobile w3-border-right">
@@ -102,17 +102,20 @@
         <div class="w3-responsive">
             <table class="w3-table w3-striped">
                 <tr>
-                    <th>Titolo tirocinio</th>
-                    <th>Azienda referente</th>
-                    <th>Descrizione attivit&agrave;</th>
+                    <th>Nome Azienda</th>
+                    <th>Nome responsabile</th>
+                    <th>Email responsabile</th>
                 </tr>
-                <#list tirocini as tirocinio>
-                    <tr>
-                        <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td>
-                        <td> ${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>   
-                        <td> ${strip_slashes(tirocinio.obiettivi)}</td>
-                    </tr>
+                <#list convenzioni as conv>
+                <tr>
+                   <td> <a href="profile?uid=${conv.idAzienda}&utype=comp">${strip_slashes(conv.nomeAzienda)}</a></td>
+                        <td> ${strip_slashes(conv.nomeResp)}</td>   
+                        <td> ${strip_slashes(conv.emailResp)}</td>
+                </tr>
                 </#list> 
+                
+                
+                 
             </table>
         </div>
     </div>

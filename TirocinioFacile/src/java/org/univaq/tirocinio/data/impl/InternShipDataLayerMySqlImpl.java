@@ -1501,5 +1501,20 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
         }
         super.destroy();
     }
+
+    @Override
+    public List<Azienda> getAziendeConvenzionate() throws DataLayerException{
+         List<Azienda> lista_username = new ArrayList();
+        try{
+            try(ResultSet rs = aziendeConv.executeQuery()){
+                while(rs.next()){
+                    lista_username.add(creaAzienda(rs));
+                }
+            }
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to get the list of the username of the companies", ex);
+        }
+        return lista_username;
+    }
     
 }

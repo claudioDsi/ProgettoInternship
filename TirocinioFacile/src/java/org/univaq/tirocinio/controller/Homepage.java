@@ -34,13 +34,16 @@ import org.univaq.tirocinio.framework.security.SecurityLayer;
 public class Homepage extends InternshipDBController {
     
     private void action_show_home_anonimo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
-        List<Tirocinio> list = new ArrayList();
+        List<Tirocinio> list = new ArrayList<Tirocinio>();
+        List<Azienda> aziendeConv=new ArrayList<Azienda>();
         try{
             request.setAttribute("page_title", "Homepage");
             TemplateResult res = new TemplateResult(getServletContext());
-            list = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirocini();  
+            list = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirocini(); 
+            aziendeConv=((InternShipDataLayer)request.getAttribute("datalayer")).getAziendeConvenzionate();
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             request.setAttribute("tirocini", list);
+            request.setAttribute("convenzioni", aziendeConv);
             HttpSession s = SecurityLayer.checkSession(request);
             if(s!=null){
                 request.setAttribute("Session", s);
