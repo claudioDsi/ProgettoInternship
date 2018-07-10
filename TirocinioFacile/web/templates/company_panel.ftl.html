@@ -15,6 +15,7 @@
                         <th>Operazioni</th>
                     </tr>
                     <#list lista_tirocini as tirocinio>
+                    <#if (tirocinio)?? >
                         <tr>
                             <td>${strip_slashes(tirocinio.titolo)}</td> 
                             <td>${tirocinio.numOre}</td> 
@@ -50,6 +51,7 @@
                                 </#list>
                             </td>
                         </tr> 
+                        </#if>
                     </#list>
                 </table>
                 <div class="w3-tooltip">

@@ -35,6 +35,7 @@ public class CompanyPanel extends InternshipDBController {
     private void action_show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("page_title", "Gestione Tirocini Inseriti");
             HttpSession s = SecurityLayer.checkSession(request);
             int userid = (int)s.getAttribute("userid");
             Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
@@ -146,7 +147,7 @@ public class CompanyPanel extends InternshipDBController {
                             action_delete(request, response, del);
                         }else{
                             //sei un'azienda e mostro le tue candidature e i tuoi tirocini
-                            request.setAttribute("page_title", "Gestione Tirocini Inseriti");
+                            
                             action_show(request, response);
                         }
                     }else if(type.equals("stud") || type.equals("admin")){
