@@ -10,14 +10,14 @@
         <h2>News tirocini:</h2>
         <div class="w3-responsive">
             <table class="w3-table-all">
-                <tr>
-                    <th>Titolo tirocinio</th>
-                    <th>Azienda referente</th>
-                    <th>Descrizione attivit&agrave;</th>
+                <tr class="w3-teal">
+                    <th><b>Titolo tirocinio</b></th>
+                    <th><b>Azienda referente</b></th>
+                    <th><b>Descrizione attivit&agrave;</b></th>
                 </tr>
                 <#list tirocini as tirocinio>
                     <tr>
-                        <td>${strip_slashes(tirocinio.titolo)}</td>
+                        <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td>
                         <td> ${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>   
                         <td> ${strip_slashes(tirocinio.obiettivi)}</td>
                     </tr>

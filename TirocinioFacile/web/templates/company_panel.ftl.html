@@ -24,25 +24,23 @@
                             <td>
                                 <a class="w3-tooltip" href="show?tid=${tirocinio.idTirocinio}">
                                     <span class="glyphicon glyphicon-search" style="margin-right: 10pt"></span>
-                                    <span style="position:absolute;right:18pt" class="w3-text w3-tag">Mostra dettagli</span>
+                                    <span style="position:absolute;right:25pt;" class="w3-text w3-tag">Mostra dettagli</span>
                                 </a>
                                 <a class="w3-tooltip" href="panel?tid=${tirocinio.idTirocinio}">
                                     <span class="glyphicon glyphicon-th-list" style="margin-right: 10pt"></span>
-                                    <span style="position:absolute;right:18pt" class="w3-text w3-tag">Mostra candidature</span>
+                                    <span style="position:absolute;right:25pt" class="w3-text w3-tag">Mostra candidature</span>
                                 </a>
                                 <a class="w3-tooltip" href="panel?del=${tirocinio.idTirocinio}">
                                     <span class="glyphicon glyphicon-remove"></span>
-                                    <span style="position:absolute;right:18pt" class="w3-text w3-tag">Elimina tirocinio</span>
+                                    <span style="position:absolute;right:25pt" class="w3-text w3-tag">Elimina tirocinio</span>
                                 </a>
                                 
                             </td>
-                        </tr>              
-               
+                        </tr> 
+                    </#list>
                 </table>
-                
-                
-                
-                 <#if (tirocinio.statusResoconto)>
+                <#list lista_tirocini as tirocinio>
+                <#if (tirocinio.statusResoconto)>
                 <#else>
                     <#if (resoconto??)>
                         <#list resoconto as key,value>
@@ -57,7 +55,7 @@
                 </#list>
                 <div class="w3-tooltip">
                     <a href="tirocinio" class="w3-button w3-large w3-circle w3-teal w3-right">+</a>
-                    <span style="position:absolute; right: 18pt" class="w3-text w3-tag">Inserisci tirocinio</span>
+                    <span style="position:absolute; right: 25pt;" class="w3-text w3-tag">Inserisci tirocinio</span>
                 </div>
             </div>
         <#else>
