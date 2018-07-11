@@ -39,8 +39,8 @@ function topnav (id){
     divLogo.appendChild(aImg);
 
     var logo = document.createElement('img');
-    logo.setAttribute("src", "images/logo.png");
-    logo.setAttribute("style", "width: 100px; height: 36px;");
+    logo.setAttribute("src", "images/logo1.png");
+    logo.setAttribute("style", "width: 150px; height: 35px;");
     aImg.appendChild(logo);
 
     var divOther = document.createElement('div');

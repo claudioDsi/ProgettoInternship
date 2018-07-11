@@ -1,3 +1,6 @@
+<script>
+    document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
+</script>
 <div class="w3-row">
     <div class="w3-container w3-cell w3-mobile w3-half">
         <form class="w3-container w3-card-4 w3-round" method="post" action="login">
@@ -53,26 +56,3 @@
         </form>
     </div>    
 </div>
-
-<!--
-<form method="post" action="login">
-    <#if tid="">
-        <input type="hidden" name="tid" value="" />
-    <#else>
-        <input type="hidden" name="tid" value="${tid}" />
-    </#if>
-    <div>
-        <div>Username</div>
-        <div><input type="text" name="username" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Password</div>
-        <div><input type="password" name="password" value=""/></div>
-    </div>
-    
-    <div>
-        <input type="submit" name="login" value="Login"/>
-    </div>
-</form>
--->

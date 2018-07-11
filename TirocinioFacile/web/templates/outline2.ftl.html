@@ -39,7 +39,7 @@ and open the template in the editor.
                 <div class="w3-bar w3-theme w3-border w3-row w3-mobile">
                     <div class="w3-container w3-left w3-rest w3-mobile">
                         <a href="home" class="w3-bar-item w3-button w3-mobile">
-                            <img src="images/logo.png" style="width: 100px; height: 36px;">
+                            <img src="images/logo1.png" style="width: 100px; height: 36px;">
                         </a>
                     </div>
                     <div class="w3-col w3-container w3-right w3-mobile" style="width:380px">
@@ -127,12 +127,11 @@ and open the template in the editor.
                 </script>
             </div>
         <#else>
-            <div id="content2" class="w3-main">
+        <div id="main" class="w3-main">
+            <div id="content2" class="w3-main w3-padding-32">
                 <#include content_tpl>
             </div>
-            <script>
-                    document.getElementById('content2').setAttribute("class", "w3-padding-32");
-            </script>
+        </div>
         </#if>
         <script>
             // Get the Sidebar
