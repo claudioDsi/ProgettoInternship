@@ -22,20 +22,24 @@ import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 public class ShowProgetto extends InternshipDBController {
     
-        private void action_show(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio, Azienda azienda, Utente utente) throws IOException, ServletException, TemplateManagerException {
+        private void action_show(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio, Azienda azienda, Utente utente) throws IOException, ServletException, TemplateManagerException, DataLayerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(utente.getIdUtente(), tirocinio.getIdTirocinio());          
+            Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(tirocinio.getIdTutore());
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             HttpSession s = SecurityLayer.checkSession(request);
             request.setAttribute("Session", s);
             request.setAttribute("tirocinio", tirocinio);
             request.setAttribute("azienda", azienda);
             request.setAttribute("utente", utente);
+            request.setAttribute("richiesta", richiesta);
+            request.setAttribute("tutore", tutore);
             res.activate("show_progetto.ftl.html", request, response);
-        }catch(TemplateManagerException ex){
+        }catch (DataLayerException ex) {
             request.setAttribute("exception", ex);
-            action_error(request, response);
-        }
+            action_error(request, response);        
+        }  
     }
     
     private void action_error(HttpServletRequest request, HttpServletResponse response) {

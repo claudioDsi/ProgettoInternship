@@ -25,7 +25,7 @@ public class TirocinioImpl implements Tirocinio{
     private int numOre;
     private String obiettivi;
     private String facilitazioni;
-    private String modalità;
+    private String modalita;
     private String settore;
     private String titolo;
     private boolean status;
@@ -58,7 +58,7 @@ public class TirocinioImpl implements Tirocinio{
         numOre = 0;
         obiettivi = "";
         facilitazioni = "";
-        modalità = "";
+        modalita = "";
         descrizione = "";
         risultato = "";
         statusResoconto = false;
@@ -170,13 +170,13 @@ public class TirocinioImpl implements Tirocinio{
     }
 
     @Override
-    public String getModalità() {
-        return modalità;
+    public String getModalita() {
+        return modalita;
     }
 
     @Override
-    public void setModalità(String modalità) {
-        this.modalità = modalità;
+    public void setModalita(String modalita) {
+        this.modalita = modalita;
         this.dirty = true;
     }
 
@@ -352,7 +352,7 @@ public class TirocinioImpl implements Tirocinio{
         numOre = tirocinio.getNumOre();
         mesi = tirocinio.getMesi();
         obiettivi = tirocinio.getObiettivi();
-        modalità = tirocinio.getModalità();
+        modalita = tirocinio.getModalita();
         facilitazioni = tirocinio.getFacilitazioni();
         settore = tirocinio.getSettore();
         titolo = tirocinio.getTitolo();

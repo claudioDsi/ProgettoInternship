@@ -19,31 +19,105 @@
         <h3 align='center'>UNIVERSITA' DEGLI STUDI DELL'AQUILA</h3>
         <h5 align='center'>Dipartimento di INGEGNERIA E SCIENZE DELL'INFORMAZIONE</h5>
         <h6 align="center">SEGRETERIA AMMINISTRATIVA PER LA DIDATTICA</h6>
-        <p><b>(da compilare a cura dell'Azienda)</b></p>
+        <p><b>da inserire</b></p>
+        <p align="center"><b>ALLEGATO 1</b></p>
+        <p><b>alla Convenzione per lo svolgimento di attivit&#224; di tirocinio e di orientamento (ai sensi dell'art. 18 L.196/97 e dell'Art. 1 Decreto Ministero del Lavoro e Previdenza Sociale N. 142/98 e della Legge 148 del 14/09/2011) per studenti, laureati e diplomati del Dipartimento di Ingegneria, Scienze dell'Informazione e Matematica dell'Universit&#224; degli Studi dell'Aquila.</b></p>
         <br/>
-        <p><b>L’Ente/Azienda</b> ${strip_slashes(azienda.nomeAzienda)}</p>
-        <p>Codice Fiscale Ente/Azienda ${strip_slashes(azienda.codiceFisc)}</p>
+        <p align='center'><b>PROGETTO FORMATIVO E DI ORIENTAMENTO</b></p>
         <br/>
-        <p><b>Tirocinante:</b></p>
-        <p><b>Cognome</b> ${strip_slashes(utente.cognome)} <b>Nome</b> ${strip_slashes(utente.nome)}</p>
-        <p>(Codice identificativo tirocinio: Dipartimento, Corso di Laurea o diploma, anno, n progressivo, altro)</p>
-        <p>Non so che ci va qua</p>
+        <p><b>Nominativo del tirocinante</b> ${strip_slashes(utente.cognome)} ${strip_slashes(utente.nome)}</p>
+        <p><b>Nato a</b> ${strip_slashes(utente.luogoNasc)}   Prov.___ il ${strip_slashes(utente.dataNasc)?string}</p>
+        <p><b>Residente in</b> ${strip_slashes(utente.residenza)}  Prov.(____)</p>
+        <p><b>Codice Fiscale</b> ${strip_slashes(utente.codFisc)}</p>
+        <p><b>Telefono</b> ${strip_slashes(utente.telefono)}</p>
         <br/>
-        <p><b>Periodo del tirocinio:</b></p>
-        <p><b>dal</b> ${strip_slashes(tirocinio.dataInizio)?string} <b>al</b> ${strip_slashes(tirocinio.dataFine)?string}</p>
-        <p>Per un totale di ${strip_slashes(tirocinio.numOre)} ore.</p>
+        <p align="center">Attuale condizione (barrare la casella &#8211; possibilit&#224; di doppia scelta):</p>
         <br/>
-        <p><b>Sede di svolgimento del tirocinio</b> ${strip_slashes(tirocinio.luogo)}</p>
+        <p><input type="checkbox" name="studi" value="cdl"
+                <#if utente.cdl!="">
+                    checked
+                </#if> disabled> Studente Corso di Laurea in: ${strip_slashes(utente.cdl)}</p>
+        <p><input type="checkbox" name="studi" value="laurea" 
+                <#if utente.laurea!="">
+                    checked
+                </#if> disabled> Laureato. Laurea in: ${strip_slashes(utente.laurea)}</p>
+        <p><input type="checkbox" name="studi" value="dottorato" 
+                <#if utente.dottorato!="">
+                    checked
+                </#if> disabled> Dottorato di ricerca in: ${strip_slashes(utente.dottorato)}</p>
+        <p><input type="checkbox" name="studi" value="specializzazione" 
+                <#if utente.specializzazione!="">
+                    checked
+                </#if> disabled> Scuola o corso di perfezionamento o specializzazione in: ${strip_slashes(utente.specializzazione)}</p>
         <br/>
-        <p><b>Descrizione Attività svolta</b></p>
-        <p></p>
+        <p>Barrare se trattasi di soggetto portatore di handicap:</p>
+        <p align="center">Si <input type="checkbox" name="handicap" value="si" 
+                <#if (utente.handicap)>
+                    checked
+                </#if> disabled></p>
+        <p align="center">No <input type="checkbox" name="handicap" value="no" 
+                <#if !(utente.handicap)>
+                    checked
+                </#if> disabled></p>
         <br/>
-        <p><b>Si attesta che il/la Sig. ${strip_slashes(utente.cognome)} ${strip_slashes(utente.nome)}</b></p>
-        <p>Ha effettuato i compiti affidatigli con il seguente risultato:</p>
-        <p></p>
+        <p><b>Ente/Azienda ospitante</b> ${strip_slashes(azienda.nomeAzienda)}</p>
+        <p><b>Luogo di effettuazione del tirocinio</b> ${strip_slashes(tirocinio.luogo)}</p>
+        <p><b>Settore di inserimento</b> ${strip_slashes(tirocinio.settore)}</p>
+        <p><b>Tempo di accesso ai locali aziendali</b> ${strip_slashes(tirocinio.orario)}</p>
+        <p><b>Periodo di tirocinio</b> n. ${strip_slashes(tirocinio.mesi)} mesi dal ${strip_slashes(tirocinio.dataInizio)} al ${strip_slashes(tirocinio.dataFine)}</p>
+        <p>(con possibilit&#224; di proroga entro i limiti massimi previsti dalla normativa vigente)</p>
+        <p><b>numero ore di tirocinio</b> ${strip_slashes(tirocinio.numOre)} <b>per il conseguimento di n.</b> ${strip_slashes(richiesta.cfu)} <b>CFU</b></p>
         <br/>
-        <p><b>Data .........................</b></p>
-        <p><b>Firma del tutor aziendale</b></p>
-        <p><b>.............................................</b></p>
+        <p><b>Tutore universitario</b> _______________</p>
+        <p>Telefono ______________</p>
+        <br/>
+        <p><b>Tutore aziendale:</b> ${strip_slashes(tutore.cognome)} ${strip_slashes(tutore.nome)}</p>
+        <p>Telefono ${strip_slashes(tutore.telefono)}</p>
+        <br/>
+        <p><b>Polizze assicurative:</b></p>
+        <p><b>Copertura assicurativa per rischio responsabilit&#224; civile terzi:</b></p>
+        <p>Compagnia assicurativa</p>
+        <p>UNIPOLSAI n.65 / 102965221</p>
+        <p>Scadenza polizza: 30 aprile 2018</p>
+        <br/>
+        <p><b>Copertura assicurativa per rischio infortuni:</b></p>
+        <p>Compagnia assicurativa</p>
+        <p>Copertura da polizza HARMONIE MUTUELLE n.100015</p>
+        <p>Scadenza polizza: 30 aprile 2018</p>
+        <br/>
+        <p><b>Posizione INAIL:</b></p>
+        <p>Copertura assicurativa "in conto Stato" ex art. 2 D.P.R. N. 156 del 9.04.1999</p>
+        <br/>
+        <p><b>Obiettivi del tirocinio:</b></p>
+        <p>${strip_slashes(tirocinio.obiettivi)}</p>
+        <br/>
+        <p><b>Modalit&#224;</b></p>
+        <p>${strip_slashes(tirocinio.modalita)}</p>
+        <br/>
+        <p><b>Facilitazioni previste: sussidio di formazione e servizi aziendali (mensa)</b></p>
+        <p>${strip_slashes(tirocinio.facilitazioni)}</p>
+        <br/>
+        <p><b>Obblighi del tirocinante:</b></p>
+        <p><ul>
+            <li>Seguire le indicazioni dei tutori e fare riferimento ad essi su qualsiasi esigenza di tipo organizzativo ed altre evenienze;</li>
+            <li>Rispettare gli obblighi di riservatezza per quanto attiene ai dati, informazioni e conoscenze in merito all'attivit&#224; di ricerca dell'Ente/Azienda, acquisiti durante e dopo lo svolgimento del tirocinio;</li>
+            <li>Rispettare i regolamenti aziendali e le norme in materia di igiene e sicurezza;</li>
+            <li>Inviare al Dipartimento di Ingegneria, Scienze dell'Informazione e Matematica dell'Universit&#224; degli Studi dell'Aquila, mensilmente, le presenze effettive presso l'Azienda rilevate da una scheda che viene consegnata dall'Azienda stessa all'atto della compilazione del presente Progetto.</li>
+        </ul></p>
+        <br/>
+        <p>Ai sensi degli artt. 10 e seguenti della legge 675/ 96, sulla tutela delle persone e di altri soggetti rispetto al trattamento dei dati personali, con la sottoscrizione il tirocinante esprime il suo consenso a che i suoi dati personali vengano comunicati all'Universit&#224; limitatamente ai trattamenti connessi alle finalit&#224; del presente rapporto di tirocinio. La sottoscrizione del presente modello comporta anche il consenso del tirocinante al trattamento dei suoi dati personali nel senso sopraindicato.</p>
+        <p>L'Aquila,</p>
+        <p>Firma per visione e accettazione del tirocinante</p>
+        <p>_____________________________</p>
+        <p>Dipartimento di Ingegneria, Scienze dell'Informazione e Matematica dell'Universit&#224; degli Studi di L'Aquila</p>
+        <p>Il Tutor</p>
+        <p>______________________________</p>        
+        <p>L'Ente/L'Azienda(timbro e firma aziendale)</p>
+        <p>______________________________</p>
+        <p>Il Tutor Aziendale</p>
+        <p>______________________________</p>
+        <p>Il Direttore del Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica.</p>
+        <p>Prof. Guido Proietti</p>
+        <p>______________________________</p>
     </div>
 </div>

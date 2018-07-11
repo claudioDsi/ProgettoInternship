@@ -42,8 +42,8 @@ public interface Tirocinio {
     String getObiettivi();
     void setObiettivi(String obiettivi);
     
-    String getModalità();
-    void setModalità(String modalità);
+    String getModalita();
+    void setModalita(String modalita);
     
     String getFacilitazioni();
     void setFacilitazioni(String facilitazioni);

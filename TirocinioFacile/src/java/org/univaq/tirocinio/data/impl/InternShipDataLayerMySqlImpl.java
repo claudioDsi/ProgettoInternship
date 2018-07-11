@@ -295,7 +295,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             tiro.setNumOre(rs.getInt("NumOre"));           
             tiro.setMesi(rs.getInt("NumMesi"));
             tiro.setObiettivi(rs.getString("Obiettivi"));
-            tiro.setModalità(rs.getString("Modalità"));
+            tiro.setModalita(rs.getString("Modalità"));
             tiro.setFacilitazioni(rs.getString("Facilitazioni"));
             tiro.setSettore(rs.getString("Settore"));
             tiro.setTitolo(rs.getString("Titolo")); 
@@ -885,7 +885,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 uTirocinio.setInt(3, tirocinio.getNumOre());
                 uTirocinio.setInt(4, tirocinio.getMesi());
                 uTirocinio.setString(5, tirocinio.getObiettivi());
-                uTirocinio.setString(6, tirocinio.getModalità());
+                uTirocinio.setString(6, tirocinio.getModalita());
                 uTirocinio.setString(7, tirocinio.getFacilitazioni());
                 uTirocinio.setString(8, tirocinio.getSettore());
                 uTirocinio.setString(9, tirocinio.getTitolo());
@@ -900,7 +900,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
                 iTirocinio.setInt(3, tirocinio.getNumOre());
                 iTirocinio.setInt(4, tirocinio.getMesi());
                 iTirocinio.setString(5, tirocinio.getObiettivi());
-                iTirocinio.setString(6, tirocinio.getModalità());
+                iTirocinio.setString(6, tirocinio.getModalita());
                 iTirocinio.setString(7, tirocinio.getFacilitazioni());
                 iTirocinio.setString(8, tirocinio.getSettore());
                 iTirocinio.setString(9, tirocinio.getTitolo());

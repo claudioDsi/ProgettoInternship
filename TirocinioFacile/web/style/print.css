@@ -21,10 +21,8 @@ and open the template in the editor.
 
 @media print {
     
-    @page 
-    {
+    @page{
         size:  auto;   
-        margin: 0mm;
+        margin: 1.6cm;
     }
-
 }
