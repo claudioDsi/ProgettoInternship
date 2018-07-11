@@ -14,8 +14,7 @@
         <li><b>Numero di ore:</b> ${tirocinio.numOre}</li>
         <li><b>Obiettivi:</b> ${strip_slashes(tirocinio.obiettivi)}</li>
         <li><b>Facilitazioni:</b> ${strip_slashes(tirocinio.facilitazioni)}</li>
-        <li><b>Settore:</b> ${strip_slashes(tirocinio.settore)}</li>
-        <li><b>Status:</b> ${tirocinio.status?string}</li>
+        <li><b>Settore:</b> ${strip_slashes(tirocinio.settore)}</li>        
     </ul>
 </div>
 
@@ -84,27 +83,12 @@
             </#if>
         </#if>
         <#if azione=="pending">   
-        <div class="w3-card-4 profile" >
-            <header class="w3-container w3-theme">
-                <h3>Questa &egrave; la tua candidatura </h3>
-            </header>
-                    
-                <div class="w3-card-4 button-margin"  style="max-width: 55%;">
-                    <!--
-                    <header class="w3-container w3-theme">
-                        <h3>Dettagli tirocinio </h3>
-                    </header> -->
-                    <ul class="w3-ul">
-                       <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
-                       <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
-                       <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
-                       <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
-                       <li><b>Status:</b> ${strip_slashes(richiesta.status)}</li>
-                    </ul>
-                </div>     
+        
+           
+                        
                 <div class="w3-card-4 button-margin"  style="max-width: 55%;">
                     <header class="w3-container w3-theme">
-                        <h3>Dettagli tutore </h3>
+                        <h3>Ulteriori dettagli </h3>
                     </header>
                     <ul class="w3-ul">
                         <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
@@ -113,9 +97,12 @@
                         <li><b>Qua ci va il contratto</b></li>
                         <li><b>Qua ci va il resoconto</b></li>
                         <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
+                        <#if azione=="pending">
+                        <li><b>Status:</b>In attesa di approvazione</li>
+                        </#if>
                     </ul>
                 </div>         
-            </div>            
+                       
         
         </#if>
         <#if azione="reject">
