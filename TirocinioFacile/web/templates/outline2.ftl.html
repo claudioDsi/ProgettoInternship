@@ -20,6 +20,7 @@ and open the template in the editor.
         <script type="text/javascript" src="script/showButton.js"></script>
         <script type="text/javascript" src="script/validator.js"></script> 
         <script type="text/javascript" src="script/topnav.js"></script>
+        <script type="text/javascript" src="script/sidebar_anonimo.js"></script>
        
         <style>
         html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
@@ -42,12 +43,15 @@ and open the template in the editor.
                             <img src="images/logo1.png" style="width: 100px; height: 36px;">
                         </a>
                     </div>
-                    <div class="w3-col w3-container w3-right w3-mobile" style="width:380px">
+                    <div class="w3-col w3-container w3-right w3-mobile" style="width:800px">
                         <a href="home" class="w3-bar-item w3-button w3-xlarge w3-mobile">Home</a>
                         <a href="contact" class="w3-bar-item w3-button w3-xlarge w3-mobile">Contatti</a>
                         <#if (Session??)>
                             <a href="logout" class="w3-bar-item w3-button w3-xlarge w3-mobile">Logout</a>
                         <#else>
+                            <a class="w3-bar-item w3-button w3-xlarge w3-mobile" href="search">Ricerca Tirocinio</a>
+                            <a class="w3-bar-item w3-button w3-xlarge w3-mobile" href="listaaziende">Aziende</a>
+                            <a class="w3-bar-item w3-button w3-xlarge w3-mobile" href="faq">FAQ</a>
                             <a href="login" class="w3-bar-item w3-button w3-xlarge w3-mobile">Login</a>
                         </#if>
                     </div>
@@ -70,45 +74,49 @@ and open the template in the editor.
                 </#if>
             </div>
         </noscript>
-        <#if (Session)??>
             <div id="sidebar" style="display:none">
                 <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
                     <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
                         <i class="fa fa-remove"></i>
                     </a>
-                    <#if Session.getAttribute('type')=="stud">
-                        <a class="w3-bar-item w3-button w3-hover-black" 
-                           href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">
-                            Il tuo profilo
-                        </a>
-                        <a class="w3-bar-item w3-button w3-hover-black" 
-                           href="search">
-                            Ricerca Tirocinio
-                        </a>
-                        <a class="w3-bar-item w3-button w3-hover-black" 
-                           href="listaaziende">
-                            Lista Aziende</a>
-                        <a class="w3-bar-item w3-button w3-hover-black" 
-                           href="applications">
-                            Riepilogo Candidature
-                        </a>
-                        <a class="w3-bar-item w3-button w3-hover-black" href="faq">FAQ</a>
-                    <#elseif Session.getAttribute('type')=="comp">
-                        <a class="w3-bar-item w3-button w3-hover-black"
-                           href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">
-                            Il tuo profilo
-                        </a>
-                        <a class="w3-bar-item w3-button w3-hover-black" href="panel">Gestione Tirocini</a>
-                        <a class="w3-bar-item w3-button w3-hover-black" href="tirocinio">Inserisci Tirocinio</a>
-                        <a class="w3-bar-item w3-button w3-hover-black" href="tutore">Aggiungi Tutore</a>
-                        <a class="w3-bar-item w3-button w3-hover-black" href="faq">FAQ</a>
+                    <#if (Session)??>
+                        <#if Session.getAttribute('type')=="stud">
+                            <a class="w3-bar-item w3-button w3-hover-black" 
+                               href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">
+                                Il tuo profilo
+                            </a>
+                            <a class="w3-bar-item w3-button w3-hover-black" 
+                               href="search">
+                                Ricerca Tirocinio
+                            </a>
+                            <a class="w3-bar-item w3-button w3-hover-black" 
+                               href="listaaziende">
+                                Lista Aziende</a>
+                            <a class="w3-bar-item w3-button w3-hover-black" 
+                               href="applications">
+                                Riepilogo Candidature
+                            </a>
+                            <a class="w3-bar-item w3-button w3-hover-black" href="faq">FAQ</a>
+                        <#elseif Session.getAttribute('type')=="comp">
+                            <a class="w3-bar-item w3-button w3-hover-black"
+                               href="profile?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}">
+                                Il tuo profilo
+                            </a>
+                            <a class="w3-bar-item w3-button w3-hover-black" href="panel">Gestione Tirocini</a>
+                            <a class="w3-bar-item w3-button w3-hover-black" href="tirocinio">Inserisci Tirocinio</a>
+                            <a class="w3-bar-item w3-button w3-hover-black" href="tutore">Aggiungi Tutore</a>
+                            <a class="w3-bar-item w3-button w3-hover-black" href="faq">FAQ</a>
+                        <#else>
+                            <a class="w3-bar-item w3-button w3-hover-black" href="managecompany">Gestione delle aziende</a>
+                            <a class="w3-bar-item w3-button w3-hover-black" href="stats">Statistiche</a>
+                        </#if>
                     <#else>
-                        <a class="w3-bar-item w3-button w3-hover-black" href="managecompany">Gestione delle aziende</a>
-                        <a class="w3-bar-item w3-button w3-hover-black" href="stats">Statistiche</a>
+                        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="search">Ricerca Tirocinio</a>
+                        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="listaaziende">Lista Aziende</a>
+                        <a class="w3-bar-item w3-button w3-hover-black w3-mobile" href="faq">FAQ</a>
                     </#if>
                 </nav>
             </div>
-        </#if>
         <script>
             document.getElementById('sidebar').style.display = "block"
         </script>
@@ -117,6 +125,7 @@ and open the template in the editor.
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
         
         <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+        
         <#if (Session)??>
             <div class="w3-main" style="margin-left:210px">
                 <div id="content" class="w3-rest w3-col">
