@@ -94,13 +94,14 @@ public class InsertRichiesta extends InternshipDBController {
                     Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(session_userid);
                     String subject = "Nuova Richiesta per il Tirocinio '" + tirocinio.getTitolo() + "'";
                     String body = "Lo Studente " + utente.getNome() + " " + utente.getCognome() + " ha fatto richiesta per il tirocinio '" 
-                            + tirocinio.getTitolo() + "'. Il tutore scelto è" + tutore.getNome() + " " + tutore.getCognome() + " ed il numero di CFU richiesti sono "
+                            + tirocinio.getTitolo() + "'. Ha scelto come tutore " + tutore.getNome() + " " + tutore.getCognome() + " ed il numero di CFU richiesti sono "
                             + new_richiesta.getCfu()+". Sul sito potete trovare tutte le informazioni al riguardo.";
                     String filename1 = "tutor" + new_richiesta.getIdRichiesta();
                     String filename2 = "company" + new_richiesta.getIdRichiesta();
                     //invio email al tutore
-                    SecurityLayer.createMessage(toTutor, from, subject, body, filename1);
-                    SecurityLayer.createMessage(toCompanyResp, from, subject, body, filename2);
+                    String dirpath = getServletContext().getRealPath("/")+"/email/";
+                    SecurityLayer.createMessage(toTutor, from, subject, body, filename1, dirpath);
+                    SecurityLayer.createMessage(toCompanyResp, from, subject, body, filename2, dirpath);
                     //invio email al responsabile dell'azienda
                     response.sendRedirect("show?tid="+tirocinio_id);
                 }
