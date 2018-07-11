@@ -4,7 +4,7 @@
     </div>
     <form class="w3-container" id="form" method="post" action="modify">
         <#if (messaggiocampi??)>
-            <p>${messaggiocampi}</p>
+            <p class="w3-panel w3-pale-red w3-border-red">${messaggiocampi}</p>
         </#if>
         <p>
             <label><b>Nome</b></label>
@@ -20,7 +20,7 @@
         </p>
     
         <p>
-            <label ><b>Luogo di nascita</b></label>
+            <label><b>Luogo di nascita</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green w3-opacity" style="width:30%; max-width:50%" type="text" name="luogonasc" value="${strip_slashes(utente.luogoNasc)}" disabled/>
         </p>
         
@@ -100,7 +100,7 @@
                 Magistrale</option>
             </select> 
         </p>
-
+        
         <p>
             <label><b>Dottorato</b></label>
             <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="dottorato" value="${strip_slashes(utente.dottorato)}"/>
@@ -117,7 +117,7 @@
         </p>
         
          <#if (usernamemessage??)>
-            <p>${usernamemessage}</p>
+            <p class="w3-panel w3-pale-red w3-border-red">${usernamemessage}</p>
         </#if>
 		
 
@@ -133,7 +133,7 @@
         </p>
         
         <#if (passwordmessage??)>
-            <p>${passwordmessage}</p>
+            <p class="w3-panel w3-pale-red w3-border-red">${passwordmessage}</p>
         </#if>
         
         <input class="w3-btn w3-theme button-margin" type="submit" name="update" value="Conferma modifiche">

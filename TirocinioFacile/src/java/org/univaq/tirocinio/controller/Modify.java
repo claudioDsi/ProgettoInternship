@@ -72,13 +72,13 @@ public class Modify extends InternshipDBController {
                     List<String> lista_username_utenti = ((InternShipDataLayer)request.getAttribute("datalayer")).getUsernameUtenti();
                     for(int i = 0; i < lista_username_azienda.size(); i++){
                         if(lista_username_azienda.get(i).equals(request.getParameter("username"))){
-                            request.setAttribute("usernamemessage", "The username is already chosen!");
+                            request.setAttribute("usernamemessage", "Questo username esiste già");
                             no_update = true;
                         }
                     }
                     for(int i = 0; i < lista_username_utenti.size(); i++){
                         if(lista_username_utenti.get(i).equals(request.getParameter("username"))){
-                            request.setAttribute("usernamemessage", "The username is already chosen!");
+                            request.setAttribute("usernamemessage", "Questo username esiste già");
                             no_update = true;
                         }
                     } 
@@ -91,7 +91,7 @@ public class Modify extends InternshipDBController {
             }else{
                 //controllo che la password inserita sia stata ripetuta correttamente
                 if(!(request.getParameter("password").equals(request.getParameter("rpassword")))){
-                    request.setAttribute("passwordmessage", "You have to repeat the right password!");
+                    request.setAttribute("passwordmessage", "Le password sono diverse!");
                     no_update = true;
                 }
             }
