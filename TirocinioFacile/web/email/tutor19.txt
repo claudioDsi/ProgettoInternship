@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: anastasia@tales.com
+Message-ID: <30577446.1.1531298208033.JavaMail.vince@DESKTOP-SGTPRBN>
+Subject: Nuova Richiesta per il Tirocinio 'Modellazione sistemi hardware'
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_0_32847125.1531298207986"
+
+------=_Part_0_32847125.1531298207986
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Lo Studente Claudio Di Sipio ha fatto richiesta per il tirocinio 'Modellazione sistemi hardware'. Ha scelto come tutore Anastasia De Falco ed il numero di CFU richiesti sono 6. Sul sito potete trovare tutte le informazioni al riguardo.
+------=_Part_0_32847125.1531298207986--

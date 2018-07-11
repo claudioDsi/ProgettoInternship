@@ -99,7 +99,7 @@ public class InsertRichiesta extends InternshipDBController {
                     String filename1 = "tutor" + new_richiesta.getIdRichiesta();
                     String filename2 = "company" + new_richiesta.getIdRichiesta();
                     //invio email al tutore
-                    String dirpath = getServletContext().getRealPath("/")+"/email/";
+                    String dirpath = getServletContext().getRealPath("/email/").replace("build\\", "");
                     SecurityLayer.createMessage(toTutor, from, subject, body, filename1, dirpath);
                     SecurityLayer.createMessage(toCompanyResp, from, subject, body, filename2, dirpath);
                     //invio email al responsabile dell'azienda

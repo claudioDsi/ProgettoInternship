@@ -50,7 +50,7 @@ public class UploadProgetto extends InternshipDBController {
     private void action_upload(HttpServletRequest request, HttpServletResponse response, int tid) throws IOException, ServletException, TemplateManagerException, NoSuchAlgorithmException, DataLayerException{
         Part file_to_upload = request.getPart("filetoupload");
         MessageDigest md = MessageDigest.getInstance("SHA-1");
-        String dir_path = getServletContext().getRealPath("/")+"/uploads";
+        String dir_path = getServletContext().getRealPath("/uploads").replace("build\\", "");
         File uploaded_file = File.createTempFile("upload_", "", new File(dir_path));
         Documento doc = ((InternShipDataLayer)request.getAttribute("datalayer")).creaDocumento();
         doc.setFilename(file_to_upload.getSubmittedFileName());//filename

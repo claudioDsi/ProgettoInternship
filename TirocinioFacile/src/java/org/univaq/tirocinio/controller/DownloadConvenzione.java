@@ -33,7 +33,7 @@ public class DownloadConvenzione extends InternshipDBController {
             StreamResult result = new StreamResult(getServletContext());
             Documento documento = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoDocumento(id_convenzione);
             if(documento!=null){
-                String dir_path = getServletContext().getRealPath("/")+"/uploads";
+                String dir_path = getServletContext().getRealPath("/uploads").replace("build\\", "");
                 try (InputStream is = new FileInputStream(dir_path + File.separatorChar + documento.getLocalfile())) {
                     request.setAttribute("contentType", documento.getTipo());
                     result.activate(is, documento.getSize(), documento.getFilename(), request, response);
