@@ -211,7 +211,7 @@ public class SecurityLayer {
         }
     }
     
-    public static void createMessage(String to, String from, String subject, String body, String name) throws IOException, MessagingException {
+    public static void createMessage(String to, String from, String subject, String body, String name, String dirpath) throws IOException, MessagingException {
     try {
         Message message = new MimeMessage(Session.getInstance(System.getProperties()));
         message.setFrom(new InternetAddress(from));
@@ -225,14 +225,8 @@ public class SecurityLayer {
         multipart.addBodyPart(content);
         // integration
         message.setContent(multipart);
-        //create directory for email
-        String dir_path = "../email";
-        File directory = new File(dir_path);
-        if(!directory.exists()){
-            directory.mkdir();
-        }
         // store file
-        String filename = "../email/" + name + ".txt";
+        String filename = dirpath + name + ".txt";
         message.writeTo(new FileOutputStream(new File(filename)));
     } catch (MessagingException ex) {
         throw new MessagingException("Cannot send message!");
