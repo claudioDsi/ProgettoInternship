@@ -1,21 +1,34 @@
-<#if (utente??)>
-    <h3 class="w3-container w3-pale-green w3-border-green w3-border profile" >Registrazione effettuata con successo</h3>
-    <p><a class="w3-btn w3-theme" href="login"> Prosegui </a></p>
+<#if (utente??)>    
+    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-green">
+        <h3>Registrazione effettuata con successo!</h3>
+            <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
+      </div>     
     
 </#if>
-<#if (azienda??)>
-    <h3 class="w3-container w3-pale-green w3-border-green w3-border profile" >Registrazione effettuata con successo</h3>
-    <p><a class="w3-btn w3-theme" href="login"> Prosegui </a></p>
+<#if (azienda??)>   
+      <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-green">
+        <h3>Registrazione effettuata con successo!</h3>
+            <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
+      </div>     
 </#if>
-<#if (tutore??)>
-    <h3 class="w3-container w3-pale-green w3-border-green w3-border profile" >Tutore inserito con successo</h3>
-    <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
+
+<#if (tutore??)>   
+    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-green">
+  <h3>Tutore inserito con successo!</h3>
+  <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
+    </div> 
 </#if>
-<#if (tirocinio??)>
-     <h3 class="w3-container w3-pale-green w3-border-green w3-border profile" >Tirocinio inserito con successo</h3>
-    <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
+<#if (tirocinio??)>    
+    <div class="w3-panel w3-pale-green w3-leftbar w3-border-green">
+  <h3>Tirocinio inserito con successo!</h3>
+  <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
+    </div> 
+    
+    
 </#if>
-<#if (nuova_richiesta??)>
-    <h3 class="w3-container w3-pale-green w3-border-green w3-border profile" >Richiesta efettuata con successo</h3>
-    <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
+<#if (nuova_richiesta??)>    
+    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-green">
+        <h3>Richiesta efettuata con successo!</h3>
+            <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
+    </div>     
 </#if>

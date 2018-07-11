@@ -169,28 +169,28 @@ function switchPage(page) {
 //script initialization
 function init() {
 	switchPage(1);
+        var mysql = require('mysql');
+        eval(mysql.readFileSync('mysql.js')+'');
+        getConn(mysql);
+        
+
 }
 
 window.onload=init;
      
      </script>
+    
+     
      <script> 
          
-/*
-
-WEB EGINEERING COURSE - University of L'Aquila 
-
-Data access functions for simple pager - local version
-data to be paged is contained in local javascript structures
-
-See the course homepage: http://www.di.univaq.it/gdellape/students.php
-
-*/
 
 //database
 var pages = [
-	
+	[{matricola:"124610",voto:30},{matricola:"112233",voto:28}],
+	[{matricola:"555555",voto:19}],
+	[{matricola:"556677",voto:19},{matricola:"667788",voto:27},{matricola:"888888",voto:21}]
 ];
+
 
 //ritorna i dati di una pagina
 //returns the data for a given page
@@ -236,11 +236,7 @@ function getCellStyleCallback() {
       <#list aziende as azienda>
             <#if (azienda.status)>
                 <tr>
-                    <td>${strip_slashes(azienda.nomeAzienda)}</td>
-                    <td>${strip_slashes(azienda.nomeResp)}</td>
-                    <td>${strip_slashes(azienda.cognomeResp)} </td>  
-                    <td>${strip_slashes(azienda.telefonoResp)}</td>
-                    <td>${strip_slashes(azienda.emailResp)}</td>
+                    
                 </tr>
             </#if>
         </#list>     
