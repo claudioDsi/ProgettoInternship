@@ -34,21 +34,19 @@
                                 <a class="w3-tooltip" href="panel?del=${tirocinio.idTirocinio}">
                                     <span class="glyphicon glyphicon-remove"></span>
                                     <span style="position:absolute;right:25pt" class="w3-text w3-tag">Elimina tirocinio</span>
-                                </a>                         
-                                <#list lista_tirocini as tirocinio>
-                                    <#if (tirocinio.statusResoconto)>
-                                    <#else>
-                                        <#if (resoconto??)>
-                                            <#list resoconto as key,value>
-                                                <#if (tirocinio.idTirocinio==key)>
-                                                    <#if (value)>
-                                                        <a class="w3-button w3-theme button-margin" href="compilaresoconto?tid=${tirocinio.idTirocinio}">Compila Resoconto</a>
-                                                    </#if>
+                                </a>
+                                <#if (tirocinio.statusResoconto)>
+                                <#else>
+                                    <#if (resoconto??)>
+                                        <#list resoconto as key,value>
+                                            <#if (tirocinio.idTirocinio==key)>
+                                                <#if (value)>
+                                                    <a class="w3-button w3-theme button-margin" href="compilaresoconto?tid=${tirocinio.idTirocinio}">Compila Resoconto</a>
                                                 </#if>
-                                            </#list>
-                                        </#if>
+                                            </#if>
+                                        </#list>
                                     </#if>
-                                </#list>
+                                </#if>
                             </td>
                         </tr> 
                         </#if>

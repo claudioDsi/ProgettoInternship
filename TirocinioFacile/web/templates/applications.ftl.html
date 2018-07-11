@@ -48,7 +48,9 @@
                         <td>${strip_slashes(ric.nomeTutor)}</td>
                         <td>${strip_slashes(ric.cognomeTutor)}</td> 
                         <td>${strip_slashes(ric.emailTutor)}</td>
-                        <td>${strip_slashes(ric.status)}</td>
+                        <#if (ric.status)=="pending">
+                        <td>In attesa di approvazione</td>
+                        </#if>
                         <td><a href="show?tid=${ric.idTirocinio}">Dettagli tirocinio</a></td>
                     </tr>
                 </#list>

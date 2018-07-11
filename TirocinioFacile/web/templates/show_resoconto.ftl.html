@@ -1,64 +1,49 @@
-<style>
-    img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 100%;
-        max-height: 100%;
-    }
-    
-    @media print {
-        .header, .hide { visibility: hidden }
-    }
-</style>
 <script>
     function printDiv(divName) {
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents;
-        document.getElementById(1).style.maxWidth = "100%";
-        document.getElementById(1).style.maxHeight = "100%";
-        document.getElementById(1).style.display = "block";
-        document.getElementById(1).style.marginLeft = "auto";
-        document.getElementById(1).style.marginRight = "auto";
         window.print();
         document.body.innerHTML = originalContents;
     }
 </script>
+
 <h2>${page_title}</h2>
 <br/>
 <p><b>Stampa questa pagina e carica il documento relativo al progetto del tuo tirocinio!</b></p>
 <button onclick="printDiv('toPrint')">Print</button>
 
 <div id="toPrint">
-    <img src="images/logounivaq.jpg" alt="" height="85" width="65" id="1">
-    <h3 align='center'>UNIVERSITA' DEGLI STUDI DELL'AQUILA</h3>
-    <h5 align='center'>Dipartimento di INGEGNERIA E SCIENZE DELL'INFORMAZIONE</h5>
-    <h6 align="center">SEGRETERIA AMMINISTRATIVA PER LA DIDATTICA</h6>
-    <p><b>(da compilare a cura dell'Azienda)</b></p>
-    <br/>
-    <p><b>L’Ente/Azienda</b> ${strip_slashes(azienda.nomeAzienda)}</p>
-    <p>Codice Fiscale Ente/Azienda ${strip_slashes(azienda.codiceFisc)}</p>
-    <br/>
-    <p><b>Tirocinante:</b></p>
-    <p><b>Cognome</b> ${strip_slashes(utente.cognome)} <b>Nome</b> ${strip_slashes(utente.nome)}</p>
-    <p>(Codice identificativo tirocinio: Dipartimento, Corso di Laurea o diploma, anno, n progressivo, altro)</p>
-    <p>Non so che ci va qua</p>
-    <br/>
-    <p><b>Periodo del tirocinio:</b></p>
-    <p><b>dal</b> ${strip_slashes(tirocinio.dataInizio)?string} <b>al</b> ${strip_slashes(tirocinio.dataFine)?string}</p>
-    <p>Per un totale di ${strip_slashes(tirocinio.numOre)} ore.</p>
-    <br/>
-    <p><b>Sede di svolgimento del tirocinio</b> ${strip_slashes(tirocinio.luogo)}</p>
-    <br/>
-    <p><b>Descrizione Attività svolta</b></p>
-    <p></p>
-    <br/>
-    <p><b>Si attesta che il/la Sig. ${strip_slashes(utente.cognome)} ${strip_slashes(utente.nome)}</b></p>
-    <p>Ha effettuato i compiti affidatigli con il seguente risultato:</p>
-    <p></p>
-    <br/>
-    <p><b>Data .........................</b></p>
-    <p><b>Firma del tutor aziendale</b></p>
-    <p><b>.............................................</b></p>
+    <div id="printdiv">
+        <img src="images/logounivaq.jpg" alt="" height="85" width="65" id="printimg">
+        <h3 align='center'>UNIVERSITA' DEGLI STUDI DELL'AQUILA</h3>
+        <h5 align='center'>Dipartimento di INGEGNERIA E SCIENZE DELL'INFORMAZIONE</h5>
+        <h6 align="center">SEGRETERIA AMMINISTRATIVA PER LA DIDATTICA</h6>
+        <p><b>(da compilare a cura dell'Azienda)</b></p>
+        <br/>
+        <p><b>L'Ente/Azienda</b> ${strip_slashes(azienda.nomeAzienda)}</p>
+        <p>Codice Fiscale Ente/Azienda ${strip_slashes(azienda.codiceFisc)}</p>
+        <br/>
+        <p><b>Tirocinante:</b></p>
+        <p><b>Cognome</b> ${strip_slashes(utente.cognome)} <b>Nome</b> ${strip_slashes(utente.nome)}</p>
+        <p>(Codice identificativo tirocinio: Dipartimento, Corso di Laurea o diploma, anno, n progressivo, altro)</p>
+        <p>Non so che ci va qua</p>
+        <br/>
+        <p><b>Periodo del tirocinio:</b></p>
+        <p><b>dal</b> ${strip_slashes(tirocinio.dataInizio)?string} <b>al</b> ${strip_slashes(tirocinio.dataFine)?string}</p>
+        <p>Per un totale di ${strip_slashes(tirocinio.numOre)} ore.</p>
+        <br/>
+        <p><b>Sede di svolgimento del tirocinio</b> ${strip_slashes(tirocinio.luogo)}</p>
+        <br/>
+        <p><b>Descrizione Attivit&#225; svolta</b></p>
+        <p>${tirocinio.descrizione}</p>
+        <br/>
+        <p><b>Si attesta che il/la Sig. ${strip_slashes(utente.cognome)} ${strip_slashes(utente.nome)}</b></p>
+        <p>Ha effettuato i compiti affidatigli con il seguente risultato:</p>
+        <p>${tirocinio.risultato}</p>
+        <br/>
+        <p><b>Data .........................</b></p>
+        <p><b>Firma del tutor aziendale</b></p>
+        <p><b>.............................................</b></p>
+    </div>
 </div>
