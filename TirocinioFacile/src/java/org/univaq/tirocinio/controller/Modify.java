@@ -153,16 +153,6 @@ public class Modify extends InternshipDBController {
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
                 }
-                //controllo campo partitaiva
-                if(request.getParameter("partitaiva")==null || request.getParameter("partitaiva").equals("")){
-                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
-                    no_update = true;
-                }
-                //controllo campo codicefisc
-                if(request.getParameter("codicefisc")==null || request.getParameter("codicefisc").equals("")){
-                    request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
-                    no_update = true;
-                }
                 //controllo campo nomerappr
                 if(request.getParameter("nomerappr")==null || request.getParameter("nomerappr").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
@@ -216,12 +206,10 @@ public class Modify extends InternshipDBController {
                     ((InternShipDataLayer)request.getAttribute("datalayer")).storeStudente(u);
                     action_activate(request, response, userid, usertype);
                 }else if(usertype.equals("comp")){
-                    Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).creaAzienda();
+                    Azienda a = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(userid);
                     a.setNomeAzienda(SecurityLayer.addSlashes(request.getParameter("nome")));
                     a.setRagioneSociale(SecurityLayer.addSlashes(request.getParameter("ragionesociale")));
                     a.setIndirizzo(SecurityLayer.addSlashes(request.getParameter("indirizzo")));
-                    a.setPartitaIva(SecurityLayer.addSlashes(request.getParameter("partitaiva")));
-                    a.setCodiceFisc(SecurityLayer.addSlashes(request.getParameter("codicefisc")));
                     a.setNomeRappr(SecurityLayer.addSlashes(request.getParameter("nomerappr")));
                     a.setCognomeRappr(SecurityLayer.addSlashes(request.getParameter("cognomerappr")));
                     a.setNomeResp(SecurityLayer.addSlashes(request.getParameter("nomeresp")));
