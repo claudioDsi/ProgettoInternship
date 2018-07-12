@@ -112,6 +112,7 @@ public class Show extends InternshipDBController {
                 }
             }
             request.setAttribute("tirocinio", tirocinio);
+            
             request.setAttribute("Session", s);
             res.activate("show_tirocinio.ftl.html", request, response);
         }catch(DataLayerException ex){
@@ -192,6 +193,7 @@ public class Show extends InternshipDBController {
             if(request.getParameter("tid")!=null){
                 int tirocinio_id = SecurityLayer.checkNumeric(request.getParameter("tid"));
                 Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(tirocinio_id);
+                
                 if(tirocinio!=null){
                     if(utype.equals("comp")){
                         //caso azienda
