@@ -49,12 +49,12 @@
                         <td>${strip_slashes(ric.cognomeTutor)}</td> 
                         <td>${strip_slashes(ric.emailTutor)}</td>
                         <#if (ric.status)=="pending">
-                        <td>In attesa di approvazione</td>
-                        </#if>
-                         <#if (ric.status)=="rejected">
-                        <td>Richiesta rifiutata </td>
-                        </#if>
-                        
+                            <td>In attesa di approvazione</td>
+                        <#elseif (ric.status)=="rejected">
+                            <td>Richiesta rifiutata </td>
+                        <#else>
+                            <td>Approvato</td>
+                        </#if>                        
                         <td><a href="show?tid=${ric.idTirocinio}">Dettagli tirocinio</a></td>
                     </tr>
                 </#list>
