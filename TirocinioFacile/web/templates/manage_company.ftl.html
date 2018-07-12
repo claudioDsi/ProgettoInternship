@@ -3,37 +3,72 @@
 <#if (Session??)>
     <#if Session.getAttribute('type')=="admin">
         <#if (lista_aziende)??>
+        <div class="w3-responsive">
             <table class="w3-table-all">
                 <tr>
                     <th>Azienda</th>
                     <th>Indirizzo</th>
-                    <th>Partita Iva</th>
+                    
                     <th>Nome rappresentante</th>
                     <th>Cognome rappresentante</th>
                     <th>Foro competente</th>
-                    <th>Email rappresentante</th>
-                    <th>Status dell'azienda</th>
-                    <th> Genera convenzione</th>
-                    <th> Abilita </th>
+                    <th>Email rappresentante</th>                    
+                    <th> Genera convenzione</th>                                      
+                    <th> Abilitazione </th>
+                    <th> Carica Documento </th>
+                    
+                    
                 </tr>            
                 <#list lista_aziende as azienda>
                     <tr>
                         <td>${strip_slashes(azienda.nomeAzienda)}</td>
                         <td>${strip_slashes(azienda.indirizzo)}</td>
-                        <td>${strip_slashes(azienda.partitaIva)}</td>  
+                        
                         <td>${strip_slashes(azienda.nomeRappr)}</td>
                         <td>${strip_slashes(azienda.cognomeRappr)}</td>
                         <td>${strip_slashes(azienda.foro)}</td>
                         <td>${strip_slashes(azienda.emailResp)}</td>
                        
-                        <td>${azienda.status?string}</td>
+                       
                      
-                        <td><#if (azienda.statusConvenzione)> <#else><a href="generateconvention?aid=${azienda.idAzienda}&val=1">Genera Convenzione</a></#if></td>
-                        <td><#if (azienda.status)> <#else><a href="managecompany?aid=${azienda.idAzienda}&val=1">Abilita azienda</a></#if></td>
-                        <td><#if (azienda.idConvenzione=0)><a href="uploadconvenzione?aid=${azienda.idAzienda}">Upload Convenzione Azienda</a></#if></td>
+                        <td><#if (azienda.statusConvenzione)> 
+                            <span class="fa fa-file-pdf-o" style="margin-right: 10pt; color: #009900"></span>
+                            
+                            <#else>                              
+                            
+                                <a class="w3-tooltip" href="generateconvention?aid=${azienda.idAzienda}&val=1">
+                                    <span class="fa fa-file-pdf-o" style="margin-right: 10pt; color: #ff9900"></span>
+                                    <span style="position:absolute;right:25pt;" class="w3-text w3-tag">Genera Convenzione</span>
+                                </a>
+                            </#if>
+                        </td>
+                        <td><#if (azienda.status)> 
+                            
+                             <span class="glyphicon glyphicon-ok " style="margin-right: 10pt; color: #009900"></span>
+                             
+                            
+                            <#else>                          
+                            
+                            <a class="w3-tooltip"  href="managecompany?aid=${azienda.idAzienda}&val=1">
+                                    <span class="glyphicon glyphicon-remove" style="margin-right: 10pt"></span>
+                                    <span style="position:absolute;right:25pt;" class="w3-text w3-tag">Abilita azienda</span>
+                            </a>
+                            </#if>
+                        </td>
+                        <td>
+                            <#if (azienda.idConvenzione=0)>
+                           
+                            
+                             <a class="w3-tooltip"  href="uploadconvenzione?aid=${azienda.idAzienda}">
+                                    <span class="glyphicon glyphicon-upload" style="margin-right: 10pt; color: #ff9900; "></span>
+                                    <span style="position:absolute;right:25pt;" class="w3-text w3-tag">Carica convenzione azienda</span>
+                            </a>
+                            </#if>
+                        </td>
                     </tr>
                 </#list>        
             </table>
+            </div>
         <#else>
             <p>Non ci sono aziende ancora iscritte!</p>
         </#if>

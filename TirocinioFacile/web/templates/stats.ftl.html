@@ -5,6 +5,7 @@
         <h3 class="w3-theme profile">I Migliori Tutori</h3>
         <br/>
         <#if (best_tutori)??>
+        <div class="w3-responsive">
             <table class="w3-table-all">
                 <tr>
                     <th>Nome</th>
@@ -38,6 +39,7 @@
                     </tr>
                 </#list>
             </table>
+        </div>
         <#else>
             <p>Non ci sono tutori iscritti!</p>
         </#if>
@@ -45,6 +47,7 @@
         <h3 class="w3-theme profile">Le Migliori Aziende</h3>
         <br/>
         <#if (best_aziende)??>
+        <div class="w3-responsive">
             <table class="w3-table-all">
                 <tr>
                     <th>Nome</th>
@@ -63,6 +66,7 @@
                     </tr>
                 </#list>
             </table>
+        </div>
         <#else>
             <p>Non ci sono aziende iscritte!</p>
         </#if>
@@ -70,6 +74,7 @@
         <h3 class="w3-theme profile">Le Aziende con pi&ugrave; Tirocini</h3>
         <br/>
         <#if (most_stages)??>
+        <div class="w3-responsive">
             <table class="w3-table-all">
                 <tr>
                     <th>Nome</th>
@@ -88,6 +93,7 @@
                     </tr>
                 </#list>
             </table>
+        </div>
         <#else>
             <p>Non ci sono aziende iscritte!</p>
         </#if>       
