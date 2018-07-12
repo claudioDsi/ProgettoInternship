@@ -34,7 +34,8 @@
         <h3>Le mie richieste</h3>
         <#if (lista_richieste)??>
             <table class="w3-table-all">
-                <tr>
+                <tr> 
+                    
                     <th>CFU</th>
                     <th>Nome del tutore</th>
                     <th>Cognome del tutore</th> 
@@ -44,6 +45,7 @@
                 </tr>
                 <#list lista_richieste as ric>
                     <tr>
+                       
                         <td>${ric.cfu}</td> 
                         <td>${strip_slashes(ric.nomeTutor)}</td>
                         <td>${strip_slashes(ric.cognomeTutor)}</td> 

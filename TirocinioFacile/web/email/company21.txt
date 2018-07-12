@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: barbara@italdata.com
+Message-ID: <847535134.3.1531400180244.JavaMail.claudio@flexlm>
+Subject: Nuova Richiesta per il Tirocinio 'Gestione Database'
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2_1028378735.1531400180240"
+
+------=_Part_2_1028378735.1531400180240
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Lo Studente Claudio Di Sipio ha fatto richiesta per il tirocinio 'Gestione Database'. Ha scelto come tutore Raffaella Del Monte ed il numero di CFU richiesti sono 6. Sul sito potete trovare tutte le informazioni al riguardo.
+------=_Part_2_1028378735.1531400180240--
