@@ -45,51 +45,91 @@ public class InsertTirocinio extends InternshipDBController {
             if(request.getParameter("titolo")==null || request.getParameter("titolo").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkText(request.getParameter("titolo"))){
+                    request.setAttribute("messaggiotitolo", "Il titolo inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo luogo
             if(request.getParameter("luogo")==null || request.getParameter("luogo").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkPlace(request.getParameter("luogo"))){
+                    request.setAttribute("messaggioluogo", "Il luogo inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo orario
             if(request.getParameter("orario")==null || request.getParameter("orario").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkText(request.getParameter("orario"))){
+                    request.setAttribute("messaggioorario", "L'orario inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo numore
             if(request.getParameter("numore")==null || request.getParameter("numore").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkIsNumber(request.getParameter("numore"))){
+                    request.setAttribute("messaggionumore", "Il numero di ore inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo nummesi
             if(request.getParameter("nummesi")==null || request.getParameter("nummesi").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkIsNumber(request.getParameter("nummesi"))){
+                    request.setAttribute("messaggionummesi", "Il numero di mesi selezionato non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo obiettivi
             if(request.getParameter("obiettivi")==null || request.getParameter("obiettivi").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkText(request.getParameter("obiettivi"))){
+                    request.setAttribute("messaggioobiettivi", "Gli obiettivi scelti non sono validi!");
+                    no_update = true;
+                }    
             }
             //controllo campo modalita
             if(request.getParameter("modalita")==null || request.getParameter("modalita").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkText(request.getParameter("modalita"))){
+                    request.setAttribute("messaggiomodalita", "Le modalità inserite non sono valide!");
+                    no_update = true;
+                }    
             }
             //controllo campo facilitazioni
             if(request.getParameter("facilitazioni")==null || request.getParameter("facilitazioni").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkText(request.getParameter("facilitazioni"))){
+                    request.setAttribute("messaggiofacilitazioni", "Le facilitazioni inserite non sono valide!");
+                    no_update = true;
+                }    
             }
             //controllo campo settore
             if(request.getParameter("settore")==null || request.getParameter("settore").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
-            }
-            //controllo campo orario
-            if(request.getParameter("orario")==null || request.getParameter("orario").equals("")){
-                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
-                no_update = true;
+            }else{
+                if(SecurityLayer.checkText(request.getParameter("settore"))){
+                    request.setAttribute("messaggiosettore", "Il settore scelto non è valido!");
+                    no_update = true;
+                }    
             }
             if(!no_update){
                 TemplateResult res = new TemplateResult(getServletContext());

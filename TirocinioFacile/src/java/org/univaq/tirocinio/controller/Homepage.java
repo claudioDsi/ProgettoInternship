@@ -140,8 +140,6 @@ public class Homepage extends InternshipDBController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException{
         try{
-            boolean checkRes = SecurityLayer.checkIndirizzo("Via braccio d'arpino, snc");
-            System.out.println(checkRes);
             HttpSession s = SecurityLayer.checkSession(request);
             if(s!=null){
                 String type = (String)s.getAttribute("type");

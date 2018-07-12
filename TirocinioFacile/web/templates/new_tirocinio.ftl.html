@@ -13,47 +13,65 @@
             <div>Titolo</div>
             <div><input type="text" name="titolo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggiotitolo??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiotitolo}</p>
+        </#if>
         <div>
             <div>Luogo</div>
             <div><input type="text" name="luogo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggioluogo??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioluogo}</p>
+        </#if>
         <div>
             <div>Orario</div>
             <div><input type="text" name="orario" value="" style="width:30%; max-width:50%" class="required   w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggioorario??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioorario}</p>
+        </#if>
         <div>
             <div>Numero di ore</div>
             <div><input type="text" name="numore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggionumore??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggionumore}</p>
+        </#if>
         <div>
             <div>Numero di mesi</div>
             <div><input type="text" name="nummesi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggionummesi??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggionummesi}</p>
+        </#if>
         <div>
             <div>Obiettivi</div>
             <div><input type="text" name="obiettivi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggioobiettivi??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioobiettivi}</p>
+        </#if>
         <div>
             <div>Modalit&agrave; </div>
             <div><input type="text" name="modalita" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggiomodalita??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiomodalita}</p>
+        </#if>
         <div>
             <div>Facilitazioni</div>
             <div><input type="text" name="facilitazioni" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggiofacilitazioni??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiofacilitazioni}</p>
+        </#if>
         <div>
             <div>Settore</div>
             <div><input type="text" name="settore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
         </div>
-
+        <#if (messaggiosettore??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiosettore}</p>
+        </#if>
         <div>
             <input type="submit" name="add" value="Aggiungi tirocinio"  class="w3-button w3-theme button-margin" />
         </div>

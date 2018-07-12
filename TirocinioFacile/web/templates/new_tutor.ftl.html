@@ -13,12 +13,16 @@
         <div>Nome</div>
         <div><input type="text" name="nome" value="" class="required forbidden  w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%;"/></div>
     </div>
-     
+    <#if (messaggionome??)>
+        <p>${messaggionome}</p>
+    </#if>
     <div>
         <div>Cognome</div>
         <div><input type="text" name="cognome" value=""  class="required forbidden  w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%;" /></div>
     </div>
-    
+    <#if (messaggiocognome??)>
+        <p>${messaggiocognome}</p>
+    </#if>
     <div>
         <div>Data di nascita</div>
         <div><input type="date" name="datanasc" value="" style="width:30%; max-width:50%;" class="required  w3-input w3-animate-input w3-pale-green" /></div>
@@ -28,12 +32,16 @@
         <div>Telefono</div>
         <div><input type="text" name="telefono" value="" style="width:30%; max-width:50%;" class="required number  w3-input w3-animate-input w3-pale-green" /></div>
     </div>
-    
+    <#if (messaggiotelefono??)>
+        <p>${messaggiotelefono}</p>
+    </#if>
     <div>
         <div>Email</div>
         <div><input type="text" name="email" value="" style="width:30%; max-width:50%;" class="required email  w3-input w3-animate-input w3-pale-green" /></div>
     </div>
-
+    <#if (messaggioemail??)>
+        <p>${messaggioemail}</p>
+    </#if>
     <div>
         <input type="submit" name="add" value="Aggiungi tutore" class="w3-button w3-theme button-margin"  />
     </div>

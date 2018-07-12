@@ -48,11 +48,21 @@ public class InsertTutore extends InternshipDBController {
             if(request.getParameter("nome")==null || request.getParameter("nome").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("nome"))){
+                    request.setAttribute("messaggionome", "Il nome inserito può contenere lettere o apostrofi");
+                    no_update = true;
+                }    
             }
             //controllo campo cognome
             if(request.getParameter("cognome")==null || request.getParameter("cognome").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("cognome"))){
+                    request.setAttribute("messaggiocognome", "Il cognome inserito può contenere lettere o apostrofi");
+                    no_update = true;
+                }    
             }
             //controllo campo datanasc
             if(request.getParameter("datanasc")==null || request.getParameter("datanasc").equals("")){
@@ -63,11 +73,21 @@ public class InsertTutore extends InternshipDBController {
             if(request.getParameter("telefono")==null || request.getParameter("telefono").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkIsNumeric(request.getParameter("telefono"))){
+                    request.setAttribute("messaggiotelefono", "Inserisci un numero di telefono corretto");
+                    no_update = true;
+                }    
             }
             //controllo campo email
             if(request.getParameter("email")==null || request.getParameter("email").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkEmail(request.getParameter("email"))){
+                    request.setAttribute("messaggioemail", "Inserisci una email corretta");
+                    no_update = true;
+                }    
             }
             if(!no_update){
                 TemplateResult res = new TemplateResult(getServletContext());

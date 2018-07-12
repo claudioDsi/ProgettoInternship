@@ -84,7 +84,7 @@ public class InsertUser extends InternshipDBController {
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
             }else{
-                if(SecurityLayer.checkPlace(request.getParameter("codFisc"))){
+                if(SecurityLayer.checkCodiceFiscale(request.getParameter("codfisc"))){
                     request.setAttribute("messaggiocodFisc", "Inserisci un codice fiscale valido!");
                     no_update = true;
                 }    
