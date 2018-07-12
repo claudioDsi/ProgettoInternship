@@ -42,7 +42,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     private PreparedStatement jUtenteRichiesta;
     private PreparedStatement orderByDate, searchQuery;
     private PreparedStatement rejectAllRequests, modifyRequestStatus, modifyTirocinioStatus; 
-    private PreparedStatement listaAziende, aziendeConv;
+    private PreparedStatement listaAziende, aziendeConv, aziendaByTiro;
     private PreparedStatement bestAziende, bestTutori, moreStage, activateAzienda;
     private PreparedStatement uNumTiroAzienda, uNumTiroTutore, uDateTirocinio, uValutazione, uStatusVoto;
     private PreparedStatement showContact,showTirocini;
@@ -95,6 +95,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sTirociniByAzienda=connection.prepareStatement("SELECT IdTirocinio FROM Tirocinio WHERE CodAzienda=?");
             sTirociniByStudente=connection.prepareStatement("SELECT t.* FROM Tirocinio as t JOIN Richiesta as r ON t.IdTirocinio=r.CodTirocinio WHERE r.CodStudente=? AND r.Status='accepted'");
             showTirocini=connection.prepareStatement(creaQuerySelect("Tirocinio", ""));   
+            aziendaByTiro=connection.prepareStatement("SELECT * FROM Azienda, Tirocinio WHERE IdAzienda=CodAzienda AND IdTirocinio=?");
             
             orderByDate=connection.prepareStatement("SELECT * FROM Tirocinio,Azienda WHERE CodAzienda=IdAzienda ORDER BY IdTirocinio DESC LIMIT 5");
             sRichiesteByUser=connection.prepareStatement("SELECT * FROM Utente as u JOIN Richiesta as r JOIN Tirocinio as t JOIN Azienda as a ON u.IdUtente=r.CodStudente AND t.IdTirocinio=r.CodTirocinio AND a.IdAzienda=t.CodAzienda  WHERE r.CodStudente=?");
@@ -120,6 +121,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             updateProgettoTiro=connection.prepareStatement("UPDATE Tirocinio SET IdProgetto=? WHERE IdTirocinio=?");
             updateResoconto=connection.prepareStatement("UPDATE Tirocinio SET Descrizione=?, Risultato=?, StatusResoconto=1 WHERE IdTirocinio=?");
             sDocumento = connection.prepareStatement("SELECT * FROM Documenti WHERE DocId=?");
+            
+            
             //Tutti i prepared statement
         }
         catch(SQLException sqlEx){

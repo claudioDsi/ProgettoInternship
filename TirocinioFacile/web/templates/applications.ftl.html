@@ -34,27 +34,30 @@
         <h3>Le mie richieste</h3>
         <#if (lista_richieste)??>
             <table class="w3-table-all">
-                <tr>
+                <tr>                    
+                    <th>Titolo del tirocinio</th>
+                    <th>Nome Azienda</th> 
                     <th>CFU</th>
-                    <th>Nome Azienda</th>
-                    <th>Titolo del tirocinio</th> 
                     <th>Email del tutore</th>
                     <th>Stato richiesta</th>
                     <th>Vai ai dettagli</th>
                 </tr>
                 <#list lista_richieste as ric>
                     <tr>
-                        <td>${ric.cfu}</td>
+                         <#list titolitirocini as key,value>
+                            <#if (ric.idRichiesta==key)>
+                                <td>  ${strip_slashes(value)}</td>
+                                
+                            </#if>
+                        </#list>
+                       
                         <#list nomiaziende as key,value>
                             <#if (ric.idRichiesta==key)>
                                 <td>${strip_slashes(value)}</td>
                             </#if>
                         </#list>
-                         <#list titolitirocini as key,value>
-                            <#if (ric.idRichiesta==key)>
-                                <td>${strip_slashes(value)}</td>
-                            </#if>
-                        </#list>
+                        
+                         <td>${ric.cfu}</td>
                         <td>${strip_slashes(ric.emailTutor)}</td>
                         <#if (ric.status)=="pending">
                             <td>In attesa di approvazione</td>
