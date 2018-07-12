@@ -6,7 +6,9 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import org.univaq.tirocinio.framework.result.TemplateManagerException;
 import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import javax.servlet.http.HttpSession;
+import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Richiesta;
 import org.univaq.tirocinio.datamodel.Tirocinio;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
@@ -37,6 +40,16 @@ public class Applications extends InternshipDBController {
             List<Tirocinio> lista_tirocini_approvati = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirociniApprovatiByStudente(userid);
             if(!lista_richieste.isEmpty()){
                 request.setAttribute("lista_richieste", lista_richieste);
+                Map nomiAziende = new HashMap();
+                Map titoliTirocini = new HashMap();
+                for (int i = 0; i < lista_richieste.size(); i++) {
+                    Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(lista_richieste.get(i).getIdTirocinio());
+                    Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(tirocinio.getIdAzienda());
+                    titoliTirocini.put(lista_richieste.get(i).getIdRichiesta(), tirocinio.getTitolo());
+                    nomiAziende.put(lista_richieste.get(i).getIdRichiesta(), azienda.getNomeAzienda());
+                }
+                request.setAttribute("nomiaziende", nomiAziende);
+                request.setAttribute("titolitirocini", titoliTirocini);          
             }
             if(!lista_tirocini_approvati.isEmpty()){
                 request.setAttribute("lista_tirocini_approvati", lista_tirocini_approvati);
