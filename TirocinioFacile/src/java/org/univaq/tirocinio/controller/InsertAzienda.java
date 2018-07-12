@@ -45,66 +45,135 @@ public class InsertAzienda extends InternshipDBController {
             if(request.getParameter("nome")==null || request.getParameter("nome").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkPlace(request.getParameter("nome"))){
+                    request.setAttribute("messaggionome", "Il nome inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo ragione sociale
-            if(request.getParameter("ragionesociale")==null || request.getParameter("ragionesociale").equals("")){
+            if(request.getParameter("ragionesociale")==null){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(!(request.getParameter("ragionesociale").equals(""))){
+                    if(SecurityLayer.checkPlace(request.getParameter("ragionesociale"))){
+                        request.setAttribute("messaggiocdl", "Ragione sociale non valida!");
+                        no_update = true;
+                    }
+                }
             }
             //controllo campo partita iva
             if(request.getParameter("partitaiva")==null || request.getParameter("partitaiva").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkPartita(request.getParameter("partitaiva"))){
+                    request.setAttribute("messaggioiva", "La partita IVA inserita non è valida!");
+                    no_update = true;
+                }    
             }
             //controllo campo codicefisc
-            if(request.getParameter("codicefisc")==null || request.getParameter("codicefisc").equals("")){
+            if(request.getParameter("codicefisc")==null){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(!(request.getParameter("codicefisc").equals(""))){
+                    if(SecurityLayer.checkPlace(request.getParameter("codicefisc"))){
+                        request.setAttribute("messaggiocodicefisc", "Inserisci un codice fiscale valido!");
+                        no_update = true;
+                    }   
+                }
             }
             //controllo campo indirizzo
             if(request.getParameter("indirizzo")==null || request.getParameter("indirizzo").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkIndirizzo(request.getParameter("indirizzo"))){
+                    request.setAttribute("messaggioindirizzo", "L'indirizzo inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo nomerappr
             if(request.getParameter("nomerappr")==null || request.getParameter("nomerappr").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("nomerappr"))){
+                    request.setAttribute("messaggionomerappr", "Il nome inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo cognomerappr
             if(request.getParameter("cognomerappr")==null || request.getParameter("cognomerappr").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("cognomerappr"))){
+                    request.setAttribute("messaggiocognomerappr", "Il cognome inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo nomeresp
             if(request.getParameter("nomeresp")==null || request.getParameter("nomeresp").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("nomeresp"))){
+                    request.setAttribute("messaggionomeresp", "Il nome inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo cognomeresp
             if(request.getParameter("cognomeresp")==null || request.getParameter("cognomeresp").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("cognomeresp"))){
+                    request.setAttribute("messaggiocognomeresp", "Il cognome inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo telefonoresp
             if(request.getParameter("telefonoresp")==null || request.getParameter("telefonoresp").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkIsNumeric(request.getParameter("telefonoresp"))){
+                    request.setAttribute("messaggiotelefonoresp", "Il numero di telefono inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo emailresp
             if(request.getParameter("emailresp")==null || request.getParameter("emailresp").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkEmail(request.getParameter("emailresp"))){
+                    request.setAttribute("messaggioemailresp", "L'email inserita non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo foro
             if(request.getParameter("foro")==null || request.getParameter("foro").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkPlace(request.getParameter("foro"))){
+                    request.setAttribute("messaggioforo", "Il foro inserito non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo username
             if(request.getParameter("username")==null || request.getParameter("username").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkUsername(request.getParameter("username"))){
+                    request.setAttribute("messaggiousername", "L'username non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo password
             if(request.getParameter("password")==null || request.getParameter("password").equals("")){

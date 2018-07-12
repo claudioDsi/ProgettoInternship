@@ -48,11 +48,21 @@ public class InsertUser extends InternshipDBController {
             if(request.getParameter("nome")==null || request.getParameter("nome").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("nome"))){
+                    request.setAttribute("messaggionome", "Il nome inserito può contenere lettere o apostrofi");
+                    no_update = true;
+                }    
             }
             //controllo campo cognome
             if(request.getParameter("cognome")==null || request.getParameter("cognome").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("cognome"))){
+                    request.setAttribute("messaggiocognome", "Il cognome inserito può contenere lettere o apostrofi");
+                    no_update = true;
+                }    
             }
             //controllo campo datanasc
             if(request.getParameter("datanasc")==null || request.getParameter("datanasc").equals("")){
@@ -63,11 +73,21 @@ public class InsertUser extends InternshipDBController {
             if(request.getParameter("luogonasc")==null || request.getParameter("luogonasc").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkPlace(request.getParameter("luogonasc"))){
+                    request.setAttribute("messaggioluogo", "La parola inserita può contenere lettere, apostrofi, punti o trattini");
+                    no_update = true;
+                }    
             }
             //controllo campo codfisc
             if(request.getParameter("codfisc")==null || request.getParameter("codfisc").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkPlace(request.getParameter("codFisc"))){
+                    request.setAttribute("messaggiocodFisc", "Inserisci un codice fiscale valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo sesso
             if(request.getParameter("sesso")==null || request.getParameter("sesso").equals("")){
@@ -78,11 +98,21 @@ public class InsertUser extends InternshipDBController {
             if(request.getParameter("residenza")==null || request.getParameter("residenza").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkPlace(request.getParameter("residenza"))){
+                    request.setAttribute("messaggioresidenza", "La parola inserita può contenere lettere, apostrofi, punti o trattini");
+                    no_update = true;
+                }    
             }
             //controllo campo telefono
             if(request.getParameter("telefono")==null || request.getParameter("telefono").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkIsNumeric(request.getParameter("telefono"))){
+                    request.setAttribute("messaggiotelefono", "Inserisci un numero di telefono corretto");
+                    no_update = true;
+                }    
             }
             //controllo campo handicap
             if(request.getParameter("handicap")==null || request.getParameter("handicap").equals("")){
@@ -93,31 +123,62 @@ public class InsertUser extends InternshipDBController {
             if(request.getParameter("email")==null || request.getParameter("email").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkEmail(request.getParameter("email"))){
+                    request.setAttribute("messaggioemail", "Inserisci una email corretta");
+                    no_update = true;
+                }    
             }
             //controllo campo cdl
-            if(request.getParameter("cdl")==null || request.getParameter("cdl").equals("")){
+            if(request.getParameter("cdl")==null){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(!(request.getParameter("cdl").equals(""))){
+                    if(SecurityLayer.checkName(request.getParameter("cdl"))){
+                        request.setAttribute("messaggiocdl", "Il nome inserito può contenere lettere o apostrofi");
+                        no_update = true;
+                    }
+                }
             }
             //controllo campo laurea
-            if(request.getParameter("laurea")==null || request.getParameter("laurea").equals("")){
+            if(request.getParameter("laurea")==null){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
             }
             //controllo campo dottorato
-            if(request.getParameter("dottorato")==null || request.getParameter("dottorato").equals("")){
+            if(request.getParameter("dottorato")==null){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(!(request.getParameter("dottorato").equals(""))){
+                    if(SecurityLayer.checkName(request.getParameter("dottorato"))){
+                        request.setAttribute("messaggiodottorato", "Il nome inserito può contenere lettere o apostrofi");
+                        no_update = true;
+                    }
+                }
             }
             //controllo campo specializzazione
-            if(request.getParameter("specializzazione")==null || request.getParameter("specializzazione").equals("")){
+            if(request.getParameter("specializzazione")==null){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(!(request.getParameter("specializzazione").equals(""))){
+                    if(SecurityLayer.checkName(request.getParameter("specializzazione"))){
+                        request.setAttribute("messaggiospecializzazione", "Il nome inserito può contenere lettere o apostrofi");
+                        no_update = true;
+                    }
+                }
             }
             //controllo campo username
             if(request.getParameter("username")==null || request.getParameter("username").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkUsername(request.getParameter("username"))){
+                    request.setAttribute("messaggiousername", "L'username non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo password
             if(request.getParameter("password")==null || request.getParameter("password").equals("")){

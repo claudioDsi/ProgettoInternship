@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -212,27 +214,126 @@ public class SecurityLayer {
     }
     
     public static void createMessage(String to, String from, String subject, String body, String name, String dirpath) throws IOException, MessagingException {
-    try {
-        Message message = new MimeMessage(Session.getInstance(System.getProperties()));
-        message.setFrom(new InternetAddress(from));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-        message.setSubject(subject);
-        // create the message part 
-        MimeBodyPart content = new MimeBodyPart();
-        // fill message
-        content.setText(body);
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(content);
-        // integration
-        message.setContent(multipart);
-        // store file
-        String filename = dirpath + name + ".txt";
-        message.writeTo(new FileOutputStream(new File(filename)));
-    } catch (MessagingException ex) {
-        throw new MessagingException("Cannot send message!");
-    } catch (IOException ex) {
-        throw new IOException("Cannot create file!");
+        try {
+            Message message = new MimeMessage(Session.getInstance(System.getProperties()));
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+            // create the message part 
+            MimeBodyPart content = new MimeBodyPart();
+            // fill message
+            content.setText(body);
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(content);
+            // integration
+            message.setContent(multipart);
+            // store file
+            String filename = dirpath + name + ".txt";
+            message.writeTo(new FileOutputStream(new File(filename)));
+        } catch (MessagingException ex) {
+            throw new MessagingException("Cannot send message!");
+        } catch (IOException ex) {
+            throw new IOException("Cannot create file!");
+        }
     }
-}
+    
+    public static boolean checkName(String toCheck){
+        //controlla che i nomi abbiano al loro interno lettere o anche apostrofi
+        String regex = "^[a-zA-Z\']*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean checkPlace(String toCheck){
+        //controlla che i nomi abbiano al loro interno lettere, apostrofi, punti o trattini
+        String regex = "^[a-zA-Z\'.-]*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean checkCodiceFiscale(String toCheck){
+        //controlla che il codice fiscale sia corretto
+        String regex = "^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean checkIsNumeric(String toCheck){
+        //controlla che la stringa sia composta da soli numeri
+        String regex = "^[0-9]{5,10}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean checkEmail(String toCheck){
+        //controlla che l'email sia valida
+        String regex = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean checkUsername(String toCheck){
+        //controlla che l'username contenga numeri, lettere o underscore e sia lungo al più 15 caratteri ed almeno 5
+        String regex = "^(?=.{5,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean checkPartita(String toCheck){
+        //controlla la validità della partita iva
+        String regex = "^[0-9]{11}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean checkIndirizzo(String toCheck){
+        //controlla la validità dell'indirizzo
+        String regex = "^[a-zA-Z \',.-]*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean checkIsNumber(String toCheck){
+        //controlla che la stringa sia composta da soli numeri
+        String regex = "^[0-9]$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(toCheck);
+        if(matcher.matches()){
+            return false;
+        }
+        return true;
+    }
     
 }

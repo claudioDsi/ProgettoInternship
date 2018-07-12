@@ -59,6 +59,11 @@ public class InsertRichiesta extends InternshipDBController {
             if(request.getParameter("cfu")==null || request.getParameter("cfu").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkIsNumber(request.getParameter("cfu"))){
+                    request.setAttribute("messaggiocfu", "Il numero di cfu selezionato non è valido!");
+                    no_update = true;
+                }    
             }
             //controllo campo tutore
             if(request.getParameter("tutore")==null || request.getParameter("tutore").equals("")){

@@ -10,10 +10,16 @@
             <label ><b>Nome</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nome" value=""/>
         </p>
+        <#if (messaggionome??)>
+            <p>${messaggionome}</p>
+        </#if>
         <p>
             <label ><b>Cognome</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognome" value=""/>
         </p>
+        <#if (messaggiocognome??)>
+            <p>${messaggicognome}</p>
+        </#if>
         <p>
             <label ><b>Data di nascita</b></label>
             <input class="number required w3-input w3-pale-green" style="width:30%; max-width:50%" type="date" name="datanasc" value=""/>
@@ -23,12 +29,16 @@
             <label ><b>Luogo di nascita</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="luogonasc" value=""/>
         </p>
-        
+        <#if (messaggioluogo??)>
+            <p>${messaggioluogo}</p>
+        </#if>
         <p>
             <label ><b>Codice fiscale</b></label>
             <input class="code required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="codfisc" value=""/>
         </p>
-        
+        <#if (messaggiocodFisc??)>
+            <p>${messaggiocodFisc}</p>
+        </#if>
         <p>
             <label><b>Sesso</b></label>
             <br>
@@ -43,12 +53,16 @@
             <label><b>Residenza</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="residenza" value=""/>
         </p>
-        
+        <#if (messaggiocodFisc??)>
+            <p>${messaggiocodFisc}</p>
+        </#if>
         <p>
             <label ><b>Telefono</b></label>
             <input class="number w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="telefono" value=""/>
         </p>
-
+        <#if (messaggiotelefono??)>
+            <p>${messaggiotelefono}</p>
+        </#if>
         <p>
             <label ><b>Handicap</b></label>
             <br>
@@ -63,12 +77,16 @@
             <label ><b>Email</b></label>
             <input class="email required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="email" value=""/>
         </p>
-        
+        <#if (messaggioemail??)>
+            <p>${messaggioemail}</p>
+        </#if>
         <p>
             <label ><b>Corso di laurea</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cdl" value=""/>
         </p>
-        
+        <#if (messaggiocdl??)>
+            <p>${messaggiocdl}</p>
+        </#if>
         <p>
             <label ><b>Laurea</b></label>
             <br>
@@ -83,17 +101,23 @@
             <label ><b>Dottorato</b></label>
             <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="dottorato" value=""/>
         </p>
-
+        <#if (messaggiodottorato??)>
+            <p>${messaggiodottorato}</p>
+        </#if>
         <p>
             <label ><b>Specializzazione</b></label>
             <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="specializzazione" value=""/>
         </p>
-
+        <#if (messaggiospecializzazione??)>
+            <p>${messaggiospecializzazione}</p>
+        </#if>
         <p>
             <label ><b>Username</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="username" value=""/>
         </p>
-        
+        <#if (messaggiousername??)>
+            <p>${messaggiousername}</p>
+        </#if>
         <#if (usernamemessage??)>
             <p class="w3-panel w3-pale-red w3-border-red">${usernamemessage}</p>
         </#if>

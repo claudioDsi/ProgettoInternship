@@ -2,66 +2,62 @@
     <div class="w3-container w3-theme">
         <h2>${page_title}</h2>
     </div>
+    <form method="post" action="tirocinio">
+        <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
 
+        <#if (messaggiocampi??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocampi}</p>
+        </#if>
 
+        <div>
+            <div>Titolo</div>
+            <div><input type="text" name="titolo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
 
+        <div>
+            <div>Luogo</div>
+            <div><input type="text" name="luogo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
 
-<form method="post" action="tirocinio">
-    <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
-    
-    <#if (messaggiocampi??)>
-        <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocampi}</p>
-    </#if>
-    
-    <div>
-        <div>Titolo</div>
-        <div><input type="text" name="titolo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
-    
-    <div>
-        <div>Luogo</div>
-        <div><input type="text" name="luogo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
-    
-    <div>
-        <div>Orario</div>
-        <div><input type="text" name="orario" value="" style="width:30%; max-width:50%" class="required   w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
-    
-    <div>
-        <div>Numero di ore</div>
-        <div><input type="text" name="numore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
+        <div>
+            <div>Orario</div>
+            <div><input type="text" name="orario" value="" style="width:30%; max-width:50%" class="required   w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
 
-    <div>
-        <div>Numero di mesi</div>
-        <div><input type="text" name="nummesi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
-    
-    <div>
-        <div>Obiettivi</div>
-        <div><input type="text" name="obiettivi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
-    
-    <div>
-        <div>Modalit&agrave; </div>
-        <div><input type="text" name="modalita" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
-    
-    <div>
-        <div>Facilitazioni</div>
-        <div><input type="text" name="facilitazioni" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
-    
-    <div>
-        <div>Settore</div>
-        <div><input type="text" name="settore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-    </div>
+        <div>
+            <div>Numero di ore</div>
+            <div><input type="text" name="numore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
 
-    <div>
-        <input type="submit" name="add" value="Aggiungi tirocinio"  class="w3-button w3-theme button-margin" />
-    </div>
-    
-</form>
+        <div>
+            <div>Numero di mesi</div>
+            <div><input type="text" name="nummesi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
+
+        <div>
+            <div>Obiettivi</div>
+            <div><input type="text" name="obiettivi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
+
+        <div>
+            <div>Modalit&agrave; </div>
+            <div><input type="text" name="modalita" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
+
+        <div>
+            <div>Facilitazioni</div>
+            <div><input type="text" name="facilitazioni" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
+
+        <div>
+            <div>Settore</div>
+            <div><input type="text" name="settore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
+        </div>
+
+        <div>
+            <input type="submit" name="add" value="Aggiungi tirocinio"  class="w3-button w3-theme button-margin" />
+        </div>
+
+    </form>
 
 </div>

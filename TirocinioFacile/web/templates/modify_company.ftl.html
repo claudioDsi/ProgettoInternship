@@ -12,17 +12,23 @@
         <div>Nome</div>
         <div><input type="text" name="nome" value="${strip_slashes(azienda.nomeAzienda)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggionome??)>
+        <p>${messaggionome}</p>
+    </#if>
     <div>
         <div>Ragione sociale</div>
         <div><input type="text" name="ragionesociale" value="${strip_slashes(azienda.ragioneSociale)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggioragionesociale??)>
+        <p>${messaggioragionesociale}</p>
+    </#if>
     <div>
         <div>Indirizzo</div>
         <div><input type="text" name="indirizzo" value="${strip_slashes(azienda.indirizzo)}" style="width:30%; max-width:50%" class="required  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggioindirizzo??)>
+        <p>${messaggioindirizzo}</p>
+    </#if>
     <div>
         <div>Partita Iva</div>
         <div><input type="text" name="partitaiva" value="${strip_slashes(azienda.partitaIva)}" style="width:30%; max-width:50%" class="required forbidden number  w3-input w3-animate-input w3-pale-green" disabled="disabled"/></div>
@@ -37,37 +43,51 @@
         <div>Nome Rappresentante</div>
         <div><input type="text" name="nomerappr" value="${strip_slashes(azienda.nomeRappr)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggionomerappr??)>
+        <p>${messaggionomerappr}</p>
+    </#if>
     <div>
         <div>Cognome Rappresentante</div>
         <div><input type="text" name="cognomerappr" value="${strip_slashes(azienda.cognomeRappr)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggiocognomerappr??)>
+        <p>${messaggiocognomerappr}</p>
+    </#if>
     <div>
         <div>Nome Responsabile</div>
         <div><input type="text" name="nomeresp" value="${strip_slashes(azienda.nomeResp)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggionomeresp??)>
+        <p>${messaggionomeresp}</p>
+    </#if>
     <div>
         <div>Cognome Responsabile</div>
         <div><input type="text" name="cognomeresp" value="${strip_slashes(azienda.cognomeResp)}" style="width:30%; max-width:50%"  class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggiocognomeresp??)>
+        <p>${messaggiocognomeresp}</p>
+    </#if>
     <div>
         <div>Telefono Responsabile</div>
         <div><input type="text" name="telefonoresp" value="${strip_slashes(azienda.telefonoResp)}" style="width:30%; max-width:50%" class="required forbidden number  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggiotelefonoresp??)>
+        <p>${messaggiotelefonoresp}</p>
+    </#if>
     <div>
         <div>Email Responsabile</div>
         <div><input type="text" name="emailresp" value="${strip_slashes(azienda.emailResp)}" style="width:30%; max-width:50%" class="required email  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggioemailresp??)>
+        <p>${messaggioemailresp}</p>
+    </#if>
     <div>
         <div>Foro</div>
         <div><input type="text" name="foro" value="${strip_slashes(azienda.foro)}" style="width:30%; max-width:50%" class="required  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggioforo??)>
+        <p>${messaggioforo}</p>
+    </#if>
     <div>
         <div>Username</div>
         <div><input type="text" name="username" value="${strip_slashes(azienda.username)}" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>

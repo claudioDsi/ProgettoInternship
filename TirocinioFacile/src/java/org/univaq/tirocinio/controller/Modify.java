@@ -59,6 +59,11 @@ public class Modify extends InternshipDBController {
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
             }else{
+                //controlliamo che il campo username contenga una stringa nella giusta forma
+                if(SecurityLayer.checkUsername(request.getParameter("username"))){
+                    request.setAttribute("messaggiousername", "L'username non è valido!");
+                    no_update = true;
+                } 
                 //si controlla che l'username inserito o è quello vecchio o è uno nuovo ma non già scelto da altri utenti            
                 if(usertype.equals("stud") || usertype.equals("admin")){
                     utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(userid);
@@ -101,11 +106,21 @@ public class Modify extends InternshipDBController {
                 if(request.getParameter("residenza")==null || request.getParameter("residenza").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkPlace(request.getParameter("residenza"))){
+                        request.setAttribute("messaggioresidenza", "La parola inserita può contenere lettere, apostrofi, punti o trattini");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo telefono
                 if(request.getParameter("telefono")==null || request.getParameter("telefono").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkIsNumeric(request.getParameter("telefono"))){
+                        request.setAttribute("messaggiotelefono", "Inserisci un numero di telefono corretto");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo handicap
                 if(request.getParameter("handicap")==null || request.getParameter("handicap").equals("")){
@@ -116,77 +131,155 @@ public class Modify extends InternshipDBController {
                 if(request.getParameter("email")==null || request.getParameter("email").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkEmail(request.getParameter("email"))){
+                        request.setAttribute("messaggioemail", "Inserisci una email corretta");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo cdl
-                if(request.getParameter("cdl")==null || request.getParameter("cdl").equals("")){
+                if(request.getParameter("cdl")==null){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(!(request.getParameter("cdl").equals(""))){
+                        if(SecurityLayer.checkName(request.getParameter("cdl"))){
+                            request.setAttribute("messaggiocdl", "Il nome inserito può contenere lettere o apostrofi");
+                            no_update = true;
+                        }
+                    }
                 }
                 //controllo campo laurea
-                if(request.getParameter("laurea")==null || request.getParameter("laurea").equals("")){
+                if(request.getParameter("laurea")==null){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
                 }
                 //controllo campo dottorato
-                if(request.getParameter("dottorato")==null || request.getParameter("dottorato").equals("")){
+                if(request.getParameter("dottorato")==null){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(!(request.getParameter("dottorato").equals(""))){
+                        if(SecurityLayer.checkName(request.getParameter("dottorato"))){
+                            request.setAttribute("messaggiodottorato", "Il nome inserito può contenere lettere o apostrofi");
+                            no_update = true;
+                        }
+                    }
                 }
                 //controllo campo specializzazione
-                if(request.getParameter("specializzazione")==null || request.getParameter("specializzazione").equals("")){
+                if(request.getParameter("specializzazione")==null){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(!(request.getParameter("specializzazione").equals(""))){
+                        if(SecurityLayer.checkName(request.getParameter("specializzazione"))){
+                            request.setAttribute("messaggiospecializzazione", "Il nome inserito può contenere lettere o apostrofi");
+                            no_update = true;
+                        }
+                    }
                 }
             }else if(usertype.equals("comp")){
                 //controllo campo nome
                 if(request.getParameter("nome")==null || request.getParameter("nome").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkPlace(request.getParameter("nome"))){
+                        request.setAttribute("messaggionome", "Il nome inserito non è valido!");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo ragionesociale
-                if(request.getParameter("ragionesociale")==null || request.getParameter("ragionesociale").equals("")){
+                if(request.getParameter("ragionesociale")==null){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(!(request.getParameter("ragionesociale").equals(""))){
+                        if(SecurityLayer.checkPlace(request.getParameter("ragionesociale"))){
+                            request.setAttribute("messaggiocdl", "Ragione sociale non valida!");
+                            no_update = true;
+                        }
+                    }
                 }
                 //controllo campo indirizzo
                 if(request.getParameter("indirizzo")==null || request.getParameter("indirizzo").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkIndirizzo(request.getParameter("indirizzo"))){
+                        request.setAttribute("messaggioindirizzo", "L'indirizzo inserito non è valido!");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo nomerappr
                 if(request.getParameter("nomerappr")==null || request.getParameter("nomerappr").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkName(request.getParameter("nomerappr"))){
+                        request.setAttribute("messaggionomerappr", "Il nome inserito non è valido!");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo cognomerappr
                 if(request.getParameter("cognomerappr")==null || request.getParameter("cognomerappr").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkName(request.getParameter("cognomerappr"))){
+                        request.setAttribute("messaggiocognomerappr", "Il cognome inserito non è valido!");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo nomeresp
                 if(request.getParameter("nomeresp")==null || request.getParameter("nomeresp").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkName(request.getParameter("nomeresp"))){
+                        request.setAttribute("messaggionomeresp", "Il nome inserito non è valido!");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo cognomeresp
                 if(request.getParameter("cognomeresp")==null || request.getParameter("cognomeresp").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkName(request.getParameter("cognomeresp"))){
+                        request.setAttribute("messaggiocognomeresp", "Il cognome inserito non è valido!");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo telefonoresp
                 if(request.getParameter("telefonoresp")==null || request.getParameter("telefonoresp").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkIsNumeric(request.getParameter("telefonoresp"))){
+                        request.setAttribute("messaggiotelefonoresp", "Il numero di telefono inserito non è valido!");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo emailresp
                 if(request.getParameter("emailresp")==null || request.getParameter("emailresp").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkEmail(request.getParameter("emailresp"))){
+                        request.setAttribute("messaggioemailresp", "L'email inserita non è valido!");
+                        no_update = true;
+                    }    
                 }
                 //controllo campo foro
                 if(request.getParameter("foro")==null || request.getParameter("foro").equals("")){
                     request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                     no_update = true;
+                }else{
+                    if(SecurityLayer.checkPlace(request.getParameter("foro"))){
+                        request.setAttribute("messaggioforo", "Il foro inserito non è valido!");
+                        no_update = true;
+                    }    
                 }
             }
             if(!no_update){

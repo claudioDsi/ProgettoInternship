@@ -10,7 +10,9 @@
         <div>CFU</div>
         <div><input type="text" name="cfu" value="" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
     </div>
-    
+    <#if (messaggiocfu??)>
+        <p>${messaggiocfu}</p>
+    </#if>
     <div>
         <div>Tutore</div>
         <div>
