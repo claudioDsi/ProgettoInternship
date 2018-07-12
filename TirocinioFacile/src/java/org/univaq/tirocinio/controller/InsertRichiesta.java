@@ -65,10 +65,25 @@ public class InsertRichiesta extends InternshipDBController {
                     no_update = true;
                 }    
             }
-            //controllo campo tutore
-            if(request.getParameter("tutore")==null || request.getParameter("tutore").equals("")){
+            //controllo campo nometutore
+            if(request.getParameter("nometutore")==null || request.getParameter("nometutore").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("nometutore"))){
+                    request.setAttribute("messaggionometutore", "Il nome del tutore selezionato non è valido!");
+                    no_update = true;
+                }    
+            }
+            //controllo campo nometutore
+            if(request.getParameter("cognometutore")==null || request.getParameter("cognometutore").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }else{
+                if(SecurityLayer.checkName(request.getParameter("cognometutore"))){
+                    request.setAttribute("messaggiocognometutore", "Il cognome del tutore selezionato non è valido!");
+                    no_update = true;
+                }    
             }
             if(!no_update){
                 HttpSession s = SecurityLayer.checkSession(request);
@@ -85,11 +100,10 @@ public class InsertRichiesta extends InternshipDBController {
                     new_richiesta.setIdStudente(request_userid);
                     new_richiesta.setIdTirocinio(tirocinio_id);
                     new_richiesta.setStatus("pending");
-                    int tutore_id = SecurityLayer.checkNumeric(request.getParameter("tutore"));
-                    Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(tutore_id);
+                    Tutore tutore = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTutore(tirocinio.getIdTutore());
                     new_richiesta.setCodTutore(tutore.getIdTutore());
-                    new_richiesta.setNomeTutor(SecurityLayer.addSlashes(tutore.getNome()));
-                    new_richiesta.setCognomeTutor(SecurityLayer.addSlashes(tutore.getCognome()));
+                    new_richiesta.setNomeTutor(SecurityLayer.addSlashes(request.getParameter("nometutore")));
+                    new_richiesta.setCognomeTutor(SecurityLayer.addSlashes(request.getParameter("cognometutore")));
                     new_richiesta.setEmailTutor(SecurityLayer.addSlashes(tutore.getEmailTutore()));
                     ((InternShipDataLayer)request.getAttribute("datalayer")).storeRichiesta(new_richiesta);
                     Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(tutore.getCodAzienda());

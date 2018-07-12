@@ -68,7 +68,7 @@
         <p>(con possibilit&#224; di proroga entro i limiti massimi previsti dalla normativa vigente)</p>
         <p><b>numero ore di tirocinio</b> ${strip_slashes(tirocinio.numOre)} <b>per il conseguimento di n.</b> ${strip_slashes(richiesta.cfu)} <b>CFU</b></p>
         <br/>
-        <p><b>Tutore universitario</b> _______________</p>
+        <p><b>Tutore universitario</b> ${richiesta.nomeTutor} ${richiesta.cognomeTutor}</p>
         <p>Telefono ______________</p>
         <br/>
         <p><b>Tutore aziendale:</b> ${strip_slashes(tutore.cognome)} ${strip_slashes(tutore.nome)}</p>

@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: barbara@italdata.com
+Message-ID: <26696974.3.1531411837267.JavaMail.vince@DESKTOP-SGTPRBN>
+Subject: Nuova Richiesta per il Tirocinio 'Sviluppo web'
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2_10786732.1531411837266"
+
+------=_Part_2_10786732.1531411837266
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Lo Studente Claudio Di Sipio ha fatto richiesta per il tirocinio 'Sviluppo web'. Ha scelto come tutore Raffaella Del Monte ed il numero di CFU richiesti sono 6. Sul sito potete trovare tutte le informazioni al riguardo.
+------=_Part_2_10786732.1531411837266--
