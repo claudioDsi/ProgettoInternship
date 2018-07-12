@@ -28,7 +28,7 @@ public class Vote extends InternshipDBController {
     
     private void action_vote(HttpServletRequest request, HttpServletResponse response, Tirocinio tirocinio, Azienda azienda) throws IOException, ServletException, TemplateManagerException {
         try {
-            int valutazione = SecurityLayer.checkNumeric(request.getParameter("voto"));
+            int valutazione = SecurityLayer.checkNumeric(request.getParameter("star"));
             tirocinio.setStatusVoto(true);
             //modifico lo stato del voto sul tirocinio
             ((InternShipDataLayer)request.getAttribute("datalayer")).updateStatusVoto(tirocinio);

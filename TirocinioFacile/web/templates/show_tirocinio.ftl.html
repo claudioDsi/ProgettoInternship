@@ -19,22 +19,6 @@
     </ul>
 </div>
 
-<form id="ratingsForm">
-	<div class="stars">
-		<input type="radio" name="star" class="star-1" id="star-1" />
-		<label class="star-1" for="star-1">1</label>
-		<input type="radio" name="star" class="star-2" id="star-2" />
-		<label class="star-2" for="star-2">2</label>
-		<input type="radio" name="star" class="star-3" id="star-3" />
-		<label class="star-3" for="star-3">3</label>
-		<input type="radio" name="star" class="star-4" id="star-4" />
-		<label class="star-4" for="star-4">4</label>
-		<input type="radio" name="star" class="star-5" id="star-5" />
-		<label class="star-5" for="star-5">5</label>
-		<span></span>
-	</div>
-  
-</form>
 <#if (Session)??>
     <#if Session.getAttribute('type')=="stud">
         <#if azione=="accepted">
@@ -67,19 +51,44 @@
                     <p>Grazie per aver votato questo tirocinio!</p>
                 <#else>
                     <h3>VALUTA QUI L'AZIENDA</h3>
-                    <form method="post" action="vote">
+                    <script>
+                        function autoSubmit(id)
+                        {
+                            var formObject = document.forms['ratingsForm'];
+                            formObject.submit(id);
+                        }
+                    </script>
+                    <form id="ratingsForm" method="post" action="vote">
                         <input type="hidden" name="tid" value="${tirocinio.idTirocinio}" />
-                        <input type="hidden" name="aid" value="${tirocinio.idAzienda}" />
-
-                        <select name="voto">
-                            <option value="1" class="fa fa-star">1</option>
-                            <option value="2" class="fa fa-star">2</option>
-                            <option value="3" class="fa fa-star">3</option>
-                            <option value="4" class="fa fa-star">4</option>
-                            <option value="5" class="fa fa-star" selected>5</option>
-                        </select>
-                        <input type="submit" name="vote" value="Vote"/>
+                        <input type="hidden" name="aid" value="${tirocinio.idAzienda}" />	
+                        <div class="stars">
+                            <input type="radio" name="star" class="star-1" id="star-1" value="1" onChange="autoSubmit(1);"/>
+                            <label class="star-1" for="star-1">1</label>
+                            <input type="radio" name="star" class="star-2" id="star-2" value="2" onChange="autoSubmit(2);"/>
+                            <label class="star-2" for="star-2">2</label>
+                            <input type="radio" name="star" class="star-3" id="star-3" value="3" onChange="autoSubmit(3);"/>
+                            <label class="star-3" for="star-3">3</label>
+                            <input type="radio" name="star" class="star-4" id="star-4" value="4" onChange="autoSubmit(4);"/>
+                            <label class="star-4" for="star-4">4</label>
+                            <input type="radio" name="star" class="star-5" id="star-5" value="5" onChange="autoSubmit(5);"/>
+                            <label class="star-5" for="star-5">5</label>
+                            <span></span>
+                        </div>
                     </form>
+                    <noscript>
+                        <form method="post" action="vote">
+                            <input type="hidden" name="tid" value="${tirocinio.idTirocinio}" />
+                            <input type="hidden" name="aid" value="${tirocinio.idAzienda}" />
+                            <select name="star">
+                                <option value="1" class="fa fa-star">1</option>
+                                <option value="2" class="fa fa-star">2</option>
+                                <option value="3" class="fa fa-star">3</option>
+                                <option value="4" class="fa fa-star">4</option>
+                                <option value="5" class="fa fa-star" selected>5</option>
+                            </select>
+                            <input type="submit" name="vote" value="Vote"/>
+                        </form>
+                    </noscript>
                 </#if>
             </#if>
         </#if>
