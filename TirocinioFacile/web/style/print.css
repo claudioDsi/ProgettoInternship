@@ -20,6 +20,31 @@ and open the template in the editor.
     margin: 8%;
 }
 
+#borderdivprint{
+    border-top-style: solid;
+    border-right-style: double;
+    border-bottom-style: solid;
+    border-left-style: double;
+}
+
+#borderdivprint table{
+    width: 100%;
+}
+
+#borderdivprint table td{
+    width: 50%;
+    text-align: left;
+}
+
+#noborderdivprint table{
+    width: 100%;
+}
+
+#noborderdivprint table td{
+    width: 50%;
+    text-align: center;
+}
+
 @media print {
     
     @page{
