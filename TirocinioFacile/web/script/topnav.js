@@ -10,8 +10,8 @@ function topnav (id){
     || document.body.clientHeight;
 
     if (w<=1366 && h<=768){
-        console.log("w", w);
-        console.log("h", h);
+        //console.log("w", w);
+        //console.log("h", h);
         bar.setAttribute("class", "w3-top");
     }
 
@@ -24,6 +24,7 @@ function topnav (id){
     divPrincipale.appendChild(divLogo);
 
     var collapseSide = document.createElement('a');
+    collapseSide.setAttribute("id", "collapse");
     collapseSide.setAttribute("class", "w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme");
     collapseSide.setAttribute("href", "javascript:void(0)");
     collapseSide.setAttribute("onclick", "w3_open()");
@@ -39,7 +40,7 @@ function topnav (id){
     divLogo.appendChild(aImg);
 
     var logo = document.createElement('img');
-    logo.setAttribute("src", "images/logo1.png");
+    logo.setAttribute("src", "images/internship.png");
     logo.setAttribute("style", "width: 150px; height: 35px;");
     aImg.appendChild(logo);
 
