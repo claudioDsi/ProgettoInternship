@@ -31,17 +31,17 @@ and open the template in the editor.
                 <div class="w3-bar w3-theme w3-border w3-row w3-mobile">
                     <div class="w3-container w3-left w3-rest w3-mobile">
                         <a href="home" class="w3-bar-item w3-button w3-mobile">
-                            <img src="images/internship.png" style="width: 100px; height: 36px;">
+                            <img id="logo" src="images/internship.png">
                         </a>
                     </div>
                     <#if (Session??)>
-                        <div class="w3-col w3-container w3-right w3-mobile" style="width:350px">
+                        <div id="sessionNav" class="w3-col w3-container w3-right w3-mobile">
                             <a href="home" class="w3-bar-item w3-button w3-xlarge w3-mobile">Home</a>
                             <a href="contact" class="w3-bar-item w3-button w3-xlarge w3-mobile">Contatti</a>
                             <a href="logout" class="w3-bar-item w3-button w3-xlarge w3-mobile">Logout</a>
                         </div>
                     <#else>
-                        <div class="w3-col w3-container w3-right w3-mobile" style="width:750px">
+                        <div id="noSessionNav" class="w3-col w3-container w3-right w3-mobile">
                             <a href="home" class="w3-bar-item w3-button w3-xlarge w3-mobile">Home</a>
                             <a href="contact" class="w3-bar-item w3-button w3-xlarge w3-mobile">Contatti</a>
                             <a class="w3-bar-item w3-button w3-xlarge w3-mobile" href="search">Ricerca Tirocinio</a>
@@ -118,7 +118,7 @@ and open the template in the editor.
         </script>
         
         <!-- Overlay effect when opening sidebar on small screens -->
-        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+        <div class="w3-overlay w3-hide-large" onclick="w3_close()" title="close side menu" id="myOverlay"></div>
         
         <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
         
@@ -136,6 +136,14 @@ and open the template in the editor.
             <div id="content2" class="w3-main w3-padding-32">
                 <#include content_tpl>
             </div>
+            <script>
+                var w = window.innerWidth
+                    || document.documentElement.clientWidth
+                    || document.body.clientWidth;
+                    if(w<1366){
+                        document.getElementById("content2").setAttribute("class", "w3-main")
+                    }
+            </script>
         </div>
         </#if>
         <script>
