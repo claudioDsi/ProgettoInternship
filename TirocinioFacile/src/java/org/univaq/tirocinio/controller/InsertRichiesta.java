@@ -31,6 +31,7 @@ public class InsertRichiesta extends InternshipDBController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
+            request.setAttribute("page_title", "Aggiungi richiesta");
             HttpSession s = SecurityLayer.checkSession(request);
             int userid = (int)s.getAttribute("userid");
             Richiesta richiesta = ((InternShipDataLayer)request.getAttribute("datalayer")).getRichiestaStudenteTirocinio(userid, tirocinio.getIdTirocinio());
@@ -158,7 +159,7 @@ public class InsertRichiesta extends InternshipDBController {
                             if(request.getParameter("add")!=null){
                                 action_add(request, response, tirocinio);
                             }else{
-                                request.setAttribute("page_title", "Aggiungi richiesta");
+                                
                                 action_default(request, response, tirocinio);
                             }
                         }else{
