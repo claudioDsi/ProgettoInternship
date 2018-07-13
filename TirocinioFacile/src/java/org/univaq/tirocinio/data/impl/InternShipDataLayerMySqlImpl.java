@@ -98,7 +98,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             aziendaByTiro=connection.prepareStatement("SELECT * FROM Azienda, Tirocinio WHERE IdAzienda=CodAzienda AND IdTirocinio=?");
             
             orderByDate=connection.prepareStatement("SELECT * FROM Tirocinio,Azienda WHERE CodAzienda=IdAzienda ORDER BY IdTirocinio DESC LIMIT 5");
-            sRichiesteByUser=connection.prepareStatement("SELECT * FROM Utente as u JOIN Richiesta as r JOIN Tirocinio as t JOIN Azienda as a ON u.IdUtente=r.CodStudente AND t.IdTirocinio=r.CodTirocinio AND a.IdAzienda=t.CodAzienda  WHERE r.CodStudente=?");
+            sRichiesteByUser=connection.prepareStatement("SELECT * FROM Utente as u JOIN Richiesta as r ON u.IdUtente=r.CodStudente  WHERE r.CodStudente=? AND NOT r.Status='accepted'");
             sRichiesteByTirocinio=connection.prepareStatement("SELECT * FROM Tirocinio as t JOIN Richiesta as r ON t.IdTirocinio=r.CodTirocinio WHERE r.CodTirocinio=?");
             sRichiestaByStudTiro=connection.prepareStatement("SELECT * FROM Richiesta WHERE CodStudente=? && CodTirocinio=?");
             rejectAllRequests=connection.prepareStatement("UPDATE Richiesta SET Status='rejected' WHERE IdRichiesta!=? AND CodTirocinio=?");
