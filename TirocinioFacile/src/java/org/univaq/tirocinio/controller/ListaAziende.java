@@ -35,7 +35,7 @@ public class ListaAziende extends InternshipDBController {
             if(s!=null){
                 request.setAttribute("Session", s);
             }
-            list = ((InternShipDataLayer)request.getAttribute("datalayer")).showListaAziende();
+            list = ((InternShipDataLayer)request.getAttribute("datalayer")).getAziendeConvenzionate();
             request.setAttribute("aziende", list);
             request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             res.activate("aziende.ftl.html", request, response);
