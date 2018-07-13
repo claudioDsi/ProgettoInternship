@@ -12,6 +12,11 @@ html,body,h1,h2,h3,h4,h5,h6 {
     font-family: "Roboto", sans-serif;
 }
 
+.w3-animate-input{
+    width:30%;
+    max-width:50%
+}
+
 /* OUTLINE */
 
 .w3-sidebar{
@@ -56,3 +61,44 @@ html,body,h1,h2,h3,h4,h5,h6 {
      margin-left: 1%;
 }
 
+/* HOME ANONIMO*/
+
+#bgimg{
+    padding:48px;
+    background-position: center;
+    background-size: cover;
+    background-image: url('../images/handshake1.jpg');
+    min-height: 100%;
+}
+
+#homebutton{
+    margin-top: 50pt;
+}
+
+#button1{
+    width:50%;
+    float:left;
+    display:none;
+}
+
+#button2{
+    width:50%;
+    float:right;
+    display:none;
+}
+
+#log_stud{
+    display: block;
+}
+
+#nameStud, #pwdStud, #nameAz, #pwdAz{
+    width:60%;
+}
+
+#labelLogin, #ulogin{
+    display:none;
+}
+
+#about{
+     margin-right: 1%; margin-left: 1%
+}
