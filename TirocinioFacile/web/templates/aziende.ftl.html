@@ -18,7 +18,7 @@
         <#list aziende as azienda>
             <#if (azienda.status)>
                 <tr>
-                    <td>${strip_slashes(azienda.nomeAzienda)}</td>
+                    <td> <a href="profile?uid=${azienda.idAzienda}&utype=comp">${strip_slashes(azienda.nomeAzienda)} </a></td>
                     <td>${strip_slashes(azienda.nomeResp)}</td>
                     <td>${strip_slashes(azienda.cognomeResp)} </td>  
                     <td>${strip_slashes(azienda.telefonoResp)}</td>
