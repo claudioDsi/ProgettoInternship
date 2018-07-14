@@ -7,8 +7,15 @@
 
 
 
-<div style="margin-right: 1%; margin-top:1%">       
-    <table class="w3-table-all" >
+<div id="search" style="width:50%; display: none; margin-bottom: 1%">       
+    <p>Filtra per nome azienda</p>
+    <input class="w3-input w3-border w3-padding" type="text" placeholder="Search for names.." id="myInput" onkeyup="myFunction()">
+</div>
+<script>
+    document.getElementByIid('search').style.display = "block"
+</script>
+<div>
+    <table class="w3-table-all" id="azTable">
         <tr>
             <th>Azienda</th>
             <th>Nome responsabile</th>
@@ -29,3 +36,22 @@
         </#list>     
     </table>
 </div>
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("azTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
