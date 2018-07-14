@@ -11,10 +11,10 @@
 
         <div>
             <div>Titolo</div>
-            <div><input type="text" name="titolo" value="" class="required w3-input w3-animate-input w3-pale-green"/></div>
+            <div><input type="text" name="titolo" value="" class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%"/></div>
         </div>
         <#if (messaggiotitolo??)>
-            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiotitolo}</p>
+            <p class="w3-panel w3-pale-red w3-border-red profile" >${messaggiotitolo}</p>
         </#if>
         <div>
             <div>Luogo</div>
@@ -72,6 +72,29 @@
         <#if (messaggiosettore??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiosettore}</p>
         </#if>
+        <#if (listaTutori??)>
+            <div>
+                <label><b>Tutore</b></label>
+                <br/>
+                <select class="w3-select w3-pale-green" style="max-width:30%" name="tutore">
+                    <#list listaTutori as tutore>
+                        <option value="${tutore.idTutore}">${strip_slashes(tutore.nome)} ${strip_slashes(tutore.cognome)}</option>
+                    </#list>
+                </select> 
+            </div>
+        <#else>
+        <div>
+            <label><b>Tutore</b></label>
+            <br/>
+            <select class="w3-select w3-pale-green" style="max-width:30%" name="tutore">
+                <option value="errore" selected="selected">Nessun Tutore Disponibile</option>
+            </select>
+        </div>
+        </#if>
+        <#if (messaggiotutore??)>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiotutore}</p>
+        </#if>
+        
         <div>
             <input type="submit" name="add" value="Aggiungi tirocinio"  class="w3-button w3-theme button-margin" />
         </div>

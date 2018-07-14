@@ -239,7 +239,7 @@ public class SecurityLayer {
     
     public static boolean checkName(String toCheck){
         //controlla che i nomi abbiano al loro interno lettere o anche apostrofi
-        String regex = "^[a-zA-Z\']*$";
+        String regex = "^[a-zA-Z \']*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(toCheck);
         if(matcher.matches()){
@@ -327,7 +327,7 @@ public class SecurityLayer {
     
     public static boolean checkIsNumber(String toCheck){
         //controlla che la stringa sia composta da soli numeri
-        String regex = "^[0-9]$";
+        String regex = "^[0-9]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(toCheck);
         if(matcher.matches()){

@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: barbara@italdata.com
+Message-ID: <1354214749.3.1531496377086.JavaMail.claudio@flexlm>
+Subject: Nuova Richiesta per il Tirocinio 'Web developer'
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2_1753435384.1531496377084"
+
+------=_Part_2_1753435384.1531496377084
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Lo Studente Roberta Moschetti ha fatto richiesta per il tirocinio 'Web developer'. Ha scelto come tutore Raffaella Del Monte ed il numero di CFU richiesti sono 9. Sul sito potete trovare tutte le informazioni al riguardo.
+------=_Part_2_1753435384.1531496377084--

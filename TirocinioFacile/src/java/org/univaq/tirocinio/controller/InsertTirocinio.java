@@ -6,6 +6,7 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,19 +26,25 @@ import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
  */
 public class InsertTirocinio extends InternshipDBController {
     
-    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, DataLayerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, Azienda azienda) throws IOException, ServletException, TemplateManagerException, DataLayerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
+            request.setAttribute("page_title", "Inserisci nuovo tirocinio");
             HttpSession s = SecurityLayer.checkSession(request);
+            List<Tutore> listaTutori = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTutoriAzienda(azienda);
+            if(listaTutori!=null){
+                request.setAttribute("listaTutori", listaTutori);
+            }
             request.setAttribute("Session", s);
             res.activate("new_tirocinio.ftl.html", request, response);
-        }catch(TemplateManagerException ex){
-            request.setAttribute("exception", ex);
+        }catch(DataLayerException ex){
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
         }
     }
     
-    private void action_add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_add(HttpServletRequest request, HttpServletResponse response, Azienda azienda) throws IOException, ServletException, TemplateManagerException {
         try {
             //tutti i campi devono essere riempiti
             boolean no_update = false;
@@ -131,6 +138,16 @@ public class InsertTirocinio extends InternshipDBController {
                     no_update = true;
                 }    
             }
+            //controllo campo tutore
+            if(request.getParameter("tutore")==null || request.getParameter("tutore").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }else{
+                if(request.getParameter("tutore").equals("errore")){
+                    request.setAttribute("messaggiotutore", "Devi prima inserire un tutore per poter creare un tirocinio!");
+                    no_update = true;
+                }
+            }
             if(!no_update){
                 TemplateResult res = new TemplateResult(getServletContext());
                 Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).creaTirocinio();
@@ -145,6 +162,7 @@ public class InsertTirocinio extends InternshipDBController {
                 tirocinio.setFacilitazioni(SecurityLayer.addSlashes(request.getParameter("facilitazioni")));
                 tirocinio.setSettore(SecurityLayer.addSlashes(request.getParameter("settore")));
                 tirocinio.setIdAzienda(userid);
+                tirocinio.setIdTutore(SecurityLayer.checkNumeric(request.getParameter("tutore")));
                 tirocinio.setStatusProgetto(false);
                 tirocinio.setIdProgetto(0);
                 tirocinio.setStatusResoconto(false);
@@ -154,7 +172,7 @@ public class InsertTirocinio extends InternshipDBController {
                 action_activate(request, response, tirocinio.getIdTirocinio());
             }else{
                 //è stato generato un messaggio di errore
-                action_default(request, response);
+                action_default(request, response, azienda);
             }
         }catch(DataLayerException ex){
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
@@ -186,8 +204,7 @@ public class InsertTirocinio extends InternshipDBController {
     }
 
     @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException {
-        request.setAttribute("page_title", "Inserisci nuovo tirocinio");       
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException {       
         try{
             HttpSession s = SecurityLayer.checkSession(request);
             if(s!=null){
@@ -200,7 +217,7 @@ public class InsertTirocinio extends InternshipDBController {
                         //controllo che l'utente in sessione sia quello che ha inviato la form
                         int form_user = SecurityLayer.checkNumeric(request.getParameter("userid"));
                         if(userid==form_user){
-                            action_add(request, response);
+                            action_add(request, response, azienda);
                         }else{
                             //ritorno al profilo dell'utente in sessione
                             response.sendRedirect("profile?uid="+userid+"&utype="+utype);
@@ -214,7 +231,7 @@ public class InsertTirocinio extends InternshipDBController {
                     //vedo se l'azienda è abilitata
                     if(azienda.getStatus()){
                         //se sei un'azienda abilitata ti mostro la form per aggiungere il tirocinio
-                        action_default(request, response);
+                        action_default(request, response, azienda);
                     }else{
                         //non sei abilitata
                         response.sendRedirect("profile?uid="+userid+"&utype="+utype);
