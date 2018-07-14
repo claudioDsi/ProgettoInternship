@@ -605,7 +605,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     
     @Override 
     public List<Tutore> getListaTutoriAzienda(Azienda azienda) throws DataLayerException{
-        List<Tutore> result = null;
+        List<Tutore> result = new ArrayList();
         try{
             sTutoriByAzienda.setInt(1, azienda.getIdAzienda());
             try(ResultSet rs = sTutoriByAzienda.executeQuery()){

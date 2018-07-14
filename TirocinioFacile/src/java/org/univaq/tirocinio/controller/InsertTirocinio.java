@@ -33,7 +33,7 @@ public class InsertTirocinio extends InternshipDBController {
             request.setAttribute("page_title", "Inserisci nuovo tirocinio");
             HttpSession s = SecurityLayer.checkSession(request);
             List<Tutore> listaTutori = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTutoriAzienda(azienda);
-            if(listaTutori!=null){
+            if(!listaTutori.isEmpty()){
                 request.setAttribute("listaTutori", listaTutori);
             }
             request.setAttribute("Session", s);
