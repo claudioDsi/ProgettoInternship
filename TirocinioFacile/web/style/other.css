@@ -42,3 +42,6 @@ and open the template in the editor.
     margin-top: 1%; 
     margin-bottom: 1%;
 }
+.cross {    
+    -o-padding-top:64px !important;
+}

@@ -32,11 +32,11 @@
     
     <div class="w3-card-4 profile">
             <header class="w3-container w3-theme">
-                <h3>Benvenuto, ${strip_slashes(azienda.nomeAzienda)} </h3>
+                <h3>${strip_slashes(azienda.nomeAzienda)} </h3>
             </header>
 
         <div class="w3-container">
-            <p>Nome: ${strip_slashes(azienda.nomeAzienda)}</p>
+            
             <p>Ragione sociale: ${strip_slashes(azienda.ragioneSociale)}</p>
             <p>Indirizzo: ${strip_slashes(azienda.indirizzo)}</p>
             <p>Partita IVA: ${strip_slashes(azienda.partitaIva)}</p>
@@ -46,7 +46,12 @@
             
             <#if (modifica)>
         <p><a class="w3-button w3-block w3-theme" href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
-    </#if>
+        
+        
+      </#if>
+    
+    
+    
     
      <#if (Session??)>
         <#if Session.getAttribute('userid')==azienda.idAzienda>
