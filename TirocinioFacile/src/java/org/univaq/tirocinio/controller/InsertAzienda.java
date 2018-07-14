@@ -9,11 +9,15 @@ import org.univaq.tirocinio.datamodel.Azienda;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
+import org.univaq.tirocinio.datamodel.Utente;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import org.univaq.tirocinio.framework.result.FailureResult;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
@@ -37,7 +41,7 @@ public class InsertAzienda extends InternshipDBController {
         }
     }
     
-    private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, NoSuchAlgorithmException {
+    private void action_write(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, NoSuchAlgorithmException, MessagingException {
         try {
             //tutti i campi devono essere riempiti
             boolean no_update = false;
@@ -230,6 +234,15 @@ public class InsertAzienda extends InternshipDBController {
                 a.setStatusConvenzione(false);
                 a.setIdConvenzione(0);
                 ((InternShipDataLayer)request.getAttribute("datalayer")).storeAzienda(a);
+                //invio email notifica all'admin
+                Utente admin = ((InternShipDataLayer)request.getAttribute("datalayer")).showAdminInfo();
+                String toAdmin = admin.getEmailUtente();
+                String from = "admin@internship.com";
+                String subject = "Nuova Azienda Registrata";
+                String body = "E' stata rilevata l'iscrizione di una nuova azienda. Vai sul pannello di gestione per vederne i dettagli!";
+                String filename1 = "newazienda" + a.getIdAzienda();
+                String dirpath = getServletContext().getRealPath("/email/").replace("build\\", "");
+                SecurityLayer.createMessage(toAdmin, from, subject, body, filename1, dirpath);
                 action_activate(request, response, a.getIdAzienda());
             }else{
                 //è stato generato un messaggio di errore
@@ -287,6 +300,9 @@ public class InsertAzienda extends InternshipDBController {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
         }catch (NoSuchAlgorithmException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        } catch (MessagingException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
         }  

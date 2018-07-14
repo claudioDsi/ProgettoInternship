@@ -6,6 +6,9 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Richiesta;
 import org.univaq.tirocinio.datamodel.Tirocinio;
 import org.univaq.tirocinio.datamodel.Tutore;
+import org.univaq.tirocinio.datamodel.Utente;
 
 /**
  *
@@ -26,7 +30,7 @@ import org.univaq.tirocinio.datamodel.Tutore;
  */
 public class SetRichiesta extends InternshipDBController {
     
-    private void action_modify_request(HttpServletRequest request, HttpServletResponse response, int value, Richiesta richiesta, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException {
+    private void action_modify_request(HttpServletRequest request, HttpServletResponse response, int value, Richiesta richiesta, Tirocinio tirocinio) throws IOException, ServletException, TemplateManagerException, MessagingException {
         try {
             if(value==1){
                 HttpSession s = SecurityLayer.checkSession(request);
@@ -49,11 +53,29 @@ public class SetRichiesta extends InternshipDBController {
                 ((InternShipDataLayer)request.getAttribute("datalayer")).updateNumTiroAzienda(new_val_a, azienda);
                 //aggiorno il numero di tirocini del tutore
                 ((InternShipDataLayer)request.getAttribute("datalayer")).updateNumTiroTutore(new_val_t, tutore);
+                //invio email di accettazione della richiesta allo studente
+                Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(richiesta.getIdStudente());
+                String toUser = utente.getEmailUtente();
+                String from = "admin@internship.com";
+                String subject = "Richiesta di tirocinio accettata";
+                String body = "La tua richiesta per il tirocinio " + tirocinio.getTitolo() + " è stata approvata. Vai sulla scheda del tirocinio per vederne i dettagli!";
+                String filename1 = "accepted" + richiesta.getIdRichiesta();
+                String dirpath = getServletContext().getRealPath("/email/").replace("build\\", "");
+                SecurityLayer.createMessage(toUser, from, subject, body, filename1, dirpath);
                 response.sendRedirect("setdates?tid="+tirocinio.getIdTirocinio());
             }else if(value==0){
                 //rifiuto la richiesta
                 richiesta.setStatus("rejected");
                 ((InternShipDataLayer)request.getAttribute("datalayer")).modifyRequestStatus(richiesta);
+                //invio email di rifiuto della richiesta allo studente
+                Utente utente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(richiesta.getIdStudente());
+                String toUser = utente.getEmailUtente();
+                String from = "admin@internship.com";
+                String subject = "Richiesta di tirocinio rifiutata";
+                String body = "La tua richiesta per il tirocinio " + tirocinio.getTitolo() + " è stata rifiutata!";
+                String filename1 = "rejected" + richiesta.getIdRichiesta();
+                String dirpath = getServletContext().getRealPath("/email/").replace("build\\", "");
+                SecurityLayer.createMessage(toUser, from, subject, body, filename1, dirpath);
                 response.sendRedirect("panel?tid="+tirocinio.getIdTirocinio());
             }
         }catch(DataLayerException ex){
@@ -109,7 +131,10 @@ public class SetRichiesta extends InternshipDBController {
         } catch (DataLayerException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
-        }
+        } catch (MessagingException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }  
     }
     
 }

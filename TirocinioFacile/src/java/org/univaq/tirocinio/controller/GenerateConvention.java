@@ -7,6 +7,9 @@ package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,12 +45,20 @@ public class GenerateConvention extends InternshipDBController {
         }
     }
     
-    private void action_generate(HttpServletRequest request, HttpServletResponse response, int aid, int val) throws IOException, ServletException, TemplateManagerException{
+    private void action_generate(HttpServletRequest request, HttpServletResponse response, int aid, int val) throws IOException, ServletException, TemplateManagerException, MessagingException{
         try{
             Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(aid);
             if(azienda!=null){
                 if(val==1 && azienda.getStatusConvenzione()==false){
                     ((InternShipDataLayer)request.getAttribute("datalayer")).activateConvenzione(azienda);
+                    //invio email notifica all'azienda
+                    String toAzienda = azienda.getEmailResp();
+                    String from = "admin@internship.com";
+                    String subject = "Richiesta di iscrizione approvata";
+                    String body = "I dati relativi alla tua iscrizione sono stati controllati ed accettati. Ora puoi scaricare sul tuo profilo la convenzione da firmare!";
+                    String filename1 = "convenzione" + azienda.getIdAzienda();
+                    String dirpath = getServletContext().getRealPath("/email/").replace("build\\", "");
+                    SecurityLayer.createMessage(toAzienda, from, subject, body, filename1, dirpath);
                 }
             }
             action_manage(request, response);
@@ -97,7 +108,10 @@ public class GenerateConvention extends InternshipDBController {
             }catch (TemplateManagerException ex) {
                 request.setAttribute("exception", ex);
                 action_error(request, response);
-        }  
+            }catch (MessagingException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
+            }  
     }
     
 }
