@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: barbara@italdata.com
+Message-ID: <862484718.3.1531580453705.JavaMail.claudio@flexlm>
+Subject: Nuova Richiesta per il Tirocinio 'Sviluppatore java'
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2_1829909217.1531580453703"
+
+------=_Part_2_1829909217.1531580453703
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Lo Studente Marco Di Renzo ha fatto richiesta per il tirocinio 'Sviluppatore java'. Ha scelto come tutore Raffaella Del Monte ed il numero di CFU richiesti sono 4. Sul sito potete trovare tutte le informazioni al riguardo.
+------=_Part_2_1829909217.1531580453703--

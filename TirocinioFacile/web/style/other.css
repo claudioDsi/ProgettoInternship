@@ -42,6 +42,23 @@ and open the template in the editor.
     margin-top: 1%; 
     margin-bottom: 1%;
 }
-.cross {    
-    -o-padding-top:64px !important;
+
+.icon-position{
+    margin-right: 10pt;
+}
+.tooltip-position{
+    position:absolute;
+    right:25pt;
+}
+.faq-margin{
+    max-width: 50%; 
+    margin-top: 1%;
+}
+.pending-icon {
+    margin-right: 10pt; 
+    color: #ff9900
+}
+.accepted-icon {
+    margin-right: 10pt; 
+    color: #009900;
 }

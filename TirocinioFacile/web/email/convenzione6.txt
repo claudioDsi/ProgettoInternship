@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: andrea@bianchi.com
+Message-ID: <1665785208.1.1531582322916.JavaMail.claudio@flexlm>
+Subject: Richiesta di iscrizione approvata
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_0_2036658207.1531582322868"
+
+------=_Part_0_2036658207.1531582322868
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+I dati relativi alla tua iscrizione sono stati controllati ed accettati. Ora puoi scaricare sul tuo profilo la convenzione da firmare!
+------=_Part_0_2036658207.1531582322868--

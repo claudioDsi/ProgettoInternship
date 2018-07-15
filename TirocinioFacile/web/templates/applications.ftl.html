@@ -3,6 +3,7 @@
     <#if Session.getAttribute('type')=="stud">
         <h3>I miei tirocini approvati</h3>
         <#if (lista_tirocini_approvati)??>
+        <div class="w3-responsive">
             <table class="w3-table-all">
                 <tr>
                     <th>Titolo</th>
@@ -23,6 +24,7 @@
                     </tr>
                 </#list>
             </table>
+        </div>
         <#else>
             <div class="w3-container">
                 <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border" style="width: 50%">
@@ -33,6 +35,7 @@
         <br/>
         <h3>Le mie richieste</h3>
         <#if (lista_richieste)??>
+        <div class="w3-responsive">
             <table class="w3-table-all">
                 <tr>                    
                     <th>Titolo del tirocinio</th>
@@ -69,10 +72,11 @@
                     </tr>
                 </#list>
             </table>
+        </div>
         <#else>
             <div class="w3-container">
-                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border" style="width: 50%">
-                  <p style="margin-top: 10px">Non sono ancora state effettuate richieste di iscrizione a tirocini!</p>
+                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border profile" >
+                  <p class="button-margin"> Non sono ancora state effettuate richieste di iscrizione a tirocini!</p>
                 </div>
             </div>
         </#if>

@@ -4,7 +4,7 @@
     </div>
     <form class="w3-container" id="form" method="post" action="modify">
         <#if (messaggiocampi??)>
-            <p class="w3-panel w3-pale-red w3-border-red">${messaggiocampi}</p>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocampi}</p>
         </#if>
         <p>
             <label><b>Nome</b></label>
@@ -16,7 +16,7 @@
         </p>
         <p>
             <label><b>Data di nascita</b></label>
-            <input class="number required w3-input w3-pale-green  w3-opacity" style="width:30%; max-width:50%" type="date" name="datanasc" value="${strip_slashes(utente.dataNasc)}" disabled/>
+            <input class="required w3-input w3-pale-green  w3-opacity" style="width:30%; max-width:50%" type="date" name="datanasc" value="${strip_slashes(utente.dataNasc)}" disabled/>
         </p>
     
         <p>
@@ -114,24 +114,24 @@
             <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="dottorato" value="${strip_slashes(utente.dottorato)}"/>
         </p>
         <#if (messaggiodottorato??)>
-            <p class="w3-panel w3-pale-red w3-border-red">${messaggiodottorato}</p>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiodottorato}</p>
         </#if>
         <p>
             <label><b>Specializzazione</b></label>
             <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="specializzazione" value="${strip_slashes(utente.specializzazione)}"/>
         </p>
         <#if (messaggiospecializzazione??)>
-            <p class="w3-panel w3-pale-red w3-border-red">${messaggiospecializzazione}</p>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiospecializzazione}</p>
         </#if>
         <p>
             <label><b>Username</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="username" value="${strip_slashes(utente.username)}"/>
         </p>
         <#if (messaggiousername??)>
-            <p class="w3-panel w3-pale-red w3-border-red">${messaggiousername}</p>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiousername}</p>
         </#if>
         <#if (usernamemessage??)>
-            <p class="w3-panel w3-pale-red w3-border-red">${usernamemessage}</p>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${usernamemessage}</p>
         </#if>
         <p>
             <label><b>Password</b></label>
@@ -144,7 +144,7 @@
         </p>
         
         <#if (passwordmessage??)>
-            <p class="w3-panel w3-pale-red w3-border-red">${passwordmessage}</p>
+            <p class="w3-panel w3-pale-red w3-border-red profile">${passwordmessage}</p>
         </#if>
         
         <input class="w3-btn w3-theme button-margin" type="submit" name="update" value="Conferma modifiche">

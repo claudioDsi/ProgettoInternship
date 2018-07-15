@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: raffaella@italdata.info
+Message-ID: <1500569947.1.1531640600321.JavaMail.claudio@flexlm>
+Subject: Nuova Richiesta per il Tirocinio 'Sviluppatore java'
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_0_1576385960.1531640600151"
+
+------=_Part_0_1576385960.1531640600151
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Lo Studente Claudio Di Sipio ha fatto richiesta per il tirocinio 'Sviluppatore java'. Ha scelto come tutore Raffaella Del Monte ed il numero di CFU richiesti sono 6. Sul sito potete trovare tutte le informazioni al riguardo.
+------=_Part_0_1576385960.1531640600151--

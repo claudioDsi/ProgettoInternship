@@ -32,26 +32,26 @@
                        
                      
                         <td><#if (azienda.statusConvenzione)> 
-                            <span class="fa fa-file-pdf-o" style="margin-right: 10pt; color: #009900"></span>
+                            <span class="fa fa-file-pdf-o accepted-icon" ></span>
                             
                             <#else>                              
                             
                                 <a class="w3-tooltip" href="generateconvention?aid=${azienda.idAzienda}&val=1">
-                                    <span class="fa fa-file-pdf-o" style="margin-right: 10pt; color: #ff9900"></span>
-                                    <span style="position:absolute;right:25pt;" class="w3-text w3-tag">Genera Convenzione</span>
+                                    <span class="fa fa-file-pdf-o pending-icon" ></span>
+                                    <span  class="w3-text w3-tag tooltip-position">Genera Convenzione</span>
                                 </a>
                             </#if>
                         </td>
                         <td><#if (azienda.status)> 
                             
-                             <span class="glyphicon glyphicon-ok " style="margin-right: 10pt; color: #009900"></span>
+                             <span class="glyphicon glyphicon-ok accepted-icon"></span>
                              
                             
                             <#else>                          
                             
                             <a class="w3-tooltip"  href="managecompany?aid=${azienda.idAzienda}&val=1">
                                     <span class="glyphicon glyphicon-remove" style="margin-right: 10pt"></span>
-                                    <span style="position:absolute;right:25pt;" class="w3-text w3-tag">Abilita azienda</span>
+                                    <span  class="w3-text w3-tag tooltip-position">Abilita azienda</span>
                             </a>
                             </#if>
                         </td>
@@ -60,9 +60,13 @@
                            
                             
                              <a class="w3-tooltip"  href="uploadconvenzione?aid=${azienda.idAzienda}">
-                                    <span class="glyphicon glyphicon-upload" style="margin-right: 10pt; color: #ff9900; "></span>
-                                    <span style="position:absolute;right:25pt;" class="w3-text w3-tag">Carica convenzione azienda</span>
+                                    <span class="glyphicon glyphicon-upload pending-icon"></span>
+                                    <span  class="w3-text w3-tag tooltip-position">Carica convenzione azienda</span>
                             </a>
+                            <#else>
+                             <span class="glyphicon glyphicon-upload accepted-icon"></span>
+                               
+                            
                             </#if>
                         </td>
                     </tr>

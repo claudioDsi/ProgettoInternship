@@ -1,0 +1,15 @@
+From: admin@internship.com
+To: claudio.disipio94@gmail.com
+Message-ID: <1254829259.5.1531642670824.JavaMail.claudio@flexlm>
+Subject: Richiesta di tirocinio accettata
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_4_678492743.1531642670818"
+
+------=_Part_4_678492743.1531642670818
+Content-Type: text/plain; charset=Cp1252
+Content-Transfer-Encoding: quoted-printable
+
+La tua richiesta per il tirocinio Sviluppatore java =E8 stata approvata. Va=
+i sulla scheda del tirocinio per vederne i dettagli!
+------=_Part_4_678492743.1531642670818--
