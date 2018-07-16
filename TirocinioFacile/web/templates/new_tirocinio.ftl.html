@@ -2,11 +2,11 @@
     <div class="w3-container w3-theme">
         <h2>${page_title}</h2>
     </div>
-    <form method="post" action="tirocinio">
+    <form class="w3-container" method="post" action="tirocinio">
         <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
         <#if (messaggiocampi??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocampi}</p>
-        </#if>
+        </#if><br>
         <p>
             <label><b>Titolo</b></label>
             <input type="text" name="titolo" class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" value=
