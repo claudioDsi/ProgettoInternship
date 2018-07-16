@@ -21,7 +21,9 @@ import org.univaq.tirocinio.framework.result.TemplateResult;
 import org.univaq.tirocinio.framework.security.SecurityLayer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
@@ -33,6 +35,7 @@ public class InsertUser extends InternshipDBController {
     private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("page_title", "Inserisci Studente");
             res.activate("register_user.ftl.html", request, response);
         }catch(TemplateManagerException ex){
             request.setAttribute("exception", ex);
@@ -237,6 +240,18 @@ public class InsertUser extends InternshipDBController {
                 action_activate(request, response, u.getIdUtente());
             }else{
                 //è stato generato un messaggio di errore
+                Map dati = new HashMap();
+                dati.put("nome", request.getParameter("nome"));
+                dati.put("cognome", request.getParameter("cognome"));
+                dati.put("datanasc", request.getParameter("datanasc"));
+                dati.put("luogonasc", request.getParameter("luogonasc"));
+                dati.put("residenza", request.getParameter("residenza"));
+                dati.put("telefono", request.getParameter("telefono"));
+                dati.put("email", request.getParameter("email"));
+                dati.put("cdl", request.getParameter("cdl"));
+                dati.put("dottorato", request.getParameter("dottorato"));
+                dati.put("specializzazione", request.getParameter("specializzazione"));
+                request.setAttribute("dati", dati);
                 action_default(request, response);
             }
         }catch(DataLayerException ex){
@@ -268,8 +283,7 @@ public class InsertUser extends InternshipDBController {
     
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException {
-            request.setAttribute("page_title", "Inserisci Studente");
+        throws ServletException {            
             try{
                 HttpSession s = SecurityLayer.checkSession(request);
                 if(s==null){

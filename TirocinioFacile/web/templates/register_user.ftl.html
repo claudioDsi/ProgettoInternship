@@ -17,25 +17,45 @@
         <p>
             <br>
             <label ><b>Nome</b></label>
-            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nome" value=""/>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nome" value=
+            <#if (dati??)>
+                "${dati.nome}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggionome??)>
             <p>${messaggionome}</p>
         </#if>
         <p>
             <label ><b>Cognome</b></label>
-            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognome" value=""/>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognome" value=
+            <#if (dati??)>
+                "${dati.cognome}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiocognome??)>
             <p>${messaggicognome}</p>
         </#if>
         <p>
             <label ><b>Data di nascita</b></label>
-            <input class="number required w3-input w3-pale-green" style="width:30%; max-width:50%" type="date" name="datanasc" value=""/>
+            <input class="number required w3-input w3-pale-green" style="width:30%; max-width:50%" type="date" name="datanasc" value=
+            <#if (dati??)>
+                "${dati.datanasc}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <p>
             <label ><b>Luogo di nascita</b></label>
-            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="luogonasc" value=""/>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="luogonasc" value=
+            <#if (dati??)>
+                "${dati.luogonasc}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggioluogo??)>
             <p>${messaggioluogo}</p>
@@ -58,14 +78,24 @@
         </p>
         <p>
             <label><b>Residenza</b></label>
-            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="residenza" value=""/>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="residenza" value=
+            <#if (dati??)>
+                "${dati.residenza}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiocodFisc??)>
             <p>${messaggiocodFisc}</p>
         </#if>
         <p>
             <label ><b>Telefono</b></label>
-            <input class="number w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="telefono" value=""/>
+            <input class="number w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="telefono" value=
+            <#if (dati??)>
+                "${dati.telefono}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiotelefono??)>
             <p>${messaggiotelefono}</p>
@@ -81,14 +111,24 @@
         </p>
         <p>
             <label ><b>Email</b></label>
-            <input class="email required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="email" value=""/>
+            <input class="email required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="email" value=
+            <#if (dati??)>
+                "${dati.email}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggioemail??)>
             <p>${messaggioemail}</p>
         </#if>
         <p>
             <label ><b>Corso di laurea</b></label>
-            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cdl" value=""/>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cdl" value=
+            <#if (dati??)>
+                "${dati.cdl}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiocdl??)>
             <p>${messaggiocdl}</p>
@@ -104,14 +144,24 @@
         </p>
         <p>
             <label ><b>Dottorato</b></label>
-            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="dottorato" value=""/>
+            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="dottorato" value=
+            <#if (dati??)>
+                "${dati.dottorato}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiodottorato??)>
             <p>${messaggiodottorato}</p>
         </#if>
         <p>
             <label ><b>Specializzazione</b></label>
-            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="specializzazione" value=""/>
+            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="specializzazione" value=
+            <#if (dati??)>
+                "${dati.specializzazione}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiospecializzazione??)>
             <p>${messaggiospecializzazione}</p>
