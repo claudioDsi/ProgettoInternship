@@ -9,9 +9,15 @@
 <#if (utente??)>
     <div class="w3-card-4 profile">
         <#if (modifica)>
-            <header class="w3-container w3-theme">
-                <h3>Benvenuto ${strip_slashes(utente.nome)}: ecco i dati del tuo profilo </h3>
-            </header>
+            <#if (utente.sesso = "donna")>
+                <header class="w3-container w3-theme">
+                    <h3>Benvenuta ${strip_slashes(utente.nome)}: ecco i dati del tuo profilo </h3>
+                </header>
+            <#else>
+                <header class="w3-container w3-theme">
+                    <h3>Benvenuto ${strip_slashes(utente.nome)}: ecco i dati del tuo profilo </h3>
+                </header>
+            </#if>
         <#else>
             <header class="w3-container w3-theme">
                 <h3>Dettagli candidato</h3>
