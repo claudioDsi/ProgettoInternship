@@ -1103,7 +1103,7 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             if(!azienda.isEmpty() || !luogo.isEmpty() || !settore.isEmpty() || num_mesi!=0 || num_ore!=0){
                 query = query +" WHERE";
                 if(!azienda.isEmpty()){
-                    query = query + " a.Nome='"+azienda+"' AND";
+                    query = query + " a.Nome ='"+azienda+"' AND";
                 }
                 if(!luogo.isEmpty()){
                     query = query + " t.Luogo='"+luogo+"' AND";

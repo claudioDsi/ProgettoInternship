@@ -36,8 +36,10 @@ public class Search extends InternshipDBController {
             if(s!=null){
                 request.setAttribute("Session", s);
             }
+            request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
             List<Tirocinio> tirocini = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaTirocini();
-            request.setAttribute("tiro", tirocini);            
+            request.setAttribute("tiro", tirocini);  
+            
             res.activate("search.ftl.html", request, response);
         }catch(TemplateManagerException ex){
             request.setAttribute("exception", ex);
@@ -85,8 +87,10 @@ public class Search extends InternshipDBController {
                     }else{                   
 
                         String obiettivo = SecurityLayer.addSlashes(request.getParameter("obiettivi"));
+                        String ins=obiettivo.toLowerCase();
                         for (int i = 0; i < tirocini.size(); i++) {
-                            if(tirocini.get(i).getObiettivi().contains(obiettivo)){
+                            String c=tirocini.get(i).getObiettivi().toLowerCase();
+                            if(c.contains(ins)){
                                 tirocini_obiettivi.add(tirocini.get(i));
                             }
                         }
