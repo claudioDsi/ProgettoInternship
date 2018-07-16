@@ -28,6 +28,7 @@ function w3_close() {
  */
 
 function generateButtons() {
+    document.getElementById("log_stud").style.display = "block"
     var x = document.getElementById("button1");
     var y = document.getElementById("button2");
     var z = document.getElementById("ulogin");

@@ -22,10 +22,11 @@
     <div id="log" class="w3-rest w3-mobile w3-text-white">
         <button id="button1" class="w3-button w3-block w3-cyan w3-text-white w3-left-align" onclick="show('log_stud')"><b>LOGIN STUDENTE</b></button>
         <button id="button2" class="w3-button w3-block w3-blue w3-text-white w3-left-align" onclick="show('log_az')"><b>LOGIN AZIENDA</b></button>
+        <!--
         <noscript>
             <button class="w3-button w3-block w3-cyan w3-text-white w3-left-align"><b>EFFETTUA IL LOGIN</b></button>
-        </noscript>
-        <div id="log_stud" class='w3-light-grey w3-round w3-border-cyan w3-leftbar w3-rightbar w3-bottombar' style="display: block;">
+        </noscript>-->
+        <div id="log_stud" class='w3-light-grey w3-round w3-border-cyan w3-leftbar w3-rightbar w3-bottombar' style="display: none;">
             <form class="w3-container w3-card" method="post" action="login">
                 <input type="hidden" name="tid" value="" />
                 <br>
@@ -43,11 +44,12 @@
                 <p>
                     <label id='labelLogin'> Non sei ancora registrato? </label>
                     <a id="ulogin" href="user">Registrati!</a>
+                    <!--
                     <noscript>
                         Non sei ancora registrato? <br>
                         Se sei un'azienda <a href="azienda"><b>registrati</b></a>! <br>
                         Se sei uno studente <a href="user"><b>registrati</b></a>! 
-                    </noscript>
+                    </noscript>-->
                 </p>
             </form>
         </div>
