@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.Richiesta;
 import org.univaq.tirocinio.datamodel.Tirocinio;
+import org.univaq.tirocinio.datamodel.Utente;
 import org.univaq.tirocinio.framework.result.SplitSlashesFmkExt;
 
 /**
@@ -78,6 +79,10 @@ public class CompanyPanel extends InternshipDBController {
                     //sei l'azienda che ha creato il tirocinio quindi puoi vederne i dettagli
                     List<Richiesta> lista_richieste = ((InternShipDataLayer)request.getAttribute("datalayer")).getListaRichiesteTirocinio(tirocinioid);
                     if(!lista_richieste.isEmpty()){
+                        for (int i = 0; i < lista_richieste.size(); i++) {
+                            Utente studente = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoUtente(lista_richieste.get(i).getIdStudente());
+                            lista_richieste.get(i).setStudente(studente);
+                        }
                         request.setAttribute("lista_richieste", lista_richieste);
                     }
                     request.setAttribute("strip_slashes", new SplitSlashesFmkExt());
