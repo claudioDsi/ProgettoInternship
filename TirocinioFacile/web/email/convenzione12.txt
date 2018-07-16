@@ -1,0 +1,13 @@
+From: admin@internship.com
+To: verdimarco@cotweb.com
+Message-ID: <28236379.1.1531764296326.JavaMail.vince@DESKTOP-SGTPRBN>
+Subject: Richiesta di iscrizione approvata
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="----=_Part_0_504991.1531764296290"
+
+------=_Part_0_504991.1531764296290
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+I dati relativi alla tua iscrizione sono stati controllati ed accettati. Ora puoi scaricare sul tuo profilo la convenzione da firmare!
+------=_Part_0_504991.1531764296290--

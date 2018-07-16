@@ -27,6 +27,13 @@
         <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocognometutore}</p>
     </#if>
     <p>
+        <label><b>Email Tutore</b></label>
+        <input type="text" name="emailtutore" value="" class="email required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%"/>
+    </p>
+    <#if (messaggioemailtutore??)>
+        <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioemailtutore}</p>
+    </#if>
+    <p>
         <input type="submit" name="add" value="Conferma" class="w3-button w3-theme button-margin"/>
     </p>
 </form>

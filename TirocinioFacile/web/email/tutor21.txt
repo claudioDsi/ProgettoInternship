@@ -1,14 +1,15 @@
 From: admin@internship.com
-To: raffaella@italdata.info
-Message-ID: <1559798868.1.1531400180220.JavaMail.claudio@flexlm>
-Subject: Nuova Richiesta per il Tirocinio 'Gestione Database'
+To: giorgio@micron.com
+Message-ID: <29136705.7.1531766350922.JavaMail.vince@DESKTOP-SGTPRBN>
+Subject: Nuova Richiesta per il Tirocinio 'Gestione dell\'economia
+ aziendale'
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_0_58575291.1531400180035"
+	boundary="----=_Part_6_24640673.1531766350868"
 
-------=_Part_0_58575291.1531400180035
+------=_Part_6_24640673.1531766350868
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-Lo Studente Claudio Di Sipio ha fatto richiesta per il tirocinio 'Gestione Database'. Ha scelto come tutore Raffaella Del Monte ed il numero di CFU richiesti sono 6. Sul sito potete trovare tutte le informazioni al riguardo.
-------=_Part_0_58575291.1531400180035--
+Lo Studente Mario Rossi ha fatto richiesta per il tirocinio 'Gestione dell\'economia aziendale'. Ha scelto come tutore Giorgio Bianchi ed il numero di CFU richiesti sono 6. Sul sito potete trovare tutte le informazioni al riguardo.
+------=_Part_6_24640673.1531766350868--

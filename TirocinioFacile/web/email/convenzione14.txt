@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: paolo@datacommerce.com
+Message-ID: <29236451.5.1531764301969.JavaMail.vince@DESKTOP-SGTPRBN>
+Subject: Richiesta di iscrizione approvata
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_4_12359760.1531764301961"
+
+------=_Part_4_12359760.1531764301961
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+I dati relativi alla tua iscrizione sono stati controllati ed accettati. Ora puoi scaricare sul tuo profilo la convenzione da firmare!
+------=_Part_4_12359760.1531764301961--

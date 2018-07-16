@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: giacomo@teamsystem.com
+Message-ID: <7957075.3.1531764300122.JavaMail.vince@DESKTOP-SGTPRBN>
+Subject: Richiesta di iscrizione approvata
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2_15290134.1531764300119"
+
+------=_Part_2_15290134.1531764300119
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+I dati relativi alla tua iscrizione sono stati controllati ed accettati. Ora puoi scaricare sul tuo profilo la convenzione da firmare!
+------=_Part_2_15290134.1531764300119--

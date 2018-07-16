@@ -76,13 +76,23 @@ public class InsertRichiesta extends InternshipDBController {
                     no_update = true;
                 }    
             }
-            //controllo campo nometutore
+            //controllo campo cognometutore
             if(request.getParameter("cognometutore")==null || request.getParameter("cognometutore").equals("")){
                 request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
                 no_update = true;
             }else{
                 if(SecurityLayer.checkName(request.getParameter("cognometutore"))){
                     request.setAttribute("messaggiocognometutore", "Il cognome del tutore selezionato non è valido!");
+                    no_update = true;
+                }    
+            }
+            //controllo campo emailtutore
+            if(request.getParameter("emailtutore")==null || request.getParameter("emailtutore").equals("")){
+                request.setAttribute("messaggiocampi", "Tutti i campi devono essere riempiti!");
+                no_update = true;
+            }else{
+                if(SecurityLayer.checkEmail(request.getParameter("emailtutore"))){
+                    request.setAttribute("messaggioemailtutore", "L'email del tutore specificata non è valida!");
                     no_update = true;
                 }    
             }
@@ -105,7 +115,7 @@ public class InsertRichiesta extends InternshipDBController {
                     new_richiesta.setCodTutore(tutore.getIdTutore());
                     new_richiesta.setNomeTutor(SecurityLayer.addSlashes(request.getParameter("nometutore")));
                     new_richiesta.setCognomeTutor(SecurityLayer.addSlashes(request.getParameter("cognometutore")));
-                    new_richiesta.setEmailTutor(SecurityLayer.addSlashes(tutore.getEmailTutore()));
+                    new_richiesta.setEmailTutor(SecurityLayer.addSlashes(request.getParameter("emailtutore")));
                     ((InternShipDataLayer)request.getAttribute("datalayer")).storeRichiesta(new_richiesta);
                     Azienda azienda = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoAzienda(tutore.getCodAzienda());
                     String toTutor = tutore.getEmailTutore();

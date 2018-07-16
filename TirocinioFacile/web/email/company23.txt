@@ -1,14 +1,15 @@
 From: admin@internship.com
-To: barbara@italdata.com
-Message-ID: <862484718.3.1531580453705.JavaMail.claudio@flexlm>
-Subject: Nuova Richiesta per il Tirocinio 'Sviluppatore java'
+To: andrea@gmail.com
+Message-ID: <32236285.17.1531766439724.JavaMail.vince@DESKTOP-SGTPRBN>
+Subject: Nuova Richiesta per il Tirocinio 'Sviluppo Software Gestione
+ Processi Aziendali'
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_2_1829909217.1531580453703"
+	boundary="----=_Part_16_33345024.1531766439723"
 
-------=_Part_2_1829909217.1531580453703
+------=_Part_16_33345024.1531766439723
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-Lo Studente Marco Di Renzo ha fatto richiesta per il tirocinio 'Sviluppatore java'. Ha scelto come tutore Raffaella Del Monte ed il numero di CFU richiesti sono 4. Sul sito potete trovare tutte le informazioni al riguardo.
-------=_Part_2_1829909217.1531580453703--
+Lo Studente Vincenzo Battisti ha fatto richiesta per il tirocinio 'Sviluppo Software Gestione Processi Aziendali'. Ha scelto come tutore Giulia Nargi ed il numero di CFU richiesti sono 9. Sul sito potete trovare tutte le informazioni al riguardo.
+------=_Part_16_33345024.1531766439723--

@@ -1,0 +1,14 @@
+From: admin@internship.com
+To: mario.dicarlo@univaq.it
+Message-ID: <11118157.7.1531763418077.JavaMail.vince@DESKTOP-SGTPRBN>
+Subject: Nuova Azienda Registrata
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_6_14018963.1531763418075"
+
+------=_Part_6_14018963.1531763418075
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+E' stata rilevata l'iscrizione di una nuova azienda. Vai sul pannello di gestione per vederne i dettagli!
+------=_Part_6_14018963.1531763418075--
