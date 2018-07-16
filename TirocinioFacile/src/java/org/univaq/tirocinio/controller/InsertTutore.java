@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +33,7 @@ public class InsertTutore extends InternshipDBController {
         private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("page_title", "Inserisci nuovo tutore");
             HttpSession s = SecurityLayer.checkSession(request);
             request.setAttribute("Session", s);
             res.activate("new_tutor.ftl.html", request, response);
@@ -106,6 +109,12 @@ public class InsertTutore extends InternshipDBController {
                 action_activate(request, response, tutore.getIdTutore());
             }else{
                 //è stato generato un messaggio di errore
+                Map dati = new HashMap();
+                dati.put("nome", request.getParameter("nome"));
+                dati.put("cognome", request.getParameter("cognome"));
+                dati.put("datanasc", request.getParameter("datanasc"));
+                dati.put("telefono", request.getParameter("telefono"));
+                dati.put("email", request.getParameter("email"));
                 action_default(request, response);
             }
         }catch(DataLayerException ex){
@@ -141,7 +150,6 @@ public class InsertTutore extends InternshipDBController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException {
             try{
-                request.setAttribute("page_title", "Inserisci nuovo tutore");
                 HttpSession s = SecurityLayer.checkSession(request);            
                 if(s!=null){
                     int userid = (int)s.getAttribute("userid"); //id utente in sessione

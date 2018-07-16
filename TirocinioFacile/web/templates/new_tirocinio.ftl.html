@@ -9,63 +9,108 @@
         </#if>
         <p>
             <label><b>Titolo</b></label>
-            <input type="text" name="titolo" value="" class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%"/>
+            <input type="text" name="titolo" class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" value=
+            <#if (dati??)>
+                "${dati.titolo}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiotitolo??)>
             <p class="w3-panel w3-pale-red w3-border-red profile" >${messaggiotitolo}</p>
         </#if>
         <p>
             <label><b>Luogo</b></label>
-            <input type="text" name="luogo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/>
+            <input type="text" name="luogo" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.luogo}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggioluogo??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioluogo}</p>
         </#if>
         <p>
             <label><b>Orario</b></label>
-            <input type="text" name="orario" value="" style="width:30%; max-width:50%" class="required   w3-input w3-animate-input w3-pale-green"/>
+            <input type="text" name="orario" style="width:30%; max-width:50%" class="required   w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.orario}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggioorario??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioorario}</p>
         </#if>
         <p>
             <label><b>Numero di ore</b></label>
-            <input type="text" name="numore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+            <input type="text" name="numore" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.numore}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggionumore??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggionumore}</p>
         </#if>
         <p>
             <label><b>Numero di mesi</b></label>
-            <input type="text" name="nummesi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+            <input type="text" name="nummesi" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.nummesi}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggionummesi??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggionummesi}</p>
         </#if>
         <p>
             <label><b>Obiettivi</b></label>
-            <input type="text" name="obiettivi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+            <input type="text" name="obiettivi" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.obiettivi}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggioobiettivi??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioobiettivi}</p>
         </#if>
         <p>
             <label><b>Modalit&agrave;</b></label>
-            <input type="text" name="modalita" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+            <input type="text" name="modalita" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.modalita}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiomodalita??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiomodalita}</p>
         </#if>
         <p>
             <label><b>Facilitazioni</b></label>
-            <input type="text" name="facilitazioni" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+            <input type="text" name="facilitazioni" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.facilitazioni}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiofacilitazioni??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiofacilitazioni}</p>
         </#if>
         <p>
             <label><b>Settore</b></label>
-            <input type="text" name="settore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+            <input type="text" name="settore" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.settore}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiosettore??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiosettore}</p>

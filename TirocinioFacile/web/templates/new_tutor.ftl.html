@@ -9,32 +9,57 @@
         </#if>
         <p>
             <label><b>Nome</b></label>
-            <input type="text" name="nome" value="" class="required forbidden  w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%;"/>
+            <input type="text" name="nome" class="required forbidden  w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%;" value=
+            <#if (dati??)>
+                "${dati.nome}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggionome??)>
             <p>${messaggionome}</p>
         </#if>
         <p>
             <label><b>Cognome</b></label>
-            <input type="text" name="cognome" value=""  class="required forbidden  w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%;" />
+            <input type="text" name="cognome" value=""  class="required forbidden  w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%;" value=
+            <#if (dati??)>
+                "${dati.cognome}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiocognome??)>
             <p>${messaggiocognome}</p>
         </#if>
         <p>
             <label><b>Data di nascita</b></label>
-            <input type="date" name="datanasc" value="" style="width:30%; max-width:50%;" class="required  w3-input w3-animate-input w3-pale-green" />
+            <input type="date" name="datanasc" style="width:30%; max-width:50%;" class="required  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.datanasc}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <p>
             <label><b>Telefono</b></label>
-            <input type="text" name="telefono" value="" style="width:30%; max-width:50%;" class="required number  w3-input w3-animate-input w3-pale-green" />
+            <input type="text" name="telefono" style="width:30%; max-width:50%;" class="required number  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.telefono}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggiotelefono??)>
             <p>${messaggiotelefono}</p>
         </#if>
         <p>
             <label><b>Email</b></label>
-            <input type="text" name="email" value="" style="width:30%; max-width:50%;" class="required email  w3-input w3-animate-input w3-pale-green" />
+            <input type="text" name="email" style="width:30%; max-width:50%;" class="required email  w3-input w3-animate-input w3-pale-green" value=
+            <#if (dati??)>
+                "${dati.email}"
+            <#else>
+                ""
+            </#if> />
         </p>
         <#if (messaggioemail??)>
             <p>${messaggioemail}</p>

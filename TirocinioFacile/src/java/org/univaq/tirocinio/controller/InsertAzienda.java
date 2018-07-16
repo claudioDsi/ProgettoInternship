@@ -8,9 +8,9 @@ package org.univaq.tirocinio.controller;
 import org.univaq.tirocinio.datamodel.Azienda;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +34,7 @@ public class InsertAzienda extends InternshipDBController {
     private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("page_title", "Inserisci Azienda");
             res.activate("register_company.ftl.html", request, response);
         }catch(TemplateManagerException ex){
             request.setAttribute("exception", ex);
@@ -246,6 +247,18 @@ public class InsertAzienda extends InternshipDBController {
                 action_activate(request, response, a.getIdAzienda());
             }else{
                 //è stato generato un messaggio di errore
+                Map dati = new HashMap();
+                dati.put("nome", request.getParameter("nome"));
+                dati.put("ragionesociale", request.getParameter("ragionesociale"));
+                dati.put("indirizzo", request.getParameter("indirizzo"));
+                dati.put("nomerappr", request.getParameter("nomerappr"));
+                dati.put("cognomerappr", request.getParameter("cognomerappr"));
+                dati.put("nomeresp", request.getParameter("nomeresp"));
+                dati.put("cognomeresp", request.getParameter("cognomeresp"));
+                dati.put("telefonoresp", request.getParameter("telefonoresp"));
+                dati.put("emailresp", request.getParameter("emailresp"));
+                dati.put("foro", request.getParameter("foro"));
+                request.setAttribute("dati", dati);
                 action_default(request, response);
             }
             }catch (DataLayerException ex) {
@@ -276,8 +289,7 @@ public class InsertAzienda extends InternshipDBController {
     
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException {
-            request.setAttribute("page_title", "Inserisci Azienda");
+        throws ServletException {          
             try{
                 HttpSession s = SecurityLayer.checkSession(request);
                 if(s==null){

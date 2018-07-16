@@ -6,7 +6,9 @@
 package org.univaq.tirocinio.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -172,6 +174,16 @@ public class InsertTirocinio extends InternshipDBController {
                 action_activate(request, response, tirocinio.getIdTirocinio());
             }else{
                 //è stato generato un messaggio di errore
+                Map dati = new HashMap();
+                dati.put("titolo", request.getParameter("titolo"));
+                dati.put("luogo", request.getParameter("luogo"));
+                dati.put("orario", request.getParameter("orario"));
+                dati.put("numore", request.getParameter("numore"));
+                dati.put("nummesi", request.getParameter("nummesi"));
+                dati.put("obiettivi", request.getParameter("obiettivi"));
+                dati.put("modalita", request.getParameter("modalita"));
+                dati.put("facilitazioni", request.getParameter("facilitazioni"));
+                dati.put("settore", request.getParameter("settore"));
                 action_default(request, response, azienda);
             }
         }catch(DataLayerException ex){
