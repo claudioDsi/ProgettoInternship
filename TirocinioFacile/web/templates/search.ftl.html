@@ -72,7 +72,7 @@
                 <tr>
                     <td> <a href="show?tid=${t.idTirocinio}"> ${t.titolo} </a></td>
                     <td>${t.azienda.nomeAzienda}</td>
-                    <td>${t.luogo} </td>  
+                    <td>${strip_slashes(t.luogo)} </td>  
                     <td>${t.mesi}</td>
                     <td>${t.obiettivi}</td>
                 </tr>
@@ -83,7 +83,7 @@
                 <tr>
                     <td> <a href="show?tid=${t.idTirocinio}"> ${t.titolo} </a></td>
                     <td>${t.azienda.nomeAzienda}</td>
-                    <td>${t.luogo} </td>  
+                    <td>${strip_slashes(t.luogo)} </td>  
                     <td>${t.mesi}</td>
                     <td>${t.obiettivi}</td>
                 </tr>
