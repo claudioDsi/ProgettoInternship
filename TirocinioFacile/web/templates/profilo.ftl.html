@@ -7,31 +7,41 @@
 </script>
 
 <#if (utente??)>
-    <div class="w3-card-4 profile" >
-        <header class="w3-container w3-theme">
-            <h3>Benvenuto, ${strip_slashes(utente.nome)} ${strip_slashes(utente.cognome)} </h3>
-        </header>
+    <div class="w3-card-4 profile">
+        <#if (modifica??)>
+            <script>console.log("si")</script>
+            <header class="w3-container w3-theme">
+                <h3>Benvenuto ${strip_slashes(utente.nome)}: ecco i dati del tuo profilo </h3>
+            </header>
+        <#else>
+            <script>console.log("no")</script>
+            <header class="w3-container w3-theme">
+                <h3>Dettagli candidato</h3>
+            </header>
+        </#if>
         <ul class="w3-ul">
-            <li><b> Data di nascita: </b>  ${utente.dataNasc} </li>   
-            <li><b> Sesso: </b> ${strip_slashes(utente.sesso)} </li>
-            <li><b> Residenza: </b> ${strip_slashes(utente.residenza)} </li>
-            <li><b> Ruolo: </b> Studente </li>
-            <li><b> Telefono:</b> ${strip_slashes(utente.telefono)}</li>
-            <li><b> Email:</b> ${strip_slashes(utente.emailUtente)}</li>
-            <li><b> Corso di Laurea:</b> 
+            <li><b> Nome: </b>${utente.nome}</li>
+            <li><b> Cognome: </b>${utente.cognome}</li>
+            <li><b> Data di nascita: </b>${utente.dataNasc} </li>   
+            <li><b> Sesso: </b>${strip_slashes(utente.sesso)} </li>
+            <li><b> Residenza: </b>${strip_slashes(utente.residenza)} </li>
+            <li><b> Ruolo: </b>Studente </li>
+            <li><b> Telefono: </b>${strip_slashes(utente.telefono)}</li>
+            <li><b> Email: </b>${strip_slashes(utente.emailUtente)}</li>
+            <li><b> Corso di Laurea: </b> 
                 <#if (utente.cdl=="")>
                     Nessuno
                 <#else>
                     ${strip_slashes(utente.cdl)}
                 </#if></li>
-            <li><b>Specializzazione:</b> 
+            <li><b>Specializzazione: </b> 
                 <#if (utente.specializzazione=="")>
                     Nessuna
                 <#else>
                     ${strip_slashes(utente.specializzazione)}
                 </#if></li>
-            <li><b> Laurea:</b> ${strip_slashes(utente.laurea)}</li>
-            <li><b> Dottorato:</b> 
+            <li><b> Laurea: </b>${strip_slashes(utente.laurea)}</li>
+            <li><b> Dottorato: </b> 
                 <#if (utente.dottorato=="")>
                     Nessuno
                 <#else>
