@@ -36,7 +36,8 @@ public class Profile extends InternshipDBController {
                 HttpSession s = SecurityLayer.checkSession(request);
                 if(s!=null){
                     int session_userid = (int) s.getAttribute("userid");
-                    if(uid==session_userid){
+                    String session_type = (String) s.getAttribute("type");
+                    if(uid==session_userid && session_type.equals("comp")){
                         //se sono l'azienda stessa posso vedermi in qualsiasi condizione
                         request.setAttribute("modifica", true);
                         request.setAttribute("Session", s);
@@ -95,7 +96,8 @@ public class Profile extends InternshipDBController {
                 HttpSession s = SecurityLayer.checkSession(request);
                 if(s!=null){
                     int session_userid = (int) s.getAttribute("userid");
-                    if(uid==session_userid){
+                    String session_type = (String) s.getAttribute("type");
+                    if(uid==session_userid && (session_type.equals("stud") || session_type.equals("admin"))){
                         request.setAttribute("modifica", true);
                     }else{
                         request.setAttribute("modifica", false);
