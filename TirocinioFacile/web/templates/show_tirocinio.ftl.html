@@ -32,7 +32,6 @@
                     <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
                     <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
                     <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
-                    <li><b>Qua ci va il resoconto</b></li>
                     <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
                 </ul>
             <br/>
@@ -107,8 +106,6 @@
                     <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
                     <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
                     <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
-                    <li><b>Qua ci va il contratto</b></li>
-                    <li><b>Qua ci va il resoconto</b></li>
                     <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
                     <#if azione=="pending">
                         <li><b>Status:</b>In attesa di approvazione</li>
@@ -145,8 +142,6 @@
                         <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
                         <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
                         <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
-                        <li><b>Qua ci va il contratto</b></li>
-                        <li><b>Qua ci va il resoconto</b></li>
                         <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
                     </ul>
                     <#if (progetto)>
