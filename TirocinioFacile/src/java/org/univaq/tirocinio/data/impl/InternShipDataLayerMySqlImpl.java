@@ -34,21 +34,21 @@ import org.univaq.tirocinio.framework.security.SecurityLayer;
  */
 public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements InternShipDataLayer{
     
-    private PreparedStatement iUtente, uUtente, dUtente, sUtente, sUtenteLogin;
-    private PreparedStatement iAzienda, uAzienda, dAzienda, sAzienda, sAziendaLogin;
-    private PreparedStatement iTutore, uTutore,dTutore, sTutore, sTutoriByAzienda;
-    private PreparedStatement iRichiesta, uRichiesta, dRichiesta, sRichiesta, sRichiesteByUser, sRichiesteByTirocinio, sRichiestaByStudTiro;    
-    private PreparedStatement iTirocinio, uTirocinio, dTirocinio, sTirocinio, sTirociniByAzienda, sTirociniByStudente;
+    private PreparedStatement iUtente, uUtente, sUtente, sUtenteLogin;
+    private PreparedStatement iAzienda, uAzienda, sAzienda, sAziendaLogin;
+    private PreparedStatement iTutore, uTutore, sTutore, sTutoriByAzienda;
+    private PreparedStatement iRichiesta, uRichiesta, sRichiesta, sRichiesteByUser, sRichiesteByTirocinio, sRichiestaByStudTiro;    
+    private PreparedStatement iTirocinio, uTirocinio, sTirocinio, sTirociniByAzienda, sTirociniByStudente;
     private PreparedStatement jUtenteRichiesta;
     private PreparedStatement orderByDate, searchQuery;
     private PreparedStatement rejectAllRequests, modifyRequestStatus, modifyTirocinioStatus; 
-    private PreparedStatement listaAziende, aziendeConv, aziendaByTiro;
+    private PreparedStatement listaAziende, aziendeConv;
     private PreparedStatement bestAziende, bestTutori, moreStage, activateAzienda;
     private PreparedStatement uNumTiroAzienda, uNumTiroTutore, uDateTirocinio, uValutazione, uStatusVoto;
     private PreparedStatement showContact,showTirocini;
     private PreparedStatement sUsernameUtenti,sUsernameAzienda;
     private PreparedStatement activateConvenzione, sDocumento, iDocumento, updateConvAzienda, activateProgetto, updateProgettoTiro, updateResoconto;
-    private PreparedStatement deleteTirocinio;
+    private PreparedStatement deleteTirocinio, deleteRichiesteTirocinio;
     
     public InternShipDataLayerMySqlImpl(DataSource ds) throws SQLException, NamingException {
         super(ds);
@@ -95,7 +95,6 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             sTirociniByAzienda=connection.prepareStatement("SELECT IdTirocinio FROM Tirocinio WHERE CodAzienda=?");
             sTirociniByStudente=connection.prepareStatement("SELECT t.* FROM Tirocinio as t JOIN Richiesta as r ON t.IdTirocinio=r.CodTirocinio WHERE r.CodStudente=? AND r.Status='accepted'");
             showTirocini=connection.prepareStatement(creaQuerySelect("Tirocinio", ""));   
-            aziendaByTiro=connection.prepareStatement("SELECT * FROM Azienda, Tirocinio WHERE IdAzienda=CodAzienda AND IdTirocinio=?");
             
             orderByDate=connection.prepareStatement("SELECT * FROM Tirocinio,Azienda WHERE CodAzienda=IdAzienda ORDER BY IdTirocinio DESC LIMIT 5");
             sRichiesteByUser=connection.prepareStatement("SELECT * FROM Utente as u JOIN Richiesta as r ON u.IdUtente=r.CodStudente  WHERE r.CodStudente=? AND NOT r.Status='accepted'");
@@ -120,8 +119,8 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
             updateConvAzienda=connection.prepareStatement("UPDATE Azienda SET IdConvenzione=? WHERE IdAzienda=?");
             updateProgettoTiro=connection.prepareStatement("UPDATE Tirocinio SET IdProgetto=? WHERE IdTirocinio=?");
             updateResoconto=connection.prepareStatement("UPDATE Tirocinio SET Descrizione=?, Risultato=?, StatusResoconto=1 WHERE IdTirocinio=?");
-            sDocumento = connection.prepareStatement("SELECT * FROM Documenti WHERE DocId=?");
-            
+            sDocumento=connection.prepareStatement("SELECT * FROM Documenti WHERE DocId=?");
+            deleteRichiesteTirocinio=connection.prepareStatement("DELETE FROM Richiesta WHERE CodTirocinio=?");
             
             //Tutti i prepared statement
         }
@@ -1448,57 +1447,84 @@ public class InternShipDataLayerMySqlImpl extends DataLayerMysqlImpl implements 
     }
     
     @Override
+    public void eliminaRichiesteTirocinio(Tirocinio tirocinio) {
+        try{
+            deleteRichiesteTirocinio.setInt(1,tirocinio.getIdTirocinio());
+            deleteRichiesteTirocinio.executeUpdate();  
+        }
+        catch(SQLException ex){
+            ex.getMessage();
+        }
+    }
+    
+    @Override
     public void destroy() {
         try {          
             iUtente.close();
             uUtente.close();
-            //dUtente.close();
             sUtente.close();
             sUtenteLogin.close();
             
             iAzienda.close();
             uAzienda.close();
-            //dAzienda.close();
             sAzienda.close();
             sAziendaLogin.close();
             
             iTutore.close();
             uTutore.close();
-            //dTutore.close();
             sTutore.close();
-            sTutoriByAzienda.close();            
+            sTutoriByAzienda.close();
+            
             iRichiesta.close();
             uRichiesta.close();
-            //dRichiesta.close();
             sRichiesta.close();
+            sRichiesteByUser.close();
+            sRichiesteByTirocinio.close();
+            sRichiestaByStudTiro.close();
+            
             iTirocinio.close();
             uTirocinio.close();
-            //dTirocinio.close();
             sTirocinio.close();
             sTirociniByAzienda.close();
             sTirociniByStudente.close();
+            
             jUtenteRichiesta.close();
             orderByDate.close();
+            
             modifyRequestStatus.close();
             modifyTirocinioStatus.close();
             rejectAllRequests.close();
+            
+            listaAziende.close();
+            aziendeConv.close();
+            
             bestTutori.close();
             bestAziende.close();
+            moreStage.close();
             activateAzienda.close();
+            
             uValutazione.close();
             uNumTiroAzienda.close();
             uNumTiroTutore.close();
             uStatusVoto.close();
+            uDateTirocinio.close();
+            
+            showContact.close();
+            showTirocini.close();
+            
             sUsernameUtenti.close();
             sUsernameAzienda.close();
+            
             sDocumento.close();
             iDocumento.close();
             updateConvAzienda.close();
             updateProgettoTiro.close();
-            updateResoconto.close();
-            showTirocini.close();
+            updateResoconto.close();;
             activateConvenzione.close();
             activateProgetto.close();
+            
+            deleteTirocinio.close();
+            deleteRichiesteTirocinio.close();
         }catch(SQLException ex){
             
         }

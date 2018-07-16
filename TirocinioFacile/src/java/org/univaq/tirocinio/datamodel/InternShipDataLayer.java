@@ -74,6 +74,7 @@ public interface InternShipDataLayer extends DataLayer{
     List<String> getUsernameAzienda() throws DataLayerException;
     List<String> getUsernameUtenti() throws DataLayerException;
     void eliminaTirocinio(int id);
+    void eliminaRichiesteTirocinio(Tirocinio tirocinio);
     List<Azienda> getAziendeConvenzionate() throws DataLayerException;
     
 }

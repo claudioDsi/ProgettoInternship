@@ -156,10 +156,7 @@ public class DocumentoImpl implements Documento{
         digest = documento.getDigest();
         this.dirty = true;
     }
-
-    //questi metodi sono protetti per essere accessibili solo alle altre classi
-    //del data model
-    //these methods are protected to be accessible to other datamodel classes only
+    
     protected void setDocId(int docId) {
         this.docId = docId;
     }

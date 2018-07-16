@@ -6,7 +6,6 @@
 package org.univaq.tirocinio.data.impl;
 import org.univaq.tirocinio.datamodel.Tutore;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
-import org.univaq.tirocinio.datamodel.Tirocinio;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import java.util.Date;
 /**
@@ -26,7 +25,6 @@ public class TutoreImpl implements Tutore{
     private String telefono;
     private int codAzienda;
     private String emailTutore;
-    private Tirocinio tirocinio;
     protected Boolean dirty;
     
     public TutoreImpl(InternShipDataLayer data){
@@ -39,7 +37,6 @@ public class TutoreImpl implements Tutore{
         telefono = "";
         codAzienda = 0;
         emailTutore = "";
-        tirocinio = null;
         dirty = false;
     }
 

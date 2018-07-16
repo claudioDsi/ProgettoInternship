@@ -24,7 +24,7 @@ public class RichiestaImpl implements Richiesta{
     private String status;    
     private String cfu;
     private Utente studente;
-    private Tirocinio tirocinio;    
+    private Tirocinio tirocinio; 
     private String nomeTutor;
     private String cognomeTutor;
     private String emailTutor;
@@ -101,7 +101,7 @@ public class RichiestaImpl implements Richiesta{
         this.studente=studente;
         this.dirty = true;
     }
-
+    
     @Override
     public Tirocinio getTirocinio() throws DataLayerException {
        return tirocinio;

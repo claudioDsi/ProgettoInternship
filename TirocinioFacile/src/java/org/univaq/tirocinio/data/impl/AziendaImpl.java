@@ -6,9 +6,9 @@
 package org.univaq.tirocinio.data.impl;
 import org.univaq.tirocinio.datamodel.Azienda;
 import org.univaq.tirocinio.datamodel.InternShipDataLayer;
-import org.univaq.tirocinio.datamodel.Tirocinio;
 import org.univaq.tirocinio.framework.data.DataLayerException;
 import java.util.List;
+import org.univaq.tirocinio.datamodel.Tirocinio;
 import org.univaq.tirocinio.datamodel.Tutore;
 /**
  *
@@ -225,7 +225,7 @@ public class AziendaImpl implements Azienda{
         this.numTiroCompletati = numTiroCompletati;
         this.dirty = true;
     }
-   
+    
     @Override
     public List<Tirocinio> getListaTirocini() throws DataLayerException{
         if(listaTirocini==null){

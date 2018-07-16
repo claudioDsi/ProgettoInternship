@@ -103,8 +103,10 @@ public class CompanyPanel extends InternshipDBController {
             int userid = (int)s.getAttribute("userid");
             Tirocinio tirocinio = ((InternShipDataLayer)request.getAttribute("datalayer")).getInfoTirocinio(del);
             if(tirocinio!=null){
-                if(tirocinio.getIdAzienda()==userid){
+                if(tirocinio.getIdAzienda()==userid){                    
                     //sei l'azienda che ha creato il tirocinio quindi puoi eliminarlo
+                    //vengono eliminate prima le richieste ad esso associate
+                    ((InternShipDataLayer)request.getAttribute("datalayer")).eliminaRichiesteTirocinio(tirocinio);
                     ((InternShipDataLayer)request.getAttribute("datalayer")).eliminaTirocinio(del);
                     action_show(request, response);
                 }else{
