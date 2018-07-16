@@ -39,7 +39,7 @@ function topnav (id){
 
     var logo = document.createElement('img');
     logo.setAttribute("src", "images/internship.png");
-    logo.setAttribute("style", "width: 150px; height: 35px;");
+    logo.setAttribute("style", "width: 110px; height: 35px;");
     aImg.appendChild(logo);
 
     var divOther = document.createElement('div');
