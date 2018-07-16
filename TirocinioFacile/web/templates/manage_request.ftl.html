@@ -6,6 +6,7 @@
             <table class="w3-table-all">
                 <tr class="w3-pale-blue">
                     <th><b>CFU</b></th>
+                    <th><b>Studente</b></th>
                     <th><b>Nome del tutore</b></th>
                     <th><b>Cognome del tutore</b></th> 
                     <th><b>Email del tutore</b></th>
@@ -14,7 +15,8 @@
                 </tr>
                 <#list lista_richieste as ric>
                     <tr>
-                        <td>${strip_slashes(ric.cfu)}</td> 
+                        <td>${strip_slashes(ric.cfu)}</td>
+                        <td><a href="profile?uid=${ric.idStudente}&utype=stud">${strip_slashes(ric.studente.nome)} ${strip_slashes(ric.studente.cognome)}</a></td>
                         <td>${strip_slashes(ric.nomeTutor)}</td>
                         <td>${strip_slashes(ric.cognomeTutor)}</td> 
                         <td>${strip_slashes(ric.emailTutor)}</td>
