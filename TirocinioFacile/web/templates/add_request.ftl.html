@@ -1,37 +1,32 @@
 <h2>${page_title}</h2>
-
 <form method="post" action="richiesta">
     <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
     <input type="hidden" name="tid" value="${tirocinio.idTirocinio}"/>
     <#if (messaggiocampi??)>
         <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocampi}</p>
     </#if>
-    <div>
-        <div>CFU</div>
-        <div><input type="text" name="cfu" value="" class="required forbidden w3-input w3-animate-input w3-pale-green profile"/></div>
-    </div>
+    <p>
+        <label><b>CFU</b></label>
+        <input type="text" name="cfu" value="" class="required forbidden w3-input w3-animate-input w3-pale-green profile"/>
+    </p>
     <#if (messaggiocfu??)>
         <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocfu}</p>
     </#if>
-    
-    <div>
-        <div>Nome Tutore</div>
-        <div><input type="text" name="nometutore" value="" class="required forbidden  w3-input w3-animate-input w3-pale-green profile"/></div>
-    </div>
+    <p>
+        <label><b>Nome Tutore</b></label>
+        <input type="text" name="nometutore" value="" class="required forbidden  w3-input w3-animate-input w3-pale-green profile"/>
+    </p>
     <#if (messaggionometutore??)>
         <p class="w3-panel w3-pale-red w3-border-red profile">${messaggionometutore}</p>
     </#if>
-    
-    <div>
-        <div>Cognome Tutore</div>
-        <div><input type="text" name="cognometutore" value="" class="required forbidden  w3-input w3-animate-input w3-pale-green profile"/></div>
-    </div>
+    <p>
+        <label><b>Cognome Tutore</b></label>
+        <input type="text" name="cognometutore" value="" class="required forbidden  w3-input w3-animate-input w3-pale-green profile"/>
+    </p>
     <#if (messaggiocognometutore??)>
         <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocognometutore}</p>
     </#if>
-    
-    <div>
+    <p>
         <input type="submit" name="add" value="Conferma" class="w3-button w3-theme button-margin"/>
-    </div>
-    
+    </p>
 </form>

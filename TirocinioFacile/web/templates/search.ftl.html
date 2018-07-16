@@ -2,11 +2,12 @@
     document.getElementById('content2').style.marginLeft = "11%"
     document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
     //opera safari explorer edge
-    document.getElementById('content2').style.padding = "64px"
+    document.getElementById('content2').style.paddingTop = "64px"
+    document.getElementById('content2').style.paddingLeft = "64px"
 </script>
 
 <h2>${page_title}</h2>
-<div >
+<div>
     <form method="post" action="search">
         <div class="w3-third">
             <p>
@@ -55,11 +56,8 @@
                 <input class="w3-btn w3-theme" type="submit" name="search" value="Cerca"/>
             </p>
         </div>
-        
-        
-        
     </form>   
-      <table class="w3-table-all">
+    <table class="w3-table-all">
         <tr>
             <th>Titolo</th>
             <th>Azienda</th>
@@ -68,7 +66,7 @@
             <th>Obiettivi</th>
         </tr>  
         <#if tiro??>
-        <#list tiro as t>            
+            <#list tiro as t>            
                 <tr>
                     <td> <a href="show?tid=${t.idTirocinio}"> ${t.titolo} </a></td>
                     <td>${t.azienda.nomeAzienda}</td>
@@ -76,12 +74,10 @@
                     <td>${t.mesi}</td>
                     <td>${t.obiettivi}</td>
                 </tr>
-            
-        </#list>        
+            </#list>        
         </#if>
-        
         <#if tirocini??>
-         <#list tirocini as t>            
+            <#list tirocini as t>            
                 <tr>
                     <td> <a href="show?tid=${t.idTirocinio}"> ${t.titolo} </a></td>
                     <td>${t.azienda.nomeAzienda}</td>
@@ -89,12 +85,7 @@
                     <td>${t.mesi}</td>
                     <td>${t.obiettivi}</td>
                 </tr>
-            
-        </#list>        
-        
+            </#list>        
         </#if>
-        
-        
     </table>
-    
 </div>

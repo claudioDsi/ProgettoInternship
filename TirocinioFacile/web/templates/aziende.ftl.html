@@ -2,18 +2,20 @@
     document.getElementById('content2').style.marginLeft = "11%"
     document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
     //opera safari explorer edge
-    document.getElementById('content2').style.padding = "64px"
+    document.getElementById('content2').style.paddingTop = "64px"
+    document.getElementById('content2').style.paddingLeft = "64px"
 </script>
 
-
-
-<div id="search" style="width:50%; display: none; margin-bottom: 1%">       
-    <p>Filtra per nome azienda</p>
-    <input class="w3-input w3-border w3-padding" type="text" placeholder="Cerca..." id="myInput" onkeyup="myFunction()">
+<div id="search">
+    <h2>Filtra per nome azienda</h2>
+    <input class="w3-input w3-border w3-padding" type="text" placeholder="Cerca..." id="myInput" onkeyup="searchCompany()">
 </div>
 <script>
     document.getElementById('search').style.display = "block"
 </script>
+<noscript>
+    <h2>Lista delle aziende convenzionate</h2>
+</noscript>
 <div class="w3-responsive">
     <table class="w3-table-all" id="azTable">
         <tr>
@@ -24,34 +26,15 @@
             <th>Email responsabile</th>
         </tr>            
         <#list aziende as azienda>
-            <#if (azienda.status)>
-                <tr>
-                    <td> <a href="profile?uid=${azienda.idAzienda}&utype=comp">${strip_slashes(azienda.nomeAzienda)} </a></td>
-                    <td>${strip_slashes(azienda.nomeResp)}</td>
-                    <td>${strip_slashes(azienda.cognomeResp)} </td>  
-                    <td>${strip_slashes(azienda.telefonoResp)}</td>
-                    <td>${strip_slashes(azienda.emailResp)}</td>
-                </tr>
-            </#if>
+        <#if (azienda.status)>
+        <tr>
+            <td> <a href="profile?uid=${azienda.idAzienda}&utype=comp">${strip_slashes(azienda.nomeAzienda)} </a></td>
+            <td>${strip_slashes(azienda.nomeResp)}</td>
+            <td>${strip_slashes(azienda.cognomeResp)} </td>  
+            <td>${strip_slashes(azienda.telefonoResp)}</td>
+            <td>${strip_slashes(azienda.emailResp)}</td>
+        </tr>
+        </#if>
         </#list>     
     </table>
 </div>
-<script>
-function myFunction() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("azTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-</script>

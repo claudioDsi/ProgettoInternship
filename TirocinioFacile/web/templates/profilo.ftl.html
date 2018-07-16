@@ -2,79 +2,59 @@
     document.getElementById('content2').style.marginLeft = "11%"
     document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
     //opera safari explorer edge
-    document.getElementById('content2').style.padding = "64px"
+    document.getElementById('content2').style.paddingTop = "64px"
+    document.getElementById('content2').style.paddingLeft = "64px"
 </script>
 
 <#if (utente??)>
-<form method="post" action="modify"> 
-    
-     <div class="w3-card-4 profile" >
-            <header class="w3-container w3-theme">
-                <h3>Benvenuto, ${strip_slashes(utente.nome)} ${strip_slashes(utente.cognome)} </h3>
-            </header>
-
-        <div class="w3-container">
-            <p> Data di nascita:  ${utente.dataNasc} </p>   
-            <p> Sesso : ${strip_slashes(utente.sesso)} </p>
-            <p> Residenza : ${strip_slashes(utente.residenza)} </p>
-            <p> Ruolo : Studente </p>
-        </div>   
-         
-         
-         <#if (modifica)>
-        <p><a  class="w3-button w3-block w3-theme" href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
+    <div class="w3-card-4 profile" >
+        <header class="w3-container w3-theme">
+            <h3>Benvenuto, ${strip_slashes(utente.nome)} ${strip_slashes(utente.cognome)} </h3>
+        </header>
+        <ul class="w3-ul">
+            <li><b> Data di nascita: </b>  ${utente.dataNasc} </li>   
+            <li><b> Sesso: </b> ${strip_slashes(utente.sesso)} </li>
+            <li><b> Residenza: </b> ${strip_slashes(utente.residenza)} </li>
+            <li><b> Ruolo: </b> Studente </li>
+        </ul>   
+        <#if (modifica)>
+            <p><a  class="w3-button w3-block w3-theme" href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
         </#if>       
-
-        </div>
-  
+    </div>
 </#if>
 
 <#if (azienda??)>
-    
-    
     <div class="w3-card-4 profile">
-            <header class="w3-container w3-theme">
-                <h3>${strip_slashes(azienda.nomeAzienda)} </h3>
-            </header>
-
-        <div class="w3-container">
-            
-            <p>Ragione sociale: ${strip_slashes(azienda.ragioneSociale)}</p>
-            <p>Indirizzo: ${strip_slashes(azienda.indirizzo)}</p>
-            <p>Partita IVA: ${strip_slashes(azienda.partitaIva)}</p>
-            <p>Nome Rappresentante: ${strip_slashes(azienda.nomeRappr)}</p>
-            <p>Cognome Rappresentante: ${strip_slashes(azienda.cognomeRappr)}</p>
-            <p> Valutazione media : ${strip_slashes(azienda.valutazione)}</p>
-            
-            <#if (modifica)>
-        <p><a class="w3-button w3-block w3-theme" href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
-        
-        
-      </#if>
-    
-    
-    
-    
-     <#if (Session??)>
-        <#if Session.getAttribute('userid')==azienda.idAzienda>
-            <#if (inserisci)>
-                <p><a class="w3-button w3-block w3-theme" href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
-                <p><a  class="w3-button w3-block w3-theme" href="tirocinio?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tirocinio </a></p>
-            <#else>
-                <p class="w3-panel w3-pale-yellow w3-border w3-border-yellow"  > Attenzione:  non sei ancora abilitata per proporre nuovi tirocini </p>                
-            </#if>            
-            <#if (convenzione)>
-                <p><a  class="w3-button w3-block w3-theme" href="showconvenzione?uid=${Session.getAttribute('userid')}"> Scarica Convenzione </a></p>
-            </#if>
-            <#if (scarica)>
-                <p><a  class="w3-button w3-block w3-theme" href="downloadconvenzione?cid=${azienda.idConvenzione}"> Scarica Convenzione Firmata</a></p>
-            </#if>
+        <header class="w3-container w3-theme">
+            <h3>${strip_slashes(azienda.nomeAzienda)} </h3>
+        </header>
+        <ul class="w3-ul">
+            <li>Ragione sociale: ${strip_slashes(azienda.ragioneSociale)}</li>
+            <li>Indirizzo: ${strip_slashes(azienda.indirizzo)}</li>
+            <li>Partita IVA: ${strip_slashes(azienda.partitaIva)}</li>
+            <li>Nome Rappresentante: ${strip_slashes(azienda.nomeRappr)}</li>
+            <li>Cognome Rappresentante: ${strip_slashes(azienda.cognomeRappr)}</li>
+            <li> Valutazione media : ${strip_slashes(azienda.valutazione)}</li>
+        </ul>
+        <#if (modifica)>
+            <p><a class="w3-button w3-block w3-theme" href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
         </#if>
-    </#if>    
+        <#if (Session??)>
+            <#if Session.getAttribute('userid')==azienda.idAzienda>
+                <!-- se azienda abilitata -->
+                <#if (inserisci)>
+                    <p><a class="w3-button w3-block w3-theme" href="tutore?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tutore </a></p>
+                    <p><a class="w3-button w3-block w3-theme" href="tirocinio?uid=${Session.getAttribute('userid')}"> Aggiungi nuovo tirocinio </a></p>
+                <#else>
+                    <p class="w3-panel w3-pale-yellow w3-border w3-border-yellow"> Attenzione:  non sei ancora abilitata per proporre nuovi tirocini</p>
+                </#if>            
+                <#if (convenzione)>
+                    <p><a  class="w3-button w3-block w3-theme" href="showconvenzione?uid=${Session.getAttribute('userid')}"> Scarica Convenzione </a></p>
+                </#if>
+                <#if (scarica)>
+                    <p><a  class="w3-button w3-block w3-theme" href="downloadconvenzione?cid=${azienda.idConvenzione}"> Scarica Convenzione Firmata</a></p>
+                </#if>
+            </#if>
+        </#if> 
+    </div>
 </#if>
-    
-        </div>     
-    
-    
-    
-   

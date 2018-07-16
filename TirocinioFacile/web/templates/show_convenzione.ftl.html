@@ -1,17 +1,6 @@
-<script>
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
-</script>
-
 <h2>${page_title}</h2>
-<br/>
 <p><b>Stampa questa pagina e carica il documento firmato per far approvare la tua azienda!</b></p>
-<button onclick="printDiv('toPrint')">Print</button>
+<input class="w3-btn w3-theme button-margin" onclick="printDiv('toPrint')" value="Stampa convenzione">
 
 <div id="toPrint">
     <div id='printdiv'>
@@ -24,14 +13,14 @@
                 <tr>
                     <td>PARTE RISERVATA<br/>ALL'UNIVERSITA'</td>
                     <td>DATA DI RICEVIMENTO:_______________<br/>
-                    Prot N._______</td>
+                        Prot N._______</td>
                 </tr>
             </table>
         </div>
         <p><b>CONVENZIONE PER LO SVOLGIMENTO DI ATTIVITA' DI TIROCINIO E DI ORIENTAMENTO 
-        (AI SENSI DELL'ART.18 L.196/97,  DELL'ART.1 DECRETO MINISTERO DEL LAVORO E PREVIDENZA SOCIALE N.142/98 E 
-        DELLA LEGGE 148 del 14/09/2011) PER STUDENTI E LAUREATI DEL DIPARTIMENTO DI INGEGNERIA E 
-        SCIENZE DELL'INFORMAZIONE E MATEMATICA DELL'UNIVERSITA' DEGLI STUDI DELL'AQUILA</b></p>
+                (AI SENSI DELL'ART.18 L.196/97,  DELL'ART.1 DECRETO MINISTERO DEL LAVORO E PREVIDENZA SOCIALE N.142/98 E 
+                DELLA LEGGE 148 del 14/09/2011) PER STUDENTI E LAUREATI DEL DIPARTIMENTO DI INGEGNERIA E 
+                SCIENZE DELL'INFORMAZIONE E MATEMATICA DELL'UNIVERSITA' DEGLI STUDI DELL'AQUILA</b></p>
         <p align="center">tra:</p>
         <p>L'Universit&#225; degli Studi di L'Aquila - Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica, con sede legale in L'Aquila, C.F./P.I. 01021630668, rappresentata per la stipula del presente atto convenzionale, dal Direttore del Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica Prof. Guido Proietti, nato a Roma il 13/06/1966,domiciliato per il presente atto presso la sede legale del l'Universit&#225;, e autorizzato e delegato alla stipula della presente Convenzione dal Rettore dell'Universit&#225; con D.R. n. 522/2018, prot. n. 22151 del 17.05.2018</p>
         <p align="center">e</p>
@@ -53,8 +42,8 @@
         <br/>
         <p><b>Art. 1 Oggetto</b></p>
         <p><b>1.1</b> L'Ente/l'Azienda si impegna ad accogliere presso le proprie strutture soggetti in tirocinio di formazione ed orientamento, ai sensi dell'art. 18 della legge 24 giugno 1997 n. 196 e della legge 148 del 14/09/2011, in numero non superiore a quanto disposto dall'articolo 1, comma 3, lettera c), del decreto 142/98. In particolare non possono essere attivati tirocini presso aziende che non hanno dipendenti.
-        Potranno effettuare periodi di tirocinio (stage),  studenti, neo-laureati e neo-diplomati del Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica dell'Universit&#225; degli Studi di L'Aquila, a condizione che il tirocinio inizi non oltre i 12 mesi successivi al conseguimento della laurea o dei diploma.
-        Potranno effettuare periodi di tirocinio (stage),  anche coloro che frequentano dottorati di ricerca e scuole o corsi di perfezionamento e specializzazione.
+            Potranno effettuare periodi di tirocinio (stage),  studenti, neo-laureati e neo-diplomati del Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica dell'Universit&#225; degli Studi di L'Aquila, a condizione che il tirocinio inizi non oltre i 12 mesi successivi al conseguimento della laurea o dei diploma.
+            Potranno effettuare periodi di tirocinio (stage),  anche coloro che frequentano dottorati di ricerca e scuole o corsi di perfezionamento e specializzazione.
         </p>
         <p><b>1.2</b> Ai fini dello svolgimento del tirocinio l'Ente/l'Azienda mette a disposizione del Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica dell'Universit&#225; le proprie strutture. L'accesso alle strutture sar&#225; guidato dal personale dell'Ente/Azienda ospitante, con compiti di illustrazione e formazione.</p>
         <p><b>Art. 2 Rapporti con i tirocinanti</b></p>
@@ -62,20 +51,19 @@
         <p><b>2.2</b> Durante lo svolgimento del tirocinio, l'attivit&#225; di formazione ed orientamento &#232; seguita e verificata da un tutore designato dal Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica dell'Universit&#225; in veste di responsabile didattico - organizzativo (il cui nominativo risulter&#225; dal Progetto formativo e di orientamento dei singoli stagisti) e da un responsabile aziendale indicato dall'Ente/l'Azienda (risultante dal predetto Progetto).</p>
         <p>
             <b>2.3</b> Per ciascun tirocinante da inserirsi nell'Ente/Azienda ospitante verr&#225; predisposto tra le parti un Progetto formativo e di orientamento, come da ALLEGATO 1, contenente:
-            <ol type="a">
-                <li>le generalit&#225; del tirocinante;</li>
-                <li>i nominativi del tutore e del responsabile aziendale;</li>
-                <li>durata, obiettivi e modalit&#225; di svolgimento del tirocinio;</li>
-                <li>le strutture aziendali (sedi ed uffici) presso cui si svolge il tirocinio;</li>
-                <li>gli estremi identificativi delle assicurazioni INAIL e per la responsabilit&#225; civile.</li>
-            </ol>
-        </p>
+        <ol type="a">
+            <li>le generalit&#225; del tirocinante;</li>
+            <li>i nominativi del tutore e del responsabile aziendale;</li>
+            <li>durata, obiettivi e modalit&#225; di svolgimento del tirocinio;</li>
+            <li>le strutture aziendali (sedi ed uffici) presso cui si svolge il tirocinio;</li>
+            <li>gli estremi identificativi delle assicurazioni INAIL e per la responsabilit&#225; civile.</li>
+        </ol>
         <p><b>2.4</b> L'avvio operativo per lo svolgimento dei singoli tirocini avverr&#225; con scambio di lettera di conferma tra l'Ente/l'Azienda ospitante ed il tirocinante, con allegata copia del relativo Progetto di cui al n.2.3 che precede, sottoscritto dall'Ente/l'Azienda, dal Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica e dallo stagista per adesione ed accettazione.</p>
         <p><b>2.5</b> E' consentita, con l'approvazione del responsabile aziendale, la partecipazione del tirocinante ad attivit&#225; aziendali fuori sede. In tal caso le spese di viaggio e di soggiorno o eventuali altre spese saranno sostenute dall'Ente/Azienda, secondo le norme e le procedure interne all'Ente/Azienda stessa.</p>
         <p><b>Art. 3  Svolgimento e durata del tirocinio</b></p>
         <p><b>3.1</b> Come previsto dalla normativa vigente la durata massima dei tirocini potr&#225; essere di 6 mesi nel caso di neolaureati/neodiplomati e di 12 mesi per gli studenti. Nel caso di iniziative rivolte a persone con disabilit&#225; la durata &#232; estensibile a 18 mesi.
-        La durata viene specificata nel Progetto di cui al n. 2.3 che precede relativo ad ogni tirocinante.
-        La durata stessa potr&#225; essere prorogata, previo accordo tra le parti, entro i limiti massimi indicati dall'art. 7 del decreto n. 142/98.
+            La durata viene specificata nel Progetto di cui al n. 2.3 che precede relativo ad ogni tirocinante.
+            La durata stessa potr&#225; essere prorogata, previo accordo tra le parti, entro i limiti massimi indicati dall'art. 7 del decreto n. 142/98.
         </p>
         <p><b>3.2</b> &#200; consentita, per giustificati motivi, la richiesta da parte del tirocinante di una interruzione temporanea dello stage, comunque non superiore a n.&ordm; 2 settimane consecutive, previa comunicazione all'Ente/Azienda ospitante, ferma restando la durata complessiva del tirocinio come prevista nel progetto formativo individuale.</p>
         <p><b>3.3</b> Durante lo svolgimento del tirocinio formativo e di orientamento il tirocinante &#232; tenuto a:
@@ -86,28 +74,27 @@
             <li>mantenere la necessaria riservatezza per quanto attiene ai dati, informazioni e/o conoscenze in merito ad attivit&#225; di ricerca dell'Ente/l'Azienda (ed ai relativi contenuti e risultati), acquisiti durante lo svolgimento del tirocinio;</li>
             <li>inviare al Direttore del Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica dell'Universit&#225; degli Studi dell'Aquila, mensilmente ed entro il giorno 8 del mese successivo a quello cui si riferiscono, le presenze effettive in tirocinio presso l'Ente/Azienda, rilevate dalla scheda che sar&#225; consegnata all'atto della compilazione del Progetto.</li>
         </ul>
-        </p>
         <p><b>3.4</b> Qualora si verificassero, da parte del tirocinante, comportamenti lesivi di diritti o interessi dell'Ente/l'Azienda essa potr&#225;, previa informazione al tutore incaricato dal Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica, sospendere o interrompere lo svolgimento del tirocinio.</p>
         <p><b>3.5</b> La realizzazione del tirocinio non comporta per l'Ente/l'Azienda e per il Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica dell'Universit&#225; degli Studi dell'Aquila alcun onere finanziario, n&#232; obblighi di altra natura salvo quelli previsti nella presente Convenzione.
-        L'Ente/l'Azienda potr&#225; peraltro erogare eventuali somme a titolo di rimborso spese (da prevedere nel progetto formativo), secondo le norme e le procedure interne all'Ente/l'Azienda stesso, ovvero eventuali sussidi di formazione e consentire ai tirocinanti l'utilizzo dei servizi aziendali (in particolare, servizio mensa), senza che tali erogazioni possano determinare modifiche alla natura dei rapporti oggetto della presente Convenzione, o facolt&#225; o diritti ulteriori o diversi da quelli previsti dalla Convenzione stessa e dalle relative disposizioni normative. Potranno essere erogati eventuali premi in denaro nei particolari casi di eccellenza della ricerca svolta e dei risultati raggiunti.
+            L'Ente/l'Azienda potr&#225; peraltro erogare eventuali somme a titolo di rimborso spese (da prevedere nel progetto formativo), secondo le norme e le procedure interne all'Ente/l'Azienda stesso, ovvero eventuali sussidi di formazione e consentire ai tirocinanti l'utilizzo dei servizi aziendali (in particolare, servizio mensa), senza che tali erogazioni possano determinare modifiche alla natura dei rapporti oggetto della presente Convenzione, o facolt&#225; o diritti ulteriori o diversi da quelli previsti dalla Convenzione stessa e dalle relative disposizioni normative. Potranno essere erogati eventuali premi in denaro nei particolari casi di eccellenza della ricerca svolta e dei risultati raggiunti.
         </p>
         <p><b>3.6</b> L'Azienda/Ente ospitante si impegna a garantire che il tirocinio si svolga presso strutture aziendali (stabilimenti, sedi, reparti, uffici ecc.) che rispettino le vigenti disposizioni normative in tema di prevenzione incendi, igiene e sicurezza del lavoro, garantendo, in particolare, che i locali, le attrezzature e le strumentazioni siano idonee e adeguate ai sensi del D. lgs. 81del 9 Aprile 2008.
-        L'Azienda/Ente ospitante si impegna inoltre ad assolvere a tutti gli obblighi indicati dal D. lgs 81/2008 con particolare riguardo al Titolo I, Capo III, sez. IV "Formazione, informazione e addestramento", sezione V "Sorveglianza sanitaria" per i casi eventualmente previsti (presenza di rischi specifici), e al Titolo III, Capo II "Uso dei dispositivi di protezione individuali".</p>
+            L'Azienda/Ente ospitante si impegna inoltre ad assolvere a tutti gli obblighi indicati dal D. lgs 81/2008 con particolare riguardo al Titolo I, Capo III, sez. IV "Formazione, informazione e addestramento", sezione V "Sorveglianza sanitaria" per i casi eventualmente previsti (presenza di rischi specifici), e al Titolo III, Capo II "Uso dei dispositivi di protezione individuali".</p>
         <p><b>Art. 4 Coperture assicurative</b></p>
         <p><b>4.1</b> L'Universit&#225; degli Studi di L'Aquila si impegna ad assicurare i tirocinanti contro gli infortuni sul lavoro presso l'INAIL, nonch&#232; per la responsabilit&#225; civile presso compagnie assicurative operanti nel settore ed indicate nel progetto formativo. L'assicurazione dovr&#225; coprire anche le attivit&#225; svolte nell'ambito del tirocinio fuori sede ai sensi del punto 2.5. Gli estremi identificativi delle assicurazioni predette saranno indicati nei Progetti.</p>
         <p><b>4.2</b> In caso di infortunio durante lo svolgimento del tirocinio, l'Ente/l'Azienda si impegna a segnalare l'evento, entro i tempi previsti dalla normativa vigente, agli istituti assicurativi (quali risultanti dal Progetto formativo e di orientamento e facendo riferimento al numero della polizza sottoscritta dall'Universit&#225; degli Studi di L'Aquila) ed all'Universit&#225; stessa.</p>
         <p><b>Art. 5 Comunicazioni</b></p>
         <p>Il Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica dell'Universit&#225; degli Studi di L'Aquila si impegna a far pervenire alla Regione o alla Provincia delegata, alle strutture provinciali del Ministero del Lavoro e della Previdenza sociale competenti per territorio in materia di ispezione copia della Convenzione e di ciascun Progetto formativo e di orientamento.
-        L'Ente/l'Azienda per delega che l'Universit&#225; degli Studi di L'Aquila le conferisce con la presente, provveder&#225; a far pervenire alle Rappresentanze Sindacali dei Lavoratori copia della presente Convenzione e di ciascun Progetto formativo e di orientamento, ai sensi della normativa vigente.
-        In ottemperanza a quanto previsto dalla legge n.296/2006 (Finanziaria 2007) l'Ente/Azienda ospitante &#232; tenuto ad effettuare obbligatoriamente la comunicazione dell'avvio dello stage/tirocinio al centro per l'impiego competente entro le ore 24 del giorno antecedente, solo ed esclusivamente per i neolaureati.
+            L'Ente/l'Azienda per delega che l'Universit&#225; degli Studi di L'Aquila le conferisce con la presente, provveder&#225; a far pervenire alle Rappresentanze Sindacali dei Lavoratori copia della presente Convenzione e di ciascun Progetto formativo e di orientamento, ai sensi della normativa vigente.
+            In ottemperanza a quanto previsto dalla legge n.296/2006 (Finanziaria 2007) l'Ente/Azienda ospitante &#232; tenuto ad effettuare obbligatoriamente la comunicazione dell'avvio dello stage/tirocinio al centro per l'impiego competente entro le ore 24 del giorno antecedente, solo ed esclusivamente per i neolaureati.
         </p>
         <p><b>Art. 6 Spese e Foro competente</b></p>
         <p>La presente convenzione viene redatta in unico originale, conservato agli atti dal Soggetto promotore. Copia del documento viene rilasciata al Soggetto ospitante. 
 
-        Ogni attivit&#225; prevista dalla presente Convenzione si svolger&#225; nel rispetto dell'Ordinamento generale dello Stato e delle leggi che regolano l'attivit&#225; di entrambi gli Enti.
-        Le parti concordano di definire amichevolmente qualsiasi controversia dovesse insorgere dall'interpretazione o applicazione del presente Atto.
-        Qualora non fosse possibile raggiungere tale accordo, il Foro competente a dirimere la controversia sar&#225; quello di  <b>${strip_slashes(azienda.foro)}</b>.
-        L'imposta di bollo &#232; a carico del Soggetto ospitante, salvo accordi specifici tra le parti e secondo quanto previsto dalla normativa vigente.
+            Ogni attivit&#225; prevista dalla presente Convenzione si svolger&#225; nel rispetto dell'Ordinamento generale dello Stato e delle leggi che regolano l'attivit&#225; di entrambi gli Enti.
+            Le parti concordano di definire amichevolmente qualsiasi controversia dovesse insorgere dall'interpretazione o applicazione del presente Atto.
+            Qualora non fosse possibile raggiungere tale accordo, il Foro competente a dirimere la controversia sar&#225; quello di  <b>${strip_slashes(azienda.foro)}</b>.
+            L'imposta di bollo &#232; a carico del Soggetto ospitante, salvo accordi specifici tra le parti e secondo quanto previsto dalla normativa vigente.
         </p>
         <p><b>Art. 7 Trattamento dati</b></p>
         <p>Le parti dichiarano di essersi reciprocamente informate, di acconsentire che i dati personali raccolti per la formalizzazione del presente atto siano oggetto di trattamento per gli adempimenti di legge ai sensi del d. lgs. 196/03 e di essere a conoscenza di quanto previsto dall'art.13 dello stesso decreto.</p>

@@ -9,8 +9,17 @@ and open the template in the editor.
 */
 
 /* OUTLINE */
+html,body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto", sans-serif;
+}
 
-
+.w3-sidebar{
+                z-index: 3;
+                width: 200px;
+                top: 53px;
+                bottom: 0;
+                height: inherit;
+}
 
 #sidebar{
     display:none;
@@ -23,6 +32,8 @@ and open the template in the editor.
 #myOverlay{
      cursor:pointer;
 }
+
+/* HOME */
 
 #logo{
     width: 100px; 
@@ -72,13 +83,6 @@ and open the template in the editor.
     display:none;
 }
 
-#log_stud{
-    display: block;
-}
-
-#nameStud, #pwdStud, #nameAz, #pwdAz{
-    width:60%;
-}
 
 #labelLogin, #ulogin{
     display:none;
@@ -86,4 +90,10 @@ and open the template in the editor.
 
 #about{
      margin-right: 1%; margin-left: 1%
+}
+
+/* LISTA AZIENDE*/
+
+#search{
+    width:50%; display: none; margin-bottom: 1%
 }

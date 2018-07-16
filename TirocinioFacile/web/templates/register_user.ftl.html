@@ -2,10 +2,11 @@
     document.getElementById('content2').style.marginLeft = "11%"
     document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
     //opera safari explorer edge
-    document.getElementById('content2').style.padding = "64px"
+    document.getElementById('content2').style.paddingTop = "64px"
+    document.getElementById('content2').style.paddingLeft = "64px"
 </script>
 
-<div class="w3-card-4" style="margin-right: 1%">
+<div class="w3-card-4">
     <div class="w3-container w3-theme">
         <h2>${page_title}</h2>
     </div>
@@ -14,6 +15,7 @@
             <p>${messaggiocampi}</p>
         </#if>
         <p>
+            <br>
             <label ><b>Nome</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nome" value=""/>
         </p>
@@ -31,7 +33,6 @@
             <label ><b>Data di nascita</b></label>
             <input class="number required w3-input w3-pale-green" style="width:30%; max-width:50%" type="date" name="datanasc" value=""/>
         </p>
-    
         <p>
             <label ><b>Luogo di nascita</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="luogonasc" value=""/>
@@ -55,7 +56,6 @@
                 <option value="donna">Donna</option>
             </select> 
         </p>
-        
         <p>
             <label><b>Residenza</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="residenza" value=""/>
@@ -79,7 +79,6 @@
                 <option value="true">Si</option>
             </select> 
         </p>
-        
         <p>
             <label ><b>Email</b></label>
             <input class="email required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="email" value=""/>
@@ -103,7 +102,6 @@
                 <option value="magistrale">Magistrale</option>
             </select> 
         </p>
-
         <p>
             <label ><b>Dottorato</b></label>
             <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="dottorato" value=""/>
@@ -128,21 +126,19 @@
         <#if (usernamemessage??)>
             <p class="w3-panel w3-pale-red w3-border-red">${usernamemessage}</p>
         </#if>
-        
         <p>
             <label ><b>Password</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="password" value=""/>
         </p>
-        
         <p>
             <label ><b>Ripeti password</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="rpassword" value=""/>
         </p>
-        
         <#if (passwordmessage??)>
             <p class="w3-panel w3-pale-red w3-border-red">${passwordmessage}</p>
         </#if>
-        
-        <input class="w3-btn w3-theme" type="submit" name="add" value="Add">
+        <p>
+            <input class="w3-btn w3-theme" type="submit" name="add" value="Add">
+        </p>
     </form>
 </div>  

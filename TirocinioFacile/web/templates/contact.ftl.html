@@ -2,15 +2,17 @@
     document.getElementById('content2').style.marginLeft = "11%"
     document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
     //opera safari explorer edge
-    document.getElementById('content2').style.padding = "64px"
+    document.getElementById('content2').style.paddingTop = "64px"
+    document.getElementById('content2').style.paddingLeft = "64px"
 </script>
+
 <div class="w3-card-4 profile">
     <header class="w3-container w3-teal">
         <h3>${contact.nome} ${contact.cognome}</h3>
     </header>
     <div class="w3-container">
         <img src="images/img_avatar3.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <p> Telefono : ${contact.telefono}</p>          
+        <p style="margin-top: 1%"> Telefono : ${contact.telefono}</p>          
         <p> O scrivi all'indirizzo : ${contact.emailUtente}</p>
     </div>
 </div>

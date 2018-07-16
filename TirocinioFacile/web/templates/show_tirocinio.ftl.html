@@ -1,8 +1,11 @@
-<!--<h2>${page_title}</h2>-->
 <script>
-    document.getElementById('main').style = "margin-left:210px"
+    document.getElementById('content2').style.marginLeft = "11%"
     document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
+    //opera safari explorer edge
+    document.getElementById('content2').style.paddingTop = "64px"
+    document.getElementById('content2').style.paddingLeft = "64px"
 </script>
+
 <div class="w3-card-4"  style="max-width: 55%;">
     <header class="w3-container w3-theme">
         <h3>Scheda tirocinio </h3>
@@ -18,7 +21,6 @@
         <li><b>Settore:</b> ${strip_slashes(tirocinio.settore)}</li>        
     </ul>
 </div>
-
 <#if (Session)??>
     <#if Session.getAttribute('type')=="stud">
         <#if azione=="accepted">
@@ -56,8 +58,7 @@
                         </header>
                         
                         <script>
-                            function autoSubmit(id)
-                            {
+                            function autoSubmit(id){
                                 var formObject = document.forms['ratingsForm'];
                                 formObject.submit(id);
                             }
@@ -98,27 +99,22 @@
             </#if>
         </#if>
         <#if azione=="pending">   
-        
-           
-                        
-                <div class="w3-card-4 button-margin"  style="max-width: 55%;">
-                    <header class="w3-container w3-theme">
-                        <h3>Ulteriori dettagli </h3>
-                    </header>
-                    <ul class="w3-ul">
-                        <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
-                        <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
-                        <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
-                        <li><b>Qua ci va il contratto</b></li>
-                        <li><b>Qua ci va il resoconto</b></li>
-                        <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
-                        <#if azione=="pending">
+            <div class="w3-card-4 button-margin"  style="max-width: 55%;">
+                <header class="w3-container w3-theme">
+                    <h3>Ulteriori dettagli </h3>
+                </header>
+                <ul class="w3-ul">
+                    <li><b>Nome del Tutore:</b> ${strip_slashes(richiesta.nomeTutor)}</li>
+                    <li><b>Cognome del Tutore:</b> ${strip_slashes(richiesta.cognomeTutor)}</li>
+                    <li><b>Email del Tutore:</b> ${strip_slashes(richiesta.emailTutor)}</li>
+                    <li><b>Qua ci va il contratto</b></li>
+                    <li><b>Qua ci va il resoconto</b></li>
+                    <li><b>N&deg; CFU:</b> ${strip_slashes(richiesta.cfu)}</li>
+                    <#if azione=="pending">
                         <li><b>Status:</b>In attesa di approvazione</li>
-                        </#if>
-                    </ul>
-                </div>         
-                       
-        
+                    </#if>
+                </ul>
+            </div>
         </#if>
         <#if azione="reject">
             <div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin-right: 50%;">
@@ -127,8 +123,8 @@
         </#if>
         <#if azione="applicati">
             <div class="w3-panel w3-border-left w3-pale-green w3-border-green" style="margin-right: 50%;">
-            <p>Puoi ancora candidarti per questo tirocinio!</p>
-            <p><a href="richiesta?tid=${tirocinio.idTirocinio}"> Candidati qui! </a></p>
+                <p>Puoi ancora candidarti per questo tirocinio!</p>
+                <p><a href="richiesta?tid=${tirocinio.idTirocinio}"> Candidati qui! </a></p>
             </div>
         </#if>
         <#if azione=="anonymous">
@@ -183,14 +179,14 @@
 <#else>
     <#if (status)??>
     <div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin-right: 50%;">
-        <p>La richiesta di tirocinio &egrave; scaduta!</p>
+        <p style="margin-top: 1%">La richiesta di tirocinio &egrave; scaduta!</p>
     </div>
     </#if>
-    <p><b>
+    <p style="margin-top:1%"><b>
         <a href="user?tid=${tirocinio.idTirocinio}">
             Registrati
         </a> 
             oppure effettua il
-        <a href="login?tid=${tirocinio.idTirocinio}">login</a> per per candidarti a questo tirocinio!</p></b>
+        <a href="login?tid=${tirocinio.idTirocinio}">login</a> per per candidarti a questo tirocinio!</p>
 </#if>
 <br/>

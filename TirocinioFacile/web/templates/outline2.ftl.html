@@ -10,32 +10,18 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style/reset.css"/>
-        <link rel="stylesheet" type="text/css" href="style/home.css"/>
         <link rel="stylesheet" type="text/css" href="style/print.css"/>
-        <!--<link rel="stylesheet" type="text/css" href="style/responsive_header.css"/>
-        <link rel="stylesheet" type="text/css" href="style/responsive_menu.css"/>-->
         <link rel="stylesheet" type="text/css" href="style/other.css"/>
         <link rel="stylesheet" type="text/css" href="style/evaluation.css"/>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="style/home.css"/>
         <script type="text/javascript" src="script/showButton.js"></script>
         <script type="text/javascript" src="script/validator.js"></script> 
         <script type="text/javascript" src="script/topnav.js"></script>
         <script type="text/javascript" src="script/sidebar_anonimo.js"></script>
-        <style>
-            html,body,h1,h2,h3,h4,h5,h6 {
-                font-family: "Roboto", sans-serif;
-            }
-            .w3-sidebar{
-                z-index: 3;
-                width: 200px;
-                top: 53px;
-                bottom: 0;
-                height: inherit;
-            }
-        </style>
     </head>    
     <body>
         <!-- Navbar -->
@@ -126,6 +112,7 @@ and open the template in the editor.
                 </#if>
             </nav>
         </div>
+        <!-- Inserire sidebare in home anonimo solo con javascript attivo -->
         <script>
             document.getElementById('sidebar').style.display = "block"
         </script>
@@ -145,43 +132,16 @@ and open the template in the editor.
                 </script>
             </div>
         <#else>
-        <div id="main" class="w3-main">
-            <div id="content2" class="w3-main w3-padding-32">
-                <#include content_tpl>
-            </div>
-            <script>
-                var w = window.innerWidth
-                    || document.documentElement.clientWidth
-                    || document.body.clientWidth;
-                    if(w<1366){
+            <div id="main" class="w3-main">
+                <div id="content2" class="w3-main w3-padding-32">
+                    <#include content_tpl>
+                </div>
+                <script>
+                    if(window.innerWidth < 1366){
                         document.getElementById("content2").setAttribute("class", "w3-main")
                     }
-            </script>
-        </div>
+                </script>
+            </div>
         </#if>
-        <script>
-            // Get the Sidebar
-            var mySidebar = document.getElementById("mySidebar");
-
-            // Get the DIV with overlay effect
-            var overlayBg = document.getElementById("myOverlay");
-
-            // Toggle between showing and hiding the sidebar, and add overlay effect
-            function w3_open() {
-                if (mySidebar.style.display === 'block') {
-                    mySidebar.style.display = 'none';
-                    overlayBg.style.display = "none";
-                } else {
-                    mySidebar.style.display = 'block';
-                    overlayBg.style.display = "block";
-                }
-            }
-
-            // Close the sidebar with the close button
-            function w3_close() {
-                mySidebar.style.display = "none";
-                overlayBg.style.display = "none";
-            }
-        </script>
     </body>
 </html>

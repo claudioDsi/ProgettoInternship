@@ -1,5 +1,4 @@
 <h2>${page_title}</h2>
-
 <#if (Session??)>
     <#if Session.getAttribute('type')=="comp">
         <#if (lista_tirocini)??>
@@ -15,46 +14,43 @@
                         <th>Operazioni</th>
                     </tr>
                     <#list lista_tirocini as tirocinio>
-                    <#if (tirocinio)?? >
-                        <tr>
-                            <td>${strip_slashes(tirocinio.titolo)}</td> 
-                            <td>${tirocinio.numOre}</td> 
-                            <td>${tirocinio.mesi}</td>
-                            <td>${strip_slashes(tirocinio.luogo)}</td>
-                            <td>${strip_slashes(tirocinio.settore)}</td> 
-                            <td>
-                                <a class="w3-tooltip" href="show?tid=${tirocinio.idTirocinio}">
-                                    <span class="glyphicon glyphicon-search icon-position" ></span>
-                                    <span class="w3-text w3-tag tooltip-position">Mostra dettagli</span>
-                                </a>
-                                <a class="w3-tooltip" href="panel?tid=${tirocinio.idTirocinio}">
-                                    <span class="glyphicon glyphicon-th-list icon-position"></span>
-                                    <span  class="w3-text w3-tag tooltip-position">Mostra candidature</span>
-                                </a>
-                                <a class="w3-tooltip" href="panel?del=${tirocinio.idTirocinio}">
-                                    <span class="glyphicon glyphicon-remove icon-position"></span>
-                                    <span  class="w3-text w3-tag tooltip-position">Elimina tirocinio</span>
-                                </a>
-                                
-                                <#if (tirocinio.statusResoconto)>
-                                <#else>
-                                    <#if (resoconto??)>
-                                        <#list resoconto as key,value>
-                                            <#if (tirocinio.idTirocinio==key)>
-                                                <#if (value)>
-                            
-                                                     <a class="w3-tooltip" href="compilaresoconto?tid=${tirocinio.idTirocinio}">
-                                                        <span class="fa fa-file-text icon-position" ></span>
-                                                        <span  class="w3-text w3-tag tooltip-position">Compila resoconto</span>
-                                                    </a>
-                            
+                        <#if (tirocinio)?? >
+                            <tr>
+                                <td>${strip_slashes(tirocinio.titolo)}</td> 
+                                <td>${tirocinio.numOre}</td> 
+                                <td>${tirocinio.mesi}</td>
+                                <td>${strip_slashes(tirocinio.luogo)}</td>
+                                <td>${strip_slashes(tirocinio.settore)}</td> 
+                                <td>
+                                    <a class="w3-tooltip" href="show?tid=${tirocinio.idTirocinio}">
+                                        <span class="glyphicon glyphicon-search icon-position" ></span>
+                                        <span class="w3-text w3-tag tooltip-position">Mostra dettagli</span>
+                                    </a>
+                                    <a class="w3-tooltip" href="panel?tid=${tirocinio.idTirocinio}">
+                                        <span class="glyphicon glyphicon-th-list icon-position"></span>
+                                        <span  class="w3-text w3-tag tooltip-position">Mostra candidature</span>
+                                    </a>
+                                    <a class="w3-tooltip" href="panel?del=${tirocinio.idTirocinio}">
+                                        <span class="glyphicon glyphicon-remove icon-position"></span>
+                                        <span  class="w3-text w3-tag tooltip-position">Elimina tirocinio</span>
+                                    </a>
+                                    <#if (tirocinio.statusResoconto)>
+                                    <#else>
+                                        <#if (resoconto??)>
+                                            <#list resoconto as key,value>
+                                                <#if (tirocinio.idTirocinio==key)>
+                                                    <#if (value)>
+                                                        <a class="w3-tooltip" href="compilaresoconto?tid=${tirocinio.idTirocinio}">
+                                                            <span class="fa fa-file-text icon-position" ></span>
+                                                            <span  class="w3-text w3-tag tooltip-position">Compila resoconto</span>
+                                                        </a>
                                                     </#if>
-                                            </#if>
-                                        </#list>
+                                                </#if>
+                                            </#list>
+                                        </#if>
                                     </#if>
-                                </#if>
-                            </td>
-                        </tr> 
+                                </td>
+                            </tr> 
                         </#if>
                     </#list>
                 </table>
@@ -64,16 +60,15 @@
                 </div>
             </div>
         <#else>
-        <div class="w3-container">
-            <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border" style="width:30%">
+            <div class="w3-container">
+                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border" style="width:30%">
                     <p>Non sono ancora stati inseriti tirocini!</p>
-            </div>
-            <span class="w3-tooltip">
-                 <a href="tirocinio" class="w3-button w3-large w3-circle w3-teal w3-left">+</a>
-                <span class="w3-text w3-tag tooltip-position">Inserisci nuovo tirocinio</span>
-            </span>
+                </div>
+                <span class="w3-tooltip">
+                    <a href="tirocinio" class="w3-button w3-large w3-circle w3-teal w3-left">+</a>
+                    <span class="w3-text w3-tag tooltip-position">Inserisci nuovo tirocinio</span>
+                </span>
             </div>
         </#if>
     </#if>
 </#if>
-<br/>

@@ -3,41 +3,34 @@
 <#if (Session??)>
     <#if Session.getAttribute('type')=="comp">
         <#if (lista_richieste)??>
-            
             <table class="w3-table-all">
-               
                 <tr>
-                     
                     <th>CFU</th>
                     <th>Nome del tutore</th>
                     <th>Cognome del tutore</th> 
                     <th>Email del tutore</th>
                     <th>Stato richiesta</th>                   
-                  
                     <th colspan="2"> Operazioni </th>                
-                   
-                    
-                    
                 </tr>
-                 <#list lista_richieste as ric>
+                <#list lista_richieste as ric>
                     <tr>
                         <td>${strip_slashes(ric.cfu)}</td> 
                         <td>${strip_slashes(ric.nomeTutor)}</td>
                         <td>${strip_slashes(ric.cognomeTutor)}</td> 
                         <td>${strip_slashes(ric.emailTutor)}</td>
                         <#if ric.status=="pending">
-                        <td>In attesa di approvazione</td>
+                            <td>In attesa di approvazione</td>
                         </#if>
                         <#if ric.status=="accepted" || ric.status=="rejected">
-                        <td>Non &egrave; pi&ugrave; possibile modificare la richiesta</td>
-                        <td colspan="2"> Nessuna </td>
+                            <td>Non &egrave; pi&ugrave; possibile modificare la richiesta</td>
+                            <td colspan="2"> Nessuna </td>
                         <#else>
-                        <td>
-                            <a class="w3-tooltip" href="setric?rid=${ric.idRichiesta}&val=1">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                <span  class="w3-text w3-tag tooltip-position">Accetta candidatura</span>
-                            </a>
-                        </td>
+                            <td>
+                                <a class="w3-tooltip" href="setric?rid=${ric.idRichiesta}&val=1">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <span  class="w3-text w3-tag tooltip-position">Accetta candidatura</span>
+                                </a>
+                            </td>
                             <td>
                                 <a class="w3-tooltip" href="setric?rid=${ric.idRichiesta}&val=0">
                                     <span class="glyphicon glyphicon-remove"></span>
@@ -48,7 +41,6 @@
                     </tr>
                 </#list>
             </table>
-        
         <#else>
             <p>Non sono ancora state proposte delle richieste per il tirocinio!</p>
         </#if> <!-- null-->

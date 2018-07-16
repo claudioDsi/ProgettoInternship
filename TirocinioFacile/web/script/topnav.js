@@ -10,8 +10,6 @@ function topnav (id){
     || document.body.clientHeight;
 
     if (w>=1000){
-        //console.log("w", w);
-        //console.log("h", h);
         bar.setAttribute("class", "w3-top");
     }
 

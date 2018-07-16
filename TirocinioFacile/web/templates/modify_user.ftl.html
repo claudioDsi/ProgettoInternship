@@ -1,11 +1,12 @@
-<div class="w3-card-4" style="margin-right: 1%">
-    <div class="w3-container w3-theme">
+<div class="w3-card-4">
+    <div class="w3-container w3-teal">
         <h2>${page_title}</h2>
     </div>
     <form class="w3-container" id="form" method="post" action="modify">
         <#if (messaggiocampi??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocampi}</p>
         </#if>
+        <br>
         <p>
             <label><b>Nome</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green w3-opacity" style="width:30%; max-width:50%" type="text" name="nome" value="${strip_slashes(utente.nome)}" disabled/>
@@ -136,17 +137,16 @@
         <p>
             <label><b>Password</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="password" value=""/>
-        </p>
-        
+        </p>        
         <p>
             <label><b>Ripeti password</b></label>
             <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="rpassword" value=""/>
         </p>
-        
         <#if (passwordmessage??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${passwordmessage}</p>
         </#if>
-        
-        <input class="w3-btn w3-theme button-margin" type="submit" name="update" value="Conferma modifiche">
+        <p>
+            <input class="w3-btn w3-theme button-margin" type="submit" name="update" value="Conferma modifiche">
+        </p>
     </form>
 </div>  

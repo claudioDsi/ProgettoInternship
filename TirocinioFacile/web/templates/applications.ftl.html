@@ -3,28 +3,28 @@
     <#if Session.getAttribute('type')=="stud">
         <h3>I miei tirocini approvati</h3>
         <#if (lista_tirocini_approvati)??>
-        <div class="w3-responsive">
-            <table class="w3-table-all">
-                <tr>
-                    <th>Titolo</th>
-                    <th>Azienda</th>
-                    <th>Numero di ore</th> 
-                    <th>Numero di mesi</th>
-                    <th>Luogo</th>
-                    <th>Settore</th>
-                </tr>
-                <#list lista_tirocini_approvati as tirocinio>
+            <div class="w3-responsive">
+                <table class="w3-table-all">
                     <tr>
-                        <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td> 
-                        <td>${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>
-                        <td>${tirocinio.numOre}</td> 
-                        <td>${tirocinio.mesi}</td>
-                        <td>${strip_slashes(tirocinio.luogo)}</td>
-                        <td>${strip_slashes(tirocinio.settore)}</td> 
+                        <th>Titolo</th>
+                        <th>Azienda</th>
+                        <th>Numero di ore</th> 
+                        <th>Numero di mesi</th>
+                        <th>Luogo</th>
+                        <th>Settore</th>
                     </tr>
-                </#list>
-            </table>
-        </div>
+                    <#list lista_tirocini_approvati as tirocinio>
+                        <tr>
+                            <td><a href="show?tid=${tirocinio.idTirocinio}">${strip_slashes(tirocinio.titolo)}</a></td> 
+                            <td>${strip_slashes(tirocinio.azienda.nomeAzienda)}</td>
+                            <td>${tirocinio.numOre}</td> 
+                            <td>${tirocinio.mesi}</td>
+                            <td>${strip_slashes(tirocinio.luogo)}</td>
+                            <td>${strip_slashes(tirocinio.settore)}</td> 
+                        </tr>
+                    </#list>
+                </table>
+            </div>
         <#else>
             <div class="w3-container">
                 <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border" style="width: 50%">
@@ -32,54 +32,48 @@
                 </div>
             </div>
         </#if>
-        <br/>
         <h3>Le mie richieste</h3>
         <#if (lista_richieste)??>
-        <div class="w3-responsive">
-            <table class="w3-table-all">
-                <tr>                    
-                    <th>Titolo del tirocinio</th>
-                    <th>Nome Azienda</th> 
-                    <th>CFU</th>
-                    <th>Email del tutore</th>
-                    <th>Stato richiesta</th>
-                    <th>Vai ai dettagli</th>
-                </tr>
-                <#list lista_richieste as ric>
-                    <tr>
-                         <#list titolitirocini as key,value>
-                            <#if (ric.idRichiesta==key)>
-                                <td>  ${strip_slashes(value)}</td>
-                                
-                            </#if>
-                        </#list>
-                       
-                        <#list nomiaziende as key,value>
-                            <#if (ric.idRichiesta==key)>
-                                <td>${strip_slashes(value)}</td>
-                            </#if>
-                        </#list>
-                        
-                         <td>${ric.cfu}</td>
-                        <td>${strip_slashes(ric.emailTutor)}</td>
-                        <#if (ric.status)=="pending">
-                            <td>In attesa di approvazione</td>
-                        <#elseif (ric.status)=="rejected">
-                            <td>Richiesta rifiutata </td>
-                        
-                        </#if>                        
-                        <td><a href="show?tid=${ric.idTirocinio}">Dettagli tirocinio</a></td>
+            <div class="w3-responsive">
+                <table class="w3-table-all">
+                    <tr>                    
+                        <th>Titolo del tirocinio</th>
+                        <th>Nome Azienda</th> 
+                        <th>CFU</th>
+                        <th>Email del tutore</th>
+                        <th>Stato richiesta</th>
+                        <th>Vai ai dettagli</th>
                     </tr>
-                </#list>
-            </table>
-        </div>
+                    <#list lista_richieste as ric>
+                        <tr>
+                            <#list titolitirocini as key,value>
+                                <#if (ric.idRichiesta==key)>
+                                    <td>  ${strip_slashes(value)}</td>
+                                </#if>
+                            </#list>
+                            <#list nomiaziende as key,value>
+                                <#if (ric.idRichiesta==key)>
+                                    <td>${strip_slashes(value)}</td>
+                                </#if>
+                            </#list>
+                            <td>${ric.cfu}</td>
+                            <td>${strip_slashes(ric.emailTutor)}</td>
+                            <#if (ric.status)=="pending">
+                                <td>In attesa di approvazione</td>
+                            <#elseif (ric.status)=="rejected">
+                                <td>Richiesta rifiutata </td>
+                            </#if>                        
+                            <td><a href="show?tid=${ric.idTirocinio}">Dettagli tirocinio</a></td>
+                        </tr>
+                    </#list>
+                </table>
+            </div>
         <#else>
             <div class="w3-container">
-                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border profile" >
-                  <p class="button-margin"> Non sono ancora state effettuate richieste di iscrizione a tirocini!</p>
+                <div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border profile">
+                    <p class="button-margin"> Non sono ancora state effettuate richieste di iscrizione a tirocini!</p>
                 </div>
             </div>
         </#if>
     </#if>
 </#if>
-<br/>

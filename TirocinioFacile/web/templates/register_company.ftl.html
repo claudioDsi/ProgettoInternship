@@ -2,111 +2,126 @@
     document.getElementById('content2').style.marginLeft = "11%"
     document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
     //opera safari explorer edge
-    document.getElementById('content2').style.padding = "64px"
+    document.getElementById('content2').style.paddingTop = "64px"
+    document.getElementById('content2').style.paddingLeft = "64px"
 </script>
 
-<div class="w3-card-4" style="margin-right: 1%">
-  <div class="w3-container w3-pale-green">
-    <h2>${page_title}</h2>
-  </div>
-  <form class="w3-container" method="post" action="azienda">
-    <#if (messaggiocampi??)>
-        <p>${messaggiocampi}</p>
-    </#if>
-    <p>      
-    <label><b>Nome azienda</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green " style="width:30%; max-width:50%" type="text" name="nome" value=""/></p>
-    <p>
-    <#if (messaggionome??)>
-        <p>${messaggionome}</p>
-    </#if>
-    <label><b>Ragione sociale</b></label>
-    <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="ragionesociale" value=""/></p>
-    <p>
-    <#if (messaggioragionesociale??)>
-        <p>${messaggioragionesociale}</p>
-    </#if>
-    <label><b>Partita IVA</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="partitaiva" value=""/></p>
-    <p>
-    <#if (messaggioiva??)>
-        <p>${messaggioiva}</p>
-    </#if>
-    <label><b>Codice Fiscale</b></label>
-    <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="codicefisc" value=""/></p>
-    <p>
-    <#if (messaggiocodicefisc??)>
-        <p>${messaggiocodicefisc}</p>
-    </#if>   
-    <label><b>Indirizzo</b></label>
-    <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="indirizzo" value=""/></p>
-    <p>
-    <#if (messaggioindirizzo??)>
-        <p>${messaggioindirizzo}</p>
-    </#if>      
-    <label><b>Nome Rappresentante</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nomerappr" value=""/></p>
-    <p>
-    <#if (messaggionomerappr??)>
-        <p>${messaggionomerappr}</p>
-    </#if> 
-    <label><b>Cognome Rappresentante</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognomerappr" value=""/></p>
-    <p>
-    <#if (messaggiocognomerappr??)>
-        <p>${messaggiocognomerappr}</p>
-    </#if> 
-    <label><b>Nome Responsabile</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nomeresp" value=""/></p>
-    <p>
-    <#if (messaggionomeresp??)>
-        <p>${messaggionomeresp}</p>
-    </#if> 
-    <label><b>Cognome Responsabile</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognomeresp" value=""/></p>
-    <p>
-    <#if (messaggiocognomeresp??)>
-        <p>${messaggiocognomeresp}</p>
-    </#if> 
-    <label><b>Telefono Responsabile</b></label>
-    <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="telefonoresp" value=""/></p>
-    <p>
-    <#if (messaggiotelefonoresp??)>
-        <p>${messaggiotelefonoresp}</p>
-    </#if> 
-    <label><b>Email Responsabile</b></label>
-    <input class="email required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="emailresp" value=""/></p>
-    <p>
-    <#if (messaggioemailresp??)>
-        <p>${messaggioemailresp}</p>
-    </#if> 
-    <label><b>Foro Competente</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="foro" value=""/></p>
-    <p>
-    <#if (messaggioforo??)>
-        <p>${messaggioforo}</p>
-    </#if> 
-    <label><b>Username</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="username" value=""/></p>
-    <p>
-    <#if (messaggiousername??)>
-        <p>${messaggiousername}</p>
-    </#if> 
-    <#if (usernamemessage??)>
-        <p>${usernamemessage}</p>
-    </#if>
-    
-    <label><b>Password</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="password" value=""/></p>
-    <p>      
-    <p>      
-    <label><b>Ripeti password</b></label>
-    <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="rpassword" value=""/></p>
-    <p>
-        
-    <#if (passwordmessage??)>
-        <p>${passwordmessage}</p>
-    </#if>
-    <input class="w3-btn w3-theme" type="submit" name="add" value="Registrati">
-  </form>
+<div class="w3-card-4">
+    <div class="w3-container w3-teal">
+        <h2>${page_title}</h2>
+    </div>
+    <form class="w3-container" method="post" action="azienda">
+        <#if (messaggiocampi??)>
+            <p>${messaggiocampi}</p>
+        </#if>
+        <p>      
+            <br>
+            <label><b>Nome azienda</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green " style="width:30%; max-width:50%" type="text" name="nome" value=""/>
+        </p>
+        <#if (messaggionome??)>
+            <p>${messaggionome}</p>
+        </#if>
+        <p>
+            <label><b>Ragione sociale</b></label>
+            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="ragionesociale" value=""/>
+        </p>
+        <#if (messaggioragionesociale??)>
+            <p>${messaggioragionesociale}</p>
+        </#if>
+        <p>
+            <label><b>Partita IVA</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="partitaiva" value=""/>
+        </p>
+        <#if (messaggioiva??)>
+            <p>${messaggioiva}</p>
+        </#if>
+        <p>
+            <label><b>Codice Fiscale</b></label>
+            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="codicefisc" value=""/>
+        </p>
+        <#if (messaggiocodicefisc??)>
+            <p>${messaggiocodicefisc}</p>
+        </#if>   
+        <p>
+            <label><b>Indirizzo</b></label>
+            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="indirizzo" value=""/>
+        </p>
+        <#if (messaggioindirizzo??)>
+            <p>${messaggioindirizzo}</p>
+        </#if>
+        <p>
+            <label><b>Nome Rappresentante</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nomerappr" value=""/>
+        </p>
+        <#if (messaggionomerappr??)>
+            <p>${messaggionomerappr}</p>
+        </#if>
+        <p>
+            <label><b>Cognome Rappresentante</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognomerappr" value=""/>
+        </p>
+        <#if (messaggiocognomerappr??)>
+            <p>${messaggiocognomerappr}</p>
+        </#if> 
+        <p>
+            <label><b>Nome Responsabile</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="nomeresp" value=""/>
+        </p>    
+        <#if (messaggionomeresp??)>
+            <p>${messaggionomeresp}</p>
+        </#if>
+        <p>
+            <label><b>Cognome Responsabile</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="cognomeresp" value=""/>
+        </p>
+        <#if (messaggiocognomeresp??)>
+            <p>${messaggiocognomeresp}</p>
+        </#if>
+        <p>
+            <label><b>Telefono Responsabile</b></label>
+            <input class="w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="telefonoresp" value=""/>
+        </p>
+        <#if (messaggiotelefonoresp??)>
+            <p>${messaggiotelefonoresp}</p>
+        </#if>
+        <p>
+            <label><b>Email Responsabile</b></label>
+            <input class="email required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="emailresp" value=""/>
+        </p>
+        <#if (messaggioemailresp??)>
+            <p>${messaggioemailresp}</p>
+        </#if>
+        <p>
+            <label><b>Foro Competente</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="foro" value=""/>
+        </p>
+        <#if (messaggioforo??)>
+            <p>${messaggioforo}</p>
+        </#if> 
+        <p>
+            <label><b>Username</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="text" name="username" value=""/>
+        </p>
+        <#if (messaggiousername??)>
+            <p>${messaggiousername}</p>
+        </#if> 
+        <#if (usernamemessage??)>
+            <p>${usernamemessage}</p>
+        </#if>
+        <p>
+            <label><b>Password</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="password" value=""/>   
+        </p>
+        <p>
+            <label><b>Ripeti password</b></label>
+            <input class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%" type="password" name="rpassword" value=""/>
+        </p>
+        <#if (passwordmessage??)>
+            <p>${passwordmessage}</p>
+        </#if>
+        <p>
+            <input class="w3-btn w3-theme" type="submit" name="add" value="Registrati">
+        </p>
+    </form>
 </div>

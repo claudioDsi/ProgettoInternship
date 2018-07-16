@@ -1,26 +1,22 @@
 <h2>Assegnamento date tirocinio</h2>
-<br/>
 <form method="post" action="setdates">
     <input  type="hidden" name="tid" value="${tirocinio.idTirocinio}" />
     <#if (messaggiocampi??)>
         <p>${messaggiocampi}</p>
     </#if>
-    <div>
-        <div>Numero di mesi</div>
+    <p>
+        <label><b>Numero di mesi</b></label>
         <input class="w3-input w3-animate-input w3-pale-green"  style="width:30%; max-width:50%"  type="text" name="nummesi" value="${tirocinio.mesi}" readonly>
-    </div>
-    
-    <div>
-        <div>Data di inizio Tirocinio</div>
-        <div><input  class="w3-input w3-animate-input w3-pale-green"  style="width:30%; max-width:50%"  type="date" name="dataInizio" value=""/></div>
-    </div>
-    
-    <div>
-        <div>Data di fine Tirocinio</div>
-        <div><input  class="w3-input w3-animate-input w3-pale-green"  style="width:30%; max-width:50%"  type="date" name="dataFine" value=""/></div>
-    </div>
-    
-    <div>
+    </p>
+    <p>
+        <label><b>Data di inizio Tirocinio</b></label>
+        <input  class="w3-input w3-animate-input w3-pale-green"  style="width:30%; max-width:50%"  type="date" name="dataInizio" value=""/>
+    </p>
+    <p>
+        <label><b>Data di fine Tirocinio</b></label>
+        <input  class="w3-input w3-animate-input w3-pale-green"  style="width:30%; max-width:50%"  type="date" name="dataFine" value=""/>
+    </p>
+    <p>
         <input class="w3-btn w3-theme button-margin" type="submit" name="add" value="Conferma"/>
-    </div>
+    </p>
 </form>

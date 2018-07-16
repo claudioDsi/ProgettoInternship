@@ -1,104 +1,99 @@
-<div class="w3-card-4" style="margin-right: 1%">
+<div class="w3-card-4">
     <div class="w3-container w3-theme">
         <h2>${page_title}</h2>
     </div>
     <form method="post" action="tirocinio">
         <input type="hidden" name="userid" value="${Session.getAttribute('userid')}"/>
-
         <#if (messaggiocampi??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiocampi}</p>
         </#if>
-
-        <div>
-            <div>Titolo</div>
-            <div><input type="text" name="titolo" value="" class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%"/></div>
-        </div>
+        <p>
+            <label><b>Titolo</b></label>
+            <input type="text" name="titolo" value="" class="required w3-input w3-animate-input w3-pale-green" style="width:30%; max-width:50%"/>
+        </p>
         <#if (messaggiotitolo??)>
             <p class="w3-panel w3-pale-red w3-border-red profile" >${messaggiotitolo}</p>
         </#if>
-        <div>
-            <div>Luogo</div>
-            <div><input type="text" name="luogo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/></div>
-        </div>
+        <p>
+            <label><b>Luogo</b></label>
+            <input type="text" name="luogo" value="" style="width:30%; max-width:50%" class="required w3-input w3-animate-input w3-pale-green"/>
+        </p>
         <#if (messaggioluogo??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioluogo}</p>
         </#if>
-        <div>
-            <div>Orario</div>
-            <div><input type="text" name="orario" value="" style="width:30%; max-width:50%" class="required   w3-input w3-animate-input w3-pale-green"/></div>
-        </div>
+        <p>
+            <label><b>Orario</b></label>
+            <input type="text" name="orario" value="" style="width:30%; max-width:50%" class="required   w3-input w3-animate-input w3-pale-green"/>
+        </p>
         <#if (messaggioorario??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioorario}</p>
         </#if>
-        <div>
-            <div>Numero di ore</div>
-            <div><input type="text" name="numore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-        </div>
+        <p>
+            <label><b>Numero di ore</b></label>
+            <input type="text" name="numore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+        </p>
         <#if (messaggionumore??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggionumore}</p>
         </#if>
-        <div>
-            <div>Numero di mesi</div>
-            <div><input type="text" name="nummesi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-        </div>
+        <p>
+            <label><b>Numero di mesi</b></label>
+            <input type="text" name="nummesi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+        </p>
         <#if (messaggionummesi??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggionummesi}</p>
         </#if>
-        <div>
-            <div>Obiettivi</div>
-            <div><input type="text" name="obiettivi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-        </div>
+        <p>
+            <label><b>Obiettivi</b></label>
+            <input type="text" name="obiettivi" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+        </p>
         <#if (messaggioobiettivi??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggioobiettivi}</p>
         </#if>
-        <div>
-            <div>Modalit&agrave; </div>
-            <div><input type="text" name="modalita" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-        </div>
+        <p>
+            <label><b>Modalit&agrave;</b></label>
+            <input type="text" name="modalita" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+        </p>
         <#if (messaggiomodalita??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiomodalita}</p>
         </#if>
-        <div>
-            <div>Facilitazioni</div>
-            <div><input type="text" name="facilitazioni" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-        </div>
+        <p>
+            <label><b>Facilitazioni</b></label>
+            <input type="text" name="facilitazioni" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+        </p>
         <#if (messaggiofacilitazioni??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiofacilitazioni}</p>
         </#if>
-        <div>
-            <div>Settore</div>
-            <div><input type="text" name="settore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/></div>
-        </div>
+        <p>
+            <label><b>Settore</b></label>
+            <input type="text" name="settore" value="" style="width:30%; max-width:50%" class="required forbidden  w3-input w3-animate-input w3-pale-green"/>
+        </p>
         <#if (messaggiosettore??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiosettore}</p>
         </#if>
         <#if (listaTutori??)>
-            <div>
+            <p>
                 <label><b>Tutore</b></label>
                 <br/>
                 <select class="w3-select w3-pale-green" style="max-width:30%" name="tutore">
                     <#list listaTutori as tutore>
-                        <option value="${tutore.idTutore}">${strip_slashes(tutore.nome)} ${strip_slashes(tutore.cognome)}</option>
+                      <option value="${tutore.idTutore}">${strip_slashes(tutore.nome)} ${strip_slashes(tutore.cognome)}</option>
                     </#list>
                 </select> 
-            </div>
+            </p>
         <#else>
-        <div>
-            <label><b>Tutore</b></label>
-            <br/>
-            <select class="w3-select w3-pale-green" style="max-width:30%" name="tutore">
-                <option value="errore" selected="selected">Nessun Tutore Disponibile</option>
-            </select>
-        </div>
+            <p>
+                <label><b>Tutore</b></label>
+                <br/>
+                <select class="w3-select w3-pale-green" style="max-width:30%" name="tutore">
+                    <option value="errore" selected="selected">Nessun Tutore Disponibile</option>
+                </select>
+            </p>
         </#if>
         <#if (messaggiotutore??)>
             <p class="w3-panel w3-pale-red w3-border-red profile">${messaggiotutore}</p>
         </#if>
-        
-        <div>
+        <p>
             <input type="submit" name="add" value="Aggiungi tirocinio"  class="w3-button w3-theme button-margin" />
-        </div>
-
+        </p>
     </form>
-
 </div>

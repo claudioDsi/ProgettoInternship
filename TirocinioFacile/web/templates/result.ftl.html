@@ -1,34 +1,42 @@
+<script>
+    document.getElementById('content2').style.marginLeft = "11%"
+    document.getElementById('content2').setAttribute("class", "w3-main w3-padding-64")
+    //opera safari explorer edge
+    document.getElementById('content2').style.paddingTop = "64px"
+    document.getElementById('content2').style.paddingLeft = "64px"
+</script>
+
 <#if (utente??)>    
-    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-green">
+    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-teal">
         <h3>Registrazione effettuata con successo!</h3>
-            <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
-      </div>     
-    
+    </div>
+    <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
+
 </#if>
 <#if (azienda??)>   
-      <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-green">
+    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-teal">
         <h3>Registrazione effettuata con successo!</h3>
-            <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
-      </div>     
+    </div>     
+    <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
 </#if>
 
 <#if (tutore??)>   
-    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-green">
-  <h3>Tutore inserito con successo!</h3>
-  <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
+    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-teal">
+        <h3>Tutore inserito con successo!</h3>
     </div> 
+    <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
 </#if>
+
 <#if (tirocinio??)>    
-    <div class="w3-panel w3-pale-green w3-leftbar w3-border-green">
-  <h3>Tirocinio inserito con successo!</h3>
-  <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
+    <div class="w3-panel w3-pale-green w3-leftbar w3-border-teal">
+        <h3>Tirocinio inserito con successo!</h3>
     </div> 
-    
-    
+    <p><a class="w3-btn w3-theme" href="panel"> Torna al profilo </a></p>
 </#if>
+
 <#if (nuova_richiesta??)>    
-    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-green">
+    <div class="w3-panel w3-pale-green profile w3-leftbar w3-border-teal">
         <h3>Richiesta efettuata con successo!</h3>
-            <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
     </div>     
+    <p><a class="w3-btn w3-theme" href="panel"> Prosegui </a></p>
 </#if>

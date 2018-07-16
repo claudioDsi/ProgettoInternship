@@ -1,102 +1,94 @@
 <h2>${page_title}</h2>
-<br/>
 <#if (Session??)>
     <#if Session.getAttribute('type')=="admin">
         <h3 class="w3-theme profile">I Migliori Tutori</h3>
-        <br/>
         <#if (best_tutori)??>
-        <div class="w3-responsive">
-            <table class="w3-table-all">
-                <tr>
-                    <th>Nome</th>
-                    <th>Cognome</th>
-                    <th>Data di Nascita</th> 
-                    <th>Numero di Tirocini</th>
-                    <th>Email Tutore</th>
-                </tr>
-                <#list best_tutori as tutore>
+            <div class="w3-responsive">
+                <table class="w3-table-all">
                     <tr>
-                        <#if (tutore.nome)??>
-                        <td>${strip_slashes(tutore.nome)}</td> 
-                        </#if>
-                        <td>${strip_slashes(tutore.cognome)}</td>
-                        <#if (tutore.dataNasc)??>
-                        <td>${tutore.dataNasc}</td>
-                        <#else>
-                        <td> N.D </td>
-                        </#if>
-                        <#if (tutore.numTirocini)!=0>
-                        <td>${tutore.numTirocini}</td>
-                        <#else>
-                        <td> N.D.</td>
-                        </#if>
-                        <#if (tutore.emailTutore)?has_content>
-                        <td>${strip_slashes(tutore.emailTutore)}</td>
-                        <#else>
-                        <td> N.D </td>
-                        </#if>
-                        
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Data di Nascita</th> 
+                        <th>Numero di Tirocini</th>
+                        <th>Email Tutore</th>
                     </tr>
-                </#list>
-            </table>
-        </div>
+                    <#list best_tutori as tutore>
+                        <tr>
+                            <#if (tutore.nome)??>
+                                <td>${strip_slashes(tutore.nome)}</td> 
+                            </#if>
+                                <td>${strip_slashes(tutore.cognome)}</td>
+                            <#if (tutore.dataNasc)??>
+                                <td>${tutore.dataNasc}</td>
+                            <#else>
+                                <td> N.D </td>
+                            </#if>
+                            <#if (tutore.numTirocini)!=0>
+                                <td>${tutore.numTirocini}</td>
+                            <#else>
+                                <td> N.D.</td>
+                            </#if>
+                            <#if (tutore.emailTutore)?has_content>
+                                <td>${strip_slashes(tutore.emailTutore)}</td>
+                            <#else>
+                                <td> N.D </td>
+                            </#if>
+                        </tr>
+                    </#list>
+                </table>
+            </div>
         <#else>
             <p>Non ci sono tutori iscritti!</p>
         </#if>
-        <br/>
         <h3 class="w3-theme profile">Le Migliori Aziende</h3>
-        <br/>
         <#if (best_aziende)??>
-        <div class="w3-responsive">
-            <table class="w3-table-all">
-                <tr>
-                    <th>Nome</th>
-                    <th>Ragione Sociale</th>
-                    <th>Partita IVA</th> 
-                    <th>Numero di Tirocini</th>
-                    <th>Valutazione</th>
-                </tr>
-                <#list best_aziende as azienda>
+            <div class="w3-responsive">
+                <table class="w3-table-all">
                     <tr>
-                        <td>${strip_slashes(azienda.nomeAzienda)}</td> 
-                        <td>${strip_slashes(azienda.ragioneSociale)}</td>
-                        <td>${strip_slashes(azienda.partitaIva)}</td> 
-                        <td>${azienda.numeroTirocini}</td>
-                        <td>${azienda.valutazione}</td>
+                        <th>Nome</th>
+                        <th>Ragione Sociale</th>
+                        <th>Partita IVA</th> 
+                        <th>Numero di Tirocini</th>
+                        <th>Valutazione</th>
                     </tr>
-                </#list>
-            </table>
-        </div>
+                    <#list best_aziende as azienda>
+                        <tr>
+                            <td>${strip_slashes(azienda.nomeAzienda)}</td> 
+                            <td>${strip_slashes(azienda.ragioneSociale)}</td>
+                            <td>${strip_slashes(azienda.partitaIva)}</td> 
+                            <td>${azienda.numeroTirocini}</td>
+                            <td>${azienda.valutazione}</td>
+                        </tr>
+                    </#list>
+                </table>
+            </div>
         <#else>
             <p>Non ci sono aziende iscritte!</p>
-        </#if>
-        <br/>
+        </#if>    
         <h3 class="w3-theme profile">Le Aziende con pi&ugrave; Tirocini</h3>
-        <br/>
         <#if (most_stages)??>
-        <div class="w3-responsive">
-            <table class="w3-table-all">
-                <tr>
-                    <th>Nome</th>
-                    <th>Ragione Sociale</th>
-                    <th>Partita IVA</th> 
-                    <th>Numero di Tirocini</th>
-                    <th>Valutazione</th>
-                </tr>
-                <#list most_stages as az>
+            <div class="w3-responsive">
+                <table class="w3-table-all">
                     <tr>
-                        <td>${strip_slashes(az.nomeAzienda)}</td> 
-                        <td>${strip_slashes(az.ragioneSociale)}</td>
-                        <td>${strip_slashes(az.partitaIva)}</td> 
-                        <td>${az.numeroTirocini}</td>
-                        <td>${az.valutazione}</td>
+                        <th>Nome</th>
+                        <th>Ragione Sociale</th>
+                        <th>Partita IVA</th> 
+                        <th>Numero di Tirocini</th>
+                        <th>Valutazione</th>
                     </tr>
-                </#list>
-            </table>
-        </div>
+                    <#list most_stages as az>
+                        <tr>
+                            <td>${strip_slashes(az.nomeAzienda)}</td> 
+                            <td>${strip_slashes(az.ragioneSociale)}</td>
+                            <td>${strip_slashes(az.partitaIva)}</td> 
+                            <td>${az.numeroTirocini}</td>
+                            <td>${az.valutazione}</td>
+                        </tr>
+                    </#list>
+                </table>
+            </div>
         <#else>
             <p>Non ci sono aziende iscritte!</p>
         </#if>       
     </#if>
 </#if>
-<br/>
