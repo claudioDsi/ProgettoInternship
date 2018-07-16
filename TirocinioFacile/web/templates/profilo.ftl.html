@@ -16,6 +16,27 @@
             <li><b> Sesso: </b> ${strip_slashes(utente.sesso)} </li>
             <li><b> Residenza: </b> ${strip_slashes(utente.residenza)} </li>
             <li><b> Ruolo: </b> Studente </li>
+            <li><b> Telefono:</b> ${strip_slashes(utente.telefono)}</li>
+            <li><b> Email:</b> ${strip_slashes(utente.emailUtente)}</li>
+            <li><b> Corso di Laurea:</b> 
+                <#if (utente.cdl=="")>
+                    Nessuno
+                <#else>
+                    ${strip_slashes(utente.cdl)}
+                </#if></li>
+            <li><b>Specializzazione:</b> 
+                <#if (utente.specializzazione=="")>
+                    Nessuna
+                <#else>
+                    ${strip_slashes(utente.specializzazione)}
+                </#if></li>
+            <li><b> Laurea:</b> ${strip_slashes(utente.laurea)}</li>
+            <li><b> Dottorato:</b> 
+                <#if (utente.dottorato=="")>
+                    Nessuno
+                <#else>
+                    ${strip_slashes(utente.dottorato)}
+                </#if></li>
         </ul>   
         <#if (modifica)>
             <p><a  class="w3-button w3-block w3-theme" href="modify?uid=${Session.getAttribute('userid')}&utype=${Session.getAttribute('type')}"> Modifica profilo </a></p>
