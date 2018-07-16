@@ -145,9 +145,12 @@ html,body,h1,h2,h3,h4,h5,h6 {
 }
 .pending-icon {
     margin-right: 10pt; 
-    color: #ff9900
+    color: #ff9900;
 }
 .accepted-icon {
     margin-right: 10pt; 
     color: #009900;
+}
+.icon-align{
+    text-align:center;
 }

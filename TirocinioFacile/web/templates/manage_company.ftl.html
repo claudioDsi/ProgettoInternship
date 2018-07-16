@@ -24,7 +24,7 @@
                             <td>${strip_slashes(azienda.cognomeRappr)}</td>
                             <td>${strip_slashes(azienda.foro)}</td>
                             <td>${strip_slashes(azienda.emailResp)}</td>
-                            <td>
+                            <td style="text-align:center">
                                 
                             
                                 <#if (azienda.statusConvenzione)> 
@@ -36,7 +36,7 @@
                                     </a>
                                 </#if>
                             </td>
-                            <td>
+                            <td style="text-align:center">
                                 
                                 <#if (azienda.idConvenzione=0)>
                                 <span class="glyphicon glyphicon-remove"></span>
@@ -44,15 +44,15 @@
                                 <#if (azienda.status)> 
                                     <span class="glyphicon glyphicon-ok accepted-icon"></span>
                                 <#else>                          
-                                    <a class="w3-tooltip"  href="managecompany?aid=${azienda.idAzienda}&val=1">
-                                        <span class="glyphicon glyphicon-remove" style="margin-right: 10pt"></span>
+                                    <a class="w3-tooltip" href="managecompany?aid=${azienda.idAzienda}&val=1">
+                                        <span class="glyphicon glyphicon-remove" ></span>
                                         <span  class="w3-text w3-tag tooltip-position">Abilita azienda</span>
                                     </a>
                                 </#if>
                                 
                                 </#if>
                             </td>
-                            <td>
+                            <td style="text-align:center">
                                 
                                 <#if (azienda.idConvenzione=0)>
                                     <a class="w3-tooltip"  href="uploadconvenzione?aid=${azienda.idAzienda}">
