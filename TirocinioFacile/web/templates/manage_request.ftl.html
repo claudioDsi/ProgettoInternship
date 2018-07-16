@@ -4,13 +4,13 @@
     <#if Session.getAttribute('type')=="comp">
         <#if (lista_richieste)??>
             <table class="w3-table-all">
-                <tr>
-                    <th>CFU</th>
-                    <th>Nome del tutore</th>
-                    <th>Cognome del tutore</th> 
-                    <th>Email del tutore</th>
-                    <th>Stato richiesta</th>                   
-                    <th colspan="2"> Operazioni </th>                
+                <tr class="w3-pale-blue">
+                    <th><b>CFU</b></th>
+                    <th><b>Nome del tutore</b></th>
+                    <th><b>Cognome del tutore</b></th> 
+                    <th><b>Email del tutore</b></th>
+                    <th><b>Stato richiesta</b></th>                   
+                    <th colspan="2"><b> Operazioni </b></th>                
                 </tr>
                 <#list lista_richieste as ric>
                     <tr>

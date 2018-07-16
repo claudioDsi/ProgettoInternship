@@ -5,13 +5,13 @@
         <#if (lista_tirocini_approvati)??>
             <div class="w3-responsive">
                 <table class="w3-table-all">
-                    <tr>
-                        <th>Titolo</th>
-                        <th>Azienda</th>
-                        <th>Numero di ore</th> 
-                        <th>Numero di mesi</th>
-                        <th>Luogo</th>
-                        <th>Settore</th>
+                    <tr class="w3-pale-blue">
+                        <th><b>Titolo</b></th>
+                        <th><b>Azienda</b></th>
+                        <th><b>Numero di ore</b></th> 
+                        <th><b>Numero di mesi</b></th>
+                        <th><b>Luogo</b></th>
+                        <th><b>Settore</b></th>
                     </tr>
                     <#list lista_tirocini_approvati as tirocinio>
                         <tr>
@@ -36,13 +36,13 @@
         <#if (lista_richieste)??>
             <div class="w3-responsive">
                 <table class="w3-table-all">
-                    <tr>                    
-                        <th>Titolo del tirocinio</th>
-                        <th>Nome Azienda</th> 
-                        <th>CFU</th>
-                        <th>Email del tutore</th>
-                        <th>Stato richiesta</th>
-                        <th>Vai ai dettagli</th>
+                    <tr  class="w3-pale-blue">                    
+                        <th><b>Titolo del tirocinio</b></th>
+                        <th><b>Nome Azienda</b></th> 
+                        <th><b>CFU</b></th>
+                        <th><b>Email del tutore</b></th>
+                        <th><b>Stato richiesta</b></th>
+                        <th><b>Vai ai dettagli</b></th>
                     </tr>
                     <#list lista_richieste as ric>
                         <tr>
