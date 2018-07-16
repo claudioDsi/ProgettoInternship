@@ -8,8 +8,97 @@ and open the template in the editor.
     Author     : Rob
 */
 
+/* OUTLINE */
+html,body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto", sans-serif;
+}
+
+.w3-sidebar{
+                z-index: 3;
+                width: 200px;
+                top: 53px;
+                bottom: 0;
+                height: inherit;
+}
+
+#sidebar{
+    display:none;
+}
+
+#mySidebar1{
+    width:15%;
+}
+
+#myOverlay{
+     cursor:pointer;
+}
+
+/* HOME */
+
+#logo{
+    width: 100px; 
+    height: 36px;
+}
+
+#sessionNav{
+     width:350px;
+}
+
+#noSessionNav{
+     width:750px;
+}
+
+#sessionMain{
+    margin-left:210px;
+}
+
+#content, #content2{
+     margin-right: 1%; 
+     margin-left: 1%;
+}
+
+/* HOME ANONIMO*/
+
+#bgimg{
+    padding:48px;
+    background-position: center;
+    background-size: cover;
+    background-image: url('../images/handshake1.jpg');
+    min-height: 100%;
+}
+
+#homebutton{
+    margin-top: 50pt;
+}
+
+#button1{
+    width:50%;
+    float:left;
+    display:none;
+}
+
+#button2{
+    width:50%;
+    float:right;
+    display:none;
+}
 
 
+#labelLogin, #ulogin{
+    display:none;
+}
+
+#about{
+     margin-right: 1%; margin-left: 1%
+}
+
+/* LISTA AZIENDE*/
+
+#search{
+    width:50%; display: none; margin-bottom: 1%
+}
+
+/* ALTRO */
 
 .alert {
     
